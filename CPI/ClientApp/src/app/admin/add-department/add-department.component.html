@@ -1,0 +1,20 @@
+<div class="container">
+  <h3>Добавление отделения</h3>
+  <hr>
+
+  <label for="code"><b>Код отделения</b></label>
+  <input type="text" name="code" required>
+  <label for="department"><b>Отделение</b></label>
+  <input type="text" name="department" required>
+  <label for="head"><b>Заведующий</b></label>
+  <div *ngIf="!doctors">
+    <em>Загрузка...</em>
+  </div>
+  <input type="text"  *ngIf="doctors" [(ngModel)]="text" list="head" (input)="onInput(text)">
+  <datalist id="head" *ngIf="doctors">
+    <option *ngFor="let doctor of doctors">{{doctor.surname}} {{doctor.name}} {{doctor.fathername}}</option>
+  </datalist>
+
+  <button type="submit" class="registerbtn">Сохранить</button>
+</div>
+

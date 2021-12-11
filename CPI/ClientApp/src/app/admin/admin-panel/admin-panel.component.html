@@ -1,0 +1,63 @@
+<h2>Панель администратора</h2>
+
+<hr />
+
+<div class="row">
+  <div class="column">
+    <h4>Пользователи</h4>
+    <ul>
+      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/users-list']">Cписок пользователей</a></li>
+      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/add-user']">Добавить пользователя</a></li>
+    </ul>
+  </div>
+  <div class="column">
+    <h4>Врачи</h4>
+    <ul>
+      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/doctors-list']">Cписок врачей</a></li>
+      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/add-doctor']">Добавить врача</a></li>
+    </ul>
+  </div>
+  <div class="column">
+    <h4>Расписание</h4>
+    <ul>
+      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/schedules-list']">Cписок расписаний</a></li>
+      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/add-schedule']">Добавить расписание</a></li>
+    </ul>
+  </div>
+  <div class="column">
+    <h4>Пациенты</h4>
+    <ul>
+      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/patients-list']">Список пациентов</a></li>
+      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/add-patient']">Добавить пациента</a></li>
+    </ul>
+  </div>
+</div>
+<div class="row">
+  <div class="column">
+    <h4>Отделения</h4>
+    <ul>
+      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/departments-list']">Список отделений</a></li>
+      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/add-department']">Добавить отделение</a></li>
+    </ul>
+  </div>
+  <div class="column">
+    <h4>Специальности</h4>
+    <ul>
+      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/specialities-list']">Список специальностей</a></li>
+      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/add-speciality']">Добавить специальность</a></li>
+    </ul>
+  </div>
+  <div class="column">
+    <h4>Дни</h4>
+    <ul>
+      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/days-list']">Список дней</a></li>
+      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/add-day']">Добавить день</a></li>
+    </ul>
+  </div>
+  <div class="column">
+    <h4>Талоны</h4>
+    <ul>
+      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/coupons-list']">Список талонов</a></li>
+    </ul>
+  </div>
+</div>

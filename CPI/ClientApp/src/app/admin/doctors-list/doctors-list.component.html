@@ -1,0 +1,47 @@
+<h2>Врачи</h2>
+
+<div class="topnav">
+  <div class="search-container">
+    <form action="">
+      <input type="text" placeholder="Найти.." name="search" class="search" [(ngModel)]="text" (input)="onInput(text)">
+    </form>
+  </div>
+</div>
+
+
+<div class="div-container">
+  <button>Добавить</button>
+</div>
+
+<div *ngIf="!doctors"><em>Loading...</em></div>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="doctors">
+  <thead>
+    <tr>
+      <th>Логин</th>
+      <th>Специальность</th>
+      <th>Фамилия</th>
+      <th>Имя</th>
+      <th>Отчество</th>
+      <th>Кабинет</th>
+      <th>Смена</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let doctor of doctors">
+      <td><a [routerLink]="['/doctor-info', doctor.login]">{{doctor.login}}</a></td>
+      <td>{{doctor.speciality}}</td>
+      <td>{{doctor.firstname}}</td>
+      <td>{{doctor.fathername}}</td>
+      <td>{{doctor.lastname}}</td>
+      <td>{{doctor.cabinet}}</td>
+      <td>{{doctor.schedule_code}}</td>
+      <td>
+        <button class="dltbtn">Удалить</button>
+        <button class="editbtn">Изменить</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+

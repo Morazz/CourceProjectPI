@@ -1,0 +1,35 @@
+<h2>Отделения</h2>
+
+<div class="topnav">
+  <div class="search-container">
+    <form action="">
+      <input type="text" placeholder="Search.." name="search" class="search">
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</div>
+
+<div *ngIf="!departments"><em>Loading...</em></div>
+
+<div class="dep">
+  <table class='table table-striped' aria-labelledby="tableLabel">
+    <thead>
+      <tr>
+        <th>Код отделения</th>
+        <th>Отделение</th>
+        <th>Заведующий</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let department of departments">
+        <td>{{department.code}}</td>
+        <td>{{department.department}}</td>
+        <td>{{department.head}}</td>
+        <td>
+          <button class="dltbtn">Удалить</button>
+          <button class="editbtn">Изменить</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

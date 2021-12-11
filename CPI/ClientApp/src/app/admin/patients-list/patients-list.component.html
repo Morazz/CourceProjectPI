@@ -1,0 +1,47 @@
+<h2>Пациенты</h2>
+
+<div class="topnav">
+  <div class="search-container">
+    <form action="">
+      <input type="text" placeholder="Найти.." name="search" class="search" [(ngModel)]="text" (input)="onInput(text)">
+    </form>
+  </div>
+</div>
+
+
+<div class="div-container">
+  <button [routerLink]="['/add-patient']">Добавить</button>
+</div>
+
+<div *ngIf="!patients"><em>Loading...</em></div>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="patients">
+  <thead>
+    <tr>
+      <th>Логин</th>
+      <th>Фамилия</th>
+      <th>Имя</th>
+      <th>Отчество</th>
+      <th>Пол</th>
+      <th>Дата рождения</th>
+      <th>Адрес</th>
+      <th>Номер телефона</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let patient of patients">
+      <td><a [routerLink]="['/user-page', patient.login]">{{patient.login}}</a></td>
+      <td>{{patient.surname}}</td>
+      <td>{{patient.firstname}}</td>
+      <td>{{patient.fathername}}</td>
+      <td>{{patient.gender}}</td>
+      <td>{{patient.birthday | date:'dd.MM.yyyy'}}</td>
+      <td>{{patient.address}}</td>
+      <td>{{patient.phone_number}}</td>
+      <td>
+        <button class="dltbtn" (click)="deletePatient(patient.login)">Удалить</button>
+        <button class="editbtn" [routerLink]="['/edit-patient', patient.login]">Изменить</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

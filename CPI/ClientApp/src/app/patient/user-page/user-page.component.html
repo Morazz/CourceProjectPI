@@ -1,0 +1,33 @@
+<button class="registerbtn" [routerLink]="['/edit-patient', user.login]">Редактировать</button>
+
+<div>
+  <h3>{{user.surname}} {{user.firstname}} {{user.fathername}}</h3>
+  <h4>Пол: {{user.gender}}</h4>
+  <h4>Дата рождения: {{user.birthday | date:'dd.MM.yyyy'}}</h4>
+  <h4>Адрес: {{user.address}}</h4>
+  <h4>Телефон: {{user.phone_number}}</h4>
+  <h5>Логин: {{user.login}}</h5>
+</div>
+
+<hr />
+
+<h3>Заказанные талоны</h3>
+
+<em *ngIf="!coupons">Загрузка...</em>
+
+<div class="div-container" *ngIf="coupons">
+
+  <div class="card" *ngFor="let coupon of coupons">
+    <div style="margin: 5px 0;">
+      <p class="title">{{coupon.coupon_number}}</p>
+      <p class="title">{{coupon.doctor_id}}</p>
+      <p class="title">{{coupon.cabinet}}</p>
+    </div>
+    <p>{{coupon.appointment_day | date: 'dd.MM.yyyy'}}</p>
+    <p>{{coupon.appointment_time | date: 'HH:mm'}}</p>
+    <div>
+      <p><button (click)="deleteCoupon(coupon.coupon_id)">Отменить</button></p>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,21 @@
+<div class="container">
+  <h1>Регистрация</h1>
+  <p>Пожалуйста, заполните эту форму, чтобы создать аккаунт.</p>
+  <hr>
+
+  <label for="login"><b>Логин</b></label>
+  <input type="text" name="login" [(ngModel)]="login" required>
+
+  <label for="psw"><b>Пароль</b></label>
+  <input type="password" name="psw" [(ngModel)]="password" required>
+
+  <label for="psw-repeat"><b>Подтвердите пароль</b></label>
+  <input type="password" name="psw-repeat" required>
+  <hr>
+
+  <button class="registerbtn" (click)="addUser()">Зарегистрироваться</button>
+</div>
+
+<div class="container signin">
+  <p>Уже есть аккаунт? <a [routerLinkActive]="['link-active']" [routerLink]="['/authorize']">Войти</a>.</p>
+</div>

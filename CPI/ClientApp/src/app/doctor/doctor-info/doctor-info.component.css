@@ -1,0 +1,22 @@
+
+* {
+  box-sizing: border-box;
+}
+
+.div-container {
+  float: left;
+  margin: 10px;
+}
+
+  .div-container button {
+    background-color: #57CF5F;
+    padding: 4px;
+    margin: 4px;
+    border: none;
+    cursor: pointer;
+    opacity: 0.9;
+  }
+
+    .div-container button:hover {
+      background-color: #4CAF52;
+    }

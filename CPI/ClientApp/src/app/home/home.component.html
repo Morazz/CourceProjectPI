@@ -1,0 +1,17 @@
+<div class="container">
+  <h1>Авторизация</h1>
+  <p>Пожалуйста, заполните эту форму, чтобы войти.</p>
+  <hr>
+
+  <label for="login"><b>Логин</b></label>
+  <input type="text" name="login" required>
+
+  <label for="psw"><b>Пароль</b></label>
+  <input type="password" name="psw" required>
+
+  <button type="submit" class="registerbtn">Войти</button>
+</div>
+
+<div class="container signin">
+  <p>Нет аккаунта? <a [routerLinkActive]="['link-active']" [routerLink]="['/register']">Зарегистрироваться</a>.</p>
+</div>

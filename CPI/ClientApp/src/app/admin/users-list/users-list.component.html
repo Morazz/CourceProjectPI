@@ -1,0 +1,36 @@
+<h2>Пользователи</h2>
+
+<div class="topnav">
+  <div class="search-container">
+    <form action="">
+      <input type="text" placeholder="Найти.." name="search" class="search" [(ngModel)]="text" (input)="onInput(text)">
+    </form>
+  </div>
+</div>
+
+
+<div class="div-container">
+  <button [routerLink]="['/add-user']">Добавить</button>
+</div>
+
+<div *ngIf="!users"><em>Loading...</em></div>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="users">
+  <thead>
+    <tr>
+      <th>Логин</th>
+      <th>Роль</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{user.login}}</td>
+      <td>{{user.status}}</td>
+      <td>
+        <button class="dltbtn" (click)="deleteUser(user.login)">Удалить</button>
+        <button class="editbtn" [routerLink]="['/edit-user', user.login]">Изменить</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
