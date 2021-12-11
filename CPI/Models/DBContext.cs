@@ -11,7 +11,7 @@ namespace CPI.Models
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Coupon> Coupons { get; set; }
-        public DbSet<CouponTemplate> CouponTempates { get; set; }
+        public DbSet<CouponTemplate> CouponTemplates { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<PassData> PassData { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
