@@ -16,8 +16,6 @@ import { DoctorsListComponent } from './admin/doctors-list/doctors-list.componen
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule, MatNativeDateModule } from '@angular/material';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { AddDayComponent } from './admin/add-day/add-day.component';
-import { DaysListComponent } from './admin/days-list/days-list.component';
 import { EditPatientComponent } from './admin/edit-patient/edit-patient.component';
 import { AddDoctorComponent } from './admin/add-doctor/add-doctor.component';
 import { AddUserComponent } from './admin/add-user/add-user.component';
@@ -28,7 +26,6 @@ import { PatientsListComponent } from './admin/patients-list/patients-list.compo
 
 import { UserPageComponent } from './patient/user-page/user-page.component';
 import { DoctorInfoComponent } from './doctor/doctor-info/doctor-info.component';
-import { EditDayComponent } from './admin/edit-day/edit-day.component';
 import { AddPatientComponent } from './admin/add-patient/add-patient.component';
 import { EditUserComponent } from './admin/edit-user/edit-user.component';
 import { SpecialitiesListComponent } from './admin/specialities-list/specialities-list.component';
@@ -54,9 +51,6 @@ import { EditSpecialityComponent } from './admin/edit-speciality/edit-speciality
     DoctorInfoComponent,
     PatientsListComponent,
     AddPatientComponent,
-    DaysListComponent,
-    AddDayComponent,
-    EditDayComponent,
     DepartmentsListComponent,
     AddDepartmentComponent,
     SpecialitiesListComponent,
@@ -86,9 +80,6 @@ import { EditSpecialityComponent } from './admin/edit-speciality/edit-speciality
       { path: 'doctor-page/:login', component: DoctorInfoComponent },
       { path: 'patients-list', component: PatientsListComponent },
       { path: 'add-patient', component: AddPatientComponent },
-      { path: 'days-list', component: DaysListComponent },
-      { path: 'add-day', component: AddDayComponent },
-      { path: 'edit-day/:day_code', component: EditDayComponent },
       { path: 'departments-list', component: DepartmentsListComponent },
       { path: 'add-department', component: AddDepartmentComponent },
       { path: 'specialities-list', component: SpecialitiesListComponent },
