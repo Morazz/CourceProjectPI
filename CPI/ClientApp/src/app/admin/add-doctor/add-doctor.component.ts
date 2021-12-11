@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-doctor',
@@ -9,34 +10,41 @@ import { Component, Inject } from '@angular/core';
 
 export class AddDoctorComponent {
   public departments: Department[];
+  public doctor: Doctor = new Doctor("", "", "", "", "", 0, 0, 0);
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<Department[]>(baseUrl + 'department').subscribe(result => {
-      this.departments = result;
-      console.log(this.departments.length);
+  constructor(private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+    this.getDepartments();
+  }
+
+  addDoctor() {
+    this.http.post(this.baseUrl + 'doctor', this.doctor).subscribe(result => {
+      this.router.navigate(['/doctors-list']);
     }, error => console.error(error));
   }
 
-  addDoctor(item: string) {
-    console.log(item);
+  getDepartments() {
+    this.http.get<Department[]>(this.baseUrl + 'department').subscribe(result => {
+      this.departments = result;
+    }, error => console.error(error));
   }
 }
 
-interface Doctor {
-  login: string;
-  speciality: string;
-  firstname: string;
-  fathername: string;
-  lastname: string;
-  cabinet: number;
-  department_code: number;
-  schedule_code: number
+export class Doctor {
+  constructor(
+    public login: string,
+    public speciality: string,
+    public firstname: string,
+    public fathername: string,
+    public lastname: string,
+    public cabinet: number,
+    public department_code: number,
+    public schedule_code: number) { }
 }
 
 
 export class Department {
   constructor(
-    department_code: number,
-    department_name: string,
-    head: string) { }
+    public department_code: number,
+    public department_name: string,
+    public head: string) { }
 }

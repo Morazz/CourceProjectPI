@@ -27,6 +27,7 @@ input[type=text], input[type=password], input[type=date], input[type=number], se
   background: #f1f1f1;
 }
 
+
 /* Overwrite default styles of hr */
 hr {
   border: 1px solid #f1f1f1;

@@ -1,4 +1,3 @@
-import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
@@ -16,8 +15,7 @@ export class AddUserComponent {
   password: string;
   status: string;
 
-  constructor(private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, @Inject(DOCUMENT) private document: Document) {
-  }
+  constructor(private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {}
 
   postData() {
 

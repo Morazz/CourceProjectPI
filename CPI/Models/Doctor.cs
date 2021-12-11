@@ -22,5 +22,7 @@ namespace CPI.Models
         public Schedule Schedule { get; set; }
         public Speciality Speciality { get; set; }
         public PassData PassData { get; set; }
+
+        public Doctor() { }
     }
 }
