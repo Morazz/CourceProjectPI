@@ -17,13 +17,22 @@
     <em>Загрузка...</em>
   </div>
   <div *ngIf="departments">
-    <input type="text" name="department" [(ngModel)]="doctor.department" list="head" >
+    <input type="text" name="department" [(ngModel)]="doctor.department" list="head">
     <datalist id="head" name="head">
       <option *ngFor="let department of departments">{{department.department_name}}</option>
     </datalist>
   </div>
   <div>
     <label for="speciality"><b>Специальность</b></label>
+  </div>
+  <div *ngIf="!specialities">
+    <em>Загрузка...</em>
+  </div>
+  <div *ngIf="specialities">
+    <input type="text" name="speciality" [(ngModel)]="doctor.speciality" list="spec">
+    <datalist id="spec" name="spec">
+      <option *ngFor="let speciality of specialities">{{speciality.name}}</option>
+    </datalist>
   </div>
 
   <label for="cabinet"><b>Кабинет</b></label>

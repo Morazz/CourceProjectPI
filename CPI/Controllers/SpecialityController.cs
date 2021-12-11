@@ -22,12 +22,6 @@ namespace CPI.Controllers
             return db.Specialities;
         }
 
-        //[HttpGet("{id}")]
-        //public Speciality Get(string id)
-        //{
-        //    return db.Specialities.Find(id);
-        //}
-
         [HttpPost]
         public void Insert(Speciality spec)
         {

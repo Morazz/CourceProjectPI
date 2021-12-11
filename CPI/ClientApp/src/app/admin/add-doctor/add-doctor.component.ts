@@ -10,10 +10,12 @@ import { Router } from '@angular/router';
 
 export class AddDoctorComponent {
   public departments: Department[];
+  public specialities: Speciality[];
   public doctor: Doctor = new Doctor("", "", "", "", "", 0, 0, 0);
 
   constructor(private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.getDepartments();
+    this.getSpecialities();
   }
 
   addDoctor() {
@@ -25,6 +27,12 @@ export class AddDoctorComponent {
   getDepartments() {
     this.http.get<Department[]>(this.baseUrl + 'department').subscribe(result => {
       this.departments = result;
+    }, error => console.error(error));
+  }
+
+  getSpecialities() {
+    this.http.get<Speciality[]>(this.baseUrl + 'speciality').subscribe(result => {
+      this.specialities = result;
     }, error => console.error(error));
   }
 }
@@ -47,4 +55,10 @@ export class Department {
     public department_code: number,
     public department_name: string,
     public head: string) { }
+}
+
+export class Speciality {
+  constructor(
+    public speciality_code: string,
+    public speciality: string) { }
 }

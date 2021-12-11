@@ -1,0 +1,36 @@
+<h2>Специальности</h2>
+
+<div class="topnav">
+  <div class="search-container">
+    <form action="">
+      <input type="text" placeholder="Найти.." name="search" class="search" [(ngModel)]="text" (input)="onInput(text)">
+    </form>
+  </div>
+</div>
+
+
+<div class="div-container">
+  <button [routerLink]="['/add-speciality']">Добавить</button>
+</div>
+
+<div *ngIf="!specialities"><em>Loading...</em></div>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="specialities">
+  <thead>
+    <tr>
+      <th>Код</th>
+      <th>Специальность</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let speciality of specialities">
+      <td>{{speciality.speciality_code}}</td>
+      <td>{{speciality.speciality}}</td>
+      <td>
+        <button class="dltbtn" (click)="deleteSpeciality(speciality.speciality_code)">Удалить</button>
+        <button class="editbtn" [routerLink]="['/edit-speciality', speciality.speciality_code]">Изменить</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+

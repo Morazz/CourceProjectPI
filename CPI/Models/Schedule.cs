@@ -15,5 +15,7 @@ namespace CPI.Models
         public DateTime appointment_end { get; set; }
 
         public List<Doctor> Doctors { get; set; } = new List<Doctor>();
+
+        public Schedule() { }
     }
 }
