@@ -1,0 +1,13 @@
+<div class="container">
+  <h1>Редактирование специальности</h1>
+  <hr>
+
+  <label for="code"><b>Код специальности</b></label>
+  <input type="text" name="code" [(ngModel)]="speciality.speciality_code" required>
+
+  <label for="spec"><b>Специальность</b></label>
+  <input type="text" name="spec" [(ngModel)]="speciality.speciality" required>
+
+  <button class="registerbtn" (click)="postData()">Сохранить</button>
+</div>
+

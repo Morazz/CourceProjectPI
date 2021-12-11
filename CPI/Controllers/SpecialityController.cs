@@ -30,6 +30,12 @@ namespace CPI.Controllers
             return db.Specialities.Where(spec => spec.speciality_code == speciality).FirstOrDefault();
         }
 
+        [HttpGet("ByCode/{speciality}")]
+        public IEnumerable<Speciality> GetByCode(string speciality)
+        {
+            return db.Specialities.Where(spec => spec.speciality_code.Contains(speciality));
+        }
+
         [HttpPost]
         public void Insert(Speciality spec)
         {
@@ -38,9 +44,9 @@ namespace CPI.Controllers
         }
 
         [HttpDelete]
-        public void Delete(string login)
+        public void Delete(string speciality_code)
         {
-            Speciality speciality = Get(login);
+            Speciality speciality = Get(speciality_code);
             if (speciality != null)
             {
                 db.Specialities.Remove(speciality);

@@ -32,6 +32,8 @@ import { EditDayComponent } from './admin/edit-day/edit-day.component';
 import { AddPatientComponent } from './admin/add-patient/add-patient.component';
 import { EditUserComponent } from './admin/edit-user/edit-user.component';
 import { SpecialitiesListComponent } from './admin/specialities-list/specialities-list.component';
+import { AddSpecialityComponent } from './admin/add-speciality/add-speciality.component';
+import { EditSpecialityComponent } from './admin/edit-speciality/edit-speciality.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +60,8 @@ import { SpecialitiesListComponent } from './admin/specialities-list/specialitie
     DepartmentsListComponent,
     AddDepartmentComponent,
     SpecialitiesListComponent,
+    AddSpecialityComponent,
+    EditSpecialityComponent,
 
     AddScheduleComponent,
     EditPatientComponent
@@ -88,7 +92,9 @@ import { SpecialitiesListComponent } from './admin/specialities-list/specialitie
       { path: 'departments-list', component: DepartmentsListComponent },
       { path: 'add-department', component: AddDepartmentComponent },
       { path: 'specialities-list', component: SpecialitiesListComponent },
-      /*{ path: 'add-speciality', component: AddS },*/
+      { path: 'add-speciality', component: AddSpecialityComponent },
+      { path: 'edit-speciality/:speciality_code', component: EditSpecialityComponent },
+
       /*{ path: 'schedules-list', component: Schedu },*/
       { path: 'add-schedule', component: AddScheduleComponent },
       { path: 'edit-patient/:login', component: EditPatientComponent },

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -22,14 +22,23 @@ export class SpecialitiesListComponent {
     }, error => console.error(error));
   }
 
-  //onInput(text: string) {
-  //  if (text.length > 0) {
-  //    this.http.get<Speciality[]>(this.baseUrl + 'speciali/ByLog/' + text).subscribe(result => {
-  //      this.users = result;
-  //    }, error => console.error(error));
-  //  }
-  //  else this.getUsers();
-  //}
+  onInput(text: string) {
+    if (text.length > 0) {
+      this.http.get<Speciality[]>(this.baseUrl + 'speciality/ByCode/' + text).subscribe(result => {
+        this.specialities = result;
+      }, error => console.error(error));
+    }
+    else this.getSpecialitites();
+  }
+
+  deleteSpeciality(code: string) {
+    this.http.delete(this.baseUrl + 'speciality', { params: new HttpParams().set('speciality_code', code) })
+      .subscribe(
+        (data: any) => {
+          this.getSpecialitites();
+        },
+        error => console.log(error));
+  }
 }
 
 export class Speciality {
