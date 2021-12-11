@@ -31,6 +31,7 @@ import { EditSpecialityComponent } from './admin/speciality/edit-speciality/edit
 import { AddScheduleComponent } from './admin/schedule/add-schedule/add-schedule.component';
 import { EditPatientComponent } from './admin/patient/edit-patient/edit-patient.component';
 import { SchedulesListComponent } from './admin/schedule/schedules-list/schedules-list.component';
+import { EditScheduleComponent } from './admin/schedule/edit-schedule/edit-schedule.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { SchedulesListComponent } from './admin/schedule/schedules-list/schedule
 
     SchedulesListComponent,
     AddScheduleComponent,
+    EditScheduleComponent,
     EditPatientComponent
   ],
   imports: [
@@ -89,6 +91,7 @@ import { SchedulesListComponent } from './admin/schedule/schedules-list/schedule
 
       { path: 'schedules-list', component: SchedulesListComponent },
       { path: 'add-schedule', component: AddScheduleComponent },
+      { path: 'edit-schedule/:schedule_code', component: EditScheduleComponent },
       { path: 'edit-patient/:login', component: EditPatientComponent },
     ]),
     BrowserAnimationsModule,

@@ -25,9 +25,9 @@ namespace CPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public Schedule Get(int id)
+        public Schedule Get(int schedule_code)
         {
-            return db.Schedules.Find(id);
+            return db.Schedules.Find(schedule_code);
         }
 
         [HttpPost]

@@ -24,7 +24,6 @@ export class EditPatientComponent {
   }
 
   editPatient(patient: Patient) {
-    console.log(patient.birthday);
     this.http.put(this.baseUrl + 'patient', patient).subscribe(result => {
       this.router.navigate(['user-page', patient.login]);
     }, error => console.error(error));

@@ -21,7 +21,7 @@
       <td>{{schedule.appointment_end | date: 'HH:mm'}}</td>
       <td>
         <button class="dltbtn" (click)="deleteSchedule(schedule.schedule_code)">Удалить</button>
-        <button class="editbtn">Изменить</button>
+        <button class="editbtn" [routerLink]="['/edit-schedule', schedule.schedule_code]">Изменить</button>
       </td>
     </tr>
   </tbody>
