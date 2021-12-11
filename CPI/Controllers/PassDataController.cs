@@ -44,9 +44,9 @@ namespace CPI.Controllers
         }
 
         [HttpDelete]
-        public void Delete(PassData passData)
+        public void Delete(string login)
         {
-            PassData passd = Get(passData.login);
+            PassData passd = Get(login);
             if (passd != null)
             {
                 db.PassData.Remove(passd);

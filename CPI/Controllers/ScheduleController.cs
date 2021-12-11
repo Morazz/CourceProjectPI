@@ -38,10 +38,10 @@ namespace CPI.Controllers
         }
 
         [HttpDelete]
-        public void Delete(Schedule schedule)
+        public void Delete(int schedule_code)
         {
-            Schedule sch = Get(schedule.schedule_code);
-            if (sch != null)
+            Schedule schedule = Get(schedule_code);
+            if (schedule != null)
             {
                 db.Schedules.Remove(schedule);
                 db.SaveChanges();
@@ -54,7 +54,7 @@ namespace CPI.Controllers
             Schedule schedule = Get(newSchedule.schedule_code);
             if (schedule != null)
             {
-                schedule.shift = newSchedule.shift;
+                //schedule.shift = newSchedule.shift;
                 schedule.appointment_start = newSchedule.appointment_start;
                 schedule.appointment_end = newSchedule.appointment_end;
 

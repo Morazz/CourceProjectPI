@@ -1,0 +1,30 @@
+<h2>Расписание</h2>
+
+<div class="div-container">
+  <button [routerLink]="['/add-schedule']">Добавить</button>
+</div>
+
+<div *ngIf="!schedules"><em>Loading...</em></div>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="schedules">
+  <thead>
+    <tr>
+      <th>Код</th>
+      <th>Начало приёма</th>
+      <th>Окончание приёма</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let schedule of schedules">
+      <td>{{schedule.schedule_code}}</td>
+      <td>{{schedule.appointment_start | date: 'HH:mm'}}</td>
+      <td>{{schedule.appointment_end | date: 'HH:mm'}}</td>
+      <td>
+        <button class="dltbtn" (click)="deleteSchedule(schedule.schedule_code)">Удалить</button>
+        <button class="editbtn">Изменить</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+

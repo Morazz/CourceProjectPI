@@ -13,13 +13,10 @@ export class DoctorsListComponent {
     this.getDoctors();
   }
 
-  done: boolean = false;
-
   deleteDoctor(login: string) {
     this.http.delete(this.baseUrl + 'doctor', { params: new HttpParams().set('login', login) })
       .subscribe(
         (data: any) => {
-          this.done = true;
           this.getDoctors();
         },
         error => console.log(error));

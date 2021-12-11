@@ -9,28 +9,28 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
-import { UsersListComponent } from './admin/users-list/users-list.component';
-import { RegisterComponent } from './admin/register/register.component';
-import { AuthorizeComponent } from './admin/authorize/authorize.component';
-import { DoctorsListComponent } from './admin/doctors-list/doctors-list.component';
+import { UsersListComponent } from './admin/user/users-list/users-list.component';
+import { DoctorsListComponent } from './admin/doctor/doctors-list/doctors-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule, MatNativeDateModule } from '@angular/material';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { EditPatientComponent } from './admin/edit-patient/edit-patient.component';
-import { AddDoctorComponent } from './admin/add-doctor/add-doctor.component';
-import { AddUserComponent } from './admin/add-user/add-user.component';
-import { DepartmentsListComponent } from './admin/departments-list/departments-list.component';
-import { AddDepartmentComponent } from './admin/add-department/add-department.component';
-import { AddScheduleComponent } from './admin/add-schedule/add-schedule.component';
-import { PatientsListComponent } from './admin/patients-list/patients-list.component';
-
+import { AddDoctorComponent } from './admin/doctor/add-doctor/add-doctor.component';
+import { DepartmentsListComponent } from './admin/department/departments-list/departments-list.component';
+import { AddDepartmentComponent } from './admin/department/add-department/add-department.component';
 import { UserPageComponent } from './patient/user-page/user-page.component';
 import { DoctorInfoComponent } from './doctor/doctor-info/doctor-info.component';
-import { AddPatientComponent } from './admin/add-patient/add-patient.component';
-import { EditUserComponent } from './admin/edit-user/edit-user.component';
-import { SpecialitiesListComponent } from './admin/specialities-list/specialities-list.component';
-import { AddSpecialityComponent } from './admin/add-speciality/add-speciality.component';
-import { EditSpecialityComponent } from './admin/edit-speciality/edit-speciality.component';
+import { RegisterComponent } from './admin/autoreg/register/register.component';
+import { AuthorizeComponent } from './admin/autoreg/authorize/authorize.component';
+import { AddUserComponent } from './admin/user/add-user/add-user.component';
+import { EditUserComponent } from './admin/user/edit-user/edit-user.component';
+import { PatientsListComponent } from './admin/patient/patients-list/patients-list.component';
+import { AddPatientComponent } from './admin/patient/add-patient/add-patient.component';
+import { SpecialitiesListComponent } from './admin/speciality/specialities-list/specialities-list.component';
+import { AddSpecialityComponent } from './admin/speciality/add-speciality/add-speciality.component';
+import { EditSpecialityComponent } from './admin/speciality/edit-speciality/edit-speciality.component';
+import { AddScheduleComponent } from './admin/schedule/add-schedule/add-schedule.component';
+import { EditPatientComponent } from './admin/patient/edit-patient/edit-patient.component';
+import { SchedulesListComponent } from './admin/schedule/schedules-list/schedules-list.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +57,7 @@ import { EditSpecialityComponent } from './admin/edit-speciality/edit-speciality
     AddSpecialityComponent,
     EditSpecialityComponent,
 
+    SchedulesListComponent,
     AddScheduleComponent,
     EditPatientComponent
   ],
@@ -86,7 +87,7 @@ import { EditSpecialityComponent } from './admin/edit-speciality/edit-speciality
       { path: 'add-speciality', component: AddSpecialityComponent },
       { path: 'edit-speciality/:speciality_code', component: EditSpecialityComponent },
 
-      /*{ path: 'schedules-list', component: Schedu },*/
+      { path: 'schedules-list', component: SchedulesListComponent },
       { path: 'add-schedule', component: AddScheduleComponent },
       { path: 'edit-patient/:login', component: EditPatientComponent },
     ]),

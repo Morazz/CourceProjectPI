@@ -20,5 +20,7 @@ namespace CPI.Models
 
         public List<Coupon> Coupons { get; set; } = new List<Coupon>();
         public PassData PassData { get; set; }
+
+        public Patient() { }
     }
 }

@@ -10,7 +10,6 @@ import { Component, Inject } from '@angular/core';
 
 export class UsersListComponent {
   public users: PassData[];
-  done: boolean = false;
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     http.get<PassData[]>(baseUrl + 'passdata').subscribe(result => {
@@ -22,7 +21,6 @@ export class UsersListComponent {
     this.http.delete(this.baseUrl + 'passdata', { params: new HttpParams().set('login', login) })
       .subscribe(
         (data: any) => {
-          this.done = true;
           this.getUsers();
         },
         error => console.log(error));
