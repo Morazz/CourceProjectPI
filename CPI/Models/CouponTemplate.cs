@@ -12,8 +12,6 @@ namespace CPI.Models
         public int template_id { get; set; }
         public DateTime time { get; set; }
 
-        public List<Coupon> Coupons { get; set; } = new List<Coupon>();
-
         public CouponTemplate() { }
     }
 }

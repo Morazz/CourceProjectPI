@@ -53,7 +53,7 @@ namespace CPI.Controllers
                 if (cup.appointment_day.Date > DateTime.Now.Date)
                     coupons.Add(cup);
                 else if (cup.appointment_day.Date == DateTime.Now.Date)
-                    if (DateTime.Compare(default(DateTime).Add(cup.appointment_time.TimeOfDay), time) >= 0)
+                    if (DateTime.Compare(default(DateTime).Add(cup.appointment_time.time.TimeOfDay), time) >= 0)
                         coupons.Add(cup);
             }
 
@@ -81,14 +81,13 @@ namespace CPI.Controllers
         [HttpPut]
         public void Update(Coupon newCoupon)
         {
-            Coupon coupon = Get(newCoupon.coupon_number);
+            Coupon coupon = Get(newCoupon.coupon_id);
             if (coupon != null)
             {
                 coupon.appointment_day = newCoupon.appointment_day;
                 coupon.appointment_time = newCoupon.appointment_time;
-                coupon.Doctor.login = newCoupon.Doctor.login;
-                coupon.Patient.login = newCoupon.Doctor.login;
-                coupon.cabinet = newCoupon.cabinet;
+                coupon.Doctor = newCoupon.Doctor;
+                coupon.Patient = newCoupon.Patient;
                 db.Update(coupon);
                 db.SaveChanges();
             }

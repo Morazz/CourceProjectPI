@@ -36,6 +36,12 @@ namespace CPI.Controllers
             return db.Doctors.Where(pd => pd.surname.Contains(sur));
         }
 
+        [HttpGet("dep/{code}")]
+        public IEnumerable<Doctor> GetByDep(int code)
+        {
+            return db.Doctors.Where(doc => doc.Department.department_code == code);
+        }
+
         [HttpPost]
         public void Insert(Doctor doctor)
         {

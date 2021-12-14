@@ -4,14 +4,16 @@ using CPI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CPI.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20211214211512_Migr2")]
+    partial class Migr2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,7 +37,13 @@ namespace CPI.Migrations
                     b.Property<DateTime>("appointment_day")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("appointment_timetemplate_id")
+                    b.Property<DateTime>("appointment_time")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("cabinet")
+                        .HasColumnType("int");
+
+                    b.Property<int>("coupon_number")
                         .HasColumnType("int");
 
                     b.HasKey("coupon_id");
@@ -43,8 +51,6 @@ namespace CPI.Migrations
                     b.HasIndex("Doctorlogin");
 
                     b.HasIndex("Patientlogin");
-
-                    b.HasIndex("appointment_timetemplate_id");
 
                     b.ToTable("Coupons");
                 });
@@ -93,7 +99,10 @@ namespace CPI.Migrations
                     b.Property<int>("cabinet")
                         .HasColumnType("int");
 
-                    b.Property<int?>("department_code")
+                    b.Property<int>("department_code")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("department_code1")
                         .HasColumnType("int");
 
                     b.Property<string>("fathername")
@@ -102,10 +111,16 @@ namespace CPI.Migrations
                     b.Property<string>("firstname")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("schedule_code")
+                    b.Property<int>("schedule_code")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("schedule_code1")
                         .HasColumnType("int");
 
                     b.Property<string>("speciality_code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("speciality_code1")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("surname")
@@ -115,11 +130,11 @@ namespace CPI.Migrations
 
                     b.HasIndex("PassDatalogin");
 
-                    b.HasIndex("department_code");
+                    b.HasIndex("department_code1");
 
-                    b.HasIndex("schedule_code");
+                    b.HasIndex("schedule_code1");
 
-                    b.HasIndex("speciality_code");
+                    b.HasIndex("speciality_code1");
 
                     b.ToTable("Doctors");
                 });
@@ -225,12 +240,6 @@ namespace CPI.Migrations
                         .WithMany("Coupons")
                         .HasForeignKey("Patientlogin");
 
-                    b.HasOne("CPI.Models.CouponTemplate", "appointment_time")
-                        .WithMany()
-                        .HasForeignKey("appointment_timetemplate_id");
-
-                    b.Navigation("appointment_time");
-
                     b.Navigation("Doctor");
 
                     b.Navigation("Patient");
@@ -244,15 +253,15 @@ namespace CPI.Migrations
 
                     b.HasOne("CPI.Models.Department", "Department")
                         .WithMany("Doctors")
-                        .HasForeignKey("department_code");
+                        .HasForeignKey("department_code1");
 
                     b.HasOne("CPI.Models.Schedule", "Schedule")
                         .WithMany("Doctors")
-                        .HasForeignKey("schedule_code");
+                        .HasForeignKey("schedule_code1");
 
                     b.HasOne("CPI.Models.Speciality", "Speciality")
                         .WithMany("Doctors")
-                        .HasForeignKey("speciality_code");
+                        .HasForeignKey("speciality_code1");
 
                     b.Navigation("Department");
 

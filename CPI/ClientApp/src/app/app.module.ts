@@ -35,6 +35,9 @@ import { EditScheduleComponent } from './admin/schedule/edit-schedule/edit-sched
 import { TemplatesListComponent } from './admin/coupon-template/templates-list/templates-list.component';
 import { AddTemplateComponent } from './admin/coupon-template/add-template/add-template.component';
 import { EditTemplateComponent } from './admin/coupon-template/edit-template/edit-template.component';
+import { PickCouponComponent } from './patient/pick-coupon/pick-coupon.component';
+import { PickDepartmentComponent } from './patient/pick-department/pick-department.component';
+import { PickDoctorComponent } from './patient/pick-doctor/pick-doctor.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +69,10 @@ import { EditTemplateComponent } from './admin/coupon-template/edit-template/edi
     EditPatientComponent,
     TemplatesListComponent,
     AddTemplateComponent,
-    EditTemplateComponent
+    EditTemplateComponent,
+    PickDepartmentComponent,
+    PickDoctorComponent,
+    PickCouponComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -100,6 +106,9 @@ import { EditTemplateComponent } from './admin/coupon-template/edit-template/edi
       { path: 'templates-list', component: TemplatesListComponent },
       { path: 'add-template', component: AddTemplateComponent },
       { path: 'edit-template/:template_id', component: EditTemplateComponent },
+      { path: 'pick-department/:login', component: PickDepartmentComponent },
+      { path: 'pick-doctor/:login/:department_code', component: PickDoctorComponent },
+      { path: 'pick-coupon/:login/:department_code/:doctor_login', component: PickCouponComponent },
     ]),
     BrowserAnimationsModule,
     MatDatepickerModule,

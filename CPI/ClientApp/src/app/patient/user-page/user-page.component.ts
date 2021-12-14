@@ -13,6 +13,7 @@ export class UserPageComponent {
   public user: Patient = new Patient("", "", "", "", new Date(), "", "", "");
   public login: string | undefined;
   public coupons: Coupon[];
+  public doctor: Doctor = new Doctor("", "", "", "", 0, "");
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.login = activateRoute.snapshot.params['login'];
@@ -51,8 +52,7 @@ export class Patient {
     birthday: Date,
     gender: string,
     address: string,
-    phone_number: string,
-
+    phone_number: string
   ) { }
 }
 
@@ -65,4 +65,17 @@ export class Coupon {
     appointment_date: Date,
     appointment_time: Time,
     cabinet: number) { }
+}
+
+export class Doctor {
+  constructor(
+    public login: string,
+    public firstname: string,
+    public fathername: string,
+    public surname: string,
+    public cabinet: number,
+    public speciality: string,
+    //public department_code: number,
+    //public schedule_code: number
+  ) { }
 }

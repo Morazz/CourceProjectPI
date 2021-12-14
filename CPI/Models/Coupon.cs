@@ -11,12 +11,10 @@ namespace CPI.Models
     {
         [Key]
         public int coupon_id { get; set; }
-        public int coupon_number { get; set; }
         public DateTime appointment_day { get; set; }
-        public DateTime appointment_time { get; set; }
-        public int cabinet { get; set; }
 
         public Patient Patient { get; set; }
         public Doctor Doctor { get; set; }
+        public CouponTemplate appointment_time { get; set; }
     }
 }

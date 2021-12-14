@@ -1,13 +1,13 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 
 @Component({
-    selector: 'app-departments-list',
-    templateUrl: './departments-list.component.html',
-    styleUrls: ['./departments-list.component.css']
+    selector: 'app-pick-department',
+    templateUrl: './pick-department.component.html',
+    styleUrls: ['./pick-department.component.css']
 })
 
-export class DepartmentsListComponent {
+export class PickDepartmentComponent {
   public departments: Department[];
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
