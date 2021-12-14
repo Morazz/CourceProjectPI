@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class EditPatientComponent {
-  public patient: Patient;
+  public patient: Patient = new Patient("", "", "", "", new Date(), "", "", "");
   public login: string;
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
@@ -19,13 +19,14 @@ export class EditPatientComponent {
 
   getUser(login: string) {
     this.http.get<Patient>(this.baseUrl + 'patient/' + login).subscribe(result => {
-      this.patient = result;
+      if (result != null)
+        this.patient = result;
     }, error => console.error(error));
   }
 
-  editPatient(patient: Patient) {
-    this.http.put(this.baseUrl + 'patient', patient).subscribe(result => {
-      this.router.navigate(['user-page', patient.login]);
+  editPatient() {
+    this.http.put(this.baseUrl + 'patient', this.patient).subscribe(result => {
+      this.router.navigate(['user-page', this.patient.login]);
     }, error => console.error(error));
   }
 }

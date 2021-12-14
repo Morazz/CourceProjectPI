@@ -10,7 +10,7 @@
   <input type="text" name="fathername" [(ngModel)]="patient.fathername" required>
   <label for="birthday"><b>Дата рождения</b></label>
   <input type="date" name="birthday"
-         min="1900-01-01" max="2019-01-01" datetime="yyyy-MM-dd" [(ngModel)]="patient.birthday">
+         min="1900-01-01" max="2019-01-01" [(ngModel)]="patient.birthday">
   <label for="address"><b>Адрес</b></label>
   <input type="text" placeholder="Город, улица, дом, квартира" name="address" [(ngModel)]="patient.address" required>
   <label for="phone"><b>Номер телефона</b></label>

@@ -3,18 +3,18 @@
   <hr>
 
   <label for="code"><b>Код отделения</b></label>
-  <input type="text" name="code" required>
+  <input type="text" name="code" [(ngModel)]="department.department_code" required>
   <label for="department"><b>Отделение</b></label>
-  <input type="text" name="department" required>
+  <input type="text" name="department" [(ngModel)]="department.department_name"  required>
   <label for="head"><b>Заведующий</b></label>
   <div *ngIf="!doctors">
     <em>Загрузка...</em>
   </div>
-  <input type="text"  *ngIf="doctors" [(ngModel)]="text" list="head" (input)="onInput(text)">
+  <input type="text"  *ngIf="doctors" [(ngModel)]="department.head" list="head" (input)="onInput(department.head)">
   <datalist id="head" *ngIf="doctors">
     <option *ngFor="let doctor of doctors">{{doctor.surname}} {{doctor.name}} {{doctor.fathername}}</option>
   </datalist>
 
-  <button type="submit" class="registerbtn">Сохранить</button>
+  <button type="submit" class="registerbtn" (click)="addDepartment()">Сохранить</button>
 </div>
 

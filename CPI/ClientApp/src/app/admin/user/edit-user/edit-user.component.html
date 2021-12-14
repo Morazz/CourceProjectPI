@@ -9,13 +9,13 @@
   <input type="password" name="psw" [(ngModel)]="user.password" required>
 
   <label for="status"><b>Роль</b></label>
-  <select name="status" [(ngModel)]="user.role">
+  <select name="status" [(ngModel)]="user.status">
     <option *ngFor="let role of roles" [value]="role">
       {{role}}
     </option>
   </select>
 
-  <button class="registerbtn" (click)="postData(user)">Сохранить</button>
+  <button class="registerbtn" (click)="postData()">Сохранить</button>
 </div>
 
 

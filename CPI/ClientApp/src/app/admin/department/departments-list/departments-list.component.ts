@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 
 @Component({
@@ -10,10 +10,23 @@ import { Component, Inject } from '@angular/core';
 export class DepartmentsListComponent {
   public departments: Department[];
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<Department[]>(baseUrl + 'department').subscribe(result => {
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+    this.getDepartments();
+  }
+
+  getDepartments() {
+    this.http.get<Department[]>(this.baseUrl + 'department').subscribe(result => {
       this.departments = result;
     }, error => console.error(error));
+  }
+
+  deleteDepartment(department_code: number) {
+    this.http.delete(this.baseUrl + 'department', { params: new HttpParams().set('code', department_code.toString()) })
+      .subscribe(
+        (data: any) => {
+          this.getDepartments();
+        },
+        error => console.log(error));
   }
 }
 

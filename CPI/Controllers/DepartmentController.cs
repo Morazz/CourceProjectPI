@@ -29,5 +29,36 @@ namespace CPI.Controllers
         {
             return db.Departments.Find(code);
         }
+
+        [HttpPost]
+        public void Insert(Department department)
+        {
+            db.Departments.Add(department);
+            db.SaveChanges();
+        }
+
+        [HttpDelete]
+        public void Delete(int code)
+        {
+            Department department = Get(code);
+            if (department != null)
+            {
+                db.Departments.Remove(department);
+                db.SaveChanges();
+            }
+        }
+
+        [HttpPut]
+        public void Update(Department newDepartment)
+        {
+            Department department = Get(newDepartment.department_code);
+            if (department != null)
+            {
+                department.department_name = newDepartment.department_name;
+                department.head = newDepartment.head;
+                db.Departments.Update(department);
+                db.SaveChanges();
+            }
+        }
     }
 }

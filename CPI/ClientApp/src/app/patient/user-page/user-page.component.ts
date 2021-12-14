@@ -1,5 +1,5 @@
 import { Time } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -8,9 +8,9 @@ import { ActivatedRoute, Router } from '@angular/router';
     templateUrl: './user-page.component.html',
     styleUrls: ['./user-page.component.css']
 })
-/** user-page component*/
+
 export class UserPageComponent {
-  public user: Patient;
+  public user: Patient = new Patient("", "", "", "", new Date(), "", "", "");
   public login: string | undefined;
   public coupons: Coupon[];
 
@@ -27,21 +27,31 @@ export class UserPageComponent {
   }
 
   getCoupons(login: string) {
-    this.http.get<Coupon[]>(this.baseUrl + 'coupon/' + login).subscribe(result => {
+    this.http.get<Coupon[]>(this.baseUrl + 'coupon/valuable/' + login).subscribe(result => {
       this.coupons = result;
     }, error => console.error(error));
+  }
+
+  deleteCoupon(coupon_id: number) {
+    this.http.delete(this.baseUrl + 'coupon', { params: new HttpParams().set('coupon_id', coupon_id.toString()) })
+      .subscribe(
+        (data: any) => {
+          this.getCoupons(this.login);
+        },
+        error => console.log(error));
   }
 }
 
 export class Patient {
-  constructor(public login: string,
+  constructor(
+    public login: string,
     firstname: string,
     fathername: string,
     surname: string,
     birthday: Date,
     gender: string,
     address: string,
-    phone_number: string
+    phone_number: string,
 
   ) { }
 }

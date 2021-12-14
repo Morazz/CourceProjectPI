@@ -32,6 +32,9 @@ import { AddScheduleComponent } from './admin/schedule/add-schedule/add-schedule
 import { EditPatientComponent } from './admin/patient/edit-patient/edit-patient.component';
 import { SchedulesListComponent } from './admin/schedule/schedules-list/schedules-list.component';
 import { EditScheduleComponent } from './admin/schedule/edit-schedule/edit-schedule.component';
+import { TemplatesListComponent } from './admin/coupon-template/templates-list/templates-list.component';
+import { AddTemplateComponent } from './admin/coupon-template/add-template/add-template.component';
+import { EditTemplateComponent } from './admin/coupon-template/edit-template/edit-template.component';
 
 @NgModule({
   declarations: [
@@ -57,11 +60,13 @@ import { EditScheduleComponent } from './admin/schedule/edit-schedule/edit-sched
     SpecialitiesListComponent,
     AddSpecialityComponent,
     EditSpecialityComponent,
-
     SchedulesListComponent,
     AddScheduleComponent,
     EditScheduleComponent,
-    EditPatientComponent
+    EditPatientComponent,
+    TemplatesListComponent,
+    AddTemplateComponent,
+    EditTemplateComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -88,11 +93,13 @@ import { EditScheduleComponent } from './admin/schedule/edit-schedule/edit-sched
       { path: 'specialities-list', component: SpecialitiesListComponent },
       { path: 'add-speciality', component: AddSpecialityComponent },
       { path: 'edit-speciality/:speciality_code', component: EditSpecialityComponent },
-
       { path: 'schedules-list', component: SchedulesListComponent },
       { path: 'add-schedule', component: AddScheduleComponent },
       { path: 'edit-schedule/:schedule_code', component: EditScheduleComponent },
       { path: 'edit-patient/:login', component: EditPatientComponent },
+      { path: 'templates-list', component: TemplatesListComponent },
+      { path: 'add-template', component: AddTemplateComponent },
+      { path: 'edit-template/:template_id', component: EditTemplateComponent },
     ]),
     BrowserAnimationsModule,
     MatDatepickerModule,

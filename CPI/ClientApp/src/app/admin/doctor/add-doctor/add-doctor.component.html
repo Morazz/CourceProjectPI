@@ -4,16 +4,16 @@
 
   <label for="login"><b>Логин</b></label>
   <input type="text" name="login" [(ngModel)]="doctor.login" required>
-  <label for="psw"><b>Пароль</b></label>
-  <input type="password" name="psw" [(ngModel)]="doctor.password" required>
+  <!--<label for="psw"><b>Пароль</b></label>
+  <input type="password" name="psw" [(ngModel)]="user.password" required>-->
   <label for="surname"><b>Фамилия</b></label>
   <input type="text" name="surname" [(ngModel)]="doctor.surname" required>
   <label for="firstname"><b>Имя</b></label>
   <input type="text" name="firstname" [(ngModel)]="doctor.firstname" required>
   <label for="fathername"><b>Отчество</b></label>
   <input type="text" name="fathername" [(ngModel)]="doctor.fathername" required>
-  <label for="department"><b>Отделение</b></label>
-  <div *ngIf="!departments">
+  <!--<label for="department"><b>Отделение</b></label>-->
+  <!--<div *ngIf="!departments">
     <em>Загрузка...</em>
   </div>
   <div *ngIf="departments">
@@ -33,10 +33,12 @@
     <datalist id="spec" name="spec">
       <option *ngFor="let speciality of specialities">{{speciality.name}}</option>
     </datalist>
-  </div>
+  </div>-->
 
   <label for="cabinet"><b>Кабинет</b></label>
   <input type="number" name="cabinet" [(ngModel)]="doctor.cabinet" required>
+  <!--<label for="schedule"><b>Код расписания</b></label>
+  <input type="number" name="schedule" [(ngModel)]="doctor.schedule_code" required>-->
 
   <button type="submit" class="registerbtn" (click)="addDoctor()">Сохранить</button>
 </div>

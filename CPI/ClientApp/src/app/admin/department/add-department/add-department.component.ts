@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-department',
@@ -9,8 +10,9 @@ import { Component, Inject } from '@angular/core';
 /** add-department component*/
 export class AddDepartmentComponent {
   public doctors: Doctor[];
+  public department: Department;
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+  constructor(private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.getDoctors();
   }
 
@@ -28,6 +30,12 @@ export class AddDepartmentComponent {
     }
     else this.getDoctors();
   }
+
+  addDepartment() {
+    this.http.post(this.baseUrl + 'department', this.department).subscribe(result => {
+      this.router.navigate(['/departments-list']);
+    }, error => console.error(error));
+  }
 }
 
 interface Doctor {
@@ -39,4 +47,11 @@ interface Doctor {
   cabinet: number;
   department_code: number;
   schedule_code: number
+}
+
+export class Department {
+  constructor(
+    public department_code: number,
+    public department_name: string,
+    public head: string) { }
 }

@@ -10,7 +10,6 @@ namespace CPI.Models
     {
         [Key]
         public int schedule_code { get; set; }
-        //public int shift { get; set; }
         public DateTime appointment_start { get; set; }
         public DateTime appointment_end { get; set; }
 

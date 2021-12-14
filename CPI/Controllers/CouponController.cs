@@ -42,6 +42,24 @@ namespace CPI.Controllers
             return db.Coupons;
         }
 
+        [HttpGet("valuable/{login}")]
+        public IEnumerable<Coupon> GetValuable(string login)
+        {
+            DateTime time = default(DateTime).Add(DateTime.Now.TimeOfDay);
+
+            List<Coupon> coupons = new List<Coupon>();
+            foreach(Coupon cup in db.Coupons.Where(c => c.Patient.login == login))
+            {
+                if (cup.appointment_day.Date > DateTime.Now.Date)
+                    coupons.Add(cup);
+                else if (cup.appointment_day.Date == DateTime.Now.Date)
+                    if (DateTime.Compare(default(DateTime).Add(cup.appointment_time.TimeOfDay), time) >= 0)
+                        coupons.Add(cup);
+            }
+
+            return coupons;
+        }
+
         [HttpPost]
         public void Insert(Coupon coupon)
         {
@@ -50,9 +68,9 @@ namespace CPI.Controllers
         }
 
         [HttpDelete]
-        public void Delete(Coupon coupon)
+        public void Delete(int coupon_id)
         {
-            Coupon coup = Get(coupon.coupon_number);
+            Coupon coup = Get(coupon_id);
             if (coup != null)
             {
                 db.Coupons.Remove(coup);
@@ -68,8 +86,8 @@ namespace CPI.Controllers
             {
                 coupon.appointment_day = newCoupon.appointment_day;
                 coupon.appointment_time = newCoupon.appointment_time;
-                //coupon.doctor_id = newCoupon.doctor_id;
-                //coupon.patient_id = newCoupon.patient_id;
+                coupon.Doctor.login = newCoupon.Doctor.login;
+                coupon.Patient.login = newCoupon.Doctor.login;
                 coupon.cabinet = newCoupon.cabinet;
                 db.Update(coupon);
                 db.SaveChanges();

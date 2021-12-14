@@ -6,7 +6,7 @@
   <h5>{{speciality.speciality_code}}</h5>
 
   <label for="spec"><b>Специальность</b></label>
-  <input type="text" name="spec" [ngModel]="speciality.speciality" required>
+  <input type="text" name="spec" [(ngModel)]="speciality.speciality" required>
 
   <button class="registerbtn" (click)="postData()">Сохранить</button>
 </div>

@@ -3,7 +3,7 @@
 <div class="topnav">
   <div class="search-container">
     <form action="">
-      <input type="text" placeholder="Search.." name="search" class="search">
+      <input type="text" placeholder="Найти.." name="search" class="search">
       <button type="submit">Submit</button>
     </form>
   </div>
@@ -22,11 +22,11 @@
     </thead>
     <tbody>
       <tr *ngFor="let department of departments">
-        <td>{{department.code}}</td>
-        <td>{{department.department}}</td>
+        <td>{{department.department_code}}</td>
+        <td>{{department.department_name}}</td>
         <td>{{department.head}}</td>
         <td>
-          <button class="dltbtn">Удалить</button>
+          <button class="dltbtn" (click)="deleteDepartment(department.department_code)">Удалить</button>
           <button class="editbtn">Изменить</button>
         </td>
       </tr>

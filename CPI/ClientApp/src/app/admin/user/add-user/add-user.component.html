@@ -3,13 +3,13 @@
   <hr>
 
   <label for="login"><b>Логин</b></label>
-  <input type="text" name="login" [(ngModel)]="login" required>
+  <input type="text" name="login" [(ngModel)]="user.login" required>
 
   <label for="psw"><b>Пароль</b></label>
-  <input type="password" name="psw" [(ngModel)]="password" required>
+  <input type="password" name="psw" [(ngModel)]="user.password" required>
 
   <label for="status"><b>Роль</b></label>
-  <select name="status" [(ngModel)]="role">
+  <select name="status" [(ngModel)]="user.status">
     <option *ngFor="let role of roles" [value]="role">
       {{role}}
     </option>

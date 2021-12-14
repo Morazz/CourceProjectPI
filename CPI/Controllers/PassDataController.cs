@@ -60,7 +60,6 @@ namespace CPI.Controllers
             PassData passData = Get(newPassData.login);
             if (passData != null)
             {
-                passData.login = newPassData.login;
                 passData.password = newPassData.password;
                 passData.status = newPassData.status;
                 db.PassData.Update(passData);

@@ -11,15 +11,12 @@ import { Router } from '@angular/router';
 export class AddUserComponent {
   
   roles: string[] = ["Пациент", "Врач", "Администратор"];
-  login: string;
-  password: string;
-  status: string;
+  user: PassData = new PassData("", "", "");
 
   constructor(private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {}
 
   postData() {
-
-    this.http.post(this.baseUrl + 'passdata', new PassData(this.login, this.password, this.status))
+    this.http.post(this.baseUrl + 'passdata', this.user)
       .subscribe(
         (data: any) => {
           this.router.navigate(['/users-list']);
@@ -28,5 +25,5 @@ export class AddUserComponent {
 }
 
 export class PassData {
-  constructor(public login: string, public password: string, public status: string = "patient") { }
+  constructor(public login: string, public password: string, public status: string) { }
 }

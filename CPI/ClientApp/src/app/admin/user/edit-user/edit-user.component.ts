@@ -26,8 +26,8 @@ export class EditUserComponent {
     }, error => console.error(error));
   }
 
-  postData(user: PassData) {
-    this.http.put(this.baseUrl + 'passdata', user)
+  postData() {
+    this.http.put(this.baseUrl + 'passdata', this.user)
       .subscribe(result => {
         this.router.navigate(['users-list']);
       }, error => console.log(error));
@@ -38,6 +38,6 @@ export class PassData {
   constructor(
     public login: string,
     public password: string,
-    public status
+    public status: string
   ) { }
 }

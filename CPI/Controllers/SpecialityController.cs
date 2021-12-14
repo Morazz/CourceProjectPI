@@ -60,7 +60,6 @@ namespace CPI.Controllers
             Speciality speciality = Get(newSpeciality.speciality_code);
             if (speciality != null)
             {
-                speciality.speciality_code = newSpeciality.speciality_code;
                 speciality.speciality = newSpeciality.speciality;
                 db.Specialities.Update(speciality);
                 db.SaveChanges();
