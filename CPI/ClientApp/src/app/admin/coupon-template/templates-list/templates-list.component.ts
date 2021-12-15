@@ -33,6 +33,6 @@ export class TemplatesListComponent {
 
 export class CouponTemplate {
   constructor(
-    template_id: number,
-    time: Date) { }
+    public template_id: number,
+    public time: Date) { }
 }

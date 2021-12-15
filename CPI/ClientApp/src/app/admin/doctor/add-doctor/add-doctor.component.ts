@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { Schedule } from '../../schedule/schedules-list/schedules-list.component';
 
 @Component({
   selector: 'app-add-doctor',
@@ -11,7 +12,8 @@ import { Router } from '@angular/router';
 export class AddDoctorComponent {
   public departments: Department[];
   public specialities: Speciality[];
-  public doctor: Doctor = new Doctor("", "", "", "", 0, "");
+  public doctor: Doctor = new Doctor("", "", "", "", 0, new Speciality("", ""), new Department(0, "", ""), new Schedule(0, new Date(), new Date()));
+  public user: PassData = new PassData("", "", "Врач");
 
 
   constructor(private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
@@ -19,16 +21,17 @@ export class AddDoctorComponent {
     this.getSpecialities();
   }
 
-  addDoctor() {
-    console.log(this.doctor.login);
-    console.log(this.doctor.firstname);
-    console.log(this.doctor.fathername);
-    console.log(this.doctor.surname);
-    console.log(this.doctor.cabinet);
-    this.http.post(this.baseUrl + 'doctor', this.doctor).subscribe(result => {
-      this.router.navigate(['/doctors-list']);
-    }, error => console.error(error));
-  }
+  addDoctor(login: string, password: string) {
+    this.http.post(this.baseUrl + 'passdata', new PassData(login, this.user.password,))
+      .subscribe(
+        result => {
+          this.http.post(this.baseUrl + 'doctor', this.doctor)
+            .subscribe(
+              (data: any) => {
+                this.router.navigate(['/patients-list']);
+              }, error => console.log(error));
+        }, error => console.log(error));
+  };
 
   getDepartments() {
     this.http.get<Department[]>(this.baseUrl + 'department').subscribe(result => {
@@ -50,12 +53,19 @@ export class Doctor {
     public fathername: string,
     public surname: string,
     public cabinet: number,
-    public speciality: string,
-    //public department_code: number,
-    //public schedule_code: number
+    public speciality_code: Speciality,
+    public department_code: Department,
+    public schedule_code: Schedule
   ) { }
 }
 
+export class PassData {
+  constructor(
+    public login: string,
+    public password: string,
+    public status: string = "Врач"
+  ) { }
+}
 
 export class Department {
   constructor(

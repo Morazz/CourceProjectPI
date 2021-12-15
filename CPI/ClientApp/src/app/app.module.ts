@@ -39,6 +39,7 @@ import { PickCouponComponent } from './patient/pick-coupon/pick-coupon.component
 import { PickDepartmentComponent } from './patient/pick-department/pick-department.component';
 import { PickDoctorComponent } from './patient/pick-doctor/pick-doctor.component';
 import { CouponsListComponent } from './admin/coupon/coupons-list/coupons-list.component';
+import { DoctorCouponsListComponent } from './doctor/doctor-coupons-list/doctor-coupons-list.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import { CouponsListComponent } from './admin/coupon/coupons-list/coupons-list.c
     PickDoctorComponent,
     PickCouponComponent,
     CouponsListComponent,
+    DoctorCouponsListComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -112,6 +114,7 @@ import { CouponsListComponent } from './admin/coupon/coupons-list/coupons-list.c
       { path: 'pick-doctor/:login/:department_code', component: PickDoctorComponent },
       { path: 'pick-coupon/:login/:department_code/:doctor_login', component: PickCouponComponent },
       { path: 'coupons-list', component: CouponsListComponent },
+      { path: 'doctor-coupons/:login', component: DoctorCouponsListComponent },
     ]),
     BrowserAnimationsModule,
     MatDatepickerModule,

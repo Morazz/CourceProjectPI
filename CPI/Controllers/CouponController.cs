@@ -51,6 +51,25 @@ namespace CPI.Controllers
             List<Coupon> coupons = new List<Coupon>();
             foreach (Coupon cup in db.Coupons.Where(c => c.Patient.login == login))
             {
+                Console.WriteLine(cup is Coupon);
+                if (cup.appointment_day.Date > DateTime.Now.Date)
+                    coupons.Add(cup);
+                else if (cup.appointment_day.Date == DateTime.Now.Date)
+                    if (DateTime.Compare(default(DateTime).Add(cup.appointment_time.time.TimeOfDay), time) >= 0)
+                        coupons.Add(cup);
+            }
+
+            return coupons.ToArray();
+        }
+
+        [HttpGet("doctor/valuable/{login}")]
+        public IEnumerable<Coupon> GetDoctorValuable(string login)
+        {
+            DateTime time = default(DateTime).Add(DateTime.Now.TimeOfDay);
+
+            List<Coupon> coupons = new List<Coupon>();
+            foreach (Coupon cup in db.Coupons.Where(c => c.Doctor.login == login))
+            {
                 if (cup.appointment_day.Date > DateTime.Now.Date)
                     coupons.Add(cup);
                 else if (cup.appointment_day.Date == DateTime.Now.Date)

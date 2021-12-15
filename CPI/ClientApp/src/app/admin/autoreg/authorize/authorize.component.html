@@ -4,12 +4,18 @@
   <hr>
 
   <label for="login"><b>Логин</b></label>
-  <input type="text" name="login" [(ngModel)]="user.login" required>
+  <input type="text" name="login" [(ngModel)]="user.login" pattern="/^[a-z0-9]+$/i" #login="ngModel" required>
+  <div [hidden]="login.valid || login.untouched" class="alert alert-danger">
+    Введите корректные данные
+  </div>
 
   <label for="psw"><b>Пароль</b></label>
   <input type="password" name="psw" [(ngModel)]="user.password" required>
+  <div [hidden]="password.valid || password.untouched" class="alert alert-danger">
+    Введите корректный пароль
+  </div>
 
-  <button type="submit" class="registerbtn" (click)="authorize()">Войти</button>
+  <button type="submit" class="registerbtn" (click)="authorize()" [disabled]="login.invalid || password.invalid">Войти</button>
 </div>
 
 <div class="container signin">

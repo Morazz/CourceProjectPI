@@ -4,16 +4,25 @@
   <hr>
 
   <label for="login"><b>Логин</b></label>
-  <input type="text" name="login" [(ngModel)]="user.login" required>
+  <input type="text" name="login" [(ngModel)]="user.login" #login="ngModel" required>
+  <div [hidden]="login.valid || login.untouched" class="alert alert-danger">
+    Введите корректные данные
+  </div>
 
   <label for="psw"><b>Пароль</b></label>
-  <input type="password" name="psw" [(ngModel)]="user.password" required>
+  <input type="password" name="psw" [(ngModel)]="user.password" #password="ngModel" required>
+  <div [hidden]="password.valid || password.untouched" class="alert alert-danger">
+    Введите корректный пароль
+  </div>
 
   <label for="psw-repeat"><b>Подтвердите пароль</b></label>
   <input type="password" name="psw-repeat" required>
+  <div [hidden]="psw-repeat.valid || psw-repeat.untouched" class="alert alert-danger">
+    Введите корректный пароль
+  </div>
   <hr>
 
-  <button class="registerbtn" (click)="addUser()">Зарегистрироваться</button>
+  <button class="registerbtn" (click)="addUser()" [disabled]="login.invalid || password.invalid || psw-repeat.invalid">Зарегистрироваться</button>
 </div>
 
 <div class="container signin">

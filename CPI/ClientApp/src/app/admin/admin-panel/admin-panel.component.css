@@ -1,6 +1,11 @@
 
 * {
   box-sizing: border-box;
+/*  opacity: 0.5;*/
+}
+
+body {
+  background-image: src("../../Images/bg.jpg");
 }
 
 /* Create four equal columns that floats next to each other */
@@ -10,6 +15,7 @@
   padding: 10px;
   height: 30%;
   display: table-cell;
+
 }
 
 /* Clear floats after the columns */

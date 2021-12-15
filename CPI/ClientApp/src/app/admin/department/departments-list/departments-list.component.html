@@ -15,14 +15,12 @@
   <table class='table table-striped' aria-labelledby="tableLabel">
     <thead>
       <tr>
-        <th>Код отделения</th>
         <th>Отделение</th>
         <th>Заведующий</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let department of departments">
-        <td>{{department.department_code}}</td>
         <td>{{department.department_name}}</td>
         <td>{{department.head}}</td>
         <td>

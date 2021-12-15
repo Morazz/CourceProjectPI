@@ -2,6 +2,7 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
   /*background-color: black;*/
+  background-image: src(D://Univ//CPI//CPI//Images//bg.jpg);
 }
 
 * {
@@ -12,7 +13,7 @@ body {
 .container {
   margin: 10px auto;
   padding: 16px;
-  background-color: white;
+/*  background-color: white;*/
   width: 70%;
   height: 50%;
 }

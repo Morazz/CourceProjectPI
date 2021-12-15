@@ -42,6 +42,20 @@ namespace CPI.Controllers
             return db.Doctors.Where(doc => doc.Department.department_code == code);
         }
 
+        [HttpGet("nulldep")]
+        public IEnumerable<Doctor> GetWithoutDep()
+        {
+            Console.WriteLine(db.Doctors.Where(doc => doc.Department == null).Count());
+            return db.Doctors.Where(doc => doc.Department == null);
+        }
+
+        //[HttpGet("bycoup/{id}")]
+        //public Doctor GetDoctorByCoup(int id)
+        //{
+        //    //Console.WriteLine(db.Doctors.Find(id).login);
+        //    return db.Doctors.Where(doc => doc.);
+        //}
+
         [HttpPost]
         public void Insert(Doctor doctor)
         {

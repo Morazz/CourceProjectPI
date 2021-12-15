@@ -1,11 +1,15 @@
-<h2>Список пациентов</h2>
+<h2>Текущие записи</h2>
 
-<!--<div *ngIf="!coupons"><em>Loading...</em></div>
+<em *ngIf="!coupons">Загрузка...</em>
 
-<div class="card" *ngFor="let coupon of coupons">
-  <a href="#">{{coupon.patient}}</a>
+<div class="div-container" *ngIf="coupons">
 
-  <p>Date</p>
-  <p>Time</p>
+  <div class="card" *ngFor="let coupon of coupons">
+    <div style="margin: 5px 0;">
+      <p class="title">{{coupon.patient.login}}</p>
+    </div>
+    <p>{{coupon.appointment_day | date: 'dd.MM.yyyy'}}</p>
+    <p>{{coupon.appointment_time | date: 'HH:mm'}}</p>
+  </div>
 
-</div>-->
+</div>

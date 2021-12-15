@@ -21,7 +21,7 @@ namespace CPI.Controllers
         [HttpGet]
         public IEnumerable<Speciality> Get()
         {
-            return db.Specialities;
+            return db.Specialities.ToArray();
         }
 
         [HttpGet("{speciality}")]
