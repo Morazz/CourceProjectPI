@@ -21,7 +21,8 @@ namespace CPI.Controllers
         [HttpGet]
         public IEnumerable<Coupon> Get()
         {
-            return db.Coupons.ToArray();
+            Console.WriteLine(db.Coupons.Count());
+            return db.Coupons;
         }
 
         [HttpGet("coupon/{id}")]
@@ -64,8 +65,10 @@ namespace CPI.Controllers
         public bool CheckFree(string doc, string date, int template)
         {
             List<Coupon> coupons = new List<Coupon>();
+            if (db.Coupons.Count() != 0)
             foreach (Coupon coup in db.Coupons.Where(c => c.Doctor.login == doc))
             {
+                //Console.WriteLine(coup.Patient.login);
                 if (Equals(coup.appointment_day.Date.ToShortDateString(), date))
                     coupons.Add(coup);
             }

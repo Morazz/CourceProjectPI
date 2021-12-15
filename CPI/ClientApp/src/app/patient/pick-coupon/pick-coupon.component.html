@@ -1,18 +1,16 @@
 <h3>Выберите время:</h3>
-
-
 <mat-card class="demo-inline-calendar-card">
-  <mat-calendar (selectedChange)="selectedDate = $event; checkCoupon()"></mat-calendar>
+  <mat-calendar (selectedChange)="selectedDate = $event; checkCoupon();"></mat-calendar>
 </mat-card>
 
-<p>Selected date: {{selectedDate}}</p>
+<!--<p>Selected date: {{selectedDate}}</p>-->
 
-<div *ngIf="freeCoupons">
-  <div style="margin: 5px 0;" *ngFor="let freeCoupon of freeCoupons">
-    <h4>{{freeCoupon.time}}</h4>
+<div *ngIf="freeCoupons" class="container">
+  <div class="coupon" *ngFor="let freeCoupon of freeCoupons">
+    <h5 (click)="newCoupon.appointment_time.time = freeCoupon.time">{{freeCoupon.time | date: 'HH:mm'}}</h5>
   </div>
 </div>
 
-<!--<mat-calendar (selectedChange)="selectedDate = $event"></mat-calendar>-->
-
-<!--<mat-calendar [(ngModel)]="selectedDate" (selectionChanged)="checkCoupon()"></mat-calendar>-->
+<div *ngIf="selectedDate">
+  <button type="submit" class="registerbtn" (click)="pickCoupon()">Заказать</button>
+</div>

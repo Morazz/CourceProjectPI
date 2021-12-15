@@ -19,6 +19,15 @@ export class DepartmentsListComponent {
       this.departments = result;
     }, error => console.error(error));
   }
+
+  deleteDepartment(department_code: number) {
+    this.http.delete(this.baseUrl + 'doctor', { params: new HttpParams().set('department_code', department_code.toString()) })
+      .subscribe(
+        (data: any) => {
+          this.getDepartments();
+        },
+        error => console.log(error));
+  }
 }
 
 export class Department {

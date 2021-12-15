@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Schedule } from '../../admin/schedule/schedules-list/schedules-list.component';
 
 @Component({
   selector: 'app-pick-doctor',
@@ -18,6 +19,7 @@ export class PickDoctorComponent {
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.department_code = activateRoute.snapshot.params['department_code'];
     this.getDepartment(this.department_code);
+
     this.http.get<Doctor[]>(this.baseUrl + 'doctor/dep/' + this.department_code).subscribe(result => {
       this.doctors = result;
     }, error => console.error(error));
@@ -39,8 +41,8 @@ export class Doctor {
     public surname: string,
     public cabinet: number,
     public speciality: Speciality,
-    //public department_code: number,
-    //public schedule_code: number
+    public department_code: Department,
+    public schedule_code: Schedule,
   ) { speciality = new Speciality("", ""); }
 }
 

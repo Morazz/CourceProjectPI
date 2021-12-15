@@ -38,9 +38,9 @@ namespace CPI.Controllers
         }
 
         [HttpDelete]
-        public void Delete(int code)
+        public void Delete(int department_code)
         {
-            Department department = Get(code);
+            Department department = Get(department_code);
             if (department != null)
             {
                 db.Departments.Remove(department);

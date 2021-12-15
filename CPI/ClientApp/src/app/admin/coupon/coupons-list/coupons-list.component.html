@@ -1,0 +1,36 @@
+<h2>Отделения</h2>
+
+<div class="topnav">
+  <div class="search-container">
+    <form action="">
+      <input type="text" placeholder="Найти.." name="search" class="search">
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</div>
+
+<div *ngIf="!coupons"><em>Загрузка...</em></div>
+
+<div class="dep">
+  <table class='table table-striped' aria-labelledby="tableLabel">
+    <thead>
+      <tr>
+        <th>Дата приема</th>
+        <th>Время приема</th>
+        <th>Логин пациента</th>
+        <th>Логин врача</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let coupon of coupons">
+        <td>{{coupon.appointment_date}}</td>
+        <td>{{coupon.appointment_time}}</td>
+        <td>{{coupon.Patient}}</td>
+        <td>{{coupon.Doctor}}</td>
+        <td>
+          <button class="dltbtn" (click)="deleteCoupon(coupon.coupon_id)">Удалить</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

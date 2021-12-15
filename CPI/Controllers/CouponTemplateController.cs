@@ -38,9 +38,9 @@ namespace CPI.Controllers
         }
 
         [HttpDelete]
-        public void Delete(CouponTemplate coupon)
+        public void Delete(int template_id)
         {
-            CouponTemplate coup = Get(coupon.template_id);
+            CouponTemplate coup = Get(template_id);
             if (coup != null)
             {
                 db.CouponTemplates.Remove(coup);

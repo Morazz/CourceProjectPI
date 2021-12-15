@@ -2,7 +2,6 @@ import { Time } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { forEachChild } from 'typescript';
 
 @Component({
   selector: 'app-pick-coupon',
@@ -15,6 +14,7 @@ export class PickCouponComponent {
   freeCoupons: CouponTemplate[];
   selectedDate: Date;
   doctor: Doctor = new Doctor("", "", "", "", 0, "");
+  newCoupon: Coupon = new Coupon(0, "", "", new Date(), new CouponTemplate(0, new Date));
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.getCoupons();
@@ -28,15 +28,18 @@ export class PickCouponComponent {
   }
 
   checkCoupon() {
+    this.freeCoupons = [];
     this.coupons.forEach(coupon => {
       this.http.get<CouponTemplate[]>(this.baseUrl + 'coupon/' + this.doctor.login + "/" + this.selectedDate.toLocaleDateString() + "/" + coupon.template_id).subscribe(result => {
-        if (result != null) {
+        if (result) {
           this.freeCoupons.push(coupon);
         }
       }, error => console.error(error));
-      console.log(this.selectedDate.toLocaleDateString());
-      
     });
+  }
+
+  showTime(date: Date) {
+    console.log(this.newCoupon.appointment_time.time);
   }
 }
 
@@ -50,12 +53,10 @@ export class CouponTemplate {
 export class Coupon {
   constructor(
     public coupon_id: number,
-    public number: number,
     public patient_id: string,
     public doctor_id: string,
     public appointment_date: Date,
-    public appointment_time: Time,
-    public cabinet: number) { }
+    public appointment_time: CouponTemplate) { }
 }
 
 export class Doctor {

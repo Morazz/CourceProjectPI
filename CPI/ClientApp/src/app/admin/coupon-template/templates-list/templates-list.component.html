@@ -6,7 +6,7 @@
 
 <div *ngIf="!templates"><em>Loading...</em></div>
 
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="doctors">
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="templates">
   <thead>
     <tr>
       <th>Номер шаблона</th>
@@ -16,10 +16,10 @@
   <tbody>
     <tr *ngFor="let template of templates">
       <td>{{template.template_id}}</td>
-      <td>{{template.time}}</td>
+      <td>{{template.time | date: 'HH:mm'}}</td>
       <td>
         <button class="dltbtn" (click)="deleteTemplate(template.template_id)">Удалить</button>
-        <button class="editbtn" (click)="editTemlate(template.time)">Изменить</button>
+        <button class="editbtn" (click)="editTemlate(template.template_id)">Изменить</button>
       </td>
     </tr>
   </tbody>

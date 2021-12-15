@@ -38,6 +38,7 @@ import { EditTemplateComponent } from './admin/coupon-template/edit-template/edi
 import { PickCouponComponent } from './patient/pick-coupon/pick-coupon.component';
 import { PickDepartmentComponent } from './patient/pick-department/pick-department.component';
 import { PickDoctorComponent } from './patient/pick-doctor/pick-doctor.component';
+import { CouponsListComponent } from './admin/coupon/coupons-list/coupons-list.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { PickDoctorComponent } from './patient/pick-doctor/pick-doctor.component
     EditTemplateComponent,
     PickDepartmentComponent,
     PickDoctorComponent,
-    PickCouponComponent
+    PickCouponComponent,
+    CouponsListComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
