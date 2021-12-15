@@ -24,7 +24,7 @@ namespace CPI.Controllers
             return db.Schedules;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{schedule_code}")]
         public Schedule Get(int schedule_code)
         {
             return db.Schedules.Find(schedule_code);
@@ -54,7 +54,6 @@ namespace CPI.Controllers
             Schedule schedule = Get(newSchedule.schedule_code);
             if (schedule != null)
             {
-                //schedule.shift = newSchedule.shift;
                 schedule.appointment_start = newSchedule.appointment_start;
                 schedule.appointment_end = newSchedule.appointment_end;
 

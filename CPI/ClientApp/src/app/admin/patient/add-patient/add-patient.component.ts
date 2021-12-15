@@ -43,6 +43,6 @@ export class PassData {
   constructor(
     public login: string,
     public password: string,
-    status = "Пациент"
+    public status: string = "Пациент"
   ) {  }
 }

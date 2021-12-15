@@ -9,14 +9,12 @@
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="schedules">
   <thead>
     <tr>
-      <th>Код</th>
       <th>Начало приёма</th>
       <th>Окончание приёма</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let schedule of schedules">
-      <td>{{schedule.schedule_code}}</td>
       <td>{{schedule.appointment_start | date: 'HH:mm'}}</td>
       <td>{{schedule.appointment_end | date: 'HH:mm'}}</td>
       <td>
