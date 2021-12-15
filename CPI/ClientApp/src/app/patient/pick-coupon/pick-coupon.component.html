@@ -1,7 +1,18 @@
-<h3>Выберите врача:</h3>
+<h3>Выберите время:</h3>
 
 
 <mat-card class="demo-inline-calendar-card">
-  <mat-calendar (selectedChange)="selected = $event"></mat-calendar>
+  <mat-calendar (selectedChange)="selectedDate = $event; checkCoupon()"></mat-calendar>
 </mat-card>
-<p>Selected date: {{selected}}</p>
+
+<p>Selected date: {{selectedDate}}</p>
+
+<div *ngIf="freeCoupons">
+  <div style="margin: 5px 0;" *ngFor="let freeCoupon of freeCoupons">
+    <h4>{{freeCoupon.time}}</h4>
+  </div>
+</div>
+
+<!--<mat-calendar (selectedChange)="selectedDate = $event"></mat-calendar>-->
+
+<!--<mat-calendar [(ngModel)]="selectedDate" (selectionChanged)="checkCoupon()"></mat-calendar>-->

@@ -12,6 +12,7 @@ export class PickDoctorComponent {
 
   public doctors: Doctor[];
   department: Department = new Department(0, "", "");
+  
   public department_code: number;
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
@@ -37,10 +38,10 @@ export class Doctor {
     public fathername: string,
     public surname: string,
     public cabinet: number,
-    public speciality: string,
+    public speciality: Speciality,
     //public department_code: number,
     //public schedule_code: number
-  ) { }
+  ) { speciality = new Speciality("", ""); }
 }
 
 export class Department {
@@ -48,4 +49,10 @@ export class Department {
     department_code: number,
     department_name: string,
     head: string) { }
+}
+
+export class Speciality {
+  constructor(
+    public speciality_code: string,
+    public speciality: string) { }
 }

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CPI.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20211214211810_Migr3")]
-    partial class Migr3
+    [Migration("20211215101517_Migr10")]
+    partial class Migr10
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,7 +37,7 @@ namespace CPI.Migrations
                     b.Property<DateTime>("appointment_day")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("appointment_timetemplate_id")
+                    b.Property<int?>("template")
                         .HasColumnType("int");
 
                     b.HasKey("coupon_id");
@@ -46,7 +46,7 @@ namespace CPI.Migrations
 
                     b.HasIndex("Patientlogin");
 
-                    b.HasIndex("appointment_timetemplate_id");
+                    b.HasIndex("template");
 
                     b.ToTable("Coupons");
                 });
@@ -95,10 +95,7 @@ namespace CPI.Migrations
                     b.Property<int>("cabinet")
                         .HasColumnType("int");
 
-                    b.Property<int>("department_code")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("department_code1")
+                    b.Property<int?>("department_code")
                         .HasColumnType("int");
 
                     b.Property<string>("fathername")
@@ -107,16 +104,10 @@ namespace CPI.Migrations
                     b.Property<string>("firstname")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("schedule_code")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("schedule_code1")
+                    b.Property<int?>("schedule_code")
                         .HasColumnType("int");
 
                     b.Property<string>("speciality_code")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("speciality_code1")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("surname")
@@ -126,11 +117,11 @@ namespace CPI.Migrations
 
                     b.HasIndex("PassDatalogin");
 
-                    b.HasIndex("department_code1");
+                    b.HasIndex("department_code");
 
-                    b.HasIndex("schedule_code1");
+                    b.HasIndex("schedule_code");
 
-                    b.HasIndex("speciality_code1");
+                    b.HasIndex("speciality_code");
 
                     b.ToTable("Doctors");
                 });
@@ -238,7 +229,7 @@ namespace CPI.Migrations
 
                     b.HasOne("CPI.Models.CouponTemplate", "appointment_time")
                         .WithMany()
-                        .HasForeignKey("appointment_timetemplate_id");
+                        .HasForeignKey("template");
 
                     b.Navigation("appointment_time");
 
@@ -255,15 +246,15 @@ namespace CPI.Migrations
 
                     b.HasOne("CPI.Models.Department", "Department")
                         .WithMany("Doctors")
-                        .HasForeignKey("department_code1");
+                        .HasForeignKey("department_code");
 
                     b.HasOne("CPI.Models.Schedule", "Schedule")
                         .WithMany("Doctors")
-                        .HasForeignKey("schedule_code1");
+                        .HasForeignKey("schedule_code");
 
                     b.HasOne("CPI.Models.Speciality", "Speciality")
                         .WithMany("Doctors")
-                        .HasForeignKey("speciality_code1");
+                        .HasForeignKey("speciality_code");
 
                     b.Navigation("Department");
 

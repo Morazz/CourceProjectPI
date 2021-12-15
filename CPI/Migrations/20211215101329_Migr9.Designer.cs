@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CPI.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20211214221910_Migr4")]
-    partial class Migr4
+    [Migration("20211215101329_Migr9")]
+    partial class Migr9
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,7 +37,7 @@ namespace CPI.Migrations
                     b.Property<DateTime>("appointment_day")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("appointment_timetemplate_id")
+                    b.Property<int?>("template")
                         .HasColumnType("int");
 
                     b.HasKey("coupon_id");
@@ -46,7 +46,7 @@ namespace CPI.Migrations
 
                     b.HasIndex("Patientlogin");
 
-                    b.HasIndex("appointment_timetemplate_id");
+                    b.HasIndex("template");
 
                     b.ToTable("Coupons");
                 });
@@ -229,7 +229,7 @@ namespace CPI.Migrations
 
                     b.HasOne("CPI.Models.CouponTemplate", "appointment_time")
                         .WithMany()
-                        .HasForeignKey("appointment_timetemplate_id");
+                        .HasForeignKey("template");
 
                     b.Navigation("appointment_time");
 

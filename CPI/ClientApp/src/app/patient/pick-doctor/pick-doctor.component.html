@@ -2,8 +2,9 @@
 
 <div *ngIf="!doctors"><em>Загрузка...</em></div>
 
-<div class="div-container" *ngIf="departments">
-  <div style="margin: 5px 0;" *ngFor="let doctor of doctors">
-    <h4 [routerLink]="['/pick-coupon', 'pat1', department.department_code, doctor.login]">{{doctor.surname}} {{doctor.firstname}} {{doctor.lastname}}</h4>
+<div class="div-container" *ngIf="doctors">
+  <div style="margin: 5px 0;" *ngFor="let doctor of doctors" [routerLink]="['/pick-coupon', 'pat1', department.department_code, doctor.login]">
+    <h5>{{doctor.surname}} {{doctor.firstname}} {{doctor.fathername}}</h5>
+    <h5>{{doctor.speciality.speciality}}</h5>
   </div>
 </div>

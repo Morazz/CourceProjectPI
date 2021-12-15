@@ -35,7 +35,7 @@ namespace CPI.Migrations
                     b.Property<DateTime>("appointment_day")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("appointment_timetemplate_id")
+                    b.Property<int?>("template")
                         .HasColumnType("int");
 
                     b.HasKey("coupon_id");
@@ -44,7 +44,7 @@ namespace CPI.Migrations
 
                     b.HasIndex("Patientlogin");
 
-                    b.HasIndex("appointment_timetemplate_id");
+                    b.HasIndex("template");
 
                     b.ToTable("Coupons");
                 });
@@ -87,9 +87,6 @@ namespace CPI.Migrations
                     b.Property<string>("login")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("PassDatalogin")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("cabinet")
                         .HasColumnType("int");
 
@@ -112,8 +109,6 @@ namespace CPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("login");
-
-                    b.HasIndex("PassDatalogin");
 
                     b.HasIndex("department_code");
 
@@ -153,9 +148,6 @@ namespace CPI.Migrations
                     b.Property<string>("login")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("PassDatalogin")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("address")
                         .HasColumnType("nvarchar(max)");
 
@@ -178,8 +170,6 @@ namespace CPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("login");
-
-                    b.HasIndex("PassDatalogin");
 
                     b.ToTable("Patients");
                 });
@@ -227,7 +217,7 @@ namespace CPI.Migrations
 
                     b.HasOne("CPI.Models.CouponTemplate", "appointment_time")
                         .WithMany()
-                        .HasForeignKey("appointment_timetemplate_id");
+                        .HasForeignKey("template");
 
                     b.Navigation("appointment_time");
 
@@ -238,13 +228,15 @@ namespace CPI.Migrations
 
             modelBuilder.Entity("CPI.Models.Doctor", b =>
                 {
-                    b.HasOne("CPI.Models.PassData", "PassData")
-                        .WithMany()
-                        .HasForeignKey("PassDatalogin");
-
                     b.HasOne("CPI.Models.Department", "Department")
                         .WithMany("Doctors")
                         .HasForeignKey("department_code");
+
+                    b.HasOne("CPI.Models.PassData", "PassData")
+                        .WithMany()
+                        .HasForeignKey("login")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("CPI.Models.Schedule", "Schedule")
                         .WithMany("Doctors")
@@ -267,7 +259,9 @@ namespace CPI.Migrations
                 {
                     b.HasOne("CPI.Models.PassData", "PassData")
                         .WithMany()
-                        .HasForeignKey("PassDatalogin");
+                        .HasForeignKey("login")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("PassData");
                 });

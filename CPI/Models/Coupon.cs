@@ -15,6 +15,8 @@ namespace CPI.Models
 
         public Patient Patient { get; set; }
         public Doctor Doctor { get; set; }
+
+        [ForeignKey("template")]
         public CouponTemplate appointment_time { get; set; }
     }
 }

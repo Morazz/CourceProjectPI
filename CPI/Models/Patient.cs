@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,7 +9,8 @@ namespace CPI.Models
 {
     public class Patient
     {
-        [Key]
+        [Required]
+        [Key, ForeignKey("PassData")]
         public string login { get; set; }
         public string firstname { get; set; }
         public string fathername { get; set; }
@@ -19,6 +21,7 @@ namespace CPI.Models
         public string phone_number { get; set; }
 
         public List<Coupon> Coupons { get; set; } = new List<Coupon>();
+
         public PassData PassData { get; set; }
 
         public Patient() { }

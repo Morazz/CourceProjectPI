@@ -48,7 +48,7 @@ namespace CPI.Controllers
             DateTime time = default(DateTime).Add(DateTime.Now.TimeOfDay);
 
             List<Coupon> coupons = new List<Coupon>();
-            foreach(Coupon cup in db.Coupons.Where(c => c.Patient.login == login))
+            foreach (Coupon cup in db.Coupons.Where(c => c.Patient.login == login))
             {
                 if (cup.appointment_day.Date > DateTime.Now.Date)
                     coupons.Add(cup);
@@ -58,6 +58,18 @@ namespace CPI.Controllers
             }
 
             return coupons;
+        }
+
+        [HttpGet("{doc}/{date}/{template}")]
+        public bool CheckFree(string doc, string date, int template)
+        {
+            List<Coupon> coupons = new List<Coupon>();
+            foreach (Coupon coup in db.Coupons.Where(c => c.Doctor.login == doc))
+            {
+                if (Equals(coup.appointment_day.Date.ToShortDateString(), date))
+                    coupons.Add(coup);
+            }
+                return coupons.Where(coup => coup.appointment_time.template_id == template).Count() == 0;
         }
 
         [HttpPost]
