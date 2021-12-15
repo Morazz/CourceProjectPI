@@ -9,12 +9,11 @@
   <div [hidden]="department.valid || department.untouched" class="alert alert-danger">
     Введите корректные данные
   </div>
-
   <label for="head"><b>Заведующий</b></label>
   <div *ngIf="!doctors">
     <em>Загрузка...</em>
   </div>
-  <input type="text" name="head" *ngIf="doctors" [(ngModel)]="department.head" list="head" (input)="onInput(department.head)">
+  <input type="text" *ngIf="doctors" [(ngModel)]="department.head" list="head" (input)="onInput(department.head)">
   <datalist id="head" *ngIf="doctors">
     <option *ngFor="let doctor of doctors">{{doctor.surname}} {{doctor.name}} {{doctor.fathername}}</option>
   </datalist>

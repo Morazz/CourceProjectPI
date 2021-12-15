@@ -22,6 +22,13 @@ export class PickDoctorComponent {
 
     this.http.get<Doctor[]>(this.baseUrl + 'doctor/dep/' + this.department_code).subscribe(result => {
       this.doctors = result;
+      this.doctors.forEach(doc => {
+        doc.speciality_code = new Speciality("", "");
+        this.http.get<Speciality>(this.baseUrl + 'doctor/spec/' + doc.login).subscribe(result => {
+          doc.speciality_code = result;
+          console.log(doc.speciality_code);
+        }, error => console.error(error));
+      })
     }, error => console.error(error));
   }
 
@@ -40,10 +47,10 @@ export class Doctor {
     public fathername: string,
     public surname: string,
     public cabinet: number,
-    public speciality: Speciality,
+    public speciality_code: Speciality,
     public department_code: Department,
     public schedule_code: Schedule,
-  ) { speciality = new Speciality("", ""); }
+  ) { speciality_code = new Speciality("", ""); }
 }
 
 export class Department {

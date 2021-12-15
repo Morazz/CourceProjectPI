@@ -3,10 +3,14 @@
 <div class="topnav">
   <div class="search-container">
     <form action="">
-      <input type="text" placeholder="Найти.." name="search" class="search">
-      <button type="submit">Submit</button>
+      <input type="text" placeholder="Найти.." name="search" class="search" [(ngModel)]="text" (input)="onInput(text)">
     </form>
   </div>
+</div>
+
+
+<div class="div-container">
+  <button [routerLink]="['/add-department']">Добавить</button>
 </div>
 
 <div *ngIf="!departments"><em>Загрузка...</em></div>
@@ -25,7 +29,7 @@
         <td>{{department.head}}</td>
         <td>
           <button class="dltbtn" (click)="deleteDepartment(department.department_code)">Удалить</button>
-          <button class="editbtn">Изменить</button>
+          <button class="editbtn" [routerLink]="['/edit-department', department.department_code]">Изменить</button>
         </td>
       </tr>
     </tbody>

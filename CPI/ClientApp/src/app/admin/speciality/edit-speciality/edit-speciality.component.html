@@ -6,8 +6,10 @@
   <h5>{{speciality.speciality_code}}</h5>
 
   <label for="spec"><b>Специальность</b></label>
-  <input type="text" name="spec" [(ngModel)]="speciality.speciality" required>
-
-  <button class="registerbtn" (click)="postData()">Сохранить</button>
+  <input type="text" name="spec" [(ngModel)]="speciality.speciality" #spec="ngModel" pattern="^[А-ЯA-Zа-яf-z ,.'-]+$" required>
+  <div [hidden]="spec.valid || spec.untouched" class="alert alert-danger">
+    Введите корректные данные
+  </div>
+  <button class="registerbtn" (click)="postData()" [disabled]="spec.invalid">Сохранить</button>
 </div>
 

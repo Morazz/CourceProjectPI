@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Schedule } from '../../schedule/schedules-list/schedules-list.component';
+import { Speciality } from '../../speciality/specialities-list/specialities-list.component';
 
 @Component({
   selector: 'app-add-department',
@@ -11,7 +12,7 @@ import { Schedule } from '../../schedule/schedules-list/schedules-list.component
 /** add-department component*/
 export class AddDepartmentComponent {
   public doctors: Doctor[];
-  public department: Department = new Department(0, "", new Doctor("", "", "", ""));
+  public department: Department = new Department(0, "", new Doctor("", "", "", "", 0));
 
   constructor(private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.getDoctors();
@@ -34,19 +35,14 @@ export class AddDepartmentComponent {
 
   addDepartment() {
     this.http.post(this.baseUrl + 'department', this.department).subscribe(result => {
-      this.router.navigate(['/departments-list']);
+      this.department.login.department_code = this.department.department_code;
+      this.http.put(this.baseUrl + 'doctor', this.department.login).subscribe(result => {
+        /*this.router.navigate(['/departments-list']);*/
+        console.log(this.department.department_code);
+      }, error => console.error(error));
     }, error => console.error(error));
   }
 }
-
-//export class Doctor {
-//  constructor(
-//    public login: string,
-//    public firstname: string,
-//    public fathername: string,
-//    public surname: string
-//  ) { }
-//}
 
 export class Department {
   constructor(
@@ -62,22 +58,8 @@ export class Doctor {
     public fathername: string,
     public surname: string,
     //public cabinet: number,
-    //public speciality: Speciality,
-    //public department_code: Department,
-    //public schedule_code: Schedule
+    /*    public speciality_code: Speciality,*/
+    public department_code: number,
+    /*    public schedule_code: Schedule*/
   ) { }
-}
-
-//export class PassData {
-//  constructor(
-//    public login: string,
-//    public password: string,
-//    public status: string = "Врач"
-//  ) { }
-//}
-
-export class Speciality {
-  constructor(
-    public speciality_code: string,
-    public speciality: string) { }
 }

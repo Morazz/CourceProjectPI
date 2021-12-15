@@ -21,12 +21,21 @@ export class DepartmentsListComponent {
   }
 
   deleteDepartment(department_code: number) {
-    this.http.delete(this.baseUrl + 'doctor', { params: new HttpParams().set('department_code', department_code.toString()) })
+    this.http.delete(this.baseUrl + 'department', { params: new HttpParams().set('department_code', department_code.toString()) })
       .subscribe(
         (data: any) => {
           this.getDepartments();
         },
         error => console.log(error));
+  }
+
+  onInput(text: string) {
+    if (text.length > 0) {
+      this.http.get<Department[]>(this.baseUrl + 'department/ByName/' + text).subscribe(result => {
+        this.departments = result;
+      }, error => console.error(error));
+    }
+    else this.getDepartments();
   }
 }
 

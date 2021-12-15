@@ -30,6 +30,12 @@ namespace CPI.Controllers
             return db.Departments.Find(code);
         }
 
+        [HttpGet("ByName/{name}")]
+        public IEnumerable<Department> Get(string name)
+        {
+            return db.Departments.Where(dep => dep.department_name.Contains(name)).ToList();
+        }
+
         [HttpPost]
         public void Insert(Department department)
         {

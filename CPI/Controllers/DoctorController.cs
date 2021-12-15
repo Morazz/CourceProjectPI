@@ -49,6 +49,13 @@ namespace CPI.Controllers
             return db.Doctors.Where(doc => doc.Department == null);
         }
 
+        [HttpGet("spec/{login}")]
+        public Speciality GetSpecByCode(string login)
+        {
+            Console.WriteLine(db.Doctors.Find(login).Speciality.ToString());
+            return db.Doctors.Find(login).Speciality;
+        }
+
         //[HttpGet("bycoup/{id}")]
         //public Doctor GetDoctorByCoup(int id)
         //{
