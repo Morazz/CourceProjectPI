@@ -30,6 +30,18 @@ namespace CPI.Controllers
             return db.CouponTemplates.Find(code);
         }
 
+        [HttpGet("time/{time}")]
+        public CouponTemplate GetByTime(DateTime time)
+        {
+            CouponTemplate coupon = new CouponTemplate();
+            foreach (CouponTemplate cup in db.CouponTemplates)
+            {
+                if (Equals(cup.time.ToShortTimeString(), time.ToShortTimeString()))
+                    coupon = cup;
+            }
+            return coupon;
+        }
+
         [HttpPost]
         public void Insert(CouponTemplate coupon)
         {

@@ -17,6 +17,6 @@ namespace CPI.Models
         public Doctor Doctor { get; set; }
 
         [ForeignKey("template")]
-        public CouponTemplate appointment_time { get; set; }
+        public DateTime appointment_time { get; set; }
     }
 }

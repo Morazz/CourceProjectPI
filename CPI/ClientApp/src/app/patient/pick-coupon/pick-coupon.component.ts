@@ -18,7 +18,10 @@ export class PickCouponComponent {
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.getCoupons();
+
     this.doctor.login = activateRoute.snapshot.params['doctor_login'];
+    this.newCoupon.doctor_id = activateRoute.snapshot.params['doctor_login'];
+    this.newCoupon.patient_id = activateRoute.snapshot.params['login'];
   }
 
   getCoupons() {
@@ -30,7 +33,7 @@ export class PickCouponComponent {
   checkCoupon() {
     this.freeCoupons = [];
     this.coupons.forEach(coupon => {
-      this.http.get<CouponTemplate[]>(this.baseUrl + 'coupon/' + this.doctor.login + "/" + this.selectedDate.toLocaleDateString() + "/" + coupon.template_id).subscribe(result => {
+      this.http.get<CouponTemplate[]>(this.baseUrl + 'coupon/' + this.newCoupon.doctor_id + "/" + this.selectedDate.toLocaleDateString() + "/" + coupon.template_id).subscribe(result => {
         if (result) {
           this.freeCoupons.push(coupon);
         }
@@ -38,8 +41,24 @@ export class PickCouponComponent {
     });
   }
 
-  showTime(date: Date) {
-    console.log(this.newCoupon.appointment_time.time);
+  getTime() {
+    this.http.get<CouponTemplate>(this.baseUrl + 'coupontemplate/time/' + this.newCoupon.appointment_time.time).subscribe(result => {
+      if (result) {
+        
+        this.newCoupon.appointment_time = result;
+        console.log(this.newCoupon.appointment_time.template_id);
+      }
+    }, error => console.error(error));
+  }
+
+  pickCoupon() {
+    console.log(this.newCoupon.appointment_time.template_id);
+/*    console.log(this.newCoupon.appointment_time.time);*/
+    this.http.post(this.baseUrl + 'coupon', this.newCoupon)
+      .subscribe(
+        (data: any) => {
+          this.router.navigate(['/user-page', this.newCoupon.patient_id]);
+        }, error => console.log(error));
   }
 }
 
@@ -67,7 +86,20 @@ export class Doctor {
     public surname: string,
     public cabinet: number,
     public speciality: string,
+
     //public department_code: number,
     //public schedule_code: number
   ) { }
+}
+
+export class Patient {
+  constructor(
+    login: string,
+    firstname: string,
+    fathername: string,
+    surname: string,
+    birthday: Date,
+    gender: string,
+    address: string,
+    phone_number: string) { }
 }

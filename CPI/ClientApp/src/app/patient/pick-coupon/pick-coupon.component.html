@@ -7,7 +7,7 @@
 
 <div *ngIf="freeCoupons" class="container">
   <div class="coupon" *ngFor="let freeCoupon of freeCoupons">
-    <h5 (click)="newCoupon.appointment_time.time = freeCoupon.time">{{freeCoupon.time | date: 'HH:mm'}}</h5>
+    <h5 (click)="newCoupon.appointment_time.time = freeCoupon.time; getTime()">{{freeCoupon.time | date: 'HH:mm'}}</h5>
   </div>
 </div>
 
