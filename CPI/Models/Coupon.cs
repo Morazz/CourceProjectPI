@@ -13,10 +13,16 @@ namespace CPI.Models
         public int coupon_id { get; set; }
         public DateTime appointment_day { get; set; }
 
+        [ForeignKey("Patient")]
+        public string patient_login { get; set; }
         public Patient Patient { get; set; }
+
+        [ForeignKey("Doctor")]
+        public string doctor_login { get; set; }
         public Doctor Doctor { get; set; }
 
-        [ForeignKey("template")]
-        public CouponTemplate appointment_time { get; set; }
+        [ForeignKey("CouponTemplate")]
+        public int template_id { get; set; }
+        public CouponTemplate CouponTemplate { get; set; }
     }
 }

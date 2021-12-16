@@ -55,7 +55,7 @@ namespace CPI.Controllers
                 if (cup.appointment_day.Date > DateTime.Now.Date)
                     coupons.Add(cup);
                 else if (cup.appointment_day.Date == DateTime.Now.Date)
-                    if (DateTime.Compare(default(DateTime).Add(cup.appointment_time.time.TimeOfDay), time) >= 0)
+                    if (DateTime.Compare(default(DateTime).Add(cup.CouponTemplate.time.TimeOfDay), time) >= 0)
                         coupons.Add(cup);
             }
 
@@ -73,7 +73,7 @@ namespace CPI.Controllers
                 if (cup.appointment_day.Date > DateTime.Now.Date)
                     coupons.Add(cup);
                 else if (cup.appointment_day.Date == DateTime.Now.Date)
-                    if (DateTime.Compare(default(DateTime).Add(cup.appointment_time.time.TimeOfDay), time) >= 0)
+                    if (DateTime.Compare(default(DateTime).Add(cup.CouponTemplate.time.TimeOfDay), time) >= 0)
                         coupons.Add(cup);
             }
 
@@ -91,7 +91,7 @@ namespace CPI.Controllers
                 if (Equals(coup.appointment_day.Date.ToShortDateString(), date))
                     coupons.Add(coup);
             }
-                return coupons.Where(coup => coup.appointment_time.template_id == template).Count() == 0;
+                return coupons.Where(coup => coup.CouponTemplate.template_id == template).Count() == 0;
         }
 
         [HttpPost]
@@ -119,7 +119,7 @@ namespace CPI.Controllers
             if (coupon != null)
             {
                 coupon.appointment_day = newCoupon.appointment_day;
-                coupon.appointment_time = newCoupon.appointment_time;
+                coupon.template_id = newCoupon.template_id;
                 coupon.Doctor = newCoupon.Doctor;
                 coupon.Patient = newCoupon.Patient;
                 db.Update(coupon);

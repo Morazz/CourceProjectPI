@@ -19,23 +19,25 @@
   <thead>
     <tr>
       <th>Логин</th>
+      <th>Отделение</th>
       <th>Специальность</th>
       <th>Фамилия</th>
       <th>Имя</th>
       <th>Отчество</th>
       <th>Кабинет</th>
-      <th>Смена</th>
+      <th>Время работы</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let doctor of doctors">
       <td><a [routerLink]="['/doctor-info', doctor.login]">{{doctor.login}}</a></td>
-      <td>{{doctor.speciality}}</td>
+      <td>{{doctor.department.department_name}}</td>
+      <td>{{doctor.speciality.speciality}}</td>
+      <td>{{doctor.surname}}</td>
       <td>{{doctor.firstname}}</td>
       <td>{{doctor.fathername}}</td>
-      <td>{{doctor.lastname}}</td>
       <td>{{doctor.cabinet}}</td>
-      <td>{{doctor.schedule_code}}</td>
+      <td>{{doctor.hours.appointment_start | date:'HH:mm'}} - {{doctor.hours.appointment_end | date:'HH:mm'}}</td>
       <td>
         <button class="dltbtn">Удалить</button>
         <button class="editbtn">Изменить</button>

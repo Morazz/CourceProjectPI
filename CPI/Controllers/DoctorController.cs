@@ -41,21 +41,20 @@ namespace CPI.Controllers
         [HttpGet("dep/{code}")]
         public IEnumerable<Doctor> GetByDep(int code)
         {
-            return db.Doctors.Where(doc => doc.Department.department_code == code);
+            return db.Doctors.Where(doc => doc.department_code == code);
         }
 
         [HttpGet("nulldep")]
         public IEnumerable<Doctor> GetWithoutDep()
         {
-            Console.WriteLine(db.Doctors.Where(doc => doc.Department == null).Count());
-            return db.Doctors.Where(doc => doc.Department == null);
+            return db.Doctors.Where(doc => doc.department_code == null);
         }
 
         [HttpGet("spec/{login}")]
-        public Speciality GetSpecByCode(string login)
+        public string GetSpecByCode(string login)
         {
             Console.WriteLine(db.Doctors.Find(login).surname);
-            return db.Doctors.Find(login).Speciality;
+            return db.Doctors.Find(login).speciality_code;
         }
 
         //[HttpGet("bycoup/{id}")]

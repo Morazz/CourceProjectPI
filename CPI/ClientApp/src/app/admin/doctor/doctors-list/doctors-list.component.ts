@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
+import { Scheduler } from 'rxjs';
 
 @Component({
   selector: 'app-doctors-list',
@@ -8,7 +9,9 @@ import { Component, Inject } from '@angular/core';
 })
 export class DoctorsListComponent {
   public doctors: Doctor[];
-
+  public speciality: Speciality = new Speciality("", "");
+  public department: Department = new Department(0, "");
+  public hours: Schedule = new Schedule(0, new Date(), new Date());
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.getDoctors();
@@ -27,11 +30,18 @@ export class DoctorsListComponent {
     this.http.get<Doctor[]>(this.baseUrl + 'doctor').subscribe(result => {
       this.doctors = result;
       this.doctors.forEach(doc => {
-        this.http.get<Speciality>(this.baseUrl + 'doctor/spec/' + doc.login).subscribe(result => {
-          //doc.speciality_code = result;
-          
+
+        this.http.get<Department>(this.baseUrl + 'department/' + doc.department_code).subscribe(result => {
+          doc.department = result;
         }, error => console.error(error));
-        //console.log(doc.speciality_code);
+
+        this.http.get<Speciality>(this.baseUrl + 'speciality/' + doc.speciality_code).subscribe(result => {
+          doc.speciality = result;
+        }, error => console.error(error));
+
+        this.http.get<Schedule>(this.baseUrl + 'schedule/' + doc.schedule_code).subscribe(result => {
+          doc.hours = result;
+        }, error => console.error(error));
       })
     }, error => console.error(error));
   }
@@ -46,21 +56,11 @@ export class DoctorsListComponent {
   }
 }
 
-//interface Doctor {
-//  login: string;
-//  speciality: string;
-//  firstname: string;
-//  fathername: string;
-//  lastname: string;
-//  cabinet: number;
-//  department_code: number;
-//  schedule_code: number
-//}
-
 export class Schedule {
   constructor(
-    public schedule_code: string,
-    public appointment_start: Date) { }
+    public schedule_code: number,
+    public appointment_start: Date,
+    public appointment_end: Date) { }
 }
 
 export class Speciality {
@@ -76,9 +76,12 @@ export class Doctor {
     public fathername: string,
     public surname: string,
     public cabinet: number,
-    public speciality_code: Speciality,
-    public department_code: Department,
-    public schedule_code: Schedule
+    public speciality_code: string,
+    public department_code: number,
+    public schedule_code: number,
+    public speciality: Speciality,
+    public department: Department,
+    public hours: Schedule
   ) { }
 }
 

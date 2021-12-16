@@ -22,7 +22,7 @@
     <em>Загрузка...</em>
   </div>
   <div *ngIf="departments">
-    <input type="text" name="department" [(ngModel)]="docDepartment.department_code" list="dep">
+    <input type="text" name="department" [(ngModel)]="doctor.department_code" list="dep">
     <datalist id="dep" name="dep">
       <option *ngFor="let department of departments" [value]="department.department_code">{{department.department_name}}</option>
     </datalist>
@@ -35,7 +35,7 @@
     <em>Загрузка...</em>
   </div>
   <div *ngIf="specialities">
-    <input type="text" name="speciality" [(ngModel)]="docSpeciality.speciality_code" list="spec">
+    <input type="text" name="speciality" [(ngModel)]="doctor.speciality_code" list="spec">
     <datalist id="spec" name="spec">
       <option *ngFor="let speciality of specialities" [value]="speciality.speciality_code">{{speciality.speciality}}</option>
     </datalist>
@@ -46,7 +46,7 @@
     <em>Загрузка...</em>
   </div>
   <div *ngIf="schedules">
-    <select id="sch" name="sch" [(ngModel)]="docSchedule.schedule_code">
+    <select id="sch" name="sch" [(ngModel)]="doctor.schedule_code">
       <option *ngFor="let schedule of schedules" [value]="schedule.schedule_code">{{schedule.appointment_start | date: 'HH:mm'}} - {{schedule.appointment_end | date: 'HH:mm'}}</option>
     </select>
   </div>

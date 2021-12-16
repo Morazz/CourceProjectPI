@@ -15,7 +15,7 @@ export class AddDoctorComponent {
   public docSpeciality: Speciality = new Speciality("", "");
   public docDepartment: Department = new Department(0, "", null);
   public docSchedule: Schedule = new Schedule(0, new Date(), new Date());
-  public doctor: Doctor = new Doctor("", "", "", "", 0, this.docSpeciality, this.docDepartment, null);
+  public doctor: Doctor = new Doctor("", "", "", "", 0, 0, 0, "");
   public user: PassData = new PassData("", "", "Врач");
 
 
@@ -26,17 +26,7 @@ export class AddDoctorComponent {
   }
 
   addDoctor() {
-    //this.getDepartment();
-    //this.getSpeciality();
-    this.doctor.department_code = this.docDepartment.department_code;
-    this.doctor.speciality_code = this.docSpeciality.speciality_code;
-    this.doctor.schedule_code = this.docSchedule.schedule_code;
-    //this.doctor.department_code = this.docDepartment;
-    //this.getDepartment(this.docDepartment.department_code);
-    //this.getSpeciality(this.docSpeciality.speciality);
-    console.log(this.doctor.speciality_code);
-    console.log(this.doctor.schedule_code);
-    console.log(this.doctor.department_code);
+    console.log(this.doctor);
 
     this.http.post(this.baseUrl + 'passdata', new PassData(this.doctor.login, this.user.password))
       .subscribe(
@@ -55,23 +45,9 @@ export class AddDoctorComponent {
     }, error => console.error(error));
   }
 
-  getDepartment() {
-    this.http.get<Department>(this.baseUrl + 'department/' + this.docDepartment.department_code).subscribe(result => {
-      this.doctor.department_code = result.department_code;
-      //console.log(this.doctor.department_code.department_code + " :   " + this.doctor.department_code.department_name + " : " + this.doctor.department_code.head);
-    }, error => console.error(error));
-  }
-
   getSpecialities() {
     this.http.get<Speciality[]>(this.baseUrl + 'speciality').subscribe(result => {
       this.specialities = result;
-    }, error => console.error(error));
-  }
-
-  getSpeciality() {
-    this.http.get<Speciality>(this.baseUrl + 'speciality/' + this.docSpeciality.speciality_code).subscribe(result => {
-      this.doctor.speciality_code = result.speciality_code;
-      //console.log(this.doctor.speciality_code.speciality_code + " " + this.doctor.speciality_code.speciality);
     }, error => console.error(error));
   }
 
@@ -89,9 +65,9 @@ export class Doctor {
     public fathername: string,
     public surname: string,
     public cabinet: number,
-    public speciality_code: string,
     public department_code: number,
-    public schedule_code: number
+    public schedule_code: number,
+    public speciality_code: string
   ) { }
 }
 

@@ -26,25 +26,25 @@ namespace CPI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Doctorlogin")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Patientlogin")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<DateTime>("appointment_day")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("template")
+                    b.Property<string>("doctor_login")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("patient_login")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("template_id")
                         .HasColumnType("int");
 
                     b.HasKey("coupon_id");
 
-                    b.HasIndex("Doctorlogin");
+                    b.HasIndex("doctor_login");
 
-                    b.HasIndex("Patientlogin");
+                    b.HasIndex("patient_login");
 
-                    b.HasIndex("template");
+                    b.HasIndex("template_id");
 
                     b.ToTable("Coupons");
                 });
@@ -90,7 +90,7 @@ namespace CPI.Migrations
                     b.Property<int>("cabinet")
                         .HasColumnType("int");
 
-                    b.Property<int?>("department_code")
+                    b.Property<int>("department_code")
                         .HasColumnType("int");
 
                     b.Property<string>("fathername")
@@ -99,7 +99,7 @@ namespace CPI.Migrations
                     b.Property<string>("firstname")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("schedule_code")
+                    b.Property<int>("schedule_code")
                         .HasColumnType("int");
 
                     b.Property<string>("speciality_code")
@@ -209,17 +209,19 @@ namespace CPI.Migrations
                 {
                     b.HasOne("CPI.Models.Doctor", "Doctor")
                         .WithMany()
-                        .HasForeignKey("Doctorlogin");
+                        .HasForeignKey("doctor_login");
 
                     b.HasOne("CPI.Models.Patient", "Patient")
                         .WithMany("Coupons")
-                        .HasForeignKey("Patientlogin");
+                        .HasForeignKey("patient_login");
 
-                    b.HasOne("CPI.Models.CouponTemplate", "appointment_time")
+                    b.HasOne("CPI.Models.CouponTemplate", "CouponTemplate")
                         .WithMany()
-                        .HasForeignKey("template");
+                        .HasForeignKey("template_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("appointment_time");
+                    b.Navigation("CouponTemplate");
 
                     b.Navigation("Doctor");
 
@@ -230,25 +232,21 @@ namespace CPI.Migrations
                 {
                     b.HasOne("CPI.Models.Department", "Department")
                         .WithMany("Doctors")
-                        .HasForeignKey("department_code");
-
-                    b.HasOne("CPI.Models.PassData", "PassData")
-                        .WithMany()
-                        .HasForeignKey("login")
+                        .HasForeignKey("department_code")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("CPI.Models.Schedule", "Schedule")
                         .WithMany("Doctors")
-                        .HasForeignKey("schedule_code");
+                        .HasForeignKey("schedule_code")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("CPI.Models.Speciality", "Speciality")
                         .WithMany("Doctors")
                         .HasForeignKey("speciality_code");
 
                     b.Navigation("Department");
-
-                    b.Navigation("PassData");
 
                     b.Navigation("Schedule");
 

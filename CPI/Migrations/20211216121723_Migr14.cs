@@ -2,25 +2,25 @@
 
 namespace CPI.Migrations
 {
-    public partial class Migr11 : Migration
+    public partial class Migr14 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Patients_PassData_PassDatalogin",
-                table: "Patients");
+                name: "FK_Doctors_PassData_PassDatalogin",
+                table: "Doctors");
 
             migrationBuilder.DropIndex(
-                name: "IX_Patients_PassDatalogin",
-                table: "Patients");
+                name: "IX_Doctors_PassDatalogin",
+                table: "Doctors");
 
             migrationBuilder.DropColumn(
                 name: "PassDatalogin",
-                table: "Patients");
+                table: "Doctors");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Patients_PassData_login",
-                table: "Patients",
+                name: "FK_Doctors_PassData_login",
+                table: "Doctors",
                 column: "login",
                 principalTable: "PassData",
                 principalColumn: "login",
@@ -30,23 +30,23 @@ namespace CPI.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Patients_PassData_login",
-                table: "Patients");
+                name: "FK_Doctors_PassData_login",
+                table: "Doctors");
 
             migrationBuilder.AddColumn<string>(
                 name: "PassDatalogin",
-                table: "Patients",
+                table: "Doctors",
                 type: "nvarchar(450)",
                 nullable: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Patients_PassDatalogin",
-                table: "Patients",
+                name: "IX_Doctors_PassDatalogin",
+                table: "Doctors",
                 column: "PassDatalogin");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Patients_PassData_PassDatalogin",
-                table: "Patients",
+                name: "FK_Doctors_PassData_PassDatalogin",
+                table: "Doctors",
                 column: "PassDatalogin",
                 principalTable: "PassData",
                 principalColumn: "login",
