@@ -2,9 +2,9 @@
   <h3>Добавить расписание</h3>
   <hr>
   <label for="time_start"><b>Начало приема</b></label>
-  <input type="time" name="time_start" [(ngModel)]="schedule.appointment_start" required>
+  <input type="time" name="time_start" [(ngModel)]="start" required>
   <label for="time_end"><b>Окончание приема</b></label>
-  <input type="time" name="time_end" [(ngModel)]="schedule.appointment_end" required>
+  <input type="time" name="time_end" [(ngModel)]="end" required>
 
   <div><button class="registerbtn" (click)="postSchedule()">Сохранить</button></div>
 </div>

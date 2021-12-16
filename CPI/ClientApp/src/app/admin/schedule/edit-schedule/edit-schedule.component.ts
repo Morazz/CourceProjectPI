@@ -10,8 +10,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 
 export class EditScheduleComponent {
-  public scheduler: Schedule = new Schedule(0, new Date(), new Date());
+  public schedule: Schedule = new Schedule(0, new Date(), new Date());
   public schedule_code: number;
+  public start: string;
+  public end: string;
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string)  {
     this.schedule_code = activateRoute.snapshot.params['schedule_code'];
@@ -21,16 +23,23 @@ export class EditScheduleComponent {
   getSchedule(schedule_code: number) {
     this.http.get<Schedule>(this.baseUrl + 'schedule/' + schedule_code).subscribe(result => {
       console.log(result.schedule_code);
-      this.scheduler = result;
+      this.schedule = result;
       
     }, error => console.error(error));
   }
 
   editSchedule() {
-    console.log(this.scheduler.schedule_code);
-    console.log(this.scheduler.appointment_start);
-    console.log(this.scheduler.appointment_end);
-    this.http.put(this.baseUrl + 'schedule', this.scheduler).subscribe(result => {
+    const hours = this.start.substr(0, 2);
+    const minutes = this.start.substr(3, 2);
+    const date = new Date(Date.UTC(0, 0, 0, Number(hours), Number(minutes)));
+    this.schedule.appointment_start = date;
+
+    const hours2 = this.end.substr(0, 2);
+    const minutes2 = this.end.substr(3, 2);
+    const date2 = new Date(Date.UTC(0, 0, 0, Number(hours2), Number(minutes2)));
+    this.schedule.appointment_end = date2;
+
+    this.http.put(this.baseUrl + 'schedule', this.schedule).subscribe(result => {
       this.router.navigate(['schedules-list']);
     }, error => console.error(error));
   }
