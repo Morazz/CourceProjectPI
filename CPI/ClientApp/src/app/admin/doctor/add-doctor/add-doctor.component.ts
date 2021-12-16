@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -13,9 +14,9 @@ export class AddDoctorComponent {
   public specialities: Speciality[];
   public schedules: Schedule[];
   public docSpeciality: Speciality = new Speciality("", "");
-  public docDepartment: Department = new Department(0, "", null);
+  public docDepartment: Department = new Department(0, "");
   public docSchedule: Schedule = new Schedule(0, new Date(), new Date());
-  public doctor: Doctor = new Doctor("", "", "", "", 0, 0, 0, "");
+  public doctor: Doctor = new Doctor("", "", "", "", 1, 0, 0, "", this.docDepartment, this.docSchedule, this.docSpeciality);
   public user: PassData = new PassData("", "", "Врач");
 
 
@@ -26,8 +27,10 @@ export class AddDoctorComponent {
   }
 
   addDoctor() {
+    this.getSpeciality();
+    this.getDepartment();
+    this.getSchedule();
     console.log(this.doctor);
-
     this.http.post(this.baseUrl + 'passdata', new PassData(this.doctor.login, this.user.password))
       .subscribe(
         result => {
@@ -42,6 +45,7 @@ export class AddDoctorComponent {
   getDepartments() {
     this.http.get<Department[]>(this.baseUrl + 'department').subscribe(result => {
       this.departments = result;
+      console.log("DDe p " + this.departments.length);
     }, error => console.error(error));
   }
 
@@ -54,6 +58,24 @@ export class AddDoctorComponent {
   getSchedules() {
     this.http.get<Schedule[]>(this.baseUrl + 'schedule').subscribe(result => {
       this.schedules = result;
+    }, error => console.error(error));
+  }
+
+  getDepartment() {
+    this.http.get<Department>(this.baseUrl + 'department/' + this.docDepartment.department_code).subscribe(result => {
+      this.doctor.department_code = result.department_code;
+    }, error => console.error(error));
+  }
+
+  getSpeciality() {
+    this.http.get<Speciality>(this.baseUrl + 'speciality/' + this.docSpeciality.speciality_code).subscribe(result => {
+      this.doctor.speciality_code = result.speciality_code;
+    }, error => console.error(error));
+  }
+
+  getSchedule() {
+    this.http.get<Schedule>(this.baseUrl + 'schedule/' + this.docSchedule.schedule_code).subscribe(result => {
+      this.doctor.schedule_code = result.schedule_code;
     }, error => console.error(error));
   }
 }
@@ -82,8 +104,7 @@ export class PassData {
 export class Department {
   constructor(
     public department_code: number,
-    public department_name: string,
-    public head: string) { }
+    public department_name: string) { }
 }
 
 export class Speciality {

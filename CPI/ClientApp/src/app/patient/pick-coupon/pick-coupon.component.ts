@@ -42,26 +42,13 @@ export class PickCouponComponent {
     });
   }
 
-  getTime() {
-    //this.http.get<CouponTemplate>(this.baseUrl + 'coupontemplate/time/' + this.newCoupon.appointment_time.time).subscribe(result => {
-    //  if (result) {
-    //    this.newCoupon.appointment_time = result.template_id;
-    //    console.log(this.newCoupon.appointment_time.template_id);
-    //  }
-    //}, error => console.error(error));
-  }
-
   pickCoupon() {
-    console.log(this.newCoupon.patient_login);
-    console.log(this.newCoupon.doctor_login);
-    console.log(this.newCoupon.appointment_day);
-    console.log(this.newCoupon.template_id);
-    console.log(this.freeCoupons.length);
-    this.http.post(this.baseUrl + 'coupon', this.newCoupon)
-      .subscribe(
-        (data: any) => {
-          this.router.navigate(['/user-page', this.newCoupon.patient_login]);
-        }, error => console.log(error));
+    //this.http.post(this.baseUrl + 'coupon', this.newCoupon)
+    //  .subscribe(
+    //    (data: any) => {
+    //      this.router.navigate(['/user-page', this.newCoupon.patient_login]);
+    //    }, error => console.log(error));
+    console.log(this.doctor);
   }
 }
 

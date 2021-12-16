@@ -13,7 +13,5 @@ namespace CPI.Models
         public int department_code { get; set; }
         public string department_name { get; set; }
         public string head { get; set; }
-
-        public List<Doctor> Doctors { get; set; } = new List<Doctor>();
     }
 }
