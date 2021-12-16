@@ -15,7 +15,7 @@ namespace CPI.Models
         public string fathername { get; set; }
         public string surname { get; set; }
         public int cabinet { get; set; }
-        public int department_code { get; set; }
+        public int? department_code { get; set; }
         [ForeignKey("department_code")]
         public Department Department { get; set; }
         public int schedule_code { get; set; }
@@ -25,7 +25,7 @@ namespace CPI.Models
         [ForeignKey("speciality_code")]
         public Speciality Speciality { get; set; }
 
-
+        public PassData PassData { get; set; }
 
         public Doctor() { }
     }

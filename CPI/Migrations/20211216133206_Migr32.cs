@@ -2,7 +2,7 @@
 
 namespace CPI.Migrations
 {
-    public partial class Migr16 : Migration
+    public partial class Migr32 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

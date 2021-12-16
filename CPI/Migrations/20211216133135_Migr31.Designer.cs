@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CPI.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20211215105001_Mig1")]
-    partial class Mig1
+    [Migration("20211216133135_Migr31")]
+    partial class Migr31
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,25 +28,25 @@ namespace CPI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Doctorlogin")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Patientlogin")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<DateTime>("appointment_day")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("template")
+                    b.Property<string>("doctor_login")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("patient_login")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("template_id")
                         .HasColumnType("int");
 
                     b.HasKey("coupon_id");
 
-                    b.HasIndex("Doctorlogin");
+                    b.HasIndex("doctor_login");
 
-                    b.HasIndex("Patientlogin");
+                    b.HasIndex("patient_login");
 
-                    b.HasIndex("template");
+                    b.HasIndex("template_id");
 
                     b.ToTable("Coupons");
                 });
@@ -101,7 +101,7 @@ namespace CPI.Migrations
                     b.Property<string>("firstname")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("schedule_code")
+                    b.Property<int>("schedule_code")
                         .HasColumnType("int");
 
                     b.Property<string>("speciality_code")
@@ -211,17 +211,19 @@ namespace CPI.Migrations
                 {
                     b.HasOne("CPI.Models.Doctor", "Doctor")
                         .WithMany()
-                        .HasForeignKey("Doctorlogin");
+                        .HasForeignKey("doctor_login");
 
                     b.HasOne("CPI.Models.Patient", "Patient")
-                        .WithMany("Coupons")
-                        .HasForeignKey("Patientlogin");
-
-                    b.HasOne("CPI.Models.CouponTemplate", "appointment_time")
                         .WithMany()
-                        .HasForeignKey("template");
+                        .HasForeignKey("patient_login");
 
-                    b.Navigation("appointment_time");
+                    b.HasOne("CPI.Models.CouponTemplate", "CouponTemplate")
+                        .WithMany()
+                        .HasForeignKey("template_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CouponTemplate");
 
                     b.Navigation("Doctor");
 
@@ -241,11 +243,13 @@ namespace CPI.Migrations
                         .IsRequired();
 
                     b.HasOne("CPI.Models.Schedule", "Schedule")
-                        .WithMany("Doctors")
-                        .HasForeignKey("schedule_code");
+                        .WithMany()
+                        .HasForeignKey("schedule_code")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("CPI.Models.Speciality", "Speciality")
-                        .WithMany("Doctors")
+                        .WithMany()
                         .HasForeignKey("speciality_code");
 
                     b.Navigation("Department");
@@ -269,21 +273,6 @@ namespace CPI.Migrations
                 });
 
             modelBuilder.Entity("CPI.Models.Department", b =>
-                {
-                    b.Navigation("Doctors");
-                });
-
-            modelBuilder.Entity("CPI.Models.Patient", b =>
-                {
-                    b.Navigation("Coupons");
-                });
-
-            modelBuilder.Entity("CPI.Models.Schedule", b =>
-                {
-                    b.Navigation("Doctors");
-                });
-
-            modelBuilder.Entity("CPI.Models.Speciality", b =>
                 {
                     b.Navigation("Doctors");
                 });

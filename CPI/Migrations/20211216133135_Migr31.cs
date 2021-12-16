@@ -2,16 +2,9 @@
 
 namespace CPI.Migrations
 {
-    public partial class Migr15 : Migration
+    public partial class Migr31 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Doctors_PassData_login",
-                table: "Doctors");
-        }
-
-        protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddForeignKey(
                 name: "FK_Doctors_PassData_login",
@@ -20,6 +13,13 @@ namespace CPI.Migrations
                 principalTable: "PassData",
                 principalColumn: "login",
                 onDelete: ReferentialAction.Cascade);
+        }
+
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Doctors_PassData_login",
+                table: "Doctors");
         }
     }
 }

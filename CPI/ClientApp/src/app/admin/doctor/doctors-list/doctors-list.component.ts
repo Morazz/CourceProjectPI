@@ -76,9 +76,9 @@ export class Doctor {
     public fathername: string,
     public surname: string,
     public cabinet: number,
-    public speciality_code: string,
     public department_code: number,
     public schedule_code: number,
+    public speciality_code: string,
     public speciality: Speciality,
     public department: Department,
     public hours: Schedule

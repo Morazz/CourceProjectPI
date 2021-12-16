@@ -12,8 +12,6 @@ namespace CPI.Models
         public string speciality_code { get; set; }
         public string speciality { get; set; }
 
-        public List<Doctor> Doctors { get; set; } = new List<Doctor>();
-
         public Speciality() { }
     }
 }

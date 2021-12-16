@@ -57,13 +57,6 @@ namespace CPI.Controllers
             return db.Doctors.Find(login).speciality_code;
         }
 
-        //[HttpGet("bycoup/{id}")]
-        //public Doctor GetDoctorByCoup(int id)
-        //{
-        //    //Console.WriteLine(db.Doctors.Find(id).login);
-        //    return db.Doctors.Where(doc => doc.);
-        //}
-
         [HttpPost]
         public void Insert(Doctor doctor)
         {
