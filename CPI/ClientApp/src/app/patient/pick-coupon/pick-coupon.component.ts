@@ -43,12 +43,12 @@ export class PickCouponComponent {
   }
 
   pickCoupon() {
-    //this.http.post(this.baseUrl + 'coupon', this.newCoupon)
-    //  .subscribe(
-    //    (data: any) => {
-    //      this.router.navigate(['/user-page', this.newCoupon.patient_login]);
-    //    }, error => console.log(error));
-    console.log(this.doctor);
+    this.http.post(this.baseUrl + 'coupon', this.newCoupon)
+      .subscribe(
+        (data: any) => {
+          this.router.navigate(['/user-page', this.newCoupon.patient_login]);
+        }, error => console.log(error));
+    console.log(this.selectedDate);
   }
 }
 

@@ -3,7 +3,7 @@
   
 }
 
-.coupon {
+/*.coupon {
   margin: 20px 10px;
   background-color: #f1f1f1;
   width: 70px;
@@ -14,7 +14,7 @@
 
   .coupon:hover {
     background-color: #B5B5B5;
-  }
+  }*/
 
 .registerbtn {
   background-color: #4CAF50;
@@ -30,3 +30,42 @@
   .registerbtn:hover {
     opacity: 1;
   }
+
+*:focus {
+  outline: none;
+}
+
+.coup {
+  width: 70px;
+}
+
+.container label, .container div {
+  display:inline-block; 
+}
+
+.card-input-element {
+  display: none;
+}
+
+.container {
+  width: 100%;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.card-input {
+  margin: 5px;
+  padding: 10px;
+}
+
+  .card-input:hover {
+    cursor: pointer;
+    background: #b5b5b5;
+  }
+
+.card-input-element:checked + .card-input {
+  background: #b5b5b5;
+}
+

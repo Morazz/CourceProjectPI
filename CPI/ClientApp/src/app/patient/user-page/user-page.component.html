@@ -21,6 +21,7 @@
     <div style="margin: 5px 0;">
       <p>{{coupon.appointment_day | date: 'dd.MM.yyyy'}}</p>
       <p>{{coupon.template.time | date:'HH:mm'}}</p>
+      <p class="title">{{coupon.doctor.speciality.speciality}}</p>
       <p class="title">{{coupon.doctor.surname}} {{coupon.doctor.firstname}} {{coupon.doctor.fathername}}</p>
       <p class="title">Кабинет {{coupon.doctor.cabinet}}</p>
     </div>
