@@ -1,6 +1,8 @@
 import { Time } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
+import { Doctor, Patient } from '../../../doctor/doctor-coupons-list/doctor-coupons-list.component';
+import { CouponTemplate } from '../../../patient/user-page/user-page.component';
 
 @Component({
     selector: 'app-coupons-list',
@@ -10,6 +12,8 @@ import { Component, Inject } from '@angular/core';
 /** coupons-list component*/
 export class CouponsListComponent {
   public coupons: Coupon[];
+  public user: Patient = new Patient("", "", "", "", new Date(), "", "", "");
+  public doctor: Doctor = new Doctor("", "", "", "", 0, "");
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.getCoupons();
@@ -18,7 +22,17 @@ export class CouponsListComponent {
   getCoupons() {
     this.http.get<Coupon[]>(this.baseUrl + 'coupon').subscribe(result => {
       this.coupons = result;
-      console.log(this.coupons.length);
+      this.coupons.forEach(coup => {
+        this.http.get<Doctor>(this.baseUrl + 'doctor/' + coup.doctor_login).subscribe(result => {
+          coup.doctor = result;
+          this.http.get<CouponTemplate>(this.baseUrl + 'coupontemplate/' + coup.template_id).subscribe(result => {
+            coup.template = result;
+          }, error => console.error(error));
+          this.http.get<Patient>(this.baseUrl + 'patient/' + coup.patient_login).subscribe(result => {
+            coup.patient = result;
+          }, error => console.error(error));
+        }, error => console.error(error));
+      }, error => console.error(error));
     }, error => console.error(error));
   }
 
@@ -35,10 +49,11 @@ export class CouponsListComponent {
 export class Coupon {
   constructor(
     public coupon_id: number,
-    public patient_id: string,
-    public doctor_id: string,
-    public appointment_date: Date,
-    //public appointment_time: Time,
-    //public cabinet: number) { }
-  ) { }
+    public appointment_day: Date,
+    public patient_login: string,
+    public doctor_login: number,
+    public template_id: number,
+    public doctor: Doctor,
+    public patient: Patient,
+    public template: CouponTemplate) { }
 }

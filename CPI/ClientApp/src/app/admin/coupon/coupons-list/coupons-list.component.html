@@ -1,10 +1,9 @@
-<h2>Отделения</h2>
+<h2>Талоны</h2>
 
 <div class="topnav">
   <div class="search-container">
     <form action="">
       <input type="text" placeholder="Найти.." name="search" class="search">
-      <button type="submit">Submit</button>
     </form>
   </div>
 </div>
@@ -17,16 +16,16 @@
       <tr>
         <th>Дата приема</th>
         <th>Время приема</th>
-        <th>Логин пациента</th>
-        <th>Логин врача</th>
+        <th>Пациент</th>
+        <th>Врач</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let coupon of coupons">
-        <td>{{coupon.appointment_date}}</td>
-        <td>{{coupon.appointment_time}}</td>
-        <td>{{coupon.Patient}}</td>
-        <td>{{coupon.Doctor}}</td>
+        <td>{{coupon.appointment_day | date: 'dd.MM.yyyy'}}</td>
+        <td>{{coupon.template.time | date: 'HH:mm'}}</td>
+        <td><a [routerLinkActive]="['link-active']" [routerLink]="['/user-page', coupon.patient.login]"> {{coupon.patient.surname}} {{coupon.patient.firstname}} {{coupon.patient.fathername}}</a></td>
+        <td><a [routerLinkActive]="['link-active']" [routerLink]="['/doctor-info', coupon.doctor.login]"> {{coupon.doctor.surname}} {{coupon.doctor.firstname}} {{coupon.doctor.fathername}}</a></td>
         <td>
           <button class="dltbtn" (click)="deleteCoupon(coupon.coupon_id)">Удалить</button>
         </td>
