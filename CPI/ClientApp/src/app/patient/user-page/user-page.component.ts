@@ -36,7 +36,6 @@ export class UserPageComponent {
       this.coupons.forEach(coup => {
         this.http.get<Doctor>(this.baseUrl + 'doctor/' + coup.doctor_login).subscribe(result => {
           coup.doctor = result;
-          console.log(coup.doctor.fathername);
           this.http.get<Speciality>(this.baseUrl + 'speciality/' + coup.doctor.speciality_code).subscribe(result => {
             coup.doctor.speciality = result;
           }, error => console.error(error));

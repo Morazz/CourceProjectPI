@@ -2,10 +2,19 @@
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   max-width: 300px;
-  margin: auto;
+  padding: 5px;
+  margin: 20px;
   text-align: center;
   font-family: arial;
+  width: 15%;
+  display: inline-block;
 }
+
+  .card:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: white;
+    cursor: pointer;
+  }
 
 .title {
   color: grey;
@@ -16,4 +25,11 @@ a {
   text-decoration: none;
   font-size: 22px;
   color: black;
+}
+
+.div-container {
+  float: left;
+  margin: 10px;
+  display: inline-block;
+  width: 100%;
 }

@@ -73,14 +73,40 @@ namespace CPI.Controllers
             List<Coupon> coupons = new List<Coupon>();
             foreach (Coupon cup in db.Coupons.Where(c => c.Doctor.login == login))
             {
+                Console.WriteLine(cup is Coupon);
                 if (cup.appointment_day.Date > DateTime.Now.Date)
                     coupons.Add(cup);
                 else if (cup.appointment_day.Date == DateTime.Now.Date)
-                    if (DateTime.Compare(default(DateTime).Add(cup.CouponTemplate.time.TimeOfDay), time) >= 0)
+                {
+                    CouponTemplate cp = db.CouponTemplates.Find(cup.template_id);
+                    if (DateTime.Compare(default(DateTime).Add(cp.time.TimeOfDay), time) >= 0)
                         coupons.Add(cup);
+                }
             }
 
-            return coupons;
+            return coupons.ToArray();
+        }
+
+        [HttpGet("doctor/valuable/{login}/{patient}")]
+        public IEnumerable<Coupon> GetDoctorPatValuable(string login, string patient)
+        {
+            DateTime time = default(DateTime).Add(DateTime.Now.TimeOfDay);
+
+            List<Coupon> coupons = new List<Coupon>();
+            foreach (Coupon cup in db.Coupons.Where(c => c.Doctor.login == login && c.Patient.login == patient))
+            {
+                Console.WriteLine(cup is Coupon);
+                if (cup.appointment_day.Date > DateTime.Now.Date)
+                    coupons.Add(cup);
+                else if (cup.appointment_day.Date == DateTime.Now.Date)
+                {
+                    CouponTemplate cp = db.CouponTemplates.Find(cup.template_id);
+                    if (DateTime.Compare(default(DateTime).Add(cp.time.TimeOfDay), time) >= 0)
+                        coupons.Add(cup);
+                }
+            }
+
+            return coupons.ToArray();
         }
 
         [HttpGet("{doc}/{date}/{template}")]
@@ -94,7 +120,7 @@ namespace CPI.Controllers
                 if (Equals(coup.appointment_day.Date.ToShortDateString(), date))
                     coupons.Add(coup);
             }
-                return coupons.Where(coup => coup.CouponTemplate.template_id == template).Count() == 0;
+                return coupons.Where(coup => coup.template_id == template).Count() == 0;
         }
 
         [HttpPost]

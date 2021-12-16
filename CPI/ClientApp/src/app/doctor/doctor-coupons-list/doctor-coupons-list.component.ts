@@ -2,6 +2,7 @@ import { Time } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CouponTemplate } from '../../patient/user-page/user-page.component';
 
 @Component({
   selector: 'app-doctor-coupons-list',
@@ -11,18 +12,28 @@ import { ActivatedRoute, Router } from '@angular/router';
 /** doctor-coupons-list component*/
 export class DoctorCouponsListComponent {
   public user: Patient = new Patient("", "", "", "", new Date(), "", "", "");
-  public login: string | undefined;
+  public login: string;
   public coupons: Coupon[];
   public doctor: Doctor = new Doctor("", "", "", "", 0, "");
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.login = activateRoute.snapshot.params['login'];
     this.getCoupons(this.login);
+    this.doctor.login = this.login;
   }
 
   getCoupons(login: string) {
     this.http.get<Coupon[]>(this.baseUrl + 'coupon/doctor/valuable/' + login).subscribe(result => {
       this.coupons = result;
+      this.coupons.forEach(coup => {
+        this.http.get<Patient>(this.baseUrl + 'patient/' + coup.patient_login).subscribe(result => {
+          coup.patient = result;
+          console.log(coup.patient.login);
+          this.http.get<CouponTemplate>(this.baseUrl + 'coupontemplate/' + coup.template_id).subscribe(result => {
+            coup.template = result;
+          }, error => console.error(error));
+        });
+      }, error => console.error(error));
     }, error => console.error(error));
   }
 }
@@ -42,13 +53,13 @@ export class Patient {
 
 export class Coupon {
   constructor(
-    id: number,
-    number: number,
-    patient_id: string,
-    doctor_id: string,
-    appointment_date: Date,
-    appointment_time: Time,
-    cabinet: number) { }
+    public coupon_id: number,
+    public appointment_day: Date,
+    public patient_login: string,
+    public doctor_login: number,
+    public template_id: number,
+    public patient: Patient,
+    public template: CouponTemplate) { }
 }
 
 export class Doctor {

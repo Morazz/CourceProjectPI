@@ -50,13 +50,6 @@ namespace CPI.Controllers
             return db.Doctors.Where(doc => doc.department_code == null);
         }
 
-        [HttpGet("spec/{login}")]
-        public string GetSpecByCode(string login)
-        {
-            Console.WriteLine(db.Doctors.Find(login).surname);
-            return db.Doctors.Find(login).speciality_code;
-        }
-
         [HttpPost]
         public void Insert(Doctor doctor)
         {
@@ -84,9 +77,10 @@ namespace CPI.Controllers
                 doctor.firstname = newDoctor.firstname;
                 doctor.fathername = newDoctor.fathername;
                 doctor.surname = newDoctor.surname;
-                //doctor.speciality = newDoctor.speciality;
+                doctor.speciality_code = newDoctor.speciality_code;
                 doctor.cabinet = newDoctor.cabinet;
-                //doctor.schedule_code = newDoctor.schedule_code;
+                doctor.schedule_code = newDoctor.schedule_code;
+                doctor.department_code = newDoctor.department_code;
                 db.Doctors.Update(doctor);
                 db.SaveChanges();
             }

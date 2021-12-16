@@ -4,12 +4,12 @@
 
 <div class="div-container" *ngIf="coupons">
 
-  <div class="card" *ngFor="let coupon of coupons">
-    <div style="margin: 5px 0;">
-      <p class="title">{{coupon.patient.login}}</p>
-    </div>
+  <div class="card" *ngFor="let coupon of coupons"  [routerLink]="['/patient-info', doctor.login, coupon.patient.login]">
     <p>{{coupon.appointment_day | date: 'dd.MM.yyyy'}}</p>
-    <p>{{coupon.appointment_time | date: 'HH:mm'}}</p>
+    <p>{{coupon.template.time | date: 'HH:mm'}}</p>
+    <div style="margin: 5px 0;">
+      <p class="title">{{coupon.patient.surname}} {{coupon.patient.firstname}} {{coupon.patient.fathername}}</p>
+    </div>
   </div>
 
 </div>
