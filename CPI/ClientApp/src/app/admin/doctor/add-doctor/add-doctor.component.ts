@@ -16,7 +16,7 @@ export class AddDoctorComponent {
   public docSpeciality: Speciality = new Speciality("", "");
   public docDepartment: Department = new Department(0, "");
   public docSchedule: Schedule = new Schedule(0, new Date(), new Date());
-  public doctor: Doctor = new Doctor("", "", "", "", 1, 0, 0, "", this.docDepartment, this.docSchedule, this.docSpeciality);
+  public doctor: Doctor = new Doctor("", "", "", "", 1, 0, 0, "");
   public user: PassData = new PassData("", "", "Врач");
 
 
@@ -45,7 +45,6 @@ export class AddDoctorComponent {
   getDepartments() {
     this.http.get<Department[]>(this.baseUrl + 'department').subscribe(result => {
       this.departments = result;
-      console.log("DDe p " + this.departments.length);
     }, error => console.error(error));
   }
 

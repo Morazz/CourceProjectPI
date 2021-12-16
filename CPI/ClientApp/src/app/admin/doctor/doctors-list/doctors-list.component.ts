@@ -48,8 +48,22 @@ export class DoctorsListComponent {
 
   onInput(text: string) {
     if (text.length > 0) {
-      this.http.get<Doctor[]>(this.baseUrl + 'passdata/BySur/' + text).subscribe(result => {
+      this.http.get<Doctor[]>(this.baseUrl + 'doctor/BySur/' + text).subscribe(result => {
         this.doctors = result;
+        this.doctors.forEach(doc => {
+
+          this.http.get<Department>(this.baseUrl + 'department/' + doc.department_code).subscribe(result => {
+            doc.department = result;
+          }, error => console.error(error));
+
+          this.http.get<Speciality>(this.baseUrl + 'speciality/' + doc.speciality_code).subscribe(result => {
+            doc.speciality = result;
+          }, error => console.error(error));
+
+          this.http.get<Schedule>(this.baseUrl + 'schedule/' + doc.schedule_code).subscribe(result => {
+            doc.hours = result;
+          }, error => console.error(error));
+        })
       }, error => console.error(error));
     }
     else this.getDoctors();

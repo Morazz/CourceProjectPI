@@ -21,8 +21,6 @@ namespace CPI.Controllers
         [HttpGet]
         public IEnumerable<Doctor> Get()
         {
-            Console.WriteLine("Hello");
-
             return db.Doctors.ToArray();
         }
 

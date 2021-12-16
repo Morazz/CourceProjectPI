@@ -39,8 +39,8 @@
       <td>{{doctor.cabinet}}</td>
       <td>{{doctor.hours.appointment_start | date:'HH:mm'}} - {{doctor.hours.appointment_end | date:'HH:mm'}}</td>
       <td>
-        <button class="dltbtn">Удалить</button>
-        <button class="editbtn">Изменить</button>
+        <button class="dltbtn" (click)="deleteDoctor(doctor.login)">Удалить</button>
+        <button class="editbtn" [routerLink]="['/edit-doctor', doctor.login]">Изменить</button>
       </td>
     </tr>
   </tbody>
