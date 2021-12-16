@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Schedule } from '../../admin/schedule/schedules-list/schedules-list.component';
+import { Department, Doctor, Speciality, Schedule } from '../../admin/doctor/doctors-list/doctors-list.component';
 
 @Component({
   selector: 'app-pick-doctor',
@@ -12,8 +12,8 @@ import { Schedule } from '../../admin/schedule/schedules-list/schedules-list.com
 export class PickDoctorComponent {
 
   public doctors: Doctor[];
-  department: Department = new Department(0, "", "");
-  
+  department: Department = new Department(0, "");
+
   public department_code: number;
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
@@ -23,12 +23,10 @@ export class PickDoctorComponent {
     this.http.get<Doctor[]>(this.baseUrl + 'doctor/dep/' + this.department_code).subscribe(result => {
       this.doctors = result;
       this.doctors.forEach(doc => {
-        doc.speciality_code = new Speciality("", "");
-        this.http.get<Speciality>(this.baseUrl + 'doctor/spec/' + doc.login).subscribe(result => {
-          doc.speciality_code = result;
-          console.log(doc.speciality_code);
+        this.http.get<Speciality>(this.baseUrl + 'speciality/' + doc.speciality_code).subscribe(result => {
+          doc.speciality = result;
         }, error => console.error(error));
-      })
+      }, error => console.error(error));
     }, error => console.error(error));
   }
 
@@ -37,31 +35,4 @@ export class PickDoctorComponent {
       this.department = result;
     }, error => console.error(error));
   }
-}
-
-
-export class Doctor {
-  constructor(
-    public login: string,
-    public firstname: string,
-    public fathername: string,
-    public surname: string,
-    public cabinet: number,
-    public speciality_code: Speciality,
-    public department_code: Department,
-    public schedule_code: Schedule,
-  ) { speciality_code = new Speciality("", ""); }
-}
-
-export class Department {
-  constructor(
-    department_code: number,
-    department_name: string,
-    head: string) { }
-}
-
-export class Speciality {
-  constructor(
-    public speciality_code: string,
-    public speciality: string) { }
 }

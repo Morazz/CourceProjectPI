@@ -26,20 +26,29 @@ namespace CPI.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             string adminRoleName = "Администратор";
-            string userRoleName = "Пациент";
+            string patientRoleName = "Пациент";
             string doctorRoleName = "Доктор";
 
             string adminLogin = "admin";
             string adminPassword = "admin";
 
+            string patientLogin = "pat1";
+            string patientPassword = "pat1";
+
+            string doctorLogin = "doc1";
+            string doctorPassword = "doc1";
+
             PassData adminUser = new PassData(adminLogin, adminPassword, adminRoleName);
+            PassData patientUser = new PassData(patientLogin, patientPassword, patientRoleName);
+            PassData doctorUser = new PassData(doctorLogin, doctorPassword, doctorRoleName);
+
             // добавляем роли
             //Role adminRole = new Role { Id = 1, Name = adminRoleName };
             //Role userRole = new Role { Id = 2, Name = userRoleName };
             //User adminUser = new User { Id = 1, Email = adminEmail, Password = adminPassword, RoleId = adminRole.Id };
 
             //modelBuilder.Entity<PassData>().HasData(new PassData[] { adminRole, userRole });
-            modelBuilder.Entity<PassData>().HasData(new PassData[] { adminUser });
+            modelBuilder.Entity<PassData>().HasData(new PassData[] { adminUser, patientUser, doctorUser });
             base.OnModelCreating(modelBuilder);
         }
     }

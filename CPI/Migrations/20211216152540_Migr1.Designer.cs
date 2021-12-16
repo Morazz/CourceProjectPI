@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CPI.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20211216133135_Migr31")]
-    partial class Migr31
+    [Migration("20211216152540_Migr1")]
+    partial class Migr1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -142,6 +142,18 @@ namespace CPI.Migrations
                             login = "admin",
                             password = "admin",
                             status = "Администратор"
+                        },
+                        new
+                        {
+                            login = "pat1",
+                            password = "pat1",
+                            status = "Пациент"
+                        },
+                        new
+                        {
+                            login = "doc1",
+                            password = "doc1",
+                            status = "Доктор"
                         });
                 });
 
@@ -218,7 +230,7 @@ namespace CPI.Migrations
                         .HasForeignKey("patient_login");
 
                     b.HasOne("CPI.Models.CouponTemplate", "CouponTemplate")
-                        .WithMany()
+                        .WithMany("Coupons")
                         .HasForeignKey("template_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -270,6 +282,11 @@ namespace CPI.Migrations
                         .IsRequired();
 
                     b.Navigation("PassData");
+                });
+
+            modelBuilder.Entity("CPI.Models.CouponTemplate", b =>
+                {
+                    b.Navigation("Coupons");
                 });
 
             modelBuilder.Entity("CPI.Models.Department", b =>

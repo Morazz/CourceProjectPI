@@ -55,8 +55,11 @@ namespace CPI.Controllers
                 if (cup.appointment_day.Date > DateTime.Now.Date)
                     coupons.Add(cup);
                 else if (cup.appointment_day.Date == DateTime.Now.Date)
-                    if (DateTime.Compare(default(DateTime).Add(cup.CouponTemplate.time.TimeOfDay), time) >= 0)
+                {
+                    CouponTemplate cp = db.CouponTemplates.Find(cup.template_id);
+                    if (DateTime.Compare(default(DateTime).Add(cp.time.TimeOfDay), time) >= 0)
                         coupons.Add(cup);
+                }
             }
 
             return coupons.ToArray();

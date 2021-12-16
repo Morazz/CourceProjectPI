@@ -11,12 +11,12 @@ import { Router } from '@angular/router';
 })
 /** add-template component*/
 export class AddTemplateComponent {
-  template: CouponTemplate = new CouponTemplate(0, new Date());
+  template: CouponTemplate = new CouponTemplate(new Date());
 
   constructor(private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
   postCoupon() {
-    console.log(this.template.template_id + " " + this.template.time);
+    console.log(this.template.time);
     this.http.post(this.baseUrl + 'coupontemplate', this.template)
       .subscribe(
         result => {
@@ -27,6 +27,5 @@ export class AddTemplateComponent {
 
 export class CouponTemplate {
   constructor(
-    public template_id: number,
     public time: Date) { }
 }

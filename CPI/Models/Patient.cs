@@ -12,6 +12,7 @@ namespace CPI.Models
         [Required]
         [Key, ForeignKey("PassData")]
         public string login { get; set; }
+        public PassData PassData { get; set; }
         public string firstname { get; set; }
         public string fathername { get; set; }
         public string surname { get; set; }
@@ -19,9 +20,6 @@ namespace CPI.Models
         public string gender { get; set; }
         public string address { get; set; }
         public string phone_number { get; set; }
-
-
-        public PassData PassData { get; set; }
 
         public Patient() { }
     }

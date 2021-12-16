@@ -11,17 +11,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 export class PickCouponComponent {
   coupons: CouponTemplate[];
-  freeCoupons: CouponTemplate[];
+  freeCoupons: CouponTemplate[] = [];
   selectedDate: Date;
-  doctor: Doctor = new Doctor("", "", "", "", 0, "");
-  newCoupon: Coupon = new Coupon(0, "", "", new Date(), new CouponTemplate(0, new Date));
+  newCoupon: Coupon = new Coupon(0, new Date(), "", "", 0);
+  doctor: Doctor = new Doctor("");
+  patient: Patient = new Patient("");
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.getCoupons();
+    this.newCoupon.doctor_login = activateRoute.snapshot.params['doctor_login'];
+    this.newCoupon.patient_login = activateRoute.snapshot.params['login'];
 
-    this.doctor.login = activateRoute.snapshot.params['doctor_login'];
-    this.newCoupon.doctor_id = activateRoute.snapshot.params['doctor_login'];
-    this.newCoupon.patient_id = activateRoute.snapshot.params['login'];
+    console.log(this.newCoupon.doctor_login + " " + this.newCoupon.patient_login);
   }
 
   getCoupons() {
@@ -33,7 +34,7 @@ export class PickCouponComponent {
   checkCoupon() {
     this.freeCoupons = [];
     this.coupons.forEach(coupon => {
-      this.http.get<CouponTemplate[]>(this.baseUrl + 'coupon/' + this.newCoupon.doctor_id + "/" + this.selectedDate.toLocaleDateString() + "/" + coupon.template_id).subscribe(result => {
+      this.http.get<CouponTemplate[]>(this.baseUrl + 'coupon/' + this.newCoupon.doctor_login + "/" + this.selectedDate.toLocaleDateString() + "/" + coupon.template_id).subscribe(result => {
         if (result) {
           this.freeCoupons.push(coupon);
         }
@@ -42,22 +43,24 @@ export class PickCouponComponent {
   }
 
   getTime() {
-    this.http.get<CouponTemplate>(this.baseUrl + 'coupontemplate/time/' + this.newCoupon.appointment_time.time).subscribe(result => {
-      if (result) {
-        
-        this.newCoupon.appointment_time = result;
-        console.log(this.newCoupon.appointment_time.template_id);
-      }
-    }, error => console.error(error));
+    //this.http.get<CouponTemplate>(this.baseUrl + 'coupontemplate/time/' + this.newCoupon.appointment_time.time).subscribe(result => {
+    //  if (result) {
+    //    this.newCoupon.appointment_time = result.template_id;
+    //    console.log(this.newCoupon.appointment_time.template_id);
+    //  }
+    //}, error => console.error(error));
   }
 
   pickCoupon() {
-    console.log(this.newCoupon.appointment_time.template_id);
-/*    console.log(this.newCoupon.appointment_time.time);*/
+    console.log(this.newCoupon.patient_login);
+    console.log(this.newCoupon.doctor_login);
+    console.log(this.newCoupon.appointment_day);
+    console.log(this.newCoupon.template_id);
+    console.log(this.freeCoupons.length);
     this.http.post(this.baseUrl + 'coupon', this.newCoupon)
       .subscribe(
         (data: any) => {
-          this.router.navigate(['/user-page', this.newCoupon.patient_id]);
+          this.router.navigate(['/user-page', this.newCoupon.patient_login]);
         }, error => console.log(error));
   }
 }
@@ -72,34 +75,19 @@ export class CouponTemplate {
 export class Coupon {
   constructor(
     public coupon_id: number,
-    public patient_id: string,
-    public doctor_id: string,
-    public appointment_date: Date,
-    public appointment_time: CouponTemplate) { }
+    public appointment_day: Date,
+    public patient_login: string,
+    public doctor_login: string,
+    public template_id: number) { }
 }
 
 export class Doctor {
   constructor(
-    public login: string,
-    public firstname: string,
-    public fathername: string,
-    public surname: string,
-    public cabinet: number,
-    public speciality: string,
-
-    //public department_code: number,
-    //public schedule_code: number
+    public login: string
   ) { }
 }
 
 export class Patient {
   constructor(
-    login: string,
-    firstname: string,
-    fathername: string,
-    surname: string,
-    birthday: Date,
-    gender: string,
-    address: string,
-    phone_number: string) { }
+    public login: string) { }
 }

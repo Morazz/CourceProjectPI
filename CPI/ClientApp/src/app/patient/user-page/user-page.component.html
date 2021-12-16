@@ -19,11 +19,11 @@
 
   <div class="card" *ngFor="let coupon of coupons">
     <div style="margin: 5px 0;">
-      <p class="title">{{coupon.doctor_id}}</p>
-      <!--<p class="title">{{coupon.cabinet}}</p>-->
+      <p>{{coupon.appointment_day | date: 'dd.MM.yyyy'}}</p>
+      <p>{{coupon.template.time | date:'HH:mm'}}</p>
+      <p class="title">{{coupon.doctor.surname}} {{coupon.doctor.firstname}} {{coupon.doctor.fathername}}</p>
+      <p class="title">Кабинет {{coupon.doctor.cabinet}}</p>
     </div>
-    <p>{{coupon.appointment_day | date: 'dd.MM.yyyy'}}</p>
-    <p>{{coupon.appointment_time | date: 'HH:mm'}}</p>
     <div>
       <p><button (click)="deleteCoupon(coupon.coupon_id)">Отменить</button></p>
     </div>

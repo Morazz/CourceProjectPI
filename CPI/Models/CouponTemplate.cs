@@ -11,7 +11,5 @@ namespace CPI.Models
         [Key]
         public int template_id { get; set; }
         public DateTime time { get; set; }
-
-        public CouponTemplate() { }
     }
 }

@@ -3,11 +3,11 @@
   <mat-calendar (selectedChange)="selectedDate = $event; checkCoupon();"></mat-calendar>
 </mat-card>
 
-<!--<p>Selected date: {{selectedDate}}</p>-->
+<p>Selected date: {{selectedDate}}</p>
 
 <div *ngIf="freeCoupons" class="container">
   <div class="coupon" *ngFor="let freeCoupon of freeCoupons">
-    <h5 (click)="newCoupon.appointment_time.time = freeCoupon.time; getTime()">{{freeCoupon.time | date: 'HH:mm'}}</h5>
+    <h5 (click)="newCoupon.template_id = freeCoupon.template_id; getTime()">{{freeCoupon.time | date: 'HH:mm'}}</h5>
   </div>
 </div>
 
