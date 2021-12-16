@@ -30,6 +30,14 @@ namespace CPI.Controllers
             return db.Specialities.Where(spec => spec.speciality_code == speciality).FirstOrDefault();
         }
 
+        [HttpGet("BySpec/{speciality}")]
+        public Speciality GetBySpec(string speciality)
+        {
+            Console.WriteLine(db.Specialities.Where(spec => spec.speciality == speciality).FirstOrDefault().speciality_code);
+            Console.WriteLine(db.Specialities.Where(spec => spec.speciality == speciality).FirstOrDefault().speciality);
+            return db.Specialities.Where(spec => spec.speciality == speciality).FirstOrDefault();
+        }
+
         [HttpGet("ByCode/{speciality}")]
         public IEnumerable<Speciality> GetByCode(string speciality)
         {

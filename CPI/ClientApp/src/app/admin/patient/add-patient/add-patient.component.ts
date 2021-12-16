@@ -29,14 +29,14 @@ export class AddPatientComponent {
 
 export class Patient {
   constructor(
-    login: string,
-    firstname: string,
-    fathername: string,
-    surname: string,
-    birthday: Date,
-    gender: string,
-    address: string,
-    phone_number: string) { }
+    public login: string,
+    public firstname: string,
+    public fathername: string,
+    public surname: string,
+    public birthday: Date,
+    public gender: string,
+    public address: string,
+    public phone_number: string) { }
 }
 
 export class PassData {

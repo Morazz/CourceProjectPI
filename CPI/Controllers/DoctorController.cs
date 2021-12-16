@@ -21,6 +21,8 @@ namespace CPI.Controllers
         [HttpGet]
         public IEnumerable<Doctor> Get()
         {
+            Console.WriteLine("Hello");
+
             return db.Doctors.ToArray();
         }
 
@@ -52,7 +54,7 @@ namespace CPI.Controllers
         [HttpGet("spec/{login}")]
         public Speciality GetSpecByCode(string login)
         {
-            Console.WriteLine(db.Doctors.Find(login).Speciality.ToString());
+            Console.WriteLine(db.Doctors.Find(login).surname);
             return db.Doctors.Find(login).Speciality;
         }
 

@@ -13,14 +13,19 @@
   <label for="fathername"><b>Отчество</b></label>
   <input type="text" name="fathername" [(ngModel)]="patient.fathername" required>
   <label for="gender"><b>Пол</b></label>
-  <input type="text" name="gender" [(ngModel)]="patient.gender" required>
+  <div>
+    <input type="radio" name="woman" [(ngModel)]="patient.gender" value="Женский">
+    <label for="woman"><b>Женский</b></label> <br />
+    <input type="radio" name="man" [(ngModel)]="patient.gender" value="Мужской">
+    <label for="man"><b>Мужской</b></label>
+  </div>
   <label for="birthday"><b>Дата рождения</b></label>
   <input type="date" name="birthday"
          min="1900-01-01" max="2019-01-01" [(ngModel)]="patient.birthday">
   <label for="address"><b>Адрес</b></label>
   <input type="text" placeholder="Город, улица, дом, квартира" name="address" [(ngModel)]="patient.address" required>
   <label for="phone"><b>Номер телефона</b></label>
-  <input type="tel" placeholder="+375*********" name="phone" [(ngModel)]="patient.phone_number" pattern="^\+375[0-9]{2}[0-9]{7}$" required>
+  <input type="text" placeholder="+375*********" name="phone" [(ngModel)]="patient.phone_number" pattern="^\+375[0-9]{2}[0-9]{7}$" required>
 
   <button class="registerbtn" (click)="postPatient(patient.login, user.password)">Сохранить</button>
 </div>

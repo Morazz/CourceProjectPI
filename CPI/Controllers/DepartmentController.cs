@@ -30,6 +30,12 @@ namespace CPI.Controllers
             return db.Departments.Find(code);
         }
 
+        [HttpGet("{dep}")]
+        public Department GetByDep(string dep)
+        {
+            return db.Departments.Where(depart => depart.department_name == dep).FirstOrDefault();
+        }
+
         [HttpGet("ByName/{name}")]
         public IEnumerable<Department> Get(string name)
         {

@@ -34,12 +34,12 @@ export class EditPatientComponent {
 export class Patient {
   constructor(
     public login: string,
-    firstname: string,
-    fathername: string,
-    surname: string,
+    public firstname: string,
+    public fathername: string,
+    public surname: string,
     public birthday: Date,
-    gender: string,
-    address: string,
-    phone_number: string
+    public gender: string,
+    public address: string,
+    public phone_number: string
   ) { }
 }
