@@ -1,6 +1,5 @@
 import { Time } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Template } from '@angular/compiler/src/render3/r3_ast';
 import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -9,20 +8,22 @@ import { Router } from '@angular/router';
   templateUrl: './add-template.component.html',
   styleUrls: ['./add-template.component.css']
 })
-/** add-template component*/
-export class AddTemplateComponent {
-  template: CouponTemplate = new CouponTemplate(new Date());
 
-  constructor(private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
+export class AddTemplateComponent {
+  template: string = "";
+
+  constructor(private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {}
 
   postCoupon() {
-    console.log(this.template.time);
-    this.http.post(this.baseUrl + 'coupontemplate', this.template)
-      .subscribe(
-        result => {
-          this.router.navigate(['/templates-list']);
-        }, error => console.log(error));
-  };
+    const hours = this.template.substr(0, 2);
+    const minutes = this.template.substr(3, 2);
+    const date = new Date(Date.UTC(0, 0, 0, Number(hours), Number(minutes)));
+      this.http.post(this.baseUrl + 'coupontemplate', new CouponTemplate(date))
+        .subscribe(
+          result => {
+            this.router.navigate(['/templates-list']);
+          }, error => console.log(error));
+  }
 }
 
 export class CouponTemplate {

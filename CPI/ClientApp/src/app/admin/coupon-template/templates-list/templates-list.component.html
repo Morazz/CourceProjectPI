@@ -19,7 +19,7 @@
       <td>{{template.time | date: 'HH:mm'}}</td>
       <td>
         <button class="dltbtn" (click)="deleteTemplate(template.template_id)">Удалить</button>
-        <button class="editbtn" (click)="editTemlate(template.template_id)">Изменить</button>
+        <button class="editbtn" [routerLink]="['/edit-template', template.template_id]">Изменить</button>
       </td>
     </tr>
   </tbody>
