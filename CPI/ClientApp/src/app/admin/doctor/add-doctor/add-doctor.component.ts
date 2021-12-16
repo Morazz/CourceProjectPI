@@ -26,29 +26,27 @@ export class AddDoctorComponent {
   }
 
   addDoctor() {
+    //this.getDepartment();
+    //this.getSpeciality();
+    this.doctor.department_code = this.docDepartment.department_code;
+    this.doctor.speciality_code = this.docSpeciality.speciality_code;
+    this.doctor.schedule_code = this.docSchedule.schedule_code;
     //this.doctor.department_code = this.docDepartment;
     //this.getDepartment(this.docDepartment.department_code);
     //this.getSpeciality(this.docSpeciality.speciality);
-    //console.log(this.doctor.department_code.department_code);
-    //console.log(this.doctor.speciality_code.speciality_code);
-    //console.log(this.doctor.speciality_code.speciality);
-    //console.log(this.doctor.speciality_code.speciality_code);
-    console.log(this.docSchedule.schedule_code + " " + this.docSchedule.appointment_start + " " + this.docSchedule.appointment_end);
-    console.log(this.docSpeciality.speciality_code + " :   " + this.docSpeciality.speciality);
-    console.log(this.docDepartment.department_code + " :   " + this.docDepartment.department_name + " : " + this.docDepartment.head);
+    console.log(this.doctor.speciality_code);
+    console.log(this.doctor.schedule_code);
+    console.log(this.doctor.department_code);
 
-    //this.http.post(this.baseUrl + 'passdata', new PassData(this.doctor.login, this.user.password,))
-    //  .subscribe(
-    //    result => {
-    //      this.doctor.speciality_code = this.docSpeciality;
-    //      console.log(this.doctor.speciality_code.speciality_code);
-    //      console.log(this.doctor.speciality_code.speciality);
-    //      //this.http.post(this.baseUrl + 'doctor', this.doctor)
-    //      //  .subscribe(
-    //      //    (data: any) => {
-    //      //      this.router.navigate(['/doctors-list']);
-    //      //    }, error => console.log(error));
-    //    }, error => console.log(error));
+    this.http.post(this.baseUrl + 'passdata', new PassData(this.doctor.login, this.user.password))
+      .subscribe(
+        result => {
+          this.http.post(this.baseUrl + 'doctor', this.doctor)
+            .subscribe(
+              (data: any) => {
+                this.router.navigate(['/doctors-list']);
+              }, error => console.log(error));
+        }, error => console.log(error));
   };
 
   getDepartments() {
@@ -57,9 +55,10 @@ export class AddDoctorComponent {
     }, error => console.error(error));
   }
 
-  getDepartment(department_name: number) {
-    this.http.get<Department>(this.baseUrl + 'department/bydep/' + department_name).subscribe(result => {
-      this.docDepartment = result;
+  getDepartment() {
+    this.http.get<Department>(this.baseUrl + 'department/' + this.docDepartment.department_code).subscribe(result => {
+      this.doctor.department_code = result.department_code;
+      //console.log(this.doctor.department_code.department_code + " :   " + this.doctor.department_code.department_name + " : " + this.doctor.department_code.head);
     }, error => console.error(error));
   }
 
@@ -69,9 +68,10 @@ export class AddDoctorComponent {
     }, error => console.error(error));
   }
 
-  getSpeciality(speciality: string) {
-    this.http.get<Speciality>(this.baseUrl + 'speciality/BySpec/' + speciality).subscribe(result => {
-      this.docSpeciality = result;
+  getSpeciality() {
+    this.http.get<Speciality>(this.baseUrl + 'speciality/' + this.docSpeciality.speciality_code).subscribe(result => {
+      this.doctor.speciality_code = result.speciality_code;
+      //console.log(this.doctor.speciality_code.speciality_code + " " + this.doctor.speciality_code.speciality);
     }, error => console.error(error));
   }
 
@@ -89,9 +89,9 @@ export class Doctor {
     public fathername: string,
     public surname: string,
     public cabinet: number,
-    public speciality_code: Speciality,
-    public department_code: Department,
-    public schedule_code: Schedule
+    public speciality_code: string,
+    public department_code: number,
+    public schedule_code: number
   ) { }
 }
 
