@@ -16,7 +16,6 @@ export class RegisterComponent {
   public login: string;
   public patient: Patient = new Patient("", "", "", "", new Date(), "", "", "");
   errors: string[] = [];
-  hasError = false;
 
   constructor(private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 

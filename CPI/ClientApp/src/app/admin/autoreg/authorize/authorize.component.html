@@ -10,15 +10,15 @@
   </div>
 
   <label for="psw"><b>Пароль</b></label>
-  <input type="password" name="psw" [(ngModel)]="user.password" #psw="ngModel" required>
+  <input type="password" name="psw" [(ngModel)]="password" #psw="ngModel" required>
   <div [hidden]="psw.valid || psw.untouched" class="alert alert-danger">
     Введите корректный пароль
   </div>
 
   <button type="submit" class="registerbtn" (click)="authorize()" [disabled]="log.invalid || psw.invalid ">Войти</button>
 
-  <div [hidden]="exists" class="alert alert-danger">
-    Такого пользователя не существует
+  <div ng-show="errors">
+    <div *ngFor="let error of errors" class="alert alert-danger">{{error}}</div>
   </div>
 </div>
 

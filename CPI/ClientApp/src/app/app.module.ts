@@ -95,7 +95,7 @@ import { EditDoctorComponent } from './admin/doctor/edit-doctor/edit-doctor.comp
       { path: 'register', component: RegisterComponent },
       { path: 'authorize', component: AuthorizeComponent },
       { path: 'user-page/:login', component: UserPageComponent },
-      { path: 'admin-panel', component: AdminPanelComponent },
+      { path: 'admin-panel/:login', component: AdminPanelComponent },
       { path: 'users-list', component: UsersListComponent },
       { path: 'add-user', component: AddUserComponent },
       { path: 'edit-user/:login', component: EditUserComponent },
