@@ -19,11 +19,10 @@
     <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="doctors" ng-app="doct">
       <thead>
         <tr>
-          <th><a href="#" (click)="sortLogin()">Логин</a>
-          </th>
-          <th>Отделение</th>
+          <th (click)="sortLogin()" class="toorder">Логин</th>
+          <th (click)="sortDepartment()" class="toorder">Отделение</th>
           <th>Специальность</th>
-          <th><a href="#" (click)="sortSurname()">Фамилия</a></th>
+          <th (click)="sortSurname()" class="toorder">Фамилия</th>
           <th>Имя</th>
           <th>Отчество</th>
           <th>Кабинет</th>

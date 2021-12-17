@@ -128,7 +128,7 @@ import { EditDoctorComponent } from './admin/doctor/edit-doctor/edit-doctor.comp
     BrowserAnimationsModule,
     MatDatepickerModule,
     MatCardModule,
-    MatNativeDateModule
+    MatNativeDateModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

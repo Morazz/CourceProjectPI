@@ -1,4 +1,4 @@
-﻿import { Component } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-admin-panel',
@@ -7,8 +7,7 @@
 })
 /** admin-panel component*/
 export class AdminPanelComponent {
-    /** admin-panel ctor */
-    constructor() {
+  constructor() { }
 
-    }
+  userLog = false;
 }

@@ -10,12 +10,12 @@
   </div>
 
   <label for="psw"><b>Пароль</b></label>
-  <input type="password" name="psw" [(ngModel)]="user.password" required>
-  <div [hidden]="password.valid || password.untouched" class="alert alert-danger">
+  <input type="password" name="psw" [(ngModel)]="user.password" #psw="ngModel" required>
+  <div [hidden]="psw.valid || psw.untouched" class="alert alert-danger">
     Введите корректный пароль
   </div>
 
-  <button type="submit" class="registerbtn" (click)="authorize()" [disabled]="login.invalid || password.invalid">Войти</button>
+  <button type="submit" class="registerbtn" (click)="authorize()" [disabled]="login.invalid || psw.invalid ">Войти</button>
 
   <div [hidden]="exists" class="alert alert-danger">
     Такого пользователя не существует

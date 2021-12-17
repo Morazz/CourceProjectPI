@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { OnInit } from '@angular/core';
 import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -14,8 +15,9 @@ export class AuthorizeComponent {
   roles: string[] = ["Пациент", "Врач", "Администратор"];
   public login: string;
   exists: boolean = true;
-
+ 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {}
+
 
   authorize() {
     this.getUser();

@@ -20,6 +20,7 @@ export class UserPageComponent {
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.login = activateRoute.snapshot.params['login'];
+    console.log(this.login);
     this.getUser(this.login);
     this.getCoupons();
   }

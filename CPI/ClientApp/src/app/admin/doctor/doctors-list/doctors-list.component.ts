@@ -14,6 +14,7 @@ export class DoctorsListComponent {
   public hours: Schedule = new Schedule(0, new Date(), new Date());
   ascLogin: boolean = true;
   ascSur: boolean = true;
+  ascDep: boolean = true;
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.getDoctors();
@@ -96,6 +97,27 @@ export class DoctorsListComponent {
     this.http.get<Doctor[]>(this.baseUrl + 'doctor/' + order + '/sur').subscribe(result => {
       this.doctors = result;
       this.ascSur = !this.ascSur;
+      this.doctors.forEach(doc => {
+        this.http.get<Department>(this.baseUrl + 'department/' + doc.department_code).subscribe(result => {
+          doc.department = result;
+        }, error => console.error(error));
+
+        this.http.get<Speciality>(this.baseUrl + 'speciality/' + doc.speciality_code).subscribe(result => {
+          doc.speciality = result;
+        }, error => console.error(error));
+
+        this.http.get<Schedule>(this.baseUrl + 'schedule/' + doc.schedule_code).subscribe(result => {
+          doc.hours = result;
+        }, error => console.error(error));
+      })
+    }, error => console.error(error));
+  }
+
+  sortDepartment() {
+    let order = this.ascDep ? "asc" : "desc";
+    this.http.get<Doctor[]>(this.baseUrl + 'doctor/' + order + '/department').subscribe(result => {
+      this.doctors = result;
+      this.ascDep = !this.ascDep;
       this.doctors.forEach(doc => {
         this.http.get<Department>(this.baseUrl + 'department/' + doc.department_code).subscribe(result => {
           doc.department = result;

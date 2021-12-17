@@ -10,19 +10,19 @@
   </div>
 
   <label for="psw"><b>Пароль</b></label>
-  <input type="password" name="psw" [(ngModel)]="user.password" #password="ngModel" required>
+  <input type="password" name="password" [(ngModel)]="user.password" #password="ngModel" required>
   <div [hidden]="password.valid || password.untouched" class="alert alert-danger">
     Введите корректный пароль
   </div>
 
   <label for="psw-repeat"><b>Подтвердите пароль</b></label>
-  <input type="password" name="psw-repeat" required>
-  <div [hidden]="psw-repeat.valid || psw-repeat.untouched" class="alert alert-danger">
+  <input type="password" name="pswrepeat" [(ngModel)]="user.pswrepeat" #pswrepeat="ngModel" required>
+  <div [hidden]="pswrepeat.valid || pswrepeat.untouched" class="alert alert-danger">
     Введите корректный пароль
   </div>
   <hr>
 
-  <button class="registerbtn" (click)="addUser()" [disabled]="login.invalid || password.invalid || psw-repeat.invalid">Зарегистрироваться</button>
+  <button class="registerbtn" (click)="addUser()" [disabled]="login.invalid || password.invalid || pswrepeat.invalid">Зарегистрироваться</button>
 </div>
 
 <div class="container signin">

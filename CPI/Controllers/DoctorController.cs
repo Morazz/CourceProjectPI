@@ -60,6 +60,18 @@ namespace CPI.Controllers
             return db.Doctors.OrderBy(doc => doc.login).Reverse();
         }
 
+        [HttpGet("asc/department")]
+        public IEnumerable<Doctor> AscDepartment()
+        {
+            return db.Doctors.OrderBy(doc => doc.department_code);
+        }
+
+        [HttpGet("desc/department")]
+        public IEnumerable<Doctor> DescDepartment()
+        {
+            return db.Doctors.OrderBy(doc => doc.department_code).Reverse();
+        }
+
         [HttpGet("dep/{code}")]
         public IEnumerable<Doctor> GetByDep(int code)
         {
