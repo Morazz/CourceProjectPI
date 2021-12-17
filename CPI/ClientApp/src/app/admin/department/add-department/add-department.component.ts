@@ -21,6 +21,7 @@ export class AddDepartmentComponent {
   getDoctors() {
     this.http.get<Doctor[]>(this.baseUrl + 'doctor/nulldep').subscribe(result => {
       this.doctors = result;
+      console.log(this.doctors.length);
     }, error => console.error(error));
   }
 

@@ -15,7 +15,7 @@ export class EditDoctorComponent {
   public specialities: Speciality[];
   public schedules: Schedule[];
   public docSpeciality: Speciality = new Speciality("", "");
-  public docDepartment: Department = new Department(0, "");
+  public docDepartment: Department = new Department(1, "");
   public docSchedule: Schedule = new Schedule(0, new Date(), new Date());
   public doctor: Doctor = new Doctor("", "", "", "", 1, 0, 0, "");
 
@@ -39,6 +39,9 @@ export class EditDoctorComponent {
     this.getSpeciality();
     this.getDepartment();
     this.getSchedule();
+    this.doctor.speciality_code = this.docSpeciality.speciality_code;
+    this.doctor.department_code = this.docDepartment.department_code;
+    this.doctor.schedule_code = this.docSchedule.schedule_code;
     this.http.put(this.baseUrl + 'doctor', this.doctor)
       .subscribe(
         (data: any) => {
@@ -66,19 +69,19 @@ export class EditDoctorComponent {
 
   getDepartment() {
     this.http.get<Department>(this.baseUrl + 'department/' + this.docDepartment.department_code).subscribe(result => {
-      this.doctor.department_code = result.department_code;
+      this.docDepartment = result;
     }, error => console.error(error));
   }
 
   getSpeciality() {
     this.http.get<Speciality>(this.baseUrl + 'speciality/' + this.docSpeciality.speciality_code).subscribe(result => {
-      this.doctor.speciality_code = result.speciality_code;
+      this.docSpeciality = result;
     }, error => console.error(error));
   }
 
   getSchedule() {
     this.http.get<Schedule>(this.baseUrl + 'schedule/' + this.docSchedule.schedule_code).subscribe(result => {
-      this.doctor.schedule_code = result.schedule_code;
+      this.docSchedule = result;
     }, error => console.error(error));
   }
 }
