@@ -4,7 +4,7 @@
   <hr>
 
   <label for="login"><b>Логин</b></label>
-  <input type="text" name="login" [(ngModel)]="user.login" pattern="/^[a-z0-9]+$/i" #login="ngModel" required>
+  <input type="text" name="login" [(ngModel)]="user.login" pattern="(^[a-z0-9]{1,23})$" #login="ngModel" required>
   <div [hidden]="login.valid || login.untouched" class="alert alert-danger">
     Введите корректные данные
   </div>
