@@ -4,7 +4,7 @@
   <hr>
 
   <label for="login"><b>Логин</b></label>
-  <input type="text" name="login" [(ngModel)]="user.login" #login="ngModel" required>
+  <input type="text" name="login" [(ngModel)]="user.login" #login="ngModel" pattern="^[a-z0-9]+$" required>
   <div [hidden]="login.valid || login.untouched" class="alert alert-danger">
     Введите корректные данные
   </div>
@@ -22,8 +22,14 @@
   </div>
   <hr>
 
-  <button class="registerbtn" (click)="addUser()" [disabled]="login.invalid || password.invalid || pswrepeat.invalid">Зарегистрироваться</button>
+  <button class="registerbtn" (click)="checkUser()" [disabled]="login.invalid || password.invalid || pswrepeat.invalid">Зарегистрироваться</button>
+
+  <div ng-show="errors">
+    <div *ngFor="let error of errors" class="alert alert-danger">{{error}}</div>
+  </div>
 </div>
+
+
 
 <div class="container signin">
   <p>Уже есть аккаунт? <a [routerLinkActive]="['link-active']" [routerLink]="['/authorize']">Войти</a>.</p>
