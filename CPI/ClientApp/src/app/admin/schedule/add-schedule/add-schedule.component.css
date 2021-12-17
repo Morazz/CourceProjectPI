@@ -16,16 +16,7 @@ body {
   background-color: white;
   width: 70%;
   height: 50%;
-}
-
-/* Full-width input fields */
-input[type=text], input[type=date], input[type=time] {
-  width: 100%;
-  padding: 8px;
-  margin: 5px 0 16px 0;
-  display: inline-block;
-  border: none;
-  background: #f1f1f1;
+  background-color: rgba(255, 255, 255, 0.6);
 }
 
 input[type=time] {
@@ -34,7 +25,7 @@ input[type=time] {
   margin: 5px 0 16px 0;
   display: inline-block;
   border: none;
-  background: #f1f1f1;
+
 }
 
 /* Overwrite default styles of hr */
@@ -47,7 +38,7 @@ hr {
 .registerbtn {
   background-color: #4CAF50;
   color: white;
-  padding: 10px;
+  padding: 16px 20px;
   margin: 8px 0;
   border: none;
   cursor: pointer;

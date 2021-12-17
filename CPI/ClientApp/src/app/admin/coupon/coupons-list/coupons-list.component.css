@@ -102,3 +102,7 @@
 .dep {
   margin: 18px;
 }
+
+table {
+  background: rgba(255,255,255, 1);
+}

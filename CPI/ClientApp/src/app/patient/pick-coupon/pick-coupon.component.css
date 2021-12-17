@@ -37,22 +37,16 @@
 
 .coup {
   width: 70px;
-}
-
-.container label, .container div {
-  display:inline-block; 
+  display: table-cell;
 }
 
 .card-input-element {
-  display: none;
+  display: none; 
 }
 
-.container {
+.container:after {
   width: 100%;
-}
-
-ul {
-    list-style-type: none;
+  display: table;
 }
 
 .card-input {

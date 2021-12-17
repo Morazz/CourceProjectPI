@@ -5,8 +5,9 @@
 }
 
 body {
-  background-image: src("../../Images/bg.jpg");
+  
 }
+
 
 /* Create four equal columns that floats next to each other */
 .column {
@@ -15,7 +16,6 @@ body {
   padding: 10px;
   height: 30%;
   display: table-cell;
-
 }
 
 /* Clear floats after the columns */
@@ -26,6 +26,6 @@ body {
 }
 
 .previous {
-  background-color: #FAFAFA;
+  /*background-color: #FAFAFA;*/
   color: black;
 }

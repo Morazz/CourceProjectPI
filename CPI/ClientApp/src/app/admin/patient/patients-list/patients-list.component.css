@@ -96,3 +96,7 @@
     .div-container button:hover {
       background-color: #4CAF52;
     }
+
+table {
+  background: rgba(255,255,255, 1);
+}
