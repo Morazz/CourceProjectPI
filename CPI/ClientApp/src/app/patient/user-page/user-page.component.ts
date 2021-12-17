@@ -5,6 +5,7 @@ import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Speciality } from '../../admin/doctor/doctors-list/doctors-list.component';
 import { Patient } from '../../admin/patient/patients-list/patients-list.component';
+import { GlobalConstants, global_login, login } from '../../global-variables';
 
 @Component({
   selector: 'app-user-page',
@@ -20,7 +21,7 @@ export class UserPageComponent {
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.login = activateRoute.snapshot.params['login'];
-    console.log(this.login);
+    console.log("Hello " + global_login);
     this.getUser(this.login);
     this.getCoupons();
   }

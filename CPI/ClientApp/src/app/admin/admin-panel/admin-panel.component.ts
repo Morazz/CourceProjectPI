@@ -8,6 +8,5 @@ import { Component } from '@angular/core';
 /** admin-panel component*/
 export class AdminPanelComponent {
   constructor() { }
-
-  userLog = false;
+  visible = true;
 }

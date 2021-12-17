@@ -13,49 +13,41 @@ export class HomeComponent {
   public user: PassData = new PassData("", "", "");
   roles: string[] = ["Пациент", "Врач", "Администратор"];
   public login: string;
-  exists: boolean = true;
+  public password: string;
+  errors: string[] = [];
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
   authorize() {
-    this.getUser();
-    if (this.user.status != "")
-      this.checkDoctor();
-    if (this.user.status != "")
-      this.checkPatient();
-    if (this.user.status != "")
-      this.checkAdmin();
-  }
-
-  getUser() {
     this.http.get<PassData>(this.baseUrl + 'passdata/' + this.user.login).subscribe(result => {
+      this.errors = [];
       if (result != null) {
         this.user = result;
+        if (this.user.password != this.password)
+          this.errors.push("Неверный пароль");
+        else
+          this.redirect();
       }
-      else this.exists = false;
+      else this.errors.push("Пользователь с таким именем не существует");
     }, error => console.error(error));
   }
 
-  checkPatient() {
-    this.http.get<Patient>(this.baseUrl + 'patient/' + this.user.login).subscribe(result => {
-      if (result != null)
+  redirect() {
+    console.log(this.user.status);
+    switch (this.user.status) {
+      case "Пациент": {
         this.router.navigate(['user-page', this.user.login]);
-    }, error => console.error(error));
-  }
-
-  checkDoctor() {
-    this.http.get<Doctor>(this.baseUrl + 'doctor/' + this.user.login).subscribe(result => {
-      if (result != null)
+      }
+        break;
+      case "Врач": {
+        
         this.router.navigate(['doctor-info', this.user.login]);
-    }, error => console.error(error));
-  }
-
-  checkAdmin() {
-    this.http.get<PassData>(this.baseUrl + 'passdata/' + this.user.login).subscribe(result => {
-      if (result != null && result.status=="Администратор") {
+      }
+        break;
+      case "Администратор": {
         this.router.navigate(['admin-panel', this.user.login]);
       }
-      else this.exists = false;
-    }, error => console.error(error));
+        break;
+    }
   }
 }

@@ -3,22 +3,22 @@
   <p>Пожалуйста, заполните эту форму, чтобы войти.</p>
   <hr>
 
-  <label for="login"><b>Логин</b></label>
-  <input type="text" name="login" [(ngModel)]="user.login" pattern="(^[a-z0-9]{1,23})$" #login="ngModel" required>
-  <div [hidden]="login.valid || login.untouched" class="alert alert-danger">
+  <label for="log"><b>Логин</b></label>
+  <input type="text" name="log" [(ngModel)]="user.login" pattern="(^[a-z0-9]{1,23})$" #log="ngModel" required>
+  <div [hidden]="log.valid || log.untouched" class="alert alert-danger">
     Введите корректные данные
   </div>
 
   <label for="psw"><b>Пароль</b></label>
-  <input type="password" name="psw" [(ngModel)]="user.password" #password="ngModel" required>
-  <div [hidden]="password.valid || password.untouched" class="alert alert-danger">
+  <input type="password" name="psw" [(ngModel)]="password" #psw="ngModel" required>
+  <div [hidden]="psw.valid || psw.untouched" class="alert alert-danger">
     Введите корректный пароль
   </div>
 
-  <button type="submit" class="registerbtn" (click)="authorize()" [disabled]="login.invalid || password.invalid">Войти</button>
+  <button type="submit" class="registerbtn" (click)="authorize()" [disabled]="log.invalid || psw.invalid ">Войти</button>
 
-  <div [hidden]="exists" class="alert alert-danger">
-    Такого пользователя не существует
+  <div ng-show="errors">
+    <div *ngFor="let error of errors" class="alert alert-danger">{{error}}</div>
   </div>
 </div>
 
