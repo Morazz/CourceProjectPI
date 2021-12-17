@@ -19,12 +19,12 @@ namespace CPI.Models
         public int? department_code { get; set; }
         [ForeignKey("department_code")]
         public Department? Department { get; set; }
-        public int schedule_code { get; set; }
+        public int? schedule_code { get; set; }
         [ForeignKey("schedule_code")]
-        public Schedule Schedule { get; set; }
-        public string speciality_code { get; set; }
+        public Schedule? Schedule { get; set; }
+        public string? speciality_code { get; set; }
         [ForeignKey("speciality_code")]
-        public Speciality Speciality { get; set; }
+        public Speciality? Speciality { get; set; }
 
         public Doctor() { }
     }

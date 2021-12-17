@@ -4,46 +4,48 @@
   <div class="search-container">
     <form action="">
       <input type="text" placeholder="Найти.." name="search" class="search" [(ngModel)]="text" (input)="onInput(text)">
+      <button (click)="sortByDep()">Расширенный</button>
     </form>
   </div>
 </div>
-
 
 <div class="div-container">
   <button [routerLink]="['/add-doctor']">Добавить</button>
 </div>
 
-<div *ngIf="!doctors"><em>Loading...</em></div>
-
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="doctors">
-  <thead>
-    <tr>
-      <th>Логин</th>
-      <th>Отделение</th>
-      <th>Специальность</th>
-      <th>Фамилия</th>
-      <th>Имя</th>
-      <th>Отчество</th>
-      <th>Кабинет</th>
-      <th>Время работы</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let doctor of doctors">
-      <td><a [routerLink]="['/doctor-info', doctor.login]">{{doctor.login}}</a></td>
-      <td>{{doctor.department.department_name}}</td>
-      <td>{{doctor.speciality.speciality}}</td>
-      <td>{{doctor.surname}}</td>
-      <td>{{doctor.firstname}}</td>
-      <td>{{doctor.fathername}}</td>
-      <td>{{doctor.cabinet}}</td>
-      <td>{{doctor.hours.appointment_start | date:'HH:mm'}} - {{doctor.hours.appointment_end | date:'HH:mm'}}</td>
-      <td>
-        <button class="dltbtn" (click)="deleteDoctor(doctor.login)">Удалить</button>
-        <button class="editbtn" [routerLink]="['/edit-doctor', doctor.login]">Изменить</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-
+<div>
+  <section ng-app="app" ng-controller="MainCtrl">
+    <div *ngIf="!doctors"><em>Loading...</em></div>
+    <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="doctors" ng-app="doct">
+      <thead>
+        <tr>
+          <th><a href="#" (click)="sortLogin()">Логин</a>
+          </th>
+          <th>Отделение</th>
+          <th>Специальность</th>
+          <th><a href="#" (click)="sortSurname()">Фамилия</a></th>
+          <th>Имя</th>
+          <th>Отчество</th>
+          <th>Кабинет</th>
+          <th>Время работы</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let doctor of doctors">
+          <td><a [routerLink]="['/doctor-info', doctor.login]">{{doctor.login}}</a></td>
+          <td>{{doctor.department.department_name}}</td>
+          <td>{{doctor.speciality.speciality}}</td>
+          <td>{{doctor.surname}}</td>
+          <td>{{doctor.firstname}}</td>
+          <td>{{doctor.fathername}}</td>
+          <td>{{doctor.cabinet}}</td>
+          <td>{{doctor.hours.appointment_start | date:'HH:mm'}} - {{doctor.hours.appointment_end | date:'HH:mm'}}</td>
+          <td>
+            <button class="dltbtn" (click)="deleteDoctor(doctor.login)">Удалить</button>
+            <button class="editbtn" [routerLink]="['/edit-doctor', doctor.login]">Изменить</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>

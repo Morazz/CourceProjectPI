@@ -18,7 +18,7 @@ export class RegisterComponent {
     this.http.post(this.baseUrl + 'passdata', this.user)
       .subscribe(
         (data: any) => {
-          this.router.navigate(['/edit-patient', this.user.login]);
+          this.router.navigate(['/user-page', this.user.login]);
         }, error => console.error(error));
   }
 }

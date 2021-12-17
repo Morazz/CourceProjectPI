@@ -4,14 +4,16 @@ using CPI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CPI.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20211217020322_Migr3")]
+    partial class Migr3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -133,6 +135,26 @@ namespace CPI.Migrations
                     b.HasKey("login");
 
                     b.ToTable("PassData");
+
+                    b.HasData(
+                        new
+                        {
+                            login = "admin",
+                            password = "admin",
+                            status = "Администратор"
+                        },
+                        new
+                        {
+                            login = "pat1",
+                            password = "pat1",
+                            status = "Пациент"
+                        },
+                        new
+                        {
+                            login = "doc1",
+                            password = "doc1",
+                            status = "Доктор"
+                        });
                 });
 
             modelBuilder.Entity("CPI.Models.Patient", b =>

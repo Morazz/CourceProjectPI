@@ -16,6 +16,10 @@
   </div>
 
   <button type="submit" class="registerbtn" (click)="authorize()" [disabled]="login.invalid || password.invalid">Войти</button>
+
+  <div [hidden]="exists" class="alert alert-danger">
+    Такого пользователя не существует
+  </div>
 </div>
 
 <div class="container signin">

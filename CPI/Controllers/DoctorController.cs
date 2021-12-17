@@ -36,6 +36,30 @@ namespace CPI.Controllers
             return db.Doctors.Where(pd => pd.surname.Contains(sur));
         }
 
+        [HttpGet("asc/sur")]
+        public IEnumerable<Doctor> AscSur()
+        {
+            return db.Doctors.OrderBy(doc => doc.surname);
+        }
+
+        [HttpGet("desc/sur")]
+        public IEnumerable<Doctor> DescSur()
+        {
+            return db.Doctors.OrderBy(doc => doc.surname).Reverse();
+        }
+
+        [HttpGet("asc/login")]
+        public IEnumerable<Doctor> AscLogin()
+        {
+            return db.Doctors.OrderBy(doc => doc.login);
+        }
+
+        [HttpGet("desc/login")]
+        public IEnumerable<Doctor> DescLogin()
+        {
+            return db.Doctors.OrderBy(doc => doc.login).Reverse();
+        }
+
         [HttpGet("dep/{code}")]
         public IEnumerable<Doctor> GetByDep(int code)
         {

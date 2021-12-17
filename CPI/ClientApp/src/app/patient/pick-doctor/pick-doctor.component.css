@@ -10,8 +10,7 @@
   width: 100%;
 }
 
-  .div-container button {
-    background-color: #57CF5F;
+  .div-container div {
     padding: 4px;
     margin: 4px;
     border: none;
@@ -19,8 +18,8 @@
     opacity: 0.9;
   }
 
-    .div-container button:hover {
-      background-color: #BF3030;
+    .div-container div:hover {
+      background-color: rgb(255, 255, 255, 0.6);
     }
 
 .card {

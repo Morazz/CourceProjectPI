@@ -12,6 +12,8 @@ export class DoctorsListComponent {
   public speciality: Speciality = new Speciality("", "");
   public department: Department = new Department(0, "");
   public hours: Schedule = new Schedule(0, new Date(), new Date());
+  ascLogin: boolean = true;
+  ascSur: boolean = true;
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.getDoctors();
@@ -30,7 +32,6 @@ export class DoctorsListComponent {
     this.http.get<Doctor[]>(this.baseUrl + 'doctor').subscribe(result => {
       this.doctors = result;
       this.doctors.forEach(doc => {
-
         this.http.get<Department>(this.baseUrl + 'department/' + doc.department_code).subscribe(result => {
           doc.department = result;
         }, error => console.error(error));
@@ -67,6 +68,48 @@ export class DoctorsListComponent {
       }, error => console.error(error));
     }
     else this.getDoctors();
+  }
+
+  sortLogin() {
+    let order = this.ascLogin ? "asc" : "desc";
+    this.http.get<Doctor[]>(this.baseUrl + 'doctor/' + order +'/login').subscribe(result => {
+      this.doctors = result;
+      this.ascLogin = !this.ascLogin;
+      this.doctors.forEach(doc => {
+        this.http.get<Department>(this.baseUrl + 'department/' + doc.department_code).subscribe(result => {
+          doc.department = result;
+        }, error => console.error(error));
+
+        this.http.get<Speciality>(this.baseUrl + 'speciality/' + doc.speciality_code).subscribe(result => {
+          doc.speciality = result;
+        }, error => console.error(error));
+
+        this.http.get<Schedule>(this.baseUrl + 'schedule/' + doc.schedule_code).subscribe(result => {
+          doc.hours = result;
+        }, error => console.error(error));
+      })
+    }, error => console.error(error));
+  }
+
+  sortSurname() {
+    let order = this.ascSur? "asc" : "desc";
+    this.http.get<Doctor[]>(this.baseUrl + 'doctor/' + order + '/sur').subscribe(result => {
+      this.doctors = result;
+      this.ascSur = !this.ascSur;
+      this.doctors.forEach(doc => {
+        this.http.get<Department>(this.baseUrl + 'department/' + doc.department_code).subscribe(result => {
+          doc.department = result;
+        }, error => console.error(error));
+
+        this.http.get<Speciality>(this.baseUrl + 'speciality/' + doc.speciality_code).subscribe(result => {
+          doc.speciality = result;
+        }, error => console.error(error));
+
+        this.http.get<Schedule>(this.baseUrl + 'schedule/' + doc.schedule_code).subscribe(result => {
+          doc.hours = result;
+        }, error => console.error(error));
+      })
+    }, error => console.error(error));
   }
 }
 

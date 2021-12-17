@@ -3,7 +3,7 @@
   <mat-calendar (selectedChange)="selectedDate = $event; newCoupon.appointment_day = selectedDate; checkCoupon();"></mat-calendar>
 </mat-card>
 
-<p>Selected date: {{selectedDate}}</p>
+<p>Выбрана дата: {{selectedDate | date: 'dd:MM.yyyy'}}</p>
 
 <!--<div *ngIf="freeCoupons" class="container">
   <div class="coupon" *ngFor="let freeCoupon of freeCoupons">

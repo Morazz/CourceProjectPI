@@ -13,6 +13,7 @@ export class AuthorizeComponent {
   public user: PassData = new PassData("", "", "");
   roles: string[] = ["Пациент", "Врач", "Администратор"];
   public login: string;
+  exists: boolean = true;
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {}
 
@@ -29,6 +30,7 @@ export class AuthorizeComponent {
       if (result != null) {
         this.user = result;
       }
+      else this.exists = false;
     }, error => console.error(error));
   }
 
