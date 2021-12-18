@@ -31,16 +31,10 @@ namespace CPI.Controllers
             return db.Coupons.Find(id);
         }
 
-        [HttpGet("{login}")]
-        public IEnumerable<Coupon> Get(string login)
+        [HttpGet("doc/{login}")]
+        public IEnumerable<Coupon> GetByDoc(string login)
         {
-            return db.Coupons;
-        }
-
-        [HttpGet("{login}/{id}")]
-        public IEnumerable<Coupon> Get(string login, int id)
-        {
-            return db.Coupons;
+            return db.Coupons.Where(cup => cup.doctor_login == login);
         }
 
         [HttpGet("valuable/{login}")]
@@ -115,8 +109,9 @@ namespace CPI.Controllers
             List<Coupon> coupons = new List<Coupon>();
             if (db.Coupons.Count() != 0)
             foreach (Coupon coup in db.Coupons.Where(c => c.Doctor.login == doc))
+                    //.Where(c => c.CouponTemplate.time > c.Doctor.Schedule.appointment_start && c.CouponTemplate.time < c.Doctor.Schedule.appointment_end))
             {
-                //Console.WriteLine(coup.Patient.login);
+                //Console.WriteLine(coup.Doctor.);
                 if (Equals(coup.appointment_day.Date.ToShortDateString(), date))
                     coupons.Add(coup);
             }

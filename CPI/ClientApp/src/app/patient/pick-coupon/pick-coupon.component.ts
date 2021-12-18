@@ -2,6 +2,7 @@ import { Time } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Schedule } from '../../admin/schedule/schedules-list/schedules-list.component';
 
 @Component({
   selector: 'app-pick-coupon',
@@ -14,15 +15,15 @@ export class PickCouponComponent {
   freeCoupons: CouponTemplate[] = [];
   selectedDate: Date;
   newCoupon: Coupon = new Coupon(0, new Date(), "", "", 0);
-  doctor: Doctor = new Doctor("");
+  doctor: Doctor = new Doctor("", 0, new Schedule(0, new Date(), new Date()), []);
   patient: Patient = new Patient("");
+  doctorFreeCoupons: Coupon[] = [];
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.getCoupons();
     this.newCoupon.doctor_login = activateRoute.snapshot.params['doctor_login'];
     this.newCoupon.patient_login = activateRoute.snapshot.params['login'];
-
-    console.log(this.newCoupon.doctor_login + " " + this.newCoupon.patient_login);
+    this.getDoctor();
   }
 
   getCoupons() {
@@ -31,15 +32,37 @@ export class PickCouponComponent {
     }, error => console.error(error));
   }
 
-  checkCoupon() {
-    this.freeCoupons = [];
-    this.coupons.forEach(coupon => {
-      this.http.get<CouponTemplate[]>(this.baseUrl + 'coupon/' + this.newCoupon.doctor_login + "/" + this.selectedDate.toLocaleDateString() + "/" + coupon.template_id).subscribe(result => {
-        if (result) {
-          this.freeCoupons.push(coupon);
-        }
+  getDoctor() {
+    this.http.get<Doctor>(this.baseUrl + 'doctor/' + this.newCoupon.doctor_login).subscribe(result => {
+      this.doctor = result;
+      this.http.get<Schedule>(this.baseUrl + 'schedule/' + this.doctor.schedule_code).subscribe(result => {
+        this.doctor.schedule = result;
       }, error => console.error(error));
-    });
+      this.http.get<Coupon[]>(this.baseUrl + 'coupon/doc/' + this.doctor.login).subscribe(result => {
+        this.doctor.coupons = result;
+        console.log(this.doctor);
+      }, error => console.error(error));
+    }, error => console.error(error));
+  }
+
+  checkCoupon() {
+
+    this.doctorFreeCoupons = this.doctor.coupons.filter(cp => new Date(cp.appointment_day).setHours(0, 0, 0, 0) == new Date(this.selectedDate).setHours(0, 0, 0, 0));
+
+    this.freeCoupons = this.coupons
+      .filter(coupon => coupon.time > this.doctor.schedule.appointment_start && coupon.time < this.doctor.schedule.appointment_end)
+      .filter(coupon => !this.doctorFreeCoupons.find(coup => coup.template_id == coupon.template_id));
+
+
+      //!this.doctor.coupons.find(cp => cp.appointment_day == this.selectedDate && cp.template_id != cup.template_id));
+
+
+    this.doctor.coupons.forEach(cp => {
+      //console.log(cp.appointment_day.getFullYear);
+    })
+    
+
+    console.log(this.freeCoupons);
   }
 
   pickCoupon() {
@@ -70,7 +93,10 @@ export class Coupon {
 
 export class Doctor {
   constructor(
-    public login: string
+    public login: string,
+    public schedule_code: number,
+    public schedule: Schedule,
+    public coupons: Coupon[]
   ) { }
 }
 

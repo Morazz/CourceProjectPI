@@ -26,6 +26,8 @@ namespace CPI.Models
         [ForeignKey("speciality_code")]
         public Speciality? Speciality { get; set; }
 
+        public List<Coupon> Coupons { get; set; } = new List<Coupon>();
+
         public Doctor() { }
     }
 }

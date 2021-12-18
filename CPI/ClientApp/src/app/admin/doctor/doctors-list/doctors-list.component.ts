@@ -9,6 +9,7 @@ import { Scheduler } from 'rxjs';
 })
 export class DoctorsListComponent {
   public doctors: Doctor[];
+  public filtered: Doctor[];
   public speciality: Speciality = new Speciality("", "");
   public department: Department = new Department(0, "");
   public hours: Schedule = new Schedule(0, new Date(), new Date());
@@ -18,6 +19,7 @@ export class DoctorsListComponent {
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.getDoctors();
+    
   }
 
   deleteDoctor(login: string) {
@@ -52,41 +54,25 @@ export class DoctorsListComponent {
 
   onInput(text: string) {
     if (text.length > 0) {
-      this.http.get<Doctor[]>(this.baseUrl + 'doctor/BySur/' + text).subscribe(result => {
-        this.doctors = result;
-        this.doctors.forEach(doc => {
-
-          this.http.get<Department>(this.baseUrl + 'department/' + doc.department_code).subscribe(result => {
-            doc.department = result;
-          }, error => console.error(error));
-
-          this.http.get<Speciality>(this.baseUrl + 'speciality/' + doc.speciality_code).subscribe(result => {
-            doc.speciality = result;
-          }, error => console.error(error));
-
-          this.http.get<Schedule>(this.baseUrl + 'schedule/' + doc.schedule_code).subscribe(result => {
-            doc.hours = result;
-          }, error => console.error(error));
-        })
-      }, error => console.error(error));
+      //this. = this.doctors.filter(doc => doc.surname.includes(text));
+      this.doctors = this.filtered;
     }
-    else this.getDoctors();
   }
 
   sortLogin() {
-    this.doctors.sort(doc => doc.login).reverse();
+    //this.doctors.sort(doc => doc.login).reverse();
   }
 
   sortSurname() {
-    this.doctors.sort(doc => doc.surname).reverse();
+    //this.doctors.sort(doc => doc.surname).reverse();
   }
 
   sortDepartment() {
-    this.doctors.sort(doc => doc.department_code).reverse();
+    //this.doctors.sort(doc => doc.department_code).reverse();
   }
 
   sortSpeciality() {
-    this.doctors.sort(doc => doc.speciality_code).reverse();
+    //this.doctors.sort(doc => doc.speciality_code).reverse();
   }
 }
 
