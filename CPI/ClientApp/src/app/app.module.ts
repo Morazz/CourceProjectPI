@@ -92,7 +92,7 @@ import { EditDoctorComponent } from './admin/doctor/edit-doctor/edit-doctor.comp
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'register', component: RegisterComponent },
+      { path: 'register', component: RegisterComponent, },
       { path: 'authorize', component: AuthorizeComponent },
       { path: 'user-page/:login', component: UserPageComponent },
       { path: 'admin-panel/:login', component: AdminPanelComponent },

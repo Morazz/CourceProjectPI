@@ -20,7 +20,7 @@ body {
 }
 
 /* Full-width input fields */
-input[type=text], input[type=password], input[type=date], input[type=tel] {
+input[type=text], select {
   width: 100%;
   padding: 8px;
   margin: 5px 0 16px 0;

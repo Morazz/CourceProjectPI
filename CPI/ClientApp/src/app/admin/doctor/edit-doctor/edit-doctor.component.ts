@@ -17,7 +17,7 @@ export class EditDoctorComponent {
   public docSpeciality: Speciality = new Speciality("", "");
   public docDepartment: Department = new Department(1, "");
   public docSchedule: Schedule = new Schedule(0, new Date(), new Date());
-  public doctor: Doctor = new Doctor("", "", "", "", 1, 0, 0, "");
+  public doctor: Doctor = new Doctor("", "", "", "", 1, 1, 1, "");
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.login = activateRoute.snapshot.params['login'];
@@ -31,7 +31,6 @@ export class EditDoctorComponent {
     this.http.get<Doctor>(this.baseUrl + 'doctor/' + login).subscribe(result => {
       if (result != null)
         this.doctor = result;
-      console.log(this.doctor.surname);
     }, error => console.error(error));
   }
 
@@ -40,8 +39,10 @@ export class EditDoctorComponent {
     this.getDepartment();
     this.getSchedule();
     this.doctor.speciality_code = this.docSpeciality.speciality_code;
-    this.doctor.department_code = this.docDepartment.department_code;
-    this.doctor.schedule_code = this.docSchedule.schedule_code;
+    this.doctor.department_code = <number>(this.docDepartment.department_code);
+    this.doctor.schedule_code = <number>(this.docSchedule.schedule_code);
+    console.log(this.doctor);
+    console.log(typeof (this.doctor.department_code) + " " + typeof (this.doctor.cabinet));
     this.http.put(this.baseUrl + 'doctor', this.doctor)
       .subscribe(
         (data: any) => {

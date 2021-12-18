@@ -18,12 +18,14 @@ export class UsersListComponent {
   }
 
   deleteUser(login: string) {
-    this.http.delete(this.baseUrl + 'passdata', { params: new HttpParams().set('login', login) })
-      .subscribe(
-        (data: any) => {
-          this.getUsers();
-        },
-        error => console.log(error));
+    if (confirm("Подтвердите удаление: " + login)) {
+      this.http.delete(this.baseUrl + 'passdata', { params: new HttpParams().set('login', login) })
+        .subscribe(
+          (data: any) => {
+            this.getUsers();
+          },
+          error => console.log(error));
+    }
   }
 
   getUsers() {

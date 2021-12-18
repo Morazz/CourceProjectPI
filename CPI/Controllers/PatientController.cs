@@ -44,10 +44,10 @@ namespace CPI.Controllers
         }
 
         [HttpDelete]
-        public void Delete(Patient patient)
+        public void Delete(string login)
         {
-            Patient pat = Get(patient.login);
-            if (pat != null)
+            Patient patient = Get(login);
+            if (patient != null)
             {
                 db.Patients.Remove(patient);
                 db.SaveChanges();

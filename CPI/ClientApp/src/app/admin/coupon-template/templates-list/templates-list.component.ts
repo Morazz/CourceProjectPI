@@ -2,9 +2,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 
 @Component({
-    selector: 'app-templates-list',
-    templateUrl: './templates-list.component.html',
-    styleUrls: ['./templates-list.component.css']
+  selector: 'app-templates-list',
+  templateUrl: './templates-list.component.html',
+  styleUrls: ['./templates-list.component.css']
 })
 
 export class TemplatesListComponent {
@@ -22,12 +22,14 @@ export class TemplatesListComponent {
   }
 
   deleteTemplate(template_id: number) {
-    this.http.delete(this.baseUrl + 'coupontemplate', { params: new HttpParams().set('template_id', template_id.toString()) })
-      .subscribe(
-        (data: any) => {
-          this.getTemplates();
-        },
-        error => console.log(error));
+    if (confirm("Подтвердите удаление: " + template_id)) {
+      this.http.delete(this.baseUrl + 'coupontemplate', { params: new HttpParams().set('template_id', template_id.toString()) })
+        .subscribe(
+          (data: any) => {
+            this.getTemplates();
+          },
+          error => console.log(error));
+    }
   }
 }
 

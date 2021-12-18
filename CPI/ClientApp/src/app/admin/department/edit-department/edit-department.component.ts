@@ -10,8 +10,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 /** edit-department component*/
 export class EditDepartmentComponent {
   public doctors: Doctor[];
-  public department: Department = new Department(0, "", new Doctor("", "", "", ""));
+  public department: Department = new Department(0, "", "");
   public department_code: number;
+  public doctor: Doctor = new Doctor("", "", "", "", 0);
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.department_code = activateRoute.snapshot.params['department_code'];
@@ -22,6 +23,12 @@ export class EditDepartmentComponent {
   getDoctors() {
     this.http.get<Doctor[]>(this.baseUrl + 'doctor/nulldep').subscribe(result => {
       this.doctors = result;
+    }, error => console.error(error));
+  }
+
+  getDoctor() {
+    this.http.get<Doctor>(this.baseUrl + 'doctor/' + this.doctor.login).subscribe(result => {
+      this.doctor = result;
     }, error => console.error(error));
   }
 
@@ -38,13 +45,14 @@ export class EditDepartmentComponent {
     this.http.get<Department>(this.baseUrl + 'department/' + this.department_code).subscribe(result => {
       this.department = result;
     }, error => console.error(error));
-
   }
 
   addDepartment() {
-    this.http.put(this.baseUrl + 'department', this.department).subscribe(result => {
-      this.router.navigate(['/departments-list']);
-    }, error => console.error(error));
+    //this.department.login = this.doctor.login;
+    //this.http.put(this.baseUrl + 'department', this.department).subscribe(result => {
+    //  this.router.navigate(['/departments-list']);
+    //}, error => console.error(error));
+    console.log(this.doctor);
   }
 }
 
@@ -52,7 +60,7 @@ export class Department {
   constructor(
     public department_code: number,
     public department_name: string,
-    public login: Doctor) { }
+    public login: string) { }
 }
 
 export class Doctor {
@@ -61,5 +69,6 @@ export class Doctor {
     public firstname: string,
     public fathername: string,
     public surname: string,
+    public department_code: number
   ) { }
 }

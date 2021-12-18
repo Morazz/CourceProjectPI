@@ -23,12 +23,14 @@ export class SchedulesListComponent {
   }
 
   deleteSchedule(schedule_code: number) {
-    this.http.delete(this.baseUrl + 'schedule', { params: new HttpParams().set('schedule_code', schedule_code.toString()) })
-      .subscribe(
-        (data: any) => {
-          this.getSchedules();
-        },
-        error => console.log(error));
+    if (confirm("Подтвердите удаление: " + schedule_code)) {
+      this.http.delete(this.baseUrl + 'schedule', { params: new HttpParams().set('schedule_code', schedule_code.toString()) })
+        .subscribe(
+          (data: any) => {
+            this.getSchedules();
+          },
+          error => console.log(error));
+    }
   }
 }
 

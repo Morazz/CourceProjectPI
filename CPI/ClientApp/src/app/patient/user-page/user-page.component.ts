@@ -5,7 +5,6 @@ import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Speciality } from '../../admin/doctor/doctors-list/doctors-list.component';
 import { Patient } from '../../admin/patient/patients-list/patients-list.component';
-import { GlobalConstants, global_login, login } from '../../global-variables';
 
 @Component({
   selector: 'app-user-page',
@@ -21,7 +20,6 @@ export class UserPageComponent {
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.login = activateRoute.snapshot.params['login'];
-    console.log("Hello " + global_login);
     this.getUser(this.login);
     this.getCoupons();
   }
@@ -49,20 +47,20 @@ export class UserPageComponent {
     });
   }
 
-deleteCoupon(coupon_id: number) {
-  this.http.delete(this.baseUrl + 'coupon', { params: new HttpParams().set('coupon_id', coupon_id.toString()) })
-    .subscribe(
-      (data: any) => {
-        this.getCoupons();
-      },
-      error => console.log(error));
-}
+  deleteCoupon(coupon_id: number) {
+    this.http.delete(this.baseUrl + 'coupon', { params: new HttpParams().set('coupon_id', coupon_id.toString()) })
+      .subscribe(
+        (data: any) => {
+          this.getCoupons();
+        },
+        error => console.log(error));
+  }
 
-getDoctorByCoup(id: number) {
-  this.http.get<Doctor>(this.baseUrl + 'doctor/' + id).subscribe(result => {
-    this.doctor = result;
-  }, error => console.error(error));
-}
+  getDoctorByCoup(id: number) {
+    this.http.get<Doctor>(this.baseUrl + 'doctor/' + id).subscribe(result => {
+      this.doctor = result;
+    }, error => console.error(error));
+  }
 }
 
 export class CouponTemplate {

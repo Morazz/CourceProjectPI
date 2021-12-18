@@ -13,6 +13,9 @@ import { Speciality } from '../../speciality/specialities-list/specialities-list
 export class AddDepartmentComponent {
   public doctors: Doctor[];
   public department: Department = new Department(0, "", new Doctor("", "", "", "", 0));
+  public department_name: string;
+  public head: string;
+  public doctor: Doctor = new Doctor("", "", "", "", 0);
 
   constructor(private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.getDoctors();
@@ -22,6 +25,13 @@ export class AddDepartmentComponent {
     this.http.get<Doctor[]>(this.baseUrl + 'doctor/nulldep').subscribe(result => {
       this.doctors = result;
       console.log(this.doctors.length);
+    }, error => console.error(error));
+  }
+
+  getDoctor() {
+    this.http.get<Doctor>(this.baseUrl + 'doctor/' + this.head).subscribe(result => {
+      this.doctor = result;
+      console.log(this.doctor);
     }, error => console.error(error));
   }
 
@@ -35,11 +45,13 @@ export class AddDepartmentComponent {
   }
 
   addDepartment() {
+    this.department.department_name = this.department_name;
+    this.department.login.login = this.head;
+
+    this.getDoctor();
     this.http.post(this.baseUrl + 'department', this.department).subscribe(result => {
-      this.department.login.department_code = this.department.department_code;
-      this.http.put(this.baseUrl + 'doctor', this.department.login).subscribe(result => {
-        /*this.router.navigate(['/departments-list']);*/
-        console.log(this.department.department_code);
+      this.http.put(this.baseUrl + 'doctor', this.doctor).subscribe(result => {
+        this.router.navigate(['/departments-list']);
       }, error => console.error(error));
     }, error => console.error(error));
   }

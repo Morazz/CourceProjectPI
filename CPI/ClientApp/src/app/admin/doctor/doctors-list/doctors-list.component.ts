@@ -21,12 +21,14 @@ export class DoctorsListComponent {
   }
 
   deleteDoctor(login: string) {
-    this.http.delete(this.baseUrl + 'doctor', { params: new HttpParams().set('login', login) })
-      .subscribe(
-        (data: any) => {
-          this.getDoctors();
-        },
-        error => console.log(error));
+    if (confirm("Подтвердите удаление: " + login)) {
+      this.http.delete(this.baseUrl + 'doctor', { params: new HttpParams().set('login', login) })
+        .subscribe(
+          (data: any) => {
+            this.getDoctors();
+          },
+          error => console.log(error));
+    }
   }
 
   getDoctors() {
@@ -72,66 +74,19 @@ export class DoctorsListComponent {
   }
 
   sortLogin() {
-    let order = this.ascLogin ? "asc" : "desc";
-    this.http.get<Doctor[]>(this.baseUrl + 'doctor/' + order +'/login').subscribe(result => {
-      this.doctors = result;
-      this.ascLogin = !this.ascLogin;
-      this.doctors.forEach(doc => {
-        this.http.get<Department>(this.baseUrl + 'department/' + doc.department_code).subscribe(result => {
-          doc.department = result;
-        }, error => console.error(error));
-
-        this.http.get<Speciality>(this.baseUrl + 'speciality/' + doc.speciality_code).subscribe(result => {
-          doc.speciality = result;
-        }, error => console.error(error));
-
-        this.http.get<Schedule>(this.baseUrl + 'schedule/' + doc.schedule_code).subscribe(result => {
-          doc.hours = result;
-        }, error => console.error(error));
-      })
-    }, error => console.error(error));
+    this.doctors.sort(doc => doc.login).reverse();
   }
 
   sortSurname() {
-    let order = this.ascSur? "asc" : "desc";
-    this.http.get<Doctor[]>(this.baseUrl + 'doctor/' + order + '/sur').subscribe(result => {
-      this.doctors = result;
-      this.ascSur = !this.ascSur;
-      this.doctors.forEach(doc => {
-        this.http.get<Department>(this.baseUrl + 'department/' + doc.department_code).subscribe(result => {
-          doc.department = result;
-        }, error => console.error(error));
-
-        this.http.get<Speciality>(this.baseUrl + 'speciality/' + doc.speciality_code).subscribe(result => {
-          doc.speciality = result;
-        }, error => console.error(error));
-
-        this.http.get<Schedule>(this.baseUrl + 'schedule/' + doc.schedule_code).subscribe(result => {
-          doc.hours = result;
-        }, error => console.error(error));
-      })
-    }, error => console.error(error));
+    this.doctors.sort(doc => doc.surname).reverse();
   }
 
   sortDepartment() {
-    let order = this.ascDep ? "asc" : "desc";
-    this.http.get<Doctor[]>(this.baseUrl + 'doctor/' + order + '/department').subscribe(result => {
-      this.doctors = result;
-      this.ascDep = !this.ascDep;
-      this.doctors.forEach(doc => {
-        this.http.get<Department>(this.baseUrl + 'department/' + doc.department_code).subscribe(result => {
-          doc.department = result;
-        }, error => console.error(error));
+    this.doctors.sort(doc => doc.department_code).reverse();
+  }
 
-        this.http.get<Speciality>(this.baseUrl + 'speciality/' + doc.speciality_code).subscribe(result => {
-          doc.speciality = result;
-        }, error => console.error(error));
-
-        this.http.get<Schedule>(this.baseUrl + 'schedule/' + doc.schedule_code).subscribe(result => {
-          doc.hours = result;
-        }, error => console.error(error));
-      })
-    }, error => console.error(error));
+  sortSpeciality() {
+    this.doctors.sort(doc => doc.speciality_code).reverse();
   }
 }
 

@@ -1,3 +1,5 @@
+<hr />
+<hr />
 <div class="container">
   <h3>Редактирование врача</h3>
   <hr>
@@ -28,10 +30,10 @@
     <em>Загрузка...</em>
   </div>
   <div *ngIf="departments">
-    <input type="text" name="depart" [(ngModel)]="docDepartment.department_code" list="dep">
-    <datalist id="dep" name="dep">
+    <!--<input type="text" name="depart"  list="dep">-->
+    <select id="dep" name="dep" [(ngModel)]="docDepartment.department_code">
       <option *ngFor="let department of departments" [value]="department.department_code">{{department.department_name}}</option>
-    </datalist>
+    </select>
   </div>
 
   <div>

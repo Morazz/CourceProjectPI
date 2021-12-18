@@ -42,12 +42,6 @@ namespace CPI.Models
             //PassData patientUser = new PassData(patientLogin, patientPassword, patientRoleName);
             //PassData doctorUser = new PassData(doctorLogin, doctorPassword, doctorRoleName);
 
-            // добавляем роли
-            //Role adminRole = new Role { Id = 1, Name = adminRoleName };
-            //Role userRole = new Role { Id = 2, Name = userRoleName };
-            //User adminUser = new User { Id = 1, Email = adminEmail, Password = adminPassword, RoleId = adminRole.Id };
-
-            //modelBuilder.Entity<PassData>().HasData(new PassData[] { adminRole, userRole });
             //modelBuilder.Entity<PassData>().HasData(new PassData[] { adminUser, patientUser, doctorUser });
             base.OnModelCreating(modelBuilder);
         }

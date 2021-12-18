@@ -1,3 +1,5 @@
+<hr />
+<hr />
 <div class="container">
   <h3>Добавление отделения</h3>
   <hr>
@@ -5,7 +7,7 @@
   <!--<label for="code"><b>Код отделения</b></label>
   <input type="text" name="code" [(ngModel)]="department.department_code" required>-->
   <label for="department"><b>Отделение</b></label>
-  <input type="text" name="department" [(ngModel)]="department.department_name" #department="ngModel" pattern="^[А-ЯA-Zа-яf-z ,.'-]+$" required>
+  <input type="text" name="department" [(ngModel)]="department_name" #department="ngModel" pattern="^[А-ЯA-Zа-яf-z ,.'-]+$" required>
   <div [hidden]="department.valid || department.untouched" class="alert alert-danger">
     Введите корректные данные
   </div>
@@ -14,10 +16,10 @@
   <div *ngIf="!doctors">
     <em>Загрузка...</em>
   </div>
-  <input type="text" name="head" id="head" *ngIf="doctors" [(ngModel)]="department.head" list="head" (input)="onInput(department.head)">
-  <datalist id="head" *ngIf="doctors">
-    <option *ngFor="let doctor of doctors">{{doctor.surname}} {{doctor.name}} {{doctor.fathername}}</option>
-  </datalist>
+  <!--<input type="text" name="head" id="head" *ngIf="doctors" [(ngModel)]="department.head" list="head" (input)="onInput(department.head)">-->
+  <select id="head" *ngIf="doctors" [(ngModel)]="head">
+    <option *ngFor="let doctor of doctors" [value]="doctor.login">{{doctor.surname}} {{doctor.firstname}} {{doctor.fathername}}</option>
+  </select>
 
   <button type="submit" class="registerbtn" (click)="addDepartment()" [disabled]="department.invalid">Сохранить</button>
 </div>

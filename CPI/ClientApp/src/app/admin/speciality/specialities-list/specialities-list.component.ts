@@ -32,12 +32,14 @@ export class SpecialitiesListComponent {
   }
 
   deleteSpeciality(code: string) {
-    this.http.delete(this.baseUrl + 'speciality', { params: new HttpParams().set('speciality_code', code) })
-      .subscribe(
-        (data: any) => {
-          this.getSpecialitites();
-        },
-        error => console.log(error));
+    if (confirm("Подтвердите удаление: " + code)) {
+      this.http.delete(this.baseUrl + 'speciality', { params: new HttpParams().set('speciality_code', code) })
+        .subscribe(
+          (data: any) => {
+            this.getSpecialitites();
+          },
+          error => console.log(error));
+    }
   }
 }
 
