@@ -28,21 +28,20 @@
 
 <h2>Отделения</h2>
 
-<div class="topnav">
-  <div class="search-container">
-    <form action="">
-      <input type="text" placeholder="Найти.." name="search" class="search" [(ngModel)]="text" (input)="onInput(text)">
-    </form>
-  </div>
-</div>
-
-
 <div class="div-container">
   <button [routerLink]="['/add-department', admin]">Добавить</button>
   <div *ngIf="!departments"><em>Загрузка...</em></div>
 </div>
 
 <div class="dep">
+  <div class="topnav">
+    <div class="search-container">
+      <form action="">
+        <input type="text" placeholder="Найти.." name="search" class="search" [(ngModel)]="text" (input)="onInput(text)">
+      </form>
+    </div>
+  </div>
+
   <table class='table table-striped' aria-labelledby="tableLabel">
     <thead>
       <tr>

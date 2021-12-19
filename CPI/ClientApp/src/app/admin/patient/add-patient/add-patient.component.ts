@@ -19,7 +19,6 @@ export class AddPatientComponent {
   }
 
   postPatient(login: string, password: string) {
-    console.log(this.patient.login);
     this.http.get<PassData>(this.baseUrl + 'passdata/' + this.patient.login)
       .subscribe(
         result => {

@@ -17,24 +17,16 @@ export class AddDoctorComponent {
   public schedules: Schedule[];
   public docSpeciality: Speciality = new Speciality("", "");
   public docDepartment: Department = new Department(1, "");
-  public docSchedule: Schedule = new Schedule(0, new Date(), new Date());
+  public docSchedule: Schedule = new Schedule(1, new Date(), new Date());
   public doctor: Doctor = new Doctor("", "", "", "", 1, 1, 1, "");
   public newPass: PassData = new PassData("", "");
+  errors: string[] = [];
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.admin = activateRoute.snapshot.params['admin'];
-    this.login = activateRoute.snapshot.params['login'];
     this.getDepartments();
     this.getSpecialities();
     this.getSchedules();
-    this.getDoctor(this.login);
-  }
-
-  getDoctor(login: string) {
-    this.http.get<Doctor>(this.baseUrl + 'doctor/' + login).subscribe(result => {
-      if (result != null)
-        this.doctor = result;
-    }, error => console.error(error));
   }
 
   addDoctor() {
@@ -47,40 +39,48 @@ export class AddDoctorComponent {
     console.log(this.doctor);
     this.newPass.login = this.doctor.login;
 
-    this.http.post(this.baseUrl + 'passdata', this.newPass)
+    this.http.get<PassData>(this.baseUrl + 'passdata/' + this.newPass.login)
       .subscribe(
         result => {
-          this.http.post(this.baseUrl + 'doctor', this.doctor)
-            .subscribe(
-              (data: any) => {
-                this.router.navigate(['/doctors-list', this.admin]);
-              }, error => console.log(error));
+          this.errors = [];
+          if (result != null)
+            this.errors.push("Пользователь с таким логином уже существует");
+          else
+            this.http.post(this.baseUrl + 'passdata', this.newPass)
+              .subscribe(
+                result => {
+                  this.http.post(this.baseUrl + 'doctor', this.doctor)
+                    .subscribe(
+                      (data: any) => {
+                        this.router.navigate(['/doctors-list', this.admin]);
+                      }, error => console.log(error));
+                }, error => console.log(error));
         }, error => console.log(error));
-  }
+  };
 
   getDepartments() {
-    this.http.get<Department[]>(this.baseUrl + 'department').subscribe(result => {
-      this.departments = result;
-    }, error => console.error(error));
-  }
+        this.http.get<Department[]>(this.baseUrl + 'department').subscribe(result => {
+          this.departments = result;
+        }, error => console.error(error));
+      }
 
   getSpecialities() {
-    this.http.get<Speciality[]>(this.baseUrl + 'speciality').subscribe(result => {
-      this.specialities = result;
-    }, error => console.error(error));
-  }
+        this.http.get<Speciality[]>(this.baseUrl + 'speciality').subscribe(result => {
+          this.specialities = result;
+        }, error => console.error(error));
+      }
 
   getSchedules() {
-    this.http.get<Schedule[]>(this.baseUrl + 'schedule').subscribe(result => {
-      this.schedules = result;
-    }, error => console.error(error));
-  }
+        this.http.get<Schedule[]>(this.baseUrl + 'schedule').subscribe(result => {
+          this.schedules = result;
+        }, error => console.error(error));
+      }
 
   getDepartment() {
-    if (this.docDepartment.department_code != null)
-      this.http.get<Department>(this.baseUrl + 'department/' + this.docDepartment.department_code).subscribe(result => {
-        this.docDepartment = result;
-      }, error => console.error(error));
+        if(this.docDepartment.department_code != null)
+    this.http.get<Department>(this.baseUrl + 'department/' + this.docDepartment.department_code).subscribe(result => {
+      this.docDepartment = result;
+    }, error => console.error(error));
   }
 
   getSpeciality() {

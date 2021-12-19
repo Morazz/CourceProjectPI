@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 
 export class EditUserComponent {
+  public admin: string;
   public user: PassData;
   roles: string[] = ["Пациент", "Врач", "Администратор"];
   login: string | undefined;
@@ -17,6 +18,7 @@ export class EditUserComponent {
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.login = activateRoute.snapshot.params['login'];
+    this.admin = activateRoute.snapshot.params['admin'];
     this.getUser(this.login);
   }
 
@@ -29,7 +31,7 @@ export class EditUserComponent {
   postData() {
     this.http.put(this.baseUrl + 'passdata', this.user)
       .subscribe(result => {
-        this.router.navigate(['users-list']);
+        this.router.navigate(['users-list', this.admin]);
       }, error => console.log(error));
   }
 }

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-add-user',
@@ -9,17 +9,19 @@ import { Router } from '@angular/router';
 })
 
 export class AddUserComponent {
-  
+  public admin: string;
   roles: string[] = ["Пациент", "Врач", "Администратор"];
   user: PassData = new PassData("", "", "");
 
-  constructor(private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {}
+  constructor(private activateRoute: ActivatedRoute, private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+    this.admin = activateRoute.snapshot.params['admin'];
+  }
 
   postData() {
     this.http.post(this.baseUrl + 'passdata', this.user)
       .subscribe(
         (data: any) => {
-          this.router.navigate(['/users-list']);
+          this.router.navigate(['/users-list', this.admin]);
         }, error => console.log(error));
   }
 }

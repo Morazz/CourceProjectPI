@@ -62,7 +62,7 @@
   <div *ngIf="departments">
     <input type="text" name="depart" [(ngModel)]="docDepartment.department_code" list="dep">
     <datalist id="dep" name="dep">
-      <option [value]="NULL">--</option>
+      <option [ngValue]="null">--</option>
       <option *ngFor="let department of departments" [value]="department.department_code">{{department.department_name}}</option>
     </datalist>
   </div>

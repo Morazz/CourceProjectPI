@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-users-list',
@@ -10,8 +11,10 @@ import { Component, Inject } from '@angular/core';
 
 export class UsersListComponent {
   public users: PassData[];
+  public admin: string;
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+  constructor(private http: HttpClient, private activateRoute: ActivatedRoute, @Inject('BASE_URL') private baseUrl: string) {
+    this.admin = activateRoute.snapshot.params['admin'];
     http.get<PassData[]>(baseUrl + 'passdata').subscribe(result => {
       this.users = result;
     }, error => console.error(error));
