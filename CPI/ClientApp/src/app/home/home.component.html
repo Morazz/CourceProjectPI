@@ -1,27 +1,36 @@
-<div class="container">
-  <h1>Авторизация</h1>
-  <p>Пожалуйста, заполните эту форму, чтобы войти.</p>
-  <hr>
+<header>
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <!--<div class="container">-->
+      <a class="navbar-brand" [routerLink]="['/']">CPI</a>
+      <button class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target=".navbar-collapse"
+              aria-label="Toggle navigation"
+              [attr.aria-expanded]="isExpanded"
+              (click)="toggle()">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
+           [ngClass]="{ show: isExpanded }">
+        <ul class="navbar-nav flex-grow">
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/authorize']">Войти/Зарегистрироваться</a>
+          </li>
+        </ul>
+      </div>
+    <!--</div>-->
+  </nav>
+</header>
 
-  <label for="log"><b>Логин</b></label>
-  <input type="text" name="log" [(ngModel)]="user.login" pattern="(^[a-z0-9]{1,23})$" #log="ngModel" required>
-  <div [hidden]="log.valid || log.untouched" class="alert alert-danger">
-    Введите корректные данные
-  </div>
 
-  <label for="psw"><b>Пароль</b></label>
-  <input type="password" name="psw" [(ngModel)]="password" #psw="ngModel" required>
-  <div [hidden]="psw.valid || psw.untouched" class="alert alert-danger">
-    Введите корректный пароль
-  </div>
-
-  <button type="submit" class="registerbtn" (click)="authorize()" [disabled]="log.invalid || psw.invalid ">Войти</button>
-
-  <div ng-show="errors">
-    <div *ngFor="let error of errors" class="alert alert-danger">{{error}}</div>
+<div *ngFor="let dep of departments">
+  <hr />
+  <h3>{{dep.department_name}}</h3>
+  <div *ngFor="let doc of dep.doctors">
+    <h4>{{doc.surname}} {{doc.firstname}} {{doc.fathername}}</h4>
+    <h5>{{doc.speciality.speciality}}</h5>
+    <h5>Время работы: {{doc.hours.appointment_start | date:'HH:mm'}} - {{doc.hours.appointment_end | date:'HH:mm'}} </h5>
   </div>
 </div>
-
-<div class="container signin">
-  <p>Нет аккаунта? <a [routerLinkActive]="['link-active']" [routerLink]="['/register']">Зарегистрироваться</a>.</p>
-</div>
+<div style="height:20px;"></div>

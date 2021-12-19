@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Schedule } from '../../schedule/schedules-list/schedules-list.component';
 import { Speciality } from '../../speciality/specialities-list/specialities-list.component';
 
@@ -11,13 +11,15 @@ import { Speciality } from '../../speciality/specialities-list/specialities-list
 })
 /** add-department component*/
 export class AddDepartmentComponent {
+  public admin: string;
   public doctors: Doctor[];
   public department: Department = new Department(0, "", new Doctor("", "", "", "", 0));
   public department_name: string;
   public head: string;
   public doctor: Doctor = new Doctor("", "", "", "", 0);
 
-  constructor(private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+  constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+    this.admin = activateRoute.snapshot.params['admin'];
     this.getDoctors();
   }
 
@@ -49,9 +51,10 @@ export class AddDepartmentComponent {
     this.department.login.login = this.head;
 
     this.getDoctor();
+    this.doctor.department_code = this.department.department_code;
     this.http.post(this.baseUrl + 'department', this.department).subscribe(result => {
       this.http.put(this.baseUrl + 'doctor', this.doctor).subscribe(result => {
-        this.router.navigate(['/departments-list']);
+        this.router.navigate(['/departments-list', this.admin]);
       }, error => console.error(error));
     }, error => console.error(error));
   }

@@ -15,7 +15,7 @@ export class PickCouponComponent {
   freeCoupons: CouponTemplate[] = [];
   selectedDate: Date;
   newCoupon: Coupon = new Coupon(0, new Date(), "", "", 0);
-  doctor: Doctor = new Doctor("", 0, new Schedule(0, new Date(), new Date()), []);
+  doctor: Doctor = new Doctor("", "", "", "", 0, new Schedule(0, new Date(), new Date()), []);
   patient: Patient = new Patient("");
   doctorFreeCoupons: Coupon[] = [];
 
@@ -83,6 +83,9 @@ export class Coupon {
 export class Doctor {
   constructor(
     public login: string,
+    public firstname: string,
+    public surname: string,
+    public fathername: string,
     public schedule_code: number,
     public schedule: Schedule,
     public coupons: Coupon[]

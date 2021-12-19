@@ -10,7 +10,7 @@ import { Department, Doctor, Speciality, Schedule } from '../../admin/doctor/doc
 })
 
 export class PickDoctorComponent {
-
+  public login: string;
   public doctors: Doctor[];
   department: Department = new Department(0, "");
 
@@ -18,6 +18,7 @@ export class PickDoctorComponent {
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.department_code = activateRoute.snapshot.params['department_code'];
+    this.login = activateRoute.snapshot.params['login'];
     this.getDepartment(this.department_code);
 
     this.http.get<Doctor[]>(this.baseUrl + 'doctor/dep/' + this.department_code).subscribe(result => {

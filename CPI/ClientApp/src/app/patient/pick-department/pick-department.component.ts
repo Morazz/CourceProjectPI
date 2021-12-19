@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-pick-department',
@@ -9,9 +10,11 @@ import { Component, Inject } from '@angular/core';
 
 export class PickDepartmentComponent {
   public departments: Department[];
+  public login: string;
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+  constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.getDepartments();
+    this.login = activateRoute.snapshot.params['login'];
   }
 
   getDepartments() {

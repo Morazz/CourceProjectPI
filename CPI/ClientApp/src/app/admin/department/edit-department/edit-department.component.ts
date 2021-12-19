@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
     templateUrl: './edit-department.component.html',
     styleUrls: ['./edit-department.component.css']
 })
-/** edit-department component*/
+
 export class EditDepartmentComponent {
   public admin: string;
   public doctors: Doctor[];
@@ -18,19 +18,13 @@ export class EditDepartmentComponent {
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.department_code = activateRoute.snapshot.params['department_code'];
     this.admin = activateRoute.snapshot.params['admin'];
-    this.getDoctors();
     this.getDepartment();
+    this.getDoctors();
   }
 
   getDoctors() {
     this.http.get<Doctor[]>(this.baseUrl + 'doctor/nulldep').subscribe(result => {
       this.doctors = result;
-    }, error => console.error(error));
-  }
-
-  getDoctor() {
-    this.http.get<Doctor>(this.baseUrl + 'doctor/' + this.doctor.login).subscribe(result => {
-      this.doctor = result;
     }, error => console.error(error));
   }
 
@@ -46,14 +40,15 @@ export class EditDepartmentComponent {
   getDepartment() {
     this.http.get<Department>(this.baseUrl + 'department/' + this.department_code).subscribe(result => {
       this.department = result;
+      console.log(this.department);
     }, error => console.error(error));
   }
 
   addDepartment() {
-    //this.department.login = this.doctor.login;
-    //this.http.put(this.baseUrl + 'department', this.department).subscribe(result => {
-    //  this.router.navigate(['/departments-list']);
-    //}, error => console.error(error));
+    this.department.login = this.doctor.login;
+    this.http.put(this.baseUrl + 'department', this.department).subscribe(result => {
+      this.router.navigate(['/departments-list', this.admin]);
+    }, error => console.error(error));
     console.log(this.doctor);
   }
 }

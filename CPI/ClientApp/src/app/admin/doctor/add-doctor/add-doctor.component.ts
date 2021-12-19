@@ -11,29 +11,41 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 export class AddDoctorComponent {
   public admin: string;
+  public login: string;
   public departments: Department[];
   public specialities: Speciality[];
   public schedules: Schedule[];
   public docSpeciality: Speciality = new Speciality("", "");
-  public docDepartment: Department = new Department(0, "");
+  public docDepartment: Department = new Department(1, "");
   public docSchedule: Schedule = new Schedule(0, new Date(), new Date());
-  public doctor: Doctor = new Doctor("", "", "", "", 1, 0, 0, "");
-  public user: PassData = new PassData("", "", "Врач");
-
+  public doctor: Doctor = new Doctor("", "", "", "", 1, 1, 1, "");
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.admin = activateRoute.snapshot.params['admin'];
+    this.login = activateRoute.snapshot.params['login'];
     this.getDepartments();
     this.getSpecialities();
     this.getSchedules();
+    this.getDoctor(this.login);
+  }
+
+  getDoctor(login: string) {
+    this.http.get<Doctor>(this.baseUrl + 'doctor/' + login).subscribe(result => {
+      if (result != null)
+        this.doctor = result;
+    }, error => console.error(error));
   }
 
   addDoctor() {
     this.getSpeciality();
     this.getDepartment();
     this.getSchedule();
+    this.doctor.speciality_code = this.docSpeciality.speciality_code;
+    this.doctor.department_code = <number>(this.docDepartment.department_code);
+    this.doctor.schedule_code = <number>(this.docSchedule.schedule_code);
     console.log(this.doctor);
-    this.http.post(this.baseUrl + 'passdata', new PassData(this.doctor.login, this.user.password))
+
+    this.http.post(this.baseUrl + 'doctor', this.doctor)
       .subscribe(
         result => {
           this.http.post(this.baseUrl + 'doctor', this.doctor)
@@ -42,6 +54,9 @@ export class AddDoctorComponent {
                 this.router.navigate(['/doctors-list', this.admin]);
               }, error => console.log(error));
         }, error => console.log(error));
+
+
+    
   };
 
   getDepartments() {
@@ -63,20 +78,21 @@ export class AddDoctorComponent {
   }
 
   getDepartment() {
-    this.http.get<Department>(this.baseUrl + 'department/' + this.docDepartment.department_code).subscribe(result => {
-      this.doctor.department_code = result.department_code;
-    }, error => console.error(error));
+    if (this.docDepartment.department_code != null)
+      this.http.get<Department>(this.baseUrl + 'department/' + this.docDepartment.department_code).subscribe(result => {
+        this.docDepartment = result;
+      }, error => console.error(error));
   }
 
   getSpeciality() {
     this.http.get<Speciality>(this.baseUrl + 'speciality/' + this.docSpeciality.speciality_code).subscribe(result => {
-      this.doctor.speciality_code = result.speciality_code;
+      this.docSpeciality = result;
     }, error => console.error(error));
   }
 
   getSchedule() {
     this.http.get<Schedule>(this.baseUrl + 'schedule/' + this.docSchedule.schedule_code).subscribe(result => {
-      this.doctor.schedule_code = result.schedule_code;
+      this.docSchedule = result;
     }, error => console.error(error));
   }
 }
@@ -90,7 +106,7 @@ export class Doctor {
     public cabinet: number,
     public department_code: number,
     public schedule_code: number,
-    public speciality_code: string
+    public speciality_code: string,
   ) { }
 }
 

@@ -27,13 +27,11 @@
 </header>
 
 <div class="container">
-  <h3>Измеенение отделения</h3>
+  <h3>Изменение отделения</h3>
   <hr>
 
-  <!--<label for="code"><b>Код отделения</b></label>
-  <input type="text" name="code" [(ngModel)]="department.department_code" required>-->
-  <label for="department"><b>Отделение</b></label>
-  <input type="text" name="department" [(ngModel)]="department_name" #department="ngModel" pattern="^[А-ЯA-Zа-яf-z ,.'-]+$" required>
+  <label for="dep"><b>Отделение</b></label>
+  <input type="text" name="dep" [(ngModel)]="department.department_name" #department="ngModel" pattern="^[А-ЯA-Zа-яf-z ,.'-]+$" required>
   <div [hidden]="department.valid || department.untouched" class="alert alert-danger">
     Введите корректные данные
   </div>

@@ -44,7 +44,6 @@ export class EditDoctorComponent {
     this.doctor.department_code = <number>(this.docDepartment.department_code);
     this.doctor.schedule_code = <number>(this.docSchedule.schedule_code);
     console.log(this.doctor);
-    console.log(typeof (this.doctor.department_code) + " " + typeof (this.doctor.cabinet));
     this.http.put(this.baseUrl + 'doctor', this.doctor)
       .subscribe(
         (data: any) => {
@@ -71,6 +70,7 @@ export class EditDoctorComponent {
   }
 
   getDepartment() {
+    if (this.docDepartment.department_code != null)
     this.http.get<Department>(this.baseUrl + 'department/' + this.docDepartment.department_code).subscribe(result => {
       this.docDepartment = result;
     }, error => console.error(error));

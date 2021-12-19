@@ -12,19 +12,30 @@ export class AddPatientComponent {
   public admin: string;
   public patient: Patient = new Patient("", "", "", "", new Date(), "", "", "");
   public user: PassData = new PassData("", "");
+  errors: string[] = [];
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.admin = activateRoute.snapshot.params['admin'];
   }
+
   postPatient(login: string, password: string) {
-    this.http.post(this.baseUrl + 'passdata', new PassData(login, this.user.password))
+    console.log(this.patient.login);
+    this.http.get<PassData>(this.baseUrl + 'passdata/' + this.patient.login)
       .subscribe(
         result => {
-          this.http.post(this.baseUrl + 'patient', this.patient)
-            .subscribe(
-              (data: any) => {
-                this.router.navigate(['/patients-list']);
-              }, error => console.log(error));
+          this.errors = [];
+          if (result != null)
+            this.errors.push("Пользователь с таким логином уже существует");
+          else
+            this.http.post(this.baseUrl + 'passdata', new PassData(this.patient.login, this.user.password))
+              .subscribe(
+                result => {
+                  this.http.post(this.baseUrl + 'patient', this.patient)
+                    .subscribe(
+                      (data: any) => {
+                        this.router.navigate(['/patients-list', this.admin]);
+                      }, error => console.log(error));
+                }, error => console.log(error));
         }, error => console.log(error));
   };
 }

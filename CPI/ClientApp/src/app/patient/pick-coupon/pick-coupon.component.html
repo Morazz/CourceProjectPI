@@ -1,5 +1,30 @@
-<hr />
-<hr />
+<header>
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <a class="navbar-brand" [routerLink]="['/user-page', newCoupon.patient_login]">CPI</a>
+    <button class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target=".navbar-collapse"
+            aria-label="Toggle navigation"
+            [attr.aria-expanded]="isExpanded"
+            (click)="toggle()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
+         [ngClass]="{ show: isExpanded }">
+      <ul class="navbar-nav flex-grow">
+        <li class="nav-item" [routerLinkActive]="['link-active']">
+          <a class="nav-link text-dark" [routerLink]="['/']">Выйти</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<h3>{{doctor.surname}} {{doctor.firstname}} {{doctor.fathername}}</h3>
+
+<hr/>
+
 <h3>Выберите время:</h3>
 <mat-card class="demo-inline-calendar-card">
   <mat-calendar (selectedChange)="selectedDate = $event; newCoupon.appointment_day = selectedDate; checkCoupon();"></mat-calendar>

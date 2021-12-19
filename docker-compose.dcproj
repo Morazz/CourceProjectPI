@@ -3,9 +3,9 @@
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
-    <ProjectGuid>11b34ac6-bd9c-4134-af33-cf67ac8f53f4</ProjectGuid>
+    <ProjectGuid>294290e9-df6a-48b4-ba56-fbdc90ae3b4d</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
-    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
+    <DockerServiceUrl>{Scheme}://{ServiceIPAddress}{ServicePort}</DockerServiceUrl>
     <DockerServiceName>cpi</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>

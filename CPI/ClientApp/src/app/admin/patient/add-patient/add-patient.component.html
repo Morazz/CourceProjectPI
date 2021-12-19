@@ -77,5 +77,8 @@
           address.invalid || phone.invalid">
     Сохранить
   </button>
+  <div ng-show="errors">
+    <div *ngFor="let error of errors" class="alert alert-danger">{{error}}</div>
+  </div>
 </div>
 

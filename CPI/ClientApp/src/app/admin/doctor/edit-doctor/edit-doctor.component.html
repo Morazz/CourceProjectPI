@@ -58,6 +58,7 @@
   <div *ngIf="departments">
     <!--<input type="text" name="depart"  list="dep">-->
     <select id="dep" name="dep" [(ngModel)]="docDepartment.department_code">
+      <option [ngValue]="null">--</option>
       <option *ngFor="let department of departments" [value]="department.department_code">{{department.department_name}}</option>
     </select>
   </div>
