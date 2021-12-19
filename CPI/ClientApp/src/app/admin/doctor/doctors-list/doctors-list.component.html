@@ -32,18 +32,28 @@
   <div class="search-container">
     <form action="">
       <input type="text" placeholder="Найти.." name="search" class="search" [(ngModel)]="text" (input)="onInput(text)">
-      <button (click)="sortByDep()">Расширенный</button>
+      <button (click)="openSearch()">Расширенный</button>
     </form>
   </div>
 </div>
 
+
+
 <div class="div-container">
   <button [routerLink]="['/add-doctor', admin]">Добавить</button>
+  <div *ngIf="open_filter" style="display:flex; margin-top:10px;">
+    <p>Отделение: <input type="text" [(ngModel)]="filter.department"></p>
+    <p>Специальность: <input type="text" [(ngModel)]="filter.speciality"></p>
+    <button style="height:30px; margin-left: 30px;" (click)="findFilter()">Найти</button>
+    <button style="height:30px; margin-left: 30px;" (click)="nullFilter()">Сбросить</button>
+  </div>
   <div *ngIf="!doctors"><em>Загрузка...</em></div>
 </div>
 
 <div>
+
   <section ng-app="app" ng-controller="MainCtrl">
+
     <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="doctors" ng-app="doct">
       <thead>
         <tr>

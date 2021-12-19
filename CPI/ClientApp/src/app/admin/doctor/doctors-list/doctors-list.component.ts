@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Scheduler } from 'rxjs';
+import { Coupon } from '../../../patient/pick-coupon/pick-coupon.component';
 
 @Component({
   selector: 'app-doctors-list',
@@ -12,12 +13,15 @@ export class DoctorsListComponent {
   public admin: string;
   public doctors: Doctor[];
   public filtered: Doctor[];
+  public coupons: Coupon[];
   public speciality: Speciality = new Speciality("", "");
   public department: Department = new Department(0, "");
   public hours: Schedule = new Schedule(0, new Date(), new Date());
   ascLogin: boolean = true;
   ascSur: boolean = true;
   ascDep: boolean = true;
+  public open_filter = false;
+  filter = {department: "", speciality: ""};
 
   constructor(private http: HttpClient, private activateRoute: ActivatedRoute, @Inject('BASE_URL') private baseUrl: string) {
     this.getDoctors();
@@ -26,6 +30,18 @@ export class DoctorsListComponent {
 
   deleteDoctor(login: string) {
     if (confirm("Подтвердите удаление: " + login)) {
+
+      this.http.get<Coupon[]>(this.baseUrl + 'coupon/doc/' + login).subscribe(result => {
+        this.coupons = result;
+        this.coupons.forEach(coup => {
+          this.http.delete(this.baseUrl + 'coupon', { params: new HttpParams().set('coupon_id', coup.coupon_id.toString()) })
+            .subscribe(
+              (data: any) => {
+              },
+              error => console.log(error));
+        })
+      }, error => console.error(error));
+
       this.http.delete(this.baseUrl + 'doctor', { params: new HttpParams().set('login', login) })
         .subscribe(
           (data: any) => {
@@ -70,12 +86,30 @@ export class DoctorsListComponent {
   //}
 
   //sortDepartment() {
-  //  this.doctors.sort(doc => doc.department_code).reverse();
+  //  this.doctors.sort((d1, d2) => {
+  //    return d1.department.department_name.localeCompare(d2.department.department_name);
+  //  }).reverse();
   //}
 
   //sortSpeciality() {
-  //  this.doctors.sort(doc => doc.speciality_code).reverse();
+  //  this.doctors.sort(doc => doc.speciality.speciality).reverse();
   //}
+
+  openSearch() {
+    this.open_filter = !this.open_filter;
+  }
+
+  nullFilter() {
+    this.filter.department = "";
+    this.filter.speciality = "";
+    this.getDoctors();
+    this.open_filter = !this.open_filter;
+  }
+
+  findFilter() {
+    this.doctors = this.doctors.filter(doc => doc.department != null && doc.department.department_name.toLowerCase().includes(this.filter.department.toLowerCase())
+      && doc.speciality.speciality.toLowerCase().includes(this.filter.speciality.toLowerCase()));
+  }
 }
 
 export class Schedule {
