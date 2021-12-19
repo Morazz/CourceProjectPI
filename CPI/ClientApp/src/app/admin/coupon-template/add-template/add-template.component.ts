@@ -1,7 +1,7 @@
 import { Time } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-template',
@@ -11,8 +11,11 @@ import { Router } from '@angular/router';
 
 export class AddTemplateComponent {
   template: string = "";
+  public admin: string = "";
 
-  constructor(private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {}
+  constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+    this.admin = activateRoute.snapshot.params['admin'];
+  }
 
   postCoupon() {
     const hours = this.template.substr(0, 2);

@@ -1,7 +1,7 @@
 <header>
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">CPI</a>
+      <a class="navbar-brand" [routerLink]="['/admin-panel', user]">CPI</a>
       <button class="navbar-toggler"
               type="button"
               data-toggle="collapse"
@@ -14,16 +14,8 @@
       <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
            [ngClass]="{ show: isExpanded }">
         <ul class="navbar-nav flex-grow">
-          <li *ngIf="userLog" class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/pick-department', pat1]">Забронировать</a>
-          </li>
-          <li class="nav-item"
-              [routerLinkActive]="['link-active']"
-              [routerLinkActiveOptions]="{ exact: true }">
-            <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
-          </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/admin-panel']">Admin</a>
+            <a class="nav-link text-dark" [routerLink]="['/admin-panel', admin]">{{admin}}</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/']">Выйти</a>
@@ -42,29 +34,29 @@
   <div class="column">
     <h4>Пользователи</h4>
     <ul>
-      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/users-list']">Cписок пользователей</a></li>
-      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/add-user']">Добавить пользователя</a></li>
+      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/users-list', admin]">Cписок пользователей</a></li>
+      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/add-user', admin]">Добавить пользователя</a></li>
     </ul>
   </div>
   <div class="column">
     <h4>Врачи</h4>
     <ul>
-      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/doctors-list']">Cписок врачей</a></li>
-      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/add-doctor']">Добавить врача</a></li>
+      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/doctors-list', admin]">Cписок врачей</a></li>
+      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/add-doctor', admin]">Добавить врача</a></li>
     </ul>
   </div>
   <div class="column">
     <h4>Расписание</h4>
     <ul>
-      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/schedules-list']">Cписок расписаний</a></li>
-      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/add-schedule']">Добавить расписание</a></li>
+      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/schedules-list', admin]">Cписок расписаний</a></li>
+      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/add-schedule', admin]">Добавить расписание</a></li>
     </ul>
   </div>
   <div class="column">
     <h4>Пациенты</h4>
     <ul>
-      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/patients-list']">Список пациентов</a></li>
-      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/add-patient']">Добавить пациента</a></li>
+      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/patients-list', admin]">Список пациентов</a></li>
+      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/add-patient', admin]">Добавить пациента</a></li>
     </ul>
   </div>
 </div>
@@ -72,28 +64,28 @@
   <div class="column">
     <h4>Отделения</h4>
     <ul>
-      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/departments-list']">Список отделений</a></li>
-      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/add-department']">Добавить отделение</a></li>
+      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/departments-list', admin]">Список отделений</a></li>
+      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/add-department', admin]">Добавить отделение</a></li>
     </ul>
   </div>
   <div class="column">
     <h4>Специальности</h4>
     <ul>
-      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/specialities-list']">Список специальностей</a></li>
-      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/add-speciality']">Добавить специальность</a></li>
+      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/specialities-list', admin]">Список специальностей</a></li>
+      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/add-speciality', admin]">Добавить специальность</a></li>
     </ul>
   </div>
   <div class="column">
     <h4>Стандартные талоны</h4>
     <ul>
-      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/templates-list']">Список талонов</a></li>
-      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/add-template']">Добавить талон</a></li>
+      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/templates-list', admin]">Список талонов</a></li>
+      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/add-template', admin]">Добавить талон</a></li>
     </ul>
   </div>
   <div class="column">
     <h4>Талоны</h4>
     <ul>
-      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/coupons-list']">Список талонов</a></li>
+      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/coupons-list', admin]">Список талонов</a></li>
     </ul>
   </div>
 </div>

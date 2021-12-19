@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-patient',
@@ -9,11 +9,13 @@ import { Router } from '@angular/router';
 })
 
 export class AddPatientComponent {
-
+  public admin: string;
   public patient: Patient = new Patient("", "", "", "", new Date(), "", "", "");
   public user: PassData = new PassData("", "");
 
-  constructor(private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
+  constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+    this.admin = activateRoute.snapshot.params['admin'];
+  }
   postPatient(login: string, password: string) {
     this.http.post(this.baseUrl + 'passdata', new PassData(login, this.user.password))
       .subscribe(

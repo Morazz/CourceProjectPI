@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, Inject } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-admin-panel',
@@ -7,6 +9,11 @@ import { Component } from '@angular/core';
 })
 /** admin-panel component*/
 export class AdminPanelComponent {
-  constructor() { }
-  visible = true;
+
+  public admin: string = "";
+
+  constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+
+    this.admin = activateRoute.snapshot.params['admin'];
+  }
 }

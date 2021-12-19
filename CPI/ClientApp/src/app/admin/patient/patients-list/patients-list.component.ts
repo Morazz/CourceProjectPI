@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-patients-list',
@@ -8,9 +9,11 @@ import { Component, Inject } from '@angular/core';
 })
 
 export class PatientsListComponent {
+  public admin: string;
   public patients: Patient[];
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+  constructor(private http: HttpClient, private activateRoute: ActivatedRoute, @Inject('BASE_URL') private baseUrl: string) {
+    this.admin = activateRoute.snapshot.params['admin'];
     this.getPatients();
   }
 

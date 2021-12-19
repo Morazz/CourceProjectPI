@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-templates-list',
@@ -10,9 +11,11 @@ import { Component, Inject } from '@angular/core';
 export class TemplatesListComponent {
 
   public templates: CouponTemplate[];
+  public admin: string;
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+  constructor(private http: HttpClient, private activateRoute: ActivatedRoute, @Inject('BASE_URL') private baseUrl: string) {
     this.getTemplates();
+    this.admin = activateRoute.snapshot.params['admin'];  
   }
 
   getTemplates() {

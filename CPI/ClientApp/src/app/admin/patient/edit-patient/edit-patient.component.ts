@@ -9,11 +9,13 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class EditPatientComponent {
+  public admin: string;
   public patient: Patient = new Patient("", "", "", "", new Date(), "", "", "");
   public login: string;
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.login = activateRoute.snapshot.params['login'];
+    this.admin = activateRoute.snapshot.params['admin'];
     this.getUser(this.login);
   }
 

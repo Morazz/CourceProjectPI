@@ -52,17 +52,6 @@ export class PickCouponComponent {
     this.freeCoupons = this.coupons
       .filter(coupon => coupon.time > this.doctor.schedule.appointment_start && coupon.time < this.doctor.schedule.appointment_end)
       .filter(coupon => !this.doctorFreeCoupons.find(coup => coup.template_id == coupon.template_id));
-
-
-      //!this.doctor.coupons.find(cp => cp.appointment_day == this.selectedDate && cp.template_id != cup.template_id));
-
-
-    this.doctor.coupons.forEach(cp => {
-      //console.log(cp.appointment_day.getFullYear);
-    })
-    
-
-    console.log(this.freeCoupons);
   }
 
   pickCoupon() {

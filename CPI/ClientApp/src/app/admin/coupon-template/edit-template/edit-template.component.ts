@@ -12,10 +12,12 @@ export class EditTemplateComponent {
   template: string = "";
   t_id: number;
   temp: CouponTemplate = new CouponTemplate(0, new Date());
+  public admin: string = "";
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.t_id = activateRoute.snapshot.params['template_id'];
-    this.getTemplate()
+    this.getTemplate();
+    this.admin = activateRoute.snapshot.params['admin'];
   }
 
   postCoupon() {

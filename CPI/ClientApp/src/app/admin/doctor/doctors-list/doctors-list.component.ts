@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Scheduler } from 'rxjs';
 
 @Component({
@@ -8,6 +9,7 @@ import { Scheduler } from 'rxjs';
   styleUrls: ['./doctors-list.component.css']
 })
 export class DoctorsListComponent {
+  public admin: string;
   public doctors: Doctor[];
   public filtered: Doctor[];
   public speciality: Speciality = new Speciality("", "");
@@ -17,9 +19,9 @@ export class DoctorsListComponent {
   ascSur: boolean = true;
   ascDep: boolean = true;
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+  constructor(private http: HttpClient, private activateRoute: ActivatedRoute, @Inject('BASE_URL') private baseUrl: string) {
     this.getDoctors();
-    
+    this.admin = activateRoute.snapshot.params['admin'];
   }
 
   deleteDoctor(login: string) {

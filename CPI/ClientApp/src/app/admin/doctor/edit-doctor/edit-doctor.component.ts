@@ -10,6 +10,7 @@ import { Department, Doctor, Schedule, Speciality } from '../add-doctor/add-doct
 })
 
 export class EditDoctorComponent {
+  public admin: string;
   public login: string;
   public departments: Department[];
   public specialities: Speciality[];
@@ -20,6 +21,7 @@ export class EditDoctorComponent {
   public doctor: Doctor = new Doctor("", "", "", "", 1, 1, 1, "");
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+    this.admin = activateRoute.snapshot.params['admin'];
     this.login = activateRoute.snapshot.params['login'];
     this.getDepartments();
     this.getSpecialities();
@@ -46,7 +48,7 @@ export class EditDoctorComponent {
     this.http.put(this.baseUrl + 'doctor', this.doctor)
       .subscribe(
         (data: any) => {
-          this.router.navigate(['/doctors-list']);
+          this.router.navigate(['/doctors-list', this.admin]);
         }, error => console.log(error));
   };
 

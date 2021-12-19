@@ -1,5 +1,31 @@
-<hr />
-<hr />
+<header>
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container">
+      <a class="navbar-brand" [routerLink]="['/admin-panel', user]">CPI</a>
+      <button class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target=".navbar-collapse"
+              aria-label="Toggle navigation"
+              [attr.aria-expanded]="isExpanded"
+              (click)="toggle()">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
+           [ngClass]="{ show: isExpanded }">
+        <ul class="navbar-nav flex-grow">
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/admin-panel', admin]">{{admin}}</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/']">Выйти</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
 <h2>Отделения</h2>
 
 <div class="topnav">
@@ -12,7 +38,7 @@
 
 
 <div class="div-container">
-  <button [routerLink]="['/add-department']">Добавить</button>
+  <button [routerLink]="['/add-department', admin]">Добавить</button>
 </div>
 
 <div *ngIf="!departments"><em>Загрузка...</em></div>
@@ -31,7 +57,7 @@
         <td>{{department.head}}</td>
         <td>
           <button class="dltbtn" (click)="deleteDepartment(department.department_code)">Удалить</button>
-          <button class="editbtn" [routerLink]="['/edit-department', department.department_code]">Изменить</button>
+          <button class="editbtn" [routerLink]="['/edit-department', admin, department.department_code]">Изменить</button>
         </td>
       </tr>
     </tbody>

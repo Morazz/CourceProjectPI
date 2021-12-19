@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 /** edit-department component*/
 export class EditDepartmentComponent {
+  public admin: string;
   public doctors: Doctor[];
   public department: Department = new Department(0, "", "");
   public department_code: number;
@@ -16,6 +17,7 @@ export class EditDepartmentComponent {
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.department_code = activateRoute.snapshot.params['department_code'];
+    this.admin = activateRoute.snapshot.params['admin'];
     this.getDoctors();
     this.getDepartment();
   }

@@ -1,6 +1,7 @@
 import { Time } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Doctor, Patient } from '../../../doctor/doctor-coupons-list/doctor-coupons-list.component';
 import { CouponTemplate } from '../../../patient/user-page/user-page.component';
 
@@ -14,8 +15,10 @@ export class CouponsListComponent {
   public coupons: Coupon[];
   public user: Patient = new Patient("", "", "", "", new Date(), "", "", "");
   public doctor: Doctor = new Doctor("", "", "", "", 0, "");
+  public admin: string;
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+  constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+    this.admin = activateRoute.snapshot.params['admin'];
     this.getCoupons();
   }
 
@@ -37,12 +40,14 @@ export class CouponsListComponent {
   }
 
   deleteCoupon(coupon_id: number) {
-    this.http.delete(this.baseUrl + 'coupon', { params: new HttpParams().set('coupon_id', coupon_id.toString()) })
-      .subscribe(
-        (data: any) => {
-          this.getCoupons();
-        },
-        error => console.log(error));
+    if (confirm("Подтвердите удаление: " + coupon_id)) {
+      this.http.delete(this.baseUrl + 'coupon', { params: new HttpParams().set('coupon_id', coupon_id.toString()) })
+        .subscribe(
+          (data: any) => {
+            this.getCoupons();
+          },
+          error => console.log(error));
+    }
   }
 }
 

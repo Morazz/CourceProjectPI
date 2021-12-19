@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { Component, Inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-doctor',
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 
 export class AddDoctorComponent {
+  public admin: string;
   public departments: Department[];
   public specialities: Speciality[];
   public schedules: Schedule[];
@@ -20,7 +21,8 @@ export class AddDoctorComponent {
   public user: PassData = new PassData("", "", "Врач");
 
 
-  constructor(private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+  constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+    this.admin = activateRoute.snapshot.params['admin'];
     this.getDepartments();
     this.getSpecialities();
     this.getSchedules();
@@ -37,7 +39,7 @@ export class AddDoctorComponent {
           this.http.post(this.baseUrl + 'doctor', this.doctor)
             .subscribe(
               (data: any) => {
-                this.router.navigate(['/doctors-list']);
+                this.router.navigate(['/doctors-list', this.admin]);
               }, error => console.log(error));
         }, error => console.log(error));
   };
