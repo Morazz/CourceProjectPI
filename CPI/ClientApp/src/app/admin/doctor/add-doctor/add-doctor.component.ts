@@ -19,6 +19,7 @@ export class AddDoctorComponent {
   public docDepartment: Department = new Department(1, "");
   public docSchedule: Schedule = new Schedule(0, new Date(), new Date());
   public doctor: Doctor = new Doctor("", "", "", "", 1, 1, 1, "");
+  public newPass: PassData = new PassData("", "");
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.admin = activateRoute.snapshot.params['admin'];
@@ -44,8 +45,9 @@ export class AddDoctorComponent {
     this.doctor.department_code = <number>(this.docDepartment.department_code);
     this.doctor.schedule_code = <number>(this.docSchedule.schedule_code);
     console.log(this.doctor);
+    this.newPass.login = this.doctor.login;
 
-    this.http.post(this.baseUrl + 'doctor', this.doctor)
+    this.http.post(this.baseUrl + 'passdata', this.newPass)
       .subscribe(
         result => {
           this.http.post(this.baseUrl + 'doctor', this.doctor)
@@ -54,10 +56,7 @@ export class AddDoctorComponent {
                 this.router.navigate(['/doctors-list', this.admin]);
               }, error => console.log(error));
         }, error => console.log(error));
-
-
-    
-  };
+  }
 
   getDepartments() {
     this.http.get<Department[]>(this.baseUrl + 'department').subscribe(result => {

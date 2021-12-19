@@ -18,6 +18,8 @@ export class PickCouponComponent {
   doctor: Doctor = new Doctor("", "", "", "", 0, new Schedule(0, new Date(), new Date()), []);
   patient: Patient = new Patient("");
   doctorFreeCoupons: Coupon[] = [];
+  minDate: Date = new Date();
+  maxDate: Date = new Date(new Date().getFullYear(), new Date().getMonth() + 1, new Date().getDate());
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.getCoupons();

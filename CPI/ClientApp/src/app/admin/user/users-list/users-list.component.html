@@ -10,18 +10,16 @@
   </div>
 </div>
 
-
 <div class="div-container">
   <button [routerLink]="['/add-user']">Добавить</button>
+  <div *ngIf="!users"><em>Загрузка...</em></div>
 </div>
-
-<div *ngIf="!users"><em>Loading...</em></div>
 
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="users">
   <thead>
     <tr>
-      <th>Логин</th>
-      <th>Роль</th>
+      <th (click)="sortLogin()" class="toorder">Логин</th>
+      <th (click)="sortStatus()" class="toorder">Роль</th>
     </tr>
   </thead>
   <tbody>

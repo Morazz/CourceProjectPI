@@ -56,26 +56,26 @@ export class DoctorsListComponent {
 
   onInput(text: string) {
     if (text.length > 0) {
-      //this. = this.doctors.filter(doc => doc.surname.includes(text));
-      this.doctors = this.filtered;
+      this.doctors = this.doctors.filter(doc => doc.surname.includes(text));
     }
+    else this.getDoctors();
   }
 
-  sortLogin() {
-    //this.doctors.sort(doc => doc.login).reverse();
-  }
+  //sortLogin() {
+  //  this.doctors.sort(doc => doc.login).reverse();
+  //}
 
-  sortSurname() {
-    //this.doctors.sort(doc => doc.surname).reverse();
-  }
+  //sortSurname() {
+  //  this.doctors.sort(doc => doc.surname).reverse();
+  //}
 
-  sortDepartment() {
-    //this.doctors.sort(doc => doc.department_code).reverse();
-  }
+  //sortDepartment() {
+  //  this.doctors.sort(doc => doc.department_code).reverse();
+  //}
 
-  sortSpeciality() {
-    //this.doctors.sort(doc => doc.speciality_code).reverse();
-  }
+  //sortSpeciality() {
+  //  this.doctors.sort(doc => doc.speciality_code).reverse();
+  //}
 }
 
 export class Schedule {

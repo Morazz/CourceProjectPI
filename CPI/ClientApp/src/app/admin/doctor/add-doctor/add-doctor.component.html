@@ -1,6 +1,5 @@
 <header>
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-    <div class="container">
       <a class="navbar-brand" [routerLink]="['/admin-panel', user]">CPI</a>
       <button class="navbar-toggler"
               type="button"
@@ -22,7 +21,6 @@
           </li>
         </ul>
       </div>
-    </div>
   </nav>
 </header>
 
@@ -34,7 +32,7 @@
   <input type="text" name="login" [(ngModel)]="doctor.login" required>
 
   <label for="psw"><b>Пароль</b></label>
-  <input type="password" name="psw" [(ngModel)]="user.password" required>
+  <input type="password" name="psw" [(ngModel)]="newPass.password" #password="ngModel" required>
 
   <label for="surname"><b>Фамилия</b></label>
   <input type="text" name="surname" [(ngModel)]="doctor.surname" #surname="ngModel"
@@ -62,7 +60,7 @@
     <em>Загрузка...</em>
   </div>
   <div *ngIf="departments">
-    <input type="text" name="depart" [(ngModel)]="docDepartment" list="dep">
+    <input type="text" name="depart" [(ngModel)]="docDepartment.department_code" list="dep">
     <datalist id="dep" name="dep">
       <option [value]="NULL">--</option>
       <option *ngFor="let department of departments" [value]="department.department_code">{{department.department_name}}</option>
@@ -76,7 +74,7 @@
     <em>Загрузка...</em>
   </div>
   <div *ngIf="specialities">
-    <input type="text" name="speciality" [(ngModel)]="docSpeciality" list="spec">
+    <input type="text" name="speciality" [(ngModel)]="docSpeciality.speciality_code" list="spec">
     <datalist id="spec" name="spec">
       <option *ngFor="let speciality of specialities" [value]="speciality.speciality_code">{{speciality.speciality}}</option>
     </datalist>

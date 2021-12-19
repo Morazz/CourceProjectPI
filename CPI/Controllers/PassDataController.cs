@@ -40,33 +40,8 @@ namespace CPI.Controllers
         [HttpPost]
         public void Insert(PassData passData)
         {
-            var identity = GetIdentity(passData);
-            //if (identity == null)
-            //{
-            //    return BadRequest(new { errorText = "Invalid username or password." });
-            //}
             db.PassData.Add(passData);
             db.SaveChanges();
-        }
-
-        private ClaimsIdentity GetIdentity(PassData passData)
-        {
-            PassData pd = db.PassData.FirstOrDefault(x => x.login == passData.login && x.password == passData.password);
-            if (pd != null)
-            {
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, pd.login),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, pd.status)
-                };
-                ClaimsIdentity claimsIdentity =
-                new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
-                    ClaimsIdentity.DefaultRoleClaimType);
-                return claimsIdentity;
-            }
-
-            // если пользователя не найдено
-            return null;
         }
 
         [HttpDelete]

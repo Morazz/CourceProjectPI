@@ -43,10 +43,11 @@ namespace CPI.Controllers
         }
 
         [HttpPost]
-        public void Insert(Department department)
+        public Department Insert(Department department)
         {
             db.Departments.Add(department);
             db.SaveChanges();
+            return department;
         }
 
         [HttpDelete]

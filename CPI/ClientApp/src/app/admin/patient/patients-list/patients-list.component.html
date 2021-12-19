@@ -39,9 +39,8 @@
 
 <div class="div-container">
   <button [routerLink]="['/add-patient', admin]">Добавить</button>
+  <div *ngIf="!patients"><em>Загрузка...</em></div>
 </div>
-
-<div *ngIf="!patients"><em>Loading...</em></div>
 
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="patients">
   <thead>

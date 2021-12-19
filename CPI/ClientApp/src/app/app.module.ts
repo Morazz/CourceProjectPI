@@ -78,7 +78,7 @@ import { EditDoctorComponent } from './admin/doctor/edit-doctor/edit-doctor.comp
     DoctorCouponsListComponent,
     EditDepartmentComponent,
     PatientInfoComponent,
-    EditDoctorComponent
+    EditDoctorComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

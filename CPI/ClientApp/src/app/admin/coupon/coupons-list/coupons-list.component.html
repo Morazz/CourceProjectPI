@@ -36,16 +36,17 @@
   </div>
 </div>
 
-<div *ngIf="!coupons"><em>Загрузка...</em></div>
+
 
 <div class="dep">
+  <div *ngIf="!coupons"><em>Загрузка...</em></div>
   <table class='table table-striped' aria-labelledby="tableLabel">
     <thead>
       <tr>
-        <th>Дата приема</th>
+        <th (click)="sortDay()" class="toorder">Дата приема</th>
         <th>Время приема</th>
-        <th>Пациент</th>
-        <th>Врач</th>
+        <th (click)="sortPatient()" class="toorder">Пациент</th>
+        <th (click)="sortDoctor()" class="toorder">Врач</th>
       </tr>
     </thead>
     <tbody>

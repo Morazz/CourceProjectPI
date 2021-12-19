@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Schedule } from '../../schedule/schedules-list/schedules-list.component';
-import { Speciality } from '../../speciality/specialities-list/specialities-list.component';
+
 
 @Component({
   selector: 'app-add-department',
@@ -49,10 +48,9 @@ export class AddDepartmentComponent {
   addDepartment() {
     this.department.department_name = this.department_name;
     this.department.login.login = this.head;
-
     this.getDoctor();
-    this.doctor.department_code = this.department.department_code;
-    this.http.post(this.baseUrl + 'department', this.department).subscribe(result => {
+    this.http.post<Department>(this.baseUrl + 'department', this.department).subscribe(result => {
+      this.doctor.department_code = result.department_code;
       this.http.put(this.baseUrl + 'doctor', this.doctor).subscribe(result => {
         this.router.navigate(['/departments-list', this.admin]);
       }, error => console.error(error));

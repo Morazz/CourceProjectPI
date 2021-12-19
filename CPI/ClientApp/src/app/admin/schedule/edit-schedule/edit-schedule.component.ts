@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 
 export class EditScheduleComponent {
+  public admin: string;
   public schedule: Schedule = new Schedule(0, new Date(), new Date());
   public schedule_code: number;
   public start: string;
@@ -17,12 +18,12 @@ export class EditScheduleComponent {
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string)  {
     this.schedule_code = activateRoute.snapshot.params['schedule_code'];
+    this.admin = activateRoute.snapshot.params['admin'];
     this.getSchedule(this.schedule_code);
   }
 
   getSchedule(schedule_code: number) {
     this.http.get<Schedule>(this.baseUrl + 'schedule/' + schedule_code).subscribe(result => {
-      console.log(result.schedule_code);
       this.schedule = result;
       
     }, error => console.error(error));
@@ -40,7 +41,7 @@ export class EditScheduleComponent {
     this.schedule.appointment_end = date2;
 
     this.http.put(this.baseUrl + 'schedule', this.schedule).subscribe(result => {
-      this.router.navigate(['schedules-list']);
+      this.router.navigate(['schedules-list', this.admin]);
     }, error => console.error(error));
   }
 }

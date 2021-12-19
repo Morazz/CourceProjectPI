@@ -30,9 +30,8 @@
 
 <div class="div-container">
   <button [routerLink]="['/add-template']">Добавить</button>
+  <div *ngIf="!templates"><em>Загрузка...</em></div>
 </div>
-
-<div *ngIf="!templates"><em>Loading...</em></div>
 
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="templates">
   <thead>

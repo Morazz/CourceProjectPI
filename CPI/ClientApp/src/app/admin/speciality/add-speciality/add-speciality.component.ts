@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-add-speciality',
@@ -10,12 +10,15 @@ import { Router } from '@angular/router';
 
 export class AddSpecialityComponent {
   public speciality: Speciality = new Speciality("", "");
+  admin: string;
 
-  constructor(private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
+  constructor(private activateRoute: ActivatedRoute, private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+    this.admin = activateRoute.snapshot.params['admin'];
+  }
 
   postData() {
     this.http.post(this.baseUrl + 'speciality', this.speciality).subscribe(result => {
-      this.router.navigate(['/specialities-list']);
+      this.router.navigate(['/specialities-list', this.admin]);
     }, error => console.error(error));
   }
 }

@@ -28,6 +28,14 @@ export class UsersListComponent {
     }
   }
 
+  //sortLogin() {
+  //  this.users.sort(us => us.login).reverse();
+  //}
+
+  //sortStatus() {
+  //  this.users.sort(us => us.status).reverse();
+  //}
+
   getUsers() {
     this.http.get<PassData[]>(this.baseUrl + 'passdata').subscribe(result => {
       this.users = result;

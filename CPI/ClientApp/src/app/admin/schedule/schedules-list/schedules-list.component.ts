@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-schedules-list',
@@ -9,11 +9,12 @@ import { Router } from '@angular/router';
 })
 
 export class SchedulesListComponent {
-
+  admin: string;
   public schedules: Schedule[];
 
-  constructor(private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+  constructor(private activateRoute: ActivatedRoute, private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.getSchedules();
+    this.admin = activateRoute.snapshot.params['admin'];
   }
 
   getSchedules() {

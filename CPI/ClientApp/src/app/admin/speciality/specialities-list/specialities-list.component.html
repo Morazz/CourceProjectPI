@@ -1,5 +1,28 @@
-<hr />
-<hr />
+  <header>
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <a class="navbar-brand" [routerLink]="['/admin-panel', admin]">CPI</a>
+    <button class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target=".navbar-collapse"
+            aria-label="Toggle navigation"
+            [attr.aria-expanded]="isExpanded"
+            (click)="toggle()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
+         [ngClass]="{ show: isExpanded }">
+      <ul class="navbar-nav flex-grow">
+        <li class="nav-item" [routerLinkActive]="['link-active']">
+          <a class="nav-link text-dark" [routerLink]="['/admin-panel', admin]">{{admin}}</a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['link-active']">
+          <a class="nav-link text-dark" [routerLink]="['/']">Выйти</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
 <h2>Специальности</h2>
 
 <div class="topnav">
@@ -12,10 +35,9 @@
 
 
 <div class="div-container">
-  <button [routerLink]="['/add-speciality']">Добавить</button>
+  <button [routerLink]="['/add-speciality', admin]">Добавить</button>
+  <div *ngIf="!specialities"><em>Загрузка...</em></div>
 </div>
-
-<div *ngIf="!specialities"><em>Loading...</em></div>
 
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="specialities">
   <thead>
@@ -30,7 +52,7 @@
       <td>{{speciality.speciality}}</td>
       <td>
         <button class="dltbtn" (click)="deleteSpeciality(speciality.speciality_code)">Удалить</button>
-        <button class="editbtn" [routerLink]="['/edit-speciality', speciality.speciality_code]">Изменить</button>
+        <button class="editbtn" [routerLink]="['/edit-speciality', admin, speciality.speciality_code]">Изменить</button>
       </td>
     </tr>
   </tbody>

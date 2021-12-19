@@ -59,8 +59,8 @@ export class HomeComponent {
   getDepartments() {
     this.http.get<Department[]>(this.baseUrl + 'department').subscribe(result => {
       this.departments = result;
-      console.log(this.departments);
       this.departments.forEach(dep => dep.doctors = this.doctors.filter(doc => doc.department_code == dep.department_code));
+      this.departments = this.departments.filter(dep => dep.doctors.length > 0);
     }, error => console.error(error));
 
   }

@@ -39,11 +39,11 @@
 
 <div class="div-container">
   <button [routerLink]="['/add-doctor', admin]">Добавить</button>
+  <div *ngIf="!doctors"><em>Загрузка...</em></div>
 </div>
 
 <div>
   <section ng-app="app" ng-controller="MainCtrl">
-    <div *ngIf="!doctors"><em>Загрузка...</em></div>
     <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="doctors" ng-app="doct">
       <thead>
         <tr>
@@ -60,13 +60,13 @@
       <tbody>
         <tr *ngFor="let doctor of doctors">
           <td><a [routerLink]="['/doctor-info', doctor.login]">{{doctor.login}}</a></td>
-          <td>{{doctor.department.department_name}}</td>
-          <td>{{doctor.speciality.speciality}}</td>
+          <td>{{doctor.department?.department_name}}</td>
+          <td>{{doctor.speciality?.speciality}}</td>
           <td>{{doctor.surname}}</td>
           <td>{{doctor.firstname}}</td>
           <td>{{doctor.fathername}}</td>
           <td>{{doctor.cabinet}}</td>
-          <td>{{doctor.hours.appointment_start | date:'HH:mm'}} - {{doctor.hours.appointment_end | date:'HH:mm'}}</td>
+          <td>{{doctor.hours?.appointment_start | date:'HH:mm'}} - {{doctor.hours?.appointment_end | date:'HH:mm'}}</td>
           <td>
             <button class="dltbtn" (click)="deleteDoctor(doctor.login)">Удалить</button>
             <button class="editbtn" [routerLink]="['/edit-doctor', admin, doctor.login]">Изменить</button>

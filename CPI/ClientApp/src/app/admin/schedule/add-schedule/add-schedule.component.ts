@@ -1,7 +1,7 @@
 import { Time } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-schedule',
@@ -10,10 +10,13 @@ import { Router } from '@angular/router';
 })
 
 export class AddScheduleComponent {
+  public admin: string;
   public start: string;
   public end: string;
   public schedule: Schedule = new Schedule(0, new Date(), new Date());
-  constructor(private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
+  constructor(private activateRoute: ActivatedRoute, private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+    this.admin = activateRoute.snapshot.params['admin'];
+  }
 
   postSchedule() {
     const hours = this.start.substr(0, 2);
@@ -30,7 +33,7 @@ export class AddScheduleComponent {
     this.http.post(this.baseUrl + 'schedule', this.schedule)
       .subscribe(
         result => {
-          this.router.navigate(['/schedules-list']);
+          this.router.navigate(['/schedules-list', this.admin]);
         }, error => console.log(error));
   }
 }

@@ -1,5 +1,6 @@
 import { Time } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { compareNumbers } from '@angular/compiler-cli/src/diagnostics/typescript_version';
 import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Doctor, Patient } from '../../../doctor/doctor-coupons-list/doctor-coupons-list.component';
@@ -48,6 +49,18 @@ export class CouponsListComponent {
           },
           error => console.log(error));
     }
+  }
+
+  //sortPatient() {
+  //  this.coupons.sort((coup1, coup2) => coup1.patient.surname. ).reverse();
+  //}
+
+  //sortDoctor() {
+  //  this.coupons.sort(coup => coup.doctor.surname).reverse();
+  //}
+
+  sortDay() {
+    this.coupons.sort((a, b) => <any>new Date(a.appointment_day) - <any>new Date(b.appointment_day)).reverse();
   }
 }
 

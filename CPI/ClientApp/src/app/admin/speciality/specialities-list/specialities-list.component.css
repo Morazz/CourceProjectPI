@@ -14,6 +14,11 @@
     background-color: #BF3030;
   }
 
+.toorder:hover {
+  background-color: rgb(177,177,177,0.8);
+  cursor: pointer;
+}
+
 .editbtn {
   background-color: #8B8B8B;
   color: white;
