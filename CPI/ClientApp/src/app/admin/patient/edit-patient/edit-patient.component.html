@@ -48,9 +48,9 @@
     Введите корректные данные
   </div>
   <div>
-    <input type="radio" name="woman" [(ngModel)]="patient.gender" value="Женский">
+    <input type="radio" name="woman" [(ngModel)]="patient.gender" #gender="ngModel" value="Женский">
     <label for="woman"><b>Женский</b></label> <br />
-    <input type="radio" name="man" [(ngModel)]="patient.gender" value="Мужской">
+    <input type="radio" name="man" [(ngModel)]="patient.gender" #gender="ngModel" value="Мужской">
     <label for="man"><b>Мужской</b></label>
   </div>
   <label for="birthday"><b>Дата рождения</b></label>

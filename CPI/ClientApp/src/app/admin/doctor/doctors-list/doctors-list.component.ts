@@ -17,11 +17,12 @@ export class DoctorsListComponent {
   public speciality: Speciality = new Speciality("", "");
   public department: Department = new Department(0, "");
   public hours: Schedule = new Schedule(0, new Date(), new Date());
-  ascLogin: boolean = true;
-  ascSur: boolean = true;
-  ascDep: boolean = true;
+  ascLogin = false;
+  ascSur = false;
+  ascDep = false;
+  ascSpec = false;
   public open_filter = false;
-  filter = {department: "", speciality: ""};
+  filter = { department: "", speciality: "" };
 
   constructor(private http: HttpClient, private activateRoute: ActivatedRoute, @Inject('BASE_URL') private baseUrl: string) {
     this.getDoctors();
@@ -77,23 +78,59 @@ export class DoctorsListComponent {
     else this.getDoctors();
   }
 
-  //sortLogin() {
-  //  this.doctors.sort(doc => doc.login).reverse();
-  //}
+  sortLogin() {
+    if (this.ascLogin) {
+      this.doctors.sort((doc1, doc2) => doc1.login.localeCompare(doc2.login));
+      this.ascLogin = !this.ascLogin;
+    }
+    else {
+      this.doctors.sort((doc1, doc2) => doc1.login.localeCompare(doc2.login)).reverse();
+      this.ascLogin = !this.ascLogin;
+    }
+  }
 
-  //sortSurname() {
-  //  this.doctors.sort(doc => doc.surname).reverse();
-  //}
 
-  //sortDepartment() {
-  //  this.doctors.sort((d1, d2) => {
-  //    return d1.department.department_name.localeCompare(d2.department.department_name);
-  //  }).reverse();
-  //}
+  sortSurname() {
+    if (this.ascSur) {
+      this.doctors.sort((doc1, doc2) => doc1.surname.localeCompare(doc2.surname));
+      this.ascSur = !this.ascSur;
+    }
+    else {
+      this.doctors.sort((doc1, doc2) => doc1.surname.localeCompare(doc2.surname)).reverse();
+      this.ascSur = !this.ascSur;
+    }
+  }
 
-  //sortSpeciality() {
-  //  this.doctors.sort(doc => doc.speciality.speciality).reverse();
-  //}
+  sortDepartment() {
+    //if (this.ascDep) {
+    //  this.ascDep = !this.ascDep;
+    //  this.doctors.sort(function (doc1, doc2) {
+    //    return (doc1.department_code === null) - (doc2.department_code === null)
+    //      || +(doc1.department.department_name.localeCompare(doc2.department.department_name) == 1)
+    //      || -(doc1.department.department_name.localeCompare(doc2.department.department_name) == -1);
+    //  });
+    //}
+    //else {
+    //  this.ascDep = !this.ascDep;
+    //  this.doctors.sort(function (doc1, doc2) {
+    //    return (doc1.department_code === null) - (doc2.department_code === null)
+    //      || -(doc1.department.department_name.localeCompare(doc2.department.department_name) == 1)
+    //      || +(doc1.department.department_name.localeCompare(doc2.department.department_name) == -1);
+    //  });
+    //}
+  }
+
+  sortSpeciality() {
+    if (this.ascSpec) {
+      this.doctors.sort((doc1, doc2) => doc1.speciality.speciality.localeCompare(doc2.speciality.speciality));
+      this.ascSpec = !this.ascSpec;
+    }
+    else {
+      this.doctors.sort((doc1, doc2) => doc1.speciality.speciality.localeCompare(doc2.speciality.speciality)).reverse();
+      this.ascSpec = !this.ascSpec;
+    }
+  }
+
 
   openSearch() {
     this.open_filter = !this.open_filter;

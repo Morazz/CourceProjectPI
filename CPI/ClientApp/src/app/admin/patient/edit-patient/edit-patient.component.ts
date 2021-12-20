@@ -27,9 +27,10 @@ export class EditPatientComponent {
   }
 
   editPatient() {
-    this.http.put(this.baseUrl + 'patient', this.patient).subscribe(result => {
-        this.router.navigate(['users-list', this.admin]);
-    }, error => console.error(error));
+    console.log(this.user.gender);
+    //this.http.put(this.baseUrl + 'patient', this.patient).subscribe(result => {
+    //    this.router.navigate(['patients-list', this.admin]);
+    //}, error => console.error(error));
   }
 }
 

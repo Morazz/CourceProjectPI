@@ -12,6 +12,9 @@ export class PatientsListComponent {
   public admin: string;
   public patients: Patient[];
   public open_filter = false;
+  ascLogin = false;
+  ascSurname = false;
+  ascGender = false;
   filter = { login: "", gender: "", address: ""};
 
   constructor(private http: HttpClient, private activateRoute: ActivatedRoute, @Inject('BASE_URL') private baseUrl: string) {
@@ -66,6 +69,39 @@ export class PatientsListComponent {
     this.patients = this.patients.filter(pat => pat.login.toLowerCase().includes(this.filter.login.toLowerCase())
       && pat.address.includes(this.filter.address)
       && pat.gender == this.filter.gender);
+  }
+
+  sortLogin() {
+    if (this.ascLogin) {
+      this.patients.sort((pat1, pat2) => pat1.login.localeCompare(pat2.login));
+      this.ascLogin = !this.ascLogin;
+    }
+    else {
+      this.patients.sort((pat1, pat2) => pat1.login.localeCompare(pat2.login)).reverse();
+      this.ascLogin = !this.ascLogin;
+    }
+  }
+
+  sortSurname() {
+    if (this.ascSurname) {
+      this.patients.sort((pat1, pat2) => pat1.login.localeCompare(pat2.login));
+      this.ascSurname = !this.ascSurname;
+    }
+    else {
+      this.patients.sort((pat1, pat2) => pat1.login.localeCompare(pat2.login)).reverse();
+      this.ascSurname = !this.ascSurname;
+    }
+  }
+
+  sortGender() {
+    if (this.ascGender) {
+      this.patients.sort((pat1, pat2) => pat1.gender.localeCompare(pat2.gender));
+      this.ascSurname = !this.ascSurname;
+    }
+    else {
+      this.patients.sort((pat1, pat2) => pat1.gender.localeCompare(pat2.gender)).reverse();
+      this.ascGender = !this.ascGender;
+    }
   }
 }
 
