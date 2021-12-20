@@ -1,22 +1,74 @@
-<hr/><hr/>
+<header>
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container">
+      <a class="navbar-brand" [routerLink]="['/user-page', patient.login]">CPI</a>
+      <button class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target=".navbar-collapse"
+              aria-label="Toggle navigation"
+              [attr.aria-expanded]="isExpanded"
+              (click)="toggle()">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
+           [ngClass]="{ show: isExpanded }">
+        <ul class="navbar-nav flex-grow">
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/user-page', patient.login]">{{patient.login}}</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/']">Выйти</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
 <div class="container">
   <h3>Редактирование информации</h3>
   <hr>
 
   <label for="surname"><b>Фамилия</b></label>
-  <input type="text" name="surname" [(ngModel)]="patient.surname" required>
+  <input type="text" name="surname" [(ngModel)]="patient.surname" #surname="ngModel" pattern="^([А-Я]{1}[а-яё]{1,23}|[A-Z]{1}[a-z]{1,23})$" required>
+  <div [hidden]="surname.valid || surname.untouched" class="alert alert-danger">
+    Введите корректные данные
+  </div>
   <label for="firstname"><b>Имя</b></label>
-  <input type="text" name="firstname" [(ngModel)]="patient.firstname" required>
+  <input type="text" name="firstname" [(ngModel)]="patient.firstname" #firstname="ngModel"
+         pattern="^([А-Я]{1}[а-яё]{1,23}|[A-Z]{1}[a-z]{1,23})$" required>
+  <div [hidden]="firstname.valid || firstname.untouched" class="alert alert-danger">
+    Введите корректные данные
+  </div>
   <label for="fathername"><b>Отчество</b></label>
-  <input type="text" name="fathername" [(ngModel)]="patient.fathername" required>
+  <input type="text" name="fathername" [(ngModel)]="patient.fathername" #fathername="ngModel"
+         pattern="^([А-Я]{1}[а-яё]{1,23}|[A-Z]{1}[a-z]{1,23})$" required>
+  <div [hidden]="fathername.valid || fathername.untouched" class="alert alert-danger">
+    Введите корректные данные
+  </div>
+  <div>
+    <input type="radio" name="woman" [(ngModel)]="patient.gender" value="Женский">
+    <label for="woman"><b>Женский</b></label> <br />
+    <input type="radio" name="man" [(ngModel)]="patient.gender" value="Мужской">
+    <label for="man"><b>Мужской</b></label>
+  </div>
   <label for="birthday"><b>Дата рождения</b></label>
   <input type="date" name="birthday"
-         min="1900-01-01" max="2019-01-01" [(ngModel)]="patient.birthday">
+         min="1900-01-01" max="2019-01-01" datetime="yyyy-MM-dd" [(ngModel)]="patient.birthday">
   <label for="address"><b>Адрес</b></label>
-  <input type="text" placeholder="Город, улица, дом, квартира" name="address" [(ngModel)]="patient.address" required>
+  <input type="text" placeholder="Город, улица, дом, квартира" name="address" [(ngModel)]="patient.address" #address="ngModel" required>
+  <div [hidden]="address.valid || address.untouched" class="alert alert-danger">
+    Введите корректные данные
+  </div>
   <label for="phone"><b>Номер телефона</b></label>
-  <input type="tel" placeholder="+375*********" name="phone" pattern="^\+375[0-9]{2}[0-9]{7}$" [(ngModel)]="patient.phone_number" required>
-
-  <button class="registerbtn" (click)="editPatient()">Сохранить</button>
+  <input type="text" placeholder="+375*********" name="phone" [(ngModel)]="patient.phone_number" #phone="ngModel" pattern="^\+375[0-9]{2}[0-9]{7}$" required>
+  <div [hidden]="phone.valid || phone.untouched" class="alert alert-danger">
+    Введите корректные данные
+  </div>
+  <button class="registerbtn" (click)="editPatient()" [disabled]="surname.invalid || firstname.invalid || fathername.invalid ||
+          address.invalid || phone.invalid">
+    Сохранить
+  </button>
 </div>
 

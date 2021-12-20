@@ -12,6 +12,8 @@ import { ActivatedRoute } from '@angular/router';
 export class UsersListComponent {
   public users: PassData[];
   public admin: string;
+  public open_filter = false;
+  filter = { login: "", status: "" };
 
   constructor(private http: HttpClient, private activateRoute: ActivatedRoute, @Inject('BASE_URL') private baseUrl: string) {
     this.admin = activateRoute.snapshot.params['admin'];
@@ -52,6 +54,22 @@ export class UsersListComponent {
       }, error => console.error(error));
     }
     else this.getUsers();
+  }
+
+  openSearch() {
+    this.open_filter = !this.open_filter;
+  }
+
+  nullFilter() {
+    this.filter.login = "";
+    this.filter.status = "";
+    this.getUsers();
+    this.open_filter = !this.open_filter;
+  }
+
+  findFilter() {
+    this.users = this.users.filter(usr => usr.login.toLowerCase().includes(this.filter.login.toLowerCase())
+      && usr.status.toLowerCase().includes(this.filter.status.toLowerCase()));
   }
 }
 

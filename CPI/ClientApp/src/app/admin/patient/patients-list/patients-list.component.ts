@@ -11,6 +11,8 @@ import { ActivatedRoute } from '@angular/router';
 export class PatientsListComponent {
   public admin: string;
   public patients: Patient[];
+  public open_filter = false;
+  filter = { login: "", gender: "", address: ""};
 
   constructor(private http: HttpClient, private activateRoute: ActivatedRoute, @Inject('BASE_URL') private baseUrl: string) {
     this.admin = activateRoute.snapshot.params['admin'];
@@ -47,16 +49,34 @@ export class PatientsListComponent {
     }
     else this.getPatients();
   }
+
+  openSearch() {
+    this.open_filter = !this.open_filter;
+  }
+
+  nullFilter() {
+    this.filter.login = "";
+    this.filter.gender = "";
+    this.filter.address = "";
+    this.getPatients();
+    this.open_filter = !this.open_filter;
+  }
+
+  findFilter() {
+    this.patients = this.patients.filter(pat => pat.login.toLowerCase().includes(this.filter.login.toLowerCase())
+      && pat.address.includes(this.filter.address)
+      && pat.gender == this.filter.gender);
+  }
 }
 
 export class Patient {
   constructor(public login: string,
     firstname: string,
     fathername: string,
-    surname: string,
+    public surname: string,
     birthday: Date,
-    gender: string,
-    address: string,
+    public gender: string,
+    public address: string,
     phone_number: string
 
   ) { }

@@ -41,6 +41,7 @@ import { DoctorCouponsListComponent } from './doctor/doctor-coupons-list/doctor-
 import { EditDepartmentComponent } from './admin/department/edit-department/edit-department.component';
 import { PatientInfoComponent } from './doctor/patient-info/patient-info.component';
 import { EditDoctorComponent } from './admin/doctor/edit-doctor/edit-doctor.component';
+import { EditPatientInfoComponent } from './patient/edit-patient-info/edit-patient-info.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { EditDoctorComponent } from './admin/doctor/edit-doctor/edit-doctor.comp
     EditDepartmentComponent,
     PatientInfoComponent,
     EditDoctorComponent,
+    EditPatientInfoComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -118,6 +120,7 @@ import { EditDoctorComponent } from './admin/doctor/edit-doctor/edit-doctor.comp
       { path: 'edit-department/:admin/:department_code', component: EditDepartmentComponent },
       { path: 'patient-info/:doctor/:patient', component: PatientInfoComponent },
       { path: 'edit-doctor/:admin/:login', component: EditDoctorComponent },
+      { path: 'edit-patient-info/:login', component: EditPatientInfoComponent },
     ]),
     BrowserAnimationsModule,
     MatDatepickerModule,

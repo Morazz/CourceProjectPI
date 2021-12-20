@@ -32,6 +32,7 @@
   <div class="search-container">
     <form action="">
       <input type="text" placeholder="Найти.." name="search" class="search" [(ngModel)]="text" (input)="onInput(text)">
+      <button (click)="openSearch()">Расширенный</button>
     </form>
   </div>
 </div>
@@ -39,6 +40,17 @@
 
 <div class="div-container">
   <button [routerLink]="['/add-patient', admin]">Добавить</button>
+  <div *ngIf="open_filter" style="display:flex; margin-top:10px;">
+    <p>Логин: <input type="text" [(ngModel)]="filter.login"></p>
+      <p> Пол: </p>
+      <input type="radio" name="woman" [(ngModel)]="filter.gender" value="Женский">
+      <label for="woman"><b>Женский</b></label> <br />
+      <input type="radio" name="man" [(ngModel)]="filter.gender" value="Мужской">
+      <label for="man"><b>Мужской</b></label>
+    <p>Адрес: <input type="text" [(ngModel)]="filter.address"></p>
+    <button style="height:30px; margin-left: 30px;" (click)="findFilter()">Найти</button>
+    <button style="height:30px; margin-left: 30px;" (click)="nullFilter()">Сбросить</button>
+  </div>
   <div *ngIf="!patients"><em>Загрузка...</em></div>
 </div>
 
