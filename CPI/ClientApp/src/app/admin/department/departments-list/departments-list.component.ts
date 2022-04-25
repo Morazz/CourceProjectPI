@@ -11,8 +11,9 @@ import { Doctor } from '../../doctor/doctors-list/doctors-list.component';
 
 export class DepartmentsListComponent {
   public departments: Department[];
+  public doctors: Doctor[];
   public admin: string;
-  public department: Department = new Department(0, "", "", null);
+  public department: Department = new Department(0, "", "", null, null);
 
   constructor(private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.getDepartments();
@@ -22,6 +23,20 @@ export class DepartmentsListComponent {
   getDepartments() {
     this.http.get<Department[]>(this.baseUrl + 'department').subscribe(result => {
       this.departments = result;
+      this.getDoctors();
+    }, error => console.error(error));
+  }
+
+  getDoctors() {
+    this.http.get<Doctor[]>(this.baseUrl + 'doctor').subscribe(result => {
+      this.doctors = result;
+
+      this.departments.forEach(dep => {
+        this.http.get<Doctor>(this.baseUrl + 'doctor/' + dep.head).subscribe(result => {
+          dep.headName = result;
+          console.log(dep.headName);
+        }, error => console.error(error));
+      }); 
     }, error => console.error(error));
   }
 
@@ -71,6 +86,7 @@ export class Department {
   constructor(
     public department_code: number,
     public department_name: string,
-    head: string,
+    public head: string,
+    public headName: Doctor,
     public doctors: Doctor[]) { }
 }

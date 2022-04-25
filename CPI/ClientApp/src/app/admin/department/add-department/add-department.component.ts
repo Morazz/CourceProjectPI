@@ -46,15 +46,16 @@ export class AddDepartmentComponent {
 
   addDepartment() {
     this.department.department_name = this.department_name;
-    this.department.login.login = this.head;
+    this.department.head = this.head;
     this.getDoctor();
     this.http.post<Department>(this.baseUrl + 'department', this.department).subscribe(result => {
       this.doctor.department_code = result.department_code;
       this.http.put(this.baseUrl + 'doctor', this.doctor).subscribe(result => {
-        
+
       }, error => console.error(error));
     }, error => console.error(error));
     this.router.navigate(['/departments-list', this.admin]);
+    console.log(this.department);
   }
 }
 
@@ -62,7 +63,8 @@ export class Department {
   constructor(
     public department_code: number,
     public department_name: string,
-    public login: Doctor) { }
+    /*public login: Doctor*/
+    public head: string ) { }
 }
 
 export class Doctor {

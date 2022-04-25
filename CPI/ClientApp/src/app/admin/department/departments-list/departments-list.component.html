@@ -52,7 +52,8 @@
     <tbody>
       <tr *ngFor="let department of departments">
         <td>{{department.department_name}}</td>
-        <td>{{department.head}}</td>
+        <td *ngIf="department.headName != null; else null_content" >{{department.headName.surname}} {{department.headName.firstname}} {{department.headName.fathername}}</td>
+        <ng-template #null_content><td></td></ng-template>
         <td>
           <button class="dltbtn" (click)="deleteDepartment(department.department_code)">Удалить</button>
           <button class="editbtn" [routerLink]="['/edit-department', admin, department.department_code]">Изменить</button>
