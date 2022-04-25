@@ -1,6 +1,5 @@
 <header>
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-    <div class="container">
       <a class="navbar-brand" [routerLink]="['/admin-panel', user]">CPI</a>
       <button class="navbar-toggler"
               type="button"
@@ -22,7 +21,6 @@
           </li>
         </ul>
       </div>
-    </div>
   </nav>
 </header>
 
@@ -30,8 +28,8 @@
   <h3>Изменение отделения</h3>
   <hr>
 
-  <label for="dep"><b>Отделение</b></label>
-  <input type="text" name="dep" [(ngModel)]="department.department_name" #department="ngModel" pattern="^[А-ЯA-Zа-яf-z ,.'-]+$" required>
+  <label for="department_name"><b>Отделение</b></label>
+  <input type="text" name="department_name" [(ngModel)]="department.department_name" #department="ngModel" pattern="^[А-ЯA-Zа-яf-z ,.'-]+$" required>
   <div [hidden]="department.valid || department.untouched" class="alert alert-danger">
     Введите корректные данные
   </div>

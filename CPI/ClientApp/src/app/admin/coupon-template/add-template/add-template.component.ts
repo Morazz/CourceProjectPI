@@ -24,7 +24,7 @@ export class AddTemplateComponent {
       this.http.post(this.baseUrl + 'coupontemplate', new CouponTemplate(date))
         .subscribe(
           result => {
-            this.router.navigate(['/templates-list']);
+            this.router.navigate(['/templates-list', this.admin]);
           }, error => console.log(error));
   }
 }

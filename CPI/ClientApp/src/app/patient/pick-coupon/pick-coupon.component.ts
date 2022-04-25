@@ -20,6 +20,7 @@ export class PickCouponComponent {
   doctorFreeCoupons: Coupon[] = [];
   minDate: Date = new Date();
   maxDate: Date = new Date(new Date().getFullYear(), new Date().getMonth() + 1, new Date().getDate());
+  errors: string[] = [];
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.getCoupons();
@@ -42,27 +43,34 @@ export class PickCouponComponent {
       }, error => console.error(error));
       this.http.get<Coupon[]>(this.baseUrl + 'coupon/doc/' + this.doctor.login).subscribe(result => {
         this.doctor.coupons = result;
-        console.log(this.doctor);
       }, error => console.error(error));
     }, error => console.error(error));
   }
 
   checkCoupon() {
 
+    //Coupons of current date
     this.doctorFreeCoupons = this.doctor.coupons.filter(cp => new Date(cp.appointment_day).setHours(0, 0, 0, 0) == new Date(this.selectedDate).setHours(0, 0, 0, 0));
 
     this.freeCoupons = this.coupons
-      .filter(coupon => coupon.time > this.doctor.schedule.appointment_start && coupon.time < this.doctor.schedule.appointment_end)
+      //Coupon time is in doctor's appointment time 
+      .filter(coupon => coupon.time >= this.doctor.schedule.appointment_start && coupon.time <= this.doctor.schedule.appointment_end)
+      //Exclude picked coupons 
       .filter(coupon => !this.doctorFreeCoupons.find(coup => coup.template_id == coupon.template_id));
   }
 
   pickCoupon() {
+    if (this.newCoupon.template_id == 0) {
+      this.errors.push("Пожалуйста, выберите время");
+    }
+    else
+      console.log(this.newCoupon);
     this.http.post(this.baseUrl + 'coupon', this.newCoupon)
       .subscribe(
         (data: any) => {
+          console.log(this.newCoupon);
           this.router.navigate(['/user-page', this.newCoupon.patient_login]);
         }, error => console.log(error));
-    console.log(this.selectedDate);
   }
 }
 

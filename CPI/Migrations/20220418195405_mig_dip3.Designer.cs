@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CPI.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20211217020411_Migr4")]
-    partial class Migr4
+    [Migration("20220418195405_mig_dip3")]
+    partial class mig_dip3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -202,7 +202,7 @@ namespace CPI.Migrations
             modelBuilder.Entity("CPI.Models.Coupon", b =>
                 {
                     b.HasOne("CPI.Models.Doctor", "Doctor")
-                        .WithMany()
+                        .WithMany("Coupons")
                         .HasForeignKey("doctor_login");
 
                     b.HasOne("CPI.Models.Patient", "Patient")
@@ -260,6 +260,11 @@ namespace CPI.Migrations
                         .IsRequired();
 
                     b.Navigation("PassData");
+                });
+
+            modelBuilder.Entity("CPI.Models.Doctor", b =>
+                {
+                    b.Navigation("Coupons");
                 });
 #pragma warning restore 612, 618
         }

@@ -11,7 +11,7 @@ import { Coupon, CouponTemplate, Doctor } from '../../patient/user-page/user-pag
 })
 /** patient-info component*/
 export class PatientInfoComponent {
-  public user: Patient = new Patient("", "", "", "", new Date(), "", "", "");
+  public user: Patient = new Patient("", "", "", "", new Date(), "", "", "", []);
   public coupons: Coupon[] = [];
   public login: string;
   public doctor: string;

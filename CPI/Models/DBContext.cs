@@ -29,8 +29,8 @@ namespace CPI.Models
             //string patientRoleName = "Пациент";
             //string doctorRoleName = "Доктор";
 
-            //string adminLogin = "admin";
-            //string adminPassword = "admin";
+            string adminLogin = "admin";
+            string adminPassword = "admin";
 
             //string patientLogin = "pat1";
             //string patientPassword = "pat1";
@@ -38,11 +38,11 @@ namespace CPI.Models
             //string doctorLogin = "doc1";
             //string doctorPassword = "doc1";
 
-            //PassData adminUser = new PassData(adminLogin, adminPassword, adminRoleName);
+            PassData adminUser = new PassData(adminLogin, adminPassword, "Администратор");
             //PassData patientUser = new PassData(patientLogin, patientPassword, patientRoleName);
             //PassData doctorUser = new PassData(doctorLogin, doctorPassword, doctorRoleName);
 
-            //modelBuilder.Entity<PassData>().HasData(new PassData[] { adminUser, patientUser, doctorUser });
+            modelBuilder.Entity<PassData>().HasData(new PassData[] { adminUser });
             base.OnModelCreating(modelBuilder);
         }
     }

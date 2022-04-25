@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Doctor } from '../../admin/doctor/doctors-list/doctors-list.component';
+import { Schedule } from '../../admin/schedule/schedules-list/schedules-list.component';
+import { Speciality } from '../../admin/speciality/specialities-list/specialities-list.component';
 
 @Component({
     selector: 'app-pick-department',
@@ -12,6 +14,7 @@ import { Doctor } from '../../admin/doctor/doctors-list/doctors-list.component';
 export class PickDepartmentComponent {
   public departments: Department[];
   public login: string;
+  public doctors: Doctor[];
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.getDoctors();
@@ -49,7 +52,7 @@ export class PickDepartmentComponent {
 
 export class Department {
   constructor(
-    department_code: number,
-    department_name: string,
-    doctors: Doctor[]) { }
+    public department_code: number,
+    public department_name: string,
+    public doctors: Doctor[]) { }
 }

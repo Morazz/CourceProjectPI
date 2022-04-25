@@ -25,7 +25,6 @@ export class AddDepartmentComponent {
   getDoctors() {
     this.http.get<Doctor[]>(this.baseUrl + 'doctor/nulldep').subscribe(result => {
       this.doctors = result;
-      console.log(this.doctors.length);
     }, error => console.error(error));
   }
 
@@ -52,9 +51,10 @@ export class AddDepartmentComponent {
     this.http.post<Department>(this.baseUrl + 'department', this.department).subscribe(result => {
       this.doctor.department_code = result.department_code;
       this.http.put(this.baseUrl + 'doctor', this.doctor).subscribe(result => {
-        this.router.navigate(['/departments-list', this.admin]);
+        
       }, error => console.error(error));
     }, error => console.error(error));
+    this.router.navigate(['/departments-list', this.admin]);
   }
 }
 

@@ -13,7 +13,7 @@ import { Patient } from '../../admin/patient/patients-list/patients-list.compone
 })
 
 export class UserPageComponent {
-  public user: Patient = new Patient("", "", "", "", new Date(), "", "", "");
+  public user: Patient = new Patient("", "", "", "", new Date(), "", "", "", []);
   public login: string;
   public coupons: Coupon[] = [];
   public doctor: Doctor = new Doctor("", "", "", 0, "", new Speciality("", ""));
@@ -28,6 +28,7 @@ export class UserPageComponent {
     this.http.get<Patient>(this.baseUrl + 'patient/' + login).subscribe(result => {
       this.user = result;
     }, error => console.error(error));
+    console.log(this.user);
   }
 
   getCoupons() {

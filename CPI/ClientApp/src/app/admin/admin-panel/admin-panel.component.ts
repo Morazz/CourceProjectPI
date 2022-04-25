@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 
 @Component({
     selector: 'app-admin-panel',
@@ -16,4 +16,5 @@ export class AdminPanelComponent {
 
     this.admin = activateRoute.snapshot.params['admin'];
   }
+
 }

@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Coupon } from '../../coupon/coupons-list/coupons-list.component';
 
 @Component({
     selector: 'app-patients-list',
@@ -12,6 +13,7 @@ export class PatientsListComponent {
   public admin: string;
   public patients: Patient[];
   public open_filter = false;
+  public patient: Patient = new Patient("", null, null, null, null, null, null, null, null);
   ascLogin = false;
   ascSurname = false;
   ascGender = false;
@@ -30,6 +32,23 @@ export class PatientsListComponent {
 
   deletePatient(login: string) {
     if (confirm("Подтвердите удаление: " + login)) {
+
+      this.http.get<Patient>(this.baseUrl + 'patient/' + login).subscribe(result => {
+        this.patient = result;
+        this.http.get<Coupon[]>(this.baseUrl + 'coupon/pat/' + login).subscribe(result => {
+          this.patient.coupons = result;
+        }, error => console.error(error));
+      }, error => console.error(error));
+
+      if (this.patient.coupons != null) {
+        this.patient.coupons.forEach(coup => {
+          this.http.delete(this.baseUrl + 'coupon', { params: new HttpParams().set('coupon_id', coup.coupon_id.toString()) })
+            .subscribe(result => console.log(coup));
+        });
+      }
+
+      this.patient.coupons = null;
+
       this.http.delete(this.baseUrl + 'patient', { params: new HttpParams().set('login', login) })
         .subscribe(
           result => {
@@ -42,6 +61,19 @@ export class PatientsListComponent {
           },
           error => console.log(error));
     }
+
+    //  this.http.delete(this.baseUrl + 'patient', { params: new HttpParams().set('login', login) })
+    //    .subscribe(
+    //      result => {
+    //        this.http.delete(this.baseUrl + 'passdata', { params: new HttpParams().set('login', login) })
+    //          .subscribe(
+    //            result => {
+    //              this.getPatients();
+    //            },
+    //            error => console.log(error));
+    //      },
+    //      error => console.log(error));
+    //}
   }
 
   onInput(text: string) {
@@ -113,7 +145,7 @@ export class Patient {
     birthday: Date,
     public gender: string,
     public address: string,
-    phone_number: string
-
+    phone_number: string,
+    public coupons: Coupon[]
   ) { }
 }

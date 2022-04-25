@@ -4,3 +4,9 @@
     <router-outlet></router-outlet>
   </div>
 </body>
+
+<template id="linkRow">
+  <li class="nav-item" [routerLinkActive]="['link-active']">
+    <a class='nav-link text-dark' routerLink="{{route}}">{{link}}</a>
+  </li>
+</template>

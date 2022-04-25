@@ -27,6 +27,6 @@
 
 <div class="div-container" *ngIf="departments">
   <div style="margin: 5px 0;" *ngFor="let department of departments" class="dep">
-    <h4 [routerLink]="['/pick-doctor', 'pat1', department.department_code]">{{department.department_name}}</h4>
+    <h4 [routerLink]="['/pick-doctor', login, department.department_code]">{{department.department_name}}</h4>
   </div>
 </div>

@@ -14,6 +14,8 @@ export class UsersListComponent {
   public admin: string;
   public open_filter = false;
   filter = { login: "", status: "" };
+  ascLogin = false;
+  ascStatus = false;
 
   constructor(private http: HttpClient, private activateRoute: ActivatedRoute, @Inject('BASE_URL') private baseUrl: string) {
     this.admin = activateRoute.snapshot.params['admin'];
@@ -33,13 +35,27 @@ export class UsersListComponent {
     }
   }
 
-  //sortLogin() {
-  //  this.users.sort(us => us.login).reverse();
-  //}
+  sortLogin() {
+    if (this.ascLogin) {
+      this.users.sort((usr1, usr2) => usr1.login.localeCompare(usr2.login));
+      this.ascLogin = !this.ascLogin;
+    }
+    else {
+      this.users.sort((usr1, usr2) => usr1.login.localeCompare(usr2.login)).reverse();
+      this.ascLogin = !this.ascLogin;
+    }
+  }
 
-  //sortStatus() {
-  //  this.users.sort(us => us.status).reverse();
-  //}
+  sortStatus() {
+    if (this.ascStatus) {
+      this.users.sort((usr1, usr2) => usr1.status.localeCompare(usr2.status));
+      this.ascStatus = !this.ascStatus;
+    }
+    else {
+      this.users.sort((usr1, usr2) => usr1.status.localeCompare(usr2.status)).reverse();
+      this.ascStatus = !this.ascStatus;
+    }
+  }
 
   getUsers() {
     this.http.get<PassData[]>(this.baseUrl + 'passdata').subscribe(result => {

@@ -37,6 +37,12 @@ namespace CPI.Controllers
             return db.Coupons.Where(cup => cup.doctor_login == login);
         }
 
+        [HttpGet("pat/{login}")]
+        public IEnumerable<Coupon> GetByPat(string login)
+        {
+            return db.Coupons.Where(cup => cup.patient_login == login);
+        }
+
         [HttpGet("valuable/{login}")]
         public IEnumerable<Coupon> GetValuable(string login)
         {
@@ -45,7 +51,6 @@ namespace CPI.Controllers
             List<Coupon> coupons = new List<Coupon>();
             foreach (Coupon cup in db.Coupons.Where(c => c.Patient.login == login))
             {
-                Console.WriteLine(cup is Coupon);
                 if (cup.appointment_day.Date > DateTime.Now.Date)
                     coupons.Add(cup);
                 else if (cup.appointment_day.Date == DateTime.Now.Date)
@@ -67,7 +72,6 @@ namespace CPI.Controllers
             List<Coupon> coupons = new List<Coupon>();
             foreach (Coupon cup in db.Coupons.Where(c => c.Doctor.login == login))
             {
-                Console.WriteLine(cup is Coupon);
                 if (cup.appointment_day.Date > DateTime.Now.Date)
                     coupons.Add(cup);
                 else if (cup.appointment_day.Date == DateTime.Now.Date)
@@ -89,7 +93,6 @@ namespace CPI.Controllers
             List<Coupon> coupons = new List<Coupon>();
             foreach (Coupon cup in db.Coupons.Where(c => c.Doctor.login == login && c.Patient.login == patient))
             {
-                Console.WriteLine(cup is Coupon);
                 if (cup.appointment_day.Date > DateTime.Now.Date)
                     coupons.Add(cup);
                 else if (cup.appointment_day.Date == DateTime.Now.Date)
@@ -108,10 +111,8 @@ namespace CPI.Controllers
         {
             List<Coupon> coupons = new List<Coupon>();
             if (db.Coupons.Count() != 0)
-            foreach (Coupon coup in db.Coupons.Where(c => c.Doctor.login == doc))
-                    //.Where(c => c.CouponTemplate.time > c.Doctor.Schedule.appointment_start && c.CouponTemplate.time < c.Doctor.Schedule.appointment_end))
+            foreach (Coupon coup in db.Coupons.Where(c => c.Doctor.login == doc))                    
             {
-                //Console.WriteLine(coup.Doctor.);
                 if (Equals(coup.appointment_day.Date.ToShortDateString(), date))
                     coupons.Add(coup);
             }

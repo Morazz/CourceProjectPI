@@ -39,7 +39,7 @@
 
 <div class="div-container">
   <button [routerLink]="['/add-user', admin]">Добавить</button>
-  <div *ngIf="open_filter" style="display:flex; margin-top:10px;">
+  <div class="search-exp" *ngIf="open_filter" style="display:flex; margin-top:10px;">
     <p>Логин: <input type="text" [(ngModel)]="filter.login"></p>
     <p>Роль: <input type="text" [(ngModel)]="filter.status"></p>
     <button style="height:30px; margin-left: 30px;" (click)="findFilter()">Найти</button>

@@ -16,7 +16,7 @@ export class AddDoctorComponent {
   public specialities: Speciality[];
   public schedules: Schedule[];
   public docSpeciality: Speciality = new Speciality("", "");
-  public docDepartment: Department = new Department(1, "");
+  public docDepartment: Department = new Department(null, "");
   public docSchedule: Schedule = new Schedule(1, new Date(), new Date());
   public doctor: Doctor = new Doctor("", "", "", "", 1, 1, 1, "");
   public newPass: PassData = new PassData("", "");
@@ -36,7 +36,6 @@ export class AddDoctorComponent {
     this.doctor.speciality_code = this.docSpeciality.speciality_code;
     this.doctor.department_code = <number>(this.docDepartment.department_code);
     this.doctor.schedule_code = <number>(this.docSchedule.schedule_code);
-    console.log(this.doctor);
     this.newPass.login = this.doctor.login;
 
     this.http.get<PassData>(this.baseUrl + 'passdata/' + this.newPass.login)
@@ -51,8 +50,8 @@ export class AddDoctorComponent {
                 result => {
                   this.http.post(this.baseUrl + 'doctor', this.doctor)
                     .subscribe(
-                      (data: any) => {
-                        this.router.navigate(['/doctors-list', this.admin]);
+                      result => {
+                        this.router.navigate(['/doctors-list', this.admin]);                        
                       }, error => console.log(error));
                 }, error => console.log(error));
         }, error => console.log(error));

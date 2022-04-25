@@ -16,7 +16,7 @@ export class EditDoctorComponent {
   public specialities: Speciality[];
   public schedules: Schedule[];
   public docSpeciality: Speciality = new Speciality("", "");
-  public docDepartment: Department = new Department(1, "");
+  public docDepartment: Department = new Department(null, "");
   public docSchedule: Schedule = new Schedule(0, new Date(), new Date());
   public doctor: Doctor = new Doctor("", "", "", "", 1, 1, 1, "");
 

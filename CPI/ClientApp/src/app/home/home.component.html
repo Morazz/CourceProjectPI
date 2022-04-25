@@ -23,10 +23,11 @@
   </nav>
 </header>
 
+<em *ngIf="!departments">Загрузка...</em>
 
 <div *ngFor="let dep of departments">
   <hr />
-  <h3>{{dep.department_name}}</h3>
+  <h3>Отделение {{dep.department_name}}</h3>
   <div *ngFor="let doc of dep.doctors">
     <h4>{{doc.surname}} {{doc.firstname}} {{doc.fathername}}</h4>
     <h5>{{doc.speciality.speciality}}</h5>

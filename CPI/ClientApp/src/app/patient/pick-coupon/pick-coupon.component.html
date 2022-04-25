@@ -23,7 +23,7 @@
 
 <h3>{{doctor.surname}} {{doctor.firstname}} {{doctor.fathername}}</h3>
 
-<hr/>
+<hr />
 
 <h3>Выберите время:</h3>
 <mat-card class="demo-inline-calendar-card">
@@ -41,4 +41,8 @@
 
 <div *ngIf="selectedDate">
   <button type="submit" class="registerbtn" (click)="pickCoupon()">Заказать</button>
+</div>
+
+<div ng-show="errors">
+  <div *ngFor="let error of errors" class="alert alert-danger">{{error}}</div>
 </div>
