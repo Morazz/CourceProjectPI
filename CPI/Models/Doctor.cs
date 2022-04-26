@@ -28,6 +28,8 @@ namespace CPI.Models
         public string? speciality_code { get; set; }
         [ForeignKey("speciality_code")]
         public Speciality? Speciality { get; set; }
+        [ForeignKey("hospital_id")]
+        public Hospital? Hospital { get; set; }
 
         public List<Coupon> Coupons { get; set; } = new List<Coupon>();
 

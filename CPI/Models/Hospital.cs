@@ -10,7 +10,7 @@ namespace CPI.Models
     public class Hospital
     {
         [Key]
-        public int hospital_id { get; set; }
+        public string hospital_id { get; set; }
         public string name { get; set; }
         public string? address { get; set; }
         [ForeignKey("schedule_code")]
