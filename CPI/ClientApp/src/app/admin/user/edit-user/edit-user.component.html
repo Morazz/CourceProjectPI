@@ -1,26 +1,26 @@
-<header>
+<!--<header>
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-      <a class="navbar-brand" [routerLink]="['/admin-panel', user]">CPI</a>
-      <button class="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target=".navbar-collapse"
-              aria-label="Toggle navigation"
-              [attr.aria-expanded]="isExpanded"
-              (click)="toggle()">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
-           [ngClass]="{ show: isExpanded }">
-        <ul class="navbar-nav flex-grow">
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/admin-panel', admin]">{{admin}}</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/']">Выйти</a>
-          </li>
-        </ul>
-      </div>
+    <a class="navbar-brand" [routerLink]="['/admin-panel', user]">CPI</a>
+    <button class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target=".navbar-collapse"
+            aria-label="Toggle navigation"
+            [attr.aria-expanded]="isExpanded"
+            (click)="toggle()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
+         [ngClass]="{ show: isExpanded }">
+      <ul class="navbar-nav flex-grow">
+        <li class="nav-item" [routerLinkActive]="['link-active']">
+          <a class="nav-link text-dark" [routerLink]="['/admin-panel', admin]">{{admin}}</a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['link-active']">
+          <a class="nav-link text-dark" [routerLink]="['/']">Выйти</a>
+        </li>
+      </ul>
+    </div>
   </nav>
 </header>
 
@@ -42,6 +42,32 @@
   </select>
 
   <button class="registerbtn" (click)="postData()">Сохранить</button>
-</div>
+</div>-->
+
+<h2 mat-dialog-title>Редактировать пользователя</h2>
+
+<mat-dialog-content>
+
+  <mat-form-field>
+    <label for="login"><b>Логин</b></label>
+    <h5 name="login"> {{user.login}}</h5>
+
+    <label for="psw"><b>Пароль</b></label>
+    <input type="password" name="psw" [(ngModel)]="user.password" required>
+
+    <label for="status"><b>Роль</b></label>
+    <select name="status" [(ngModel)]="user.status">
+      <option *ngFor="let role of roles" [value]="role">
+        {{role}}
+      </option>
+    </select>
+  </mat-form-field>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button class="submitbtn" (click)="postData()">Сохранить</button>
+  <button class="cancelbtn" (click)="close()">Отмена</button>
+</mat-dialog-actions>
 
 

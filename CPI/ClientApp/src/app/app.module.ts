@@ -43,6 +43,7 @@ import { PatientInfoComponent } from './doctor/patient-info/patient-info.compone
 import { EditDoctorComponent } from './admin/doctor/edit-doctor/edit-doctor.component';
 import { EditPatientInfoComponent } from './patient/edit-patient-info/edit-patient-info.component';
 import { MatDialogModule } from "@angular/material";
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -129,7 +130,8 @@ import { MatDialogModule } from "@angular/material";
     MatNativeDateModule,
     //MaterialDialog
     MatDialogModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,4 +1,4 @@
-<header>
+<!--<header>
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
       <a class="navbar-brand" [routerLink]="['/admin-panel', admin]">CPI</a>
       <button class="navbar-toggler"
@@ -36,5 +36,25 @@
     Введите корректные данные
   </div>
   <button class="registerbtn" (click)="postData()" [disabled]="spec.invalid">Сохранить</button>
-</div>
+</div>-->
 
+<h2 mat-dialog-title>Изменить специальность</h2>
+
+<mat-dialog-content>
+
+  <mat-form-field>
+    <label for="code"><b>Код специальности</b></label>
+    <h5>{{speciality.speciality_code}}</h5>
+    <label for="spec"><b>Специальность</b></label>
+    <input type="text" name="spec" [(ngModel)]="speciality.speciality" #spec="ngModel" pattern="^[А-ЯA-Zа-яf-z ,.'-]+$" required>
+    <div [hidden]="spec.valid || spec.untouched" class="alert alert-danger">
+      Введите корректные данные
+    </div>
+  </mat-form-field>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button class="submitbtn" (click)="postData()" [disabled]="spec.invalid || code.invalid">Сохранить</button>
+  <button class="cancelbtn" (click)="close()">Отмена</button>
+</mat-dialog-actions>

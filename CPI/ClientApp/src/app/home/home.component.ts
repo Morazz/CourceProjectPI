@@ -3,7 +3,8 @@ import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Doctor, Schedule, Speciality } from '../admin/doctor/doctors-list/doctors-list.component';
 import { MatDialog, MatDialogConfig } from "@angular/material";
-import { AddTemplateComponent } from '../admin/coupon-template/add-template/add-template.component';
+import { AddUserComponent } from '../admin/user/add-user/add-user.component';
+
 
 @Component({
   selector: 'app-home',
@@ -29,9 +30,9 @@ export class HomeComponent {
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    //dialogConfig.minWidth = '25%'; 
+    dialogConfig.minWidth = '25%';
 
-    this.dialog.open(AddTemplateComponent, dialogConfig);
+    this.dialog.open(AddUserComponent, dialogConfig);
   }
 
   getDepDoctors(dep_code: number) {
