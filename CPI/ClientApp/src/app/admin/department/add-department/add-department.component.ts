@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AddDepartmentComponent {
   public admin: string;
   public doctors: Doctor[];
-  public department: Department = new Department(0, "", new Doctor("", "", "", "", 0));
+  public department: Department = new Department(0, "", "");
   public department_name: string;
   public head: string;
   public doctor: Doctor = new Doctor("", "", "", "", 0);

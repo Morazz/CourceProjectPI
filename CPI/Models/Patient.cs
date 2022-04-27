@@ -20,8 +20,7 @@ namespace CPI.Models
         public string gender { get; set; }
         public string address { get; set; }
         public string phone_number { get; set; }
-        [ForeignKey("hospital_id")]
-        public Hospital? Hospital { get; set; }
+        public string? mail { get; set; }
 
         public Patient() { }
     }

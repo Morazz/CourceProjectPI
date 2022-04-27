@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CPI.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20220418193819_mig_dip")]
-    partial class mig_dip
+    [Migration("20220426144437_MigrD01")]
+    partial class MigrD01
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -89,17 +89,29 @@ namespace CPI.Migrations
                     b.Property<string>("login")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("achievements")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("cabinet")
                         .HasColumnType("int");
 
                     b.Property<int?>("department_code")
                         .HasColumnType("int");
 
+                    b.Property<string>("education")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("fathername")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("firstname")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("hospital_id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<byte[]>("photo")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<int?>("schedule_code")
                         .HasColumnType("int");
@@ -114,11 +126,34 @@ namespace CPI.Migrations
 
                     b.HasIndex("department_code");
 
+                    b.HasIndex("hospital_id");
+
                     b.HasIndex("schedule_code");
 
                     b.HasIndex("speciality_code");
 
                     b.ToTable("Doctors");
+                });
+
+            modelBuilder.Entity("CPI.Models.Hospital", b =>
+                {
+                    b.Property<string>("hospital_id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("schedule_code")
+                        .HasColumnType("int");
+
+                    b.HasKey("hospital_id");
+
+                    b.HasIndex("schedule_code");
+
+                    b.ToTable("Hospital");
                 });
 
             modelBuilder.Entity("CPI.Models.PassData", b =>
@@ -135,6 +170,14 @@ namespace CPI.Migrations
                     b.HasKey("login");
 
                     b.ToTable("PassData");
+
+                    b.HasData(
+                        new
+                        {
+                            login = "admin",
+                            password = "admin",
+                            status = "Администратор"
+                        });
                 });
 
             modelBuilder.Entity("CPI.Models.Patient", b =>
@@ -157,6 +200,9 @@ namespace CPI.Migrations
                     b.Property<string>("gender")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("hospital_id")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("phone_number")
                         .HasColumnType("nvarchar(max)");
 
@@ -164,6 +210,8 @@ namespace CPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("login");
+
+                    b.HasIndex("hospital_id");
 
                     b.ToTable("Patients");
                 });
@@ -228,6 +276,10 @@ namespace CPI.Migrations
                         .WithMany()
                         .HasForeignKey("department_code");
 
+                    b.HasOne("CPI.Models.Hospital", "Hospital")
+                        .WithMany()
+                        .HasForeignKey("hospital_id");
+
                     b.HasOne("CPI.Models.PassData", "PassData")
                         .WithMany()
                         .HasForeignKey("login")
@@ -244,6 +296,8 @@ namespace CPI.Migrations
 
                     b.Navigation("Department");
 
+                    b.Navigation("Hospital");
+
                     b.Navigation("PassData");
 
                     b.Navigation("Schedule");
@@ -251,13 +305,28 @@ namespace CPI.Migrations
                     b.Navigation("Speciality");
                 });
 
+            modelBuilder.Entity("CPI.Models.Hospital", b =>
+                {
+                    b.HasOne("CPI.Models.Schedule", "schedule")
+                        .WithMany()
+                        .HasForeignKey("schedule_code");
+
+                    b.Navigation("schedule");
+                });
+
             modelBuilder.Entity("CPI.Models.Patient", b =>
                 {
+                    b.HasOne("CPI.Models.Hospital", "Hospital")
+                        .WithMany()
+                        .HasForeignKey("hospital_id");
+
                     b.HasOne("CPI.Models.PassData", "PassData")
                         .WithMany()
                         .HasForeignKey("login")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Hospital");
 
                     b.Navigation("PassData");
                 });

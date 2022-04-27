@@ -18,7 +18,7 @@ namespace CPI.Models
         public int cabinet { get; set; }
         public byte[]? photo { get; set; }
         public string? education { get; set; }
-        public string? achievements { get; set; }
+        public string? regards { get; set; }
         public int? department_code { get; set; }
         [ForeignKey("department_code")]
         public Department? Department { get; set; }
@@ -30,6 +30,7 @@ namespace CPI.Models
         public Speciality? Speciality { get; set; }
         [ForeignKey("hospital_id")]
         public Hospital? Hospital { get; set; }
+        public string? hospital_id { get; set; }
 
         public List<Coupon> Coupons { get; set; } = new List<Coupon>();
 
