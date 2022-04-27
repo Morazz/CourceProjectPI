@@ -88,6 +88,16 @@
 
   <ItemGroup>
     <TypeScriptCompile Remove="ClientApp\src\app\global-variables.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\moderator\department\add-department\add-department.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\moderator\department\departments-list\departments-list.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\moderator\department\edit-department\edit-department.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\moderator\doctor\add-doctor\add-doctor.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\moderator\doctor\doctors-list\doctors-list.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\moderator\doctor\edit-doctor\edit-doctor.component.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientApp\src\app\admin\moderator\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

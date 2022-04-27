@@ -20,8 +20,8 @@ namespace CPI.Models
 
         public DBContext(DbContextOptions<DBContext> options) : base(options)
         {
-            Database.EnsureDeleted();
-            Database.EnsureCreated();
+            //Database.EnsureDeleted();
+            //Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

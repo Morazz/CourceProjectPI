@@ -1,4 +1,4 @@
-<header>
+<!--<header>
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
       <a class="navbar-brand" [routerLink]="['/admin-panel', admin]">CPI</a>
       <button class="navbar-toggler"
@@ -22,8 +22,24 @@
         </ul>
       </div>
   </nav>
-</header>
+</header>-->
 
-<label for="tt"><b>Время приема</b></label>
+<h2 mat-dialog-title>Добавить время</h2>
+
+<mat-dialog-content>
+
+  <mat-form-field>
+    <label for="tt"><b>Время приема</b></label>
+    <input type="time" id="input" name="tt" [(ngModel)]="template">
+  </mat-form-field>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button class="submitbtn" (click)="postCoupon()">Сохранить</button>
+  <button class="cancelbtn" (click)="close()">Отмена</button>
+</mat-dialog-actions>
+
+<!--<label for="tt"><b>Время приема</b></label>
 <input type="time" id="input" name="tt" [(ngModel)]="template">
-<button class="registerbtn" (click)="postCoupon()">Сохранить</button>
+<button class="registerbtn" (click)="postCoupon()">Сохранить</button>-->

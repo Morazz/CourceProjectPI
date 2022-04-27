@@ -13,5 +13,8 @@ namespace CPI.Models
         public int department_code { get; set; }
         public string department_name { get; set; }
         public string head { get; set; }
+        [ForeignKey("hospital_id")]
+        public Hospital? Hospital { get; set; }
+        public string? hospital_id { get; set; }
     }
 }

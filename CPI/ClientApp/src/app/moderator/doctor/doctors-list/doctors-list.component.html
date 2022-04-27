@@ -1,0 +1,88 @@
+<header>
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container">
+      <a class="navbar-brand" [routerLink]="['/admin-panel', admin]">CPI</a>
+      <button class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target=".navbar-collapse"
+              aria-label="Toggle navigation"
+              [attr.aria-expanded]="isExpanded"
+              (click)="toggle()">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
+           [ngClass]="{ show: isExpanded }">
+        <ul class="navbar-nav flex-grow">
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/admin-panel', admin]">{{admin}}</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/']">Выйти</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<h2>Врачи</h2>
+
+<div class="topnav">
+  <div class="search-container">
+    <form action="">
+      <input type="text" placeholder="Найти.." name="search" class="search" [(ngModel)]="text" (input)="onInput(text)">
+      <button (click)="openSearch()">Расширенный</button>
+    </form>
+  </div>
+</div>
+
+
+
+<div class="div-container">
+  <button [routerLink]="['/add-doctor', admin]">Добавить</button>
+  <div *ngIf="open_filter" style="display:flex; margin-top:10px;">
+    <p>Отделение: <input type="text" [(ngModel)]="filter.department"></p>
+    <p>Специальность: <input type="text" [(ngModel)]="filter.speciality"></p>
+    <button style="height:30px; margin-left: 30px;" (click)="findFilter()">Найти</button>
+    <button style="height:30px; margin-left: 30px;" (click)="nullFilter()">Сбросить</button>
+  </div>
+  <div *ngIf="!doctors"><em>Загрузка...</em></div>
+</div>
+
+<div>
+
+  <section ng-app="app" ng-controller="MainCtrl">
+
+    <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="doctors" ng-app="doct">
+      <thead>
+        <tr>
+          <th (click)="sortLogin()" class="toorder">Логин</th>
+          <th (click)="sortDepartment()" class="toorder">Отделение</th>
+          <th (click)="sortSpeciality()" class="toorder">Специальность</th>
+          <th (click)="sortSurname()" class="toorder">Фамилия</th>
+          <th>Имя</th>
+          <th>Отчество</th>
+          <th>Кабинет</th>
+          <th>Время работы</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let doctor of doctors">
+          <td><a [routerLink]="['/doctor-info', doctor.login]">{{doctor.login}}</a></td>
+          <td>{{doctor.department?.department_name}}</td>
+          <td>{{doctor.speciality?.speciality}}</td>
+          <td>{{doctor.surname}}</td>
+          <td>{{doctor.firstname}}</td>
+          <td>{{doctor.fathername}}</td>
+          <td>{{doctor.cabinet}}</td>
+          <td>{{doctor.hours?.appointment_start | date:'HH:mm'}} - {{doctor.hours?.appointment_end | date:'HH:mm'}}</td>
+          <td>
+            <button class="dltbtn" (click)="deleteDoctor(doctor.login)">Удалить</button>
+            <button class="editbtn" [routerLink]="['/edit-doctor', admin, doctor.login]">Изменить</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>

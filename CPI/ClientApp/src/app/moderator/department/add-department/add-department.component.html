@@ -1,0 +1,48 @@
+<header>
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <a class="navbar-brand" [routerLink]="['/admin-panel', admin]">CPI</a>
+    <button class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target=".navbar-collapse"
+            aria-label="Toggle navigation"
+            [attr.aria-expanded]="isExpanded"
+            (click)="toggle()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
+         [ngClass]="{ show: isExpanded }">
+      <ul class="navbar-nav flex-grow">
+        <li class="nav-item" [routerLinkActive]="['link-active']">
+          <a class="nav-link text-dark" [routerLink]="['/admin-panel', admin]">{{admin}}</a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['link-active']">
+          <a class="nav-link text-dark" [routerLink]="['/']">Выйти</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<div class="container">
+  <h3>Добавление отделения</h3>
+  <hr>
+
+  <label for="department"><b>Отделение</b></label>
+  <input type="text" name="department" [(ngModel)]="department_name" #department="ngModel" pattern="^[А-ЯA-Zа-яf-z ,.'-]+$" required>
+  <div [hidden]="department.valid || department.untouched" class="alert alert-danger">
+    Введите корректные данные
+  </div>
+
+  <label for="head"><b>Заведующий</b></label>
+  <div *ngIf="!doctors">
+    <em>Загрузка...</em>
+  </div>
+  <!--<input type="text" name="head" id="head" *ngIf="doctors" [(ngModel)]="department.head" list="head" (input)="onInput(department.head)">-->
+  <select id="head" *ngIf="doctors" [(ngModel)]="head">
+    <option *ngFor="let doctor of doctors" [value]="doctor.login">{{doctor.surname}} {{doctor.firstname}} {{doctor.fathername}}</option>
+  </select>
+
+  <button type="submit" class="registerbtn" (click)="addDepartment()" [disabled]="department.invalid">Сохранить</button>
+</div>
+

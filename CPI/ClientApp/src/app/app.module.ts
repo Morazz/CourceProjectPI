@@ -10,7 +10,7 @@ import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { UsersListComponent } from './admin/user/users-list/users-list.component';
 import { DoctorsListComponent } from './admin/doctor/doctors-list/doctors-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatCardModule, MatNativeDateModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatNativeDateModule, MatRippleModule } from '@angular/material';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AddDoctorComponent } from './admin/doctor/add-doctor/add-doctor.component';
 import { DepartmentsListComponent } from './admin/department/departments-list/departments-list.component';
@@ -42,6 +42,7 @@ import { EditDepartmentComponent } from './admin/department/edit-department/edit
 import { PatientInfoComponent } from './doctor/patient-info/patient-info.component';
 import { EditDoctorComponent } from './admin/doctor/edit-doctor/edit-doctor.component';
 import { EditPatientInfoComponent } from './patient/edit-patient-info/edit-patient-info.component';
+import { MatDialogModule } from "@angular/material";
 
 @NgModule({
   declarations: [
@@ -80,7 +81,7 @@ import { EditPatientInfoComponent } from './patient/edit-patient-info/edit-patie
     EditDepartmentComponent,
     PatientInfoComponent,
     EditDoctorComponent,
-    EditPatientInfoComponent
+    EditPatientInfoComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -126,8 +127,12 @@ import { EditPatientInfoComponent } from './patient/edit-patient-info/edit-patie
     MatDatepickerModule,
     MatCardModule,
     MatNativeDateModule,
+    //MaterialDialog
+    MatDialogModule,
+    MatFormFieldModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [AddTemplateComponent]
 })
 export class AppModule { }

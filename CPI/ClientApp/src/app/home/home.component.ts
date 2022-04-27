@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Doctor, Schedule, Speciality } from '../admin/doctor/doctors-list/doctors-list.component';
+import { MatDialog, MatDialogConfig } from "@angular/material";
+import { AddTemplateComponent } from '../admin/coupon-template/add-template/add-template.component';
 
 @Component({
   selector: 'app-home',
@@ -14,9 +16,22 @@ export class HomeComponent {
   public doctors: Doctor[];
   public schedule: Schedule[];
 
-  constructor(private http: HttpClient, private activateRoute: ActivatedRoute, @Inject('BASE_URL') private baseUrl: string) {
-    this.getDoctors();
-    this.getDepartments();
+  constructor(private http: HttpClient, private activateRoute: ActivatedRoute, @Inject('BASE_URL') private baseUrl: string,
+              private dialog: MatDialog  ) {
+    //this.getDoctors();
+    //this.getDepartments();
+    this.openDialog();
+  }
+
+  openDialog() {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    //dialogConfig.minWidth = '25%'; 
+
+    this.dialog.open(AddTemplateComponent, dialogConfig);
   }
 
   getDepDoctors(dep_code: number) {
