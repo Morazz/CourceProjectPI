@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Doctor, Schedule, Speciality } from '../admin/doctor/doctors-list/doctors-list.component';
 import { MatDialog, MatDialogConfig } from "@angular/material";
 import { AddUserComponent } from '../admin/user/add-user/add-user.component';
+import { AddHospitalComponent } from '../admin/hospital/add-hospital/add-hospital.component';
 
 
 @Component({
@@ -32,7 +33,7 @@ export class HomeComponent {
     dialogConfig.autoFocus = true;
     dialogConfig.minWidth = '25%';
 
-    this.dialog.open(AddUserComponent, dialogConfig);
+    this.dialog.open(AddHospitalComponent, dialogConfig);
   }
 
   getDepDoctors(dep_code: number) {

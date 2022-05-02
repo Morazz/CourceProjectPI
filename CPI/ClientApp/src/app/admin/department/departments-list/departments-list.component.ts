@@ -54,7 +54,6 @@ export class DepartmentsListComponent {
         this.department.doctors.forEach(doc => {
           doc.department_code = null;
           this.http.put(this.baseUrl + 'doctor', doc).subscribe(result => {
-            console.log(doc);
           }, error => console.error(error));
         });
       }

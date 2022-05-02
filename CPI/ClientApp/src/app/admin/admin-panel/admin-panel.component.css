@@ -51,3 +51,14 @@ body {
   /*background-color: #FAFAFA;*/
   color: black;
 }
+
+.linkbtn {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  color: #296bda;
+}
+
+.linkbtn:hover {
+    text-decoration: underline;
+}

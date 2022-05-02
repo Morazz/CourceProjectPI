@@ -44,6 +44,8 @@ import { EditDoctorComponent } from './admin/doctor/edit-doctor/edit-doctor.comp
 import { EditPatientInfoComponent } from './patient/edit-patient-info/edit-patient-info.component';
 import { MatDialogModule } from "@angular/material";
 import { MatIconModule } from '@angular/material/icon';
+import { AddHospitalComponent } from './admin/hospital/add-hospital/add-hospital.component';
+import { HospitalsListComponent } from './admin/hospital/hospitals-list/hospitals-list.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +85,8 @@ import { MatIconModule } from '@angular/material/icon';
     PatientInfoComponent,
     EditDoctorComponent,
     EditPatientInfoComponent,
+    AddHospitalComponent,
+    HospitalsListComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -94,35 +98,49 @@ import { MatIconModule } from '@angular/material/icon';
       { path: 'authorize', component: AuthorizeComponent },
       { path: 'user-page/:login', component: UserPageComponent },
       { path: 'admin-panel/:admin', component: AdminPanelComponent },
+      //Users
       { path: 'users-list/:admin', component: UsersListComponent },
       { path: 'add-user/:admin', component: AddUserComponent },
       { path: 'edit-user/:admin/:login', component: EditUserComponent },
+      //Doctors
       { path: 'doctors-list/:admin', component: DoctorsListComponent },
       { path: 'add-doctor/:admin', component: AddDoctorComponent },
+      { path: 'edit-doctor/:admin/:login', component: EditDoctorComponent },
       { path: 'doctor-info/:login', component: DoctorInfoComponent },
+      //Patients
       { path: 'patients-list/:admin', component: PatientsListComponent },
       { path: 'add-patient/:admin', component: AddPatientComponent },
+      { path: 'edit-patient/:admin/:login', component: EditPatientComponent },
+      //Departments
       { path: 'departments-list/:admin', component: DepartmentsListComponent },
       { path: 'add-department/:admin', component: AddDepartmentComponent },
+      { path: 'edit-department/:admin/:department_code', component: EditDepartmentComponent },
+      //Specialitites
       { path: 'specialities-list/:admin', component: SpecialitiesListComponent },
       { path: 'add-speciality/:admin', component: AddSpecialityComponent },
       { path: 'edit-speciality/:admin/:speciality_code', component: EditSpecialityComponent },
+      //Schedules
       { path: 'schedules-list/:admin', component: SchedulesListComponent },
       { path: 'add-schedule/:admin', component: AddScheduleComponent },
       { path: 'edit-schedule/:admin/:schedule_code', component: EditScheduleComponent },
-      { path: 'edit-patient/:admin/:login', component: EditPatientComponent },
+      //Templates
       { path: 'templates-list/:admin', component: TemplatesListComponent },
       { path: 'add-template/:admin', component: AddTemplateComponent },
       { path: 'edit-template/:template_id/:admin', component: EditTemplateComponent },
+      //Coupon picking
       { path: 'pick-department/:login', component: PickDepartmentComponent },
       { path: 'pick-doctor/:login/:department_code', component: PickDoctorComponent },
       { path: 'pick-coupon/:login/:department_code/:doctor_login', component: PickCouponComponent },
+      //Coupons
       { path: 'coupons-list/:admin', component: CouponsListComponent },
       { path: 'doctor-coupons/:login', component: DoctorCouponsListComponent },
-      { path: 'edit-department/:admin/:department_code', component: EditDepartmentComponent },
+      //Patient info
       { path: 'patient-info/:doctor/:patient', component: PatientInfoComponent },
-      { path: 'edit-doctor/:admin/:login', component: EditDoctorComponent },
       { path: 'edit-patient-info/:login', component: EditPatientInfoComponent },
+      { path: 'add-patient-info/:login', component: EditPatientInfoComponent },
+      //Hospitals
+      { path: 'hospitals-list', component: HospitalsListComponent },
+      { path: 'add-hospital', component: AddHospitalComponent },
     ]),
     BrowserAnimationsModule,
     MatDatepickerModule,

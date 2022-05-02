@@ -1,6 +1,7 @@
 import { Time } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
+import { MatDialogRef } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -13,7 +14,8 @@ export class AddTemplateComponent {
   template: string = "";
   public admin: string = "";
 
-  constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+  constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string,
+    private dialogRef: MatDialogRef<AddTemplateComponent>,  ) {
     this.admin = activateRoute.snapshot.params['admin'];
   }
 
@@ -27,6 +29,12 @@ export class AddTemplateComponent {
             this.router.navigate(['/templates-list', this.admin]);
           }, error => console.log(error));
   }
+
+
+  close() {
+    this.dialogRef.close();
+  }
+
 }
 
 export class CouponTemplate {

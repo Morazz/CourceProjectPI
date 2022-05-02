@@ -54,9 +54,9 @@ namespace CPI.Controllers
             Hospital hospital = Get(newHospital.hospital_id);
             if (hospital != null)
             {
-                hospital.name = newHospital.name;
-                hospital.address = newHospital.address;
-                hospital.schedule = newHospital.schedule;
+                hospital.hospital_name = newHospital.hospital_name;
+                hospital.hospital_address = newHospital.hospital_address;
+                hospital.hospital_schedule = newHospital.hospital_schedule;
                 db.Hospitals.Update(hospital);
                 db.SaveChanges();
             }

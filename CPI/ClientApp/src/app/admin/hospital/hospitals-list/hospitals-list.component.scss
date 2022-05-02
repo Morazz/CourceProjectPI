@@ -1,0 +1,107 @@
+
+.dltbtn {
+  background-color: #FF0000;
+  color: white;
+  padding: 4px;
+  margin: 4px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.9;
+  float: right;
+}
+
+.dltbtn:hover {
+  background-color: #BF3030;
+}
+
+.editbtn {
+  background-color: #8B8B8B;
+  color: white;
+  padding: 4px;
+  margin: 4px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.9;
+  float: right;
+}
+
+
+.editbtn:hover {
+  background-color: #696869;
+}
+
+.search-container {
+  float: right;
+}
+
+.search {
+  background-color: #F8F8F8
+}
+
+.topnav input[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
+}
+
+.topnav .search-container button {
+  float: right;
+  padding: 6px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.topnav .search-container button:hover {
+  background: #ccc;
+}
+
+@media screen and (max-width: 600px) {
+  .topnav .search-container {
+    float: none;
+  }
+
+  .topnav a, .topnav input[type=text], .topnav .search-container button {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+  }
+
+  .topnav input[type=text] {
+    border: 1px solid #ccc;
+  }
+}
+
+.div-container {
+  float: left;
+  margin: 10px;
+}
+
+.div-container button {
+  background-color: #57CF5F;
+  padding: 4px;
+  margin: 4px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+.div-container button:hover {
+  background-color: #4CAF52;
+}
+
+
+.dep {
+  margin: 18px;
+}
+
+table {
+  background: rgba(255,255,255, 1);
+}

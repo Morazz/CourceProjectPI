@@ -87,6 +87,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Remove="ClientApp\src\app\admin\hospital\add-hospital\add-hospital.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\admin\hospital\hospitals-list\hospitals-list.component.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\global-variables.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\moderator\department\add-department\add-department.component.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\moderator\department\departments-list\departments-list.component.ts" />

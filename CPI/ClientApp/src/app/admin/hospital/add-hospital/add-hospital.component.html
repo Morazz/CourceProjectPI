@@ -1,0 +1,31 @@
+<h2 mat-dialog-title>Добавить учреждение</h2>
+
+<mat-dialog-content>
+
+  <mat-form-field>
+    <label for="ID"><b>ID</b></label>
+    <input type="text" name="ID" [(ngModel)]="hospital.hospital_id" required>
+
+    <label for="name"><b>Название</b></label>
+    <input type="password" name="name" [(ngModel)]="hospital.hospital_name" required>
+
+    <label for="address"><b>Адрес</b></label>
+    <input type="text" name="address" [(ngModel)]="hospital.hospital_address">
+
+    <label for="schedule"><b>Время работы</b></label>
+    <div *ngIf="!schedules">
+      <em>Загрузка...</em>
+    </div>
+    <div *ngIf="schedules">
+      <select id="sch" name="sch" [(ngModel)]="hospital.hospital_schedule">
+        <option *ngFor="let schedule of schedules" [value]="schedule.schedule_code">{{schedule.appointment_start | date: 'HH:mm'}} - {{schedule.appointment_end | date: 'HH:mm'}}</option>
+      </select>
+    </div>
+  </mat-form-field>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button class="submitbtn" (click)="postData()">Сохранить</button>
+  <button class="cancelbtn" (click)="close()">Отмена</button>
+</mat-dialog-actions>

@@ -32,13 +32,6 @@
 
 <div class="row">
   <div class="column">
-    <h4>Пользователи</h4>
-    <ul>
-      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/users-list', admin]">Cписок пользователей</a></li>
-      <li><button class="linkbtn" (click)="openDialog('AddUser')">Добавить пользователя</button></li>
-    </ul>
-  </div>
-  <div class="column">
     <h4>Врачи</h4>
     <ul>
       <li><a [routerLinkActive]="['link-active']" [routerLink]="['/doctors-list', admin]">Cписок врачей</a></li>
@@ -50,13 +43,6 @@
     <ul>
       <li><a [routerLinkActive]="['link-active']" [routerLink]="['/schedules-list', admin]">Cписок расписаний</a></li>
       <li><button class="linkbtn" (click)="openDialog('AddSchedule')">Добавить расписание</button></li>
-    </ul>
-  </div>
-  <div class="column">
-    <h4>Пациенты</h4>
-    <ul>
-      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/patients-list', admin]">Список пациентов</a></li>
-      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/add-patient', admin]">Добавить пациента</a></li>
     </ul>
   </div>
 </div>

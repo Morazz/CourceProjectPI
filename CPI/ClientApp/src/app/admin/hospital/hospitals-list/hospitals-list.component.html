@@ -1,0 +1,67 @@
+<header>
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container">
+      <a class="navbar-brand" [routerLink]="['/admin-panel', user]">CPI</a>
+      <button class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target=".navbar-collapse"
+              aria-label="Toggle navigation"
+              [attr.aria-expanded]="isExpanded"
+              (click)="toggle()">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
+           [ngClass]="{ show: isExpanded }">
+        <ul class="navbar-nav flex-grow">
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/admin-panel', admin]">{{admin}}</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/']">Выйти</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<h2>Медицинские учреждения</h2>
+
+<div class="div-container">
+  <button [routerLink]="['/add-hospital', admin]">Добавить</button>
+  <div *ngIf="!hospitals"><em>Загрузка...</em></div>
+</div>
+
+<div class="dep">
+  <div class="topnav">
+    <div class="search-container">
+      <form action="">
+        <input type="text" placeholder="Найти.." name="search" class="search" [(ngModel)]="text" (input)="onInput(text)">
+      </form>
+    </div>
+  </div>
+
+  <table class='table table-striped' aria-labelledby="tableLabel">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Название</th>
+        <th>Адрес</th>
+        <th>Время работы</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let hospital of hospitals">
+        <td>{{hospital.hospital_name}}</td>
+        <td *ngIf="hospital.hospital_address != null; else null_content">{{hospital.hospital_address}}</td>
+        <td *ngIf="hospital.hospital_schedule != null; else null_content">{{hospital.hospital_schedule}}</td>
+        <ng-template #null_content><td></td></ng-template>
+        <td>
+          <button class="dltbtn" (click)="deleteHospital(hospital.hospital_id)">Удалить</button>
+          <button class="editbtn" [routerLink]="['/edit-hospital', admin, hospital.hospital_id]">Изменить</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -5,6 +5,11 @@
       "ProjectGuid": "091f5fa3-a596-4c98-9d52-8c3d9a91fc9c",
       "DisplayName": "CPI",
       "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Прочие файлы",
+      "ColorIndex": -1
     }
   },
   "NextColorIndex": 1
