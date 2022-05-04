@@ -4,14 +4,16 @@ using CPI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CPI.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20220502192441_MigrD04")]
+    partial class MigrD04
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,9 +34,6 @@ namespace CPI.Migrations
                     b.Property<string>("doctor_login")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("hospital_id")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("patient_login")
                         .HasColumnType("nvarchar(450)");
 
@@ -44,8 +43,6 @@ namespace CPI.Migrations
                     b.HasKey("coupon_id");
 
                     b.HasIndex("doctor_login");
-
-                    b.HasIndex("hospital_id");
 
                     b.HasIndex("patient_login");
 
@@ -259,10 +256,6 @@ namespace CPI.Migrations
                         .WithMany("Coupons")
                         .HasForeignKey("doctor_login");
 
-                    b.HasOne("CPI.Models.Hospital", "Hospital")
-                        .WithMany()
-                        .HasForeignKey("hospital_id");
-
                     b.HasOne("CPI.Models.Patient", "Patient")
                         .WithMany()
                         .HasForeignKey("patient_login");
@@ -276,8 +269,6 @@ namespace CPI.Migrations
                     b.Navigation("CouponTemplate");
 
                     b.Navigation("Doctor");
-
-                    b.Navigation("Hospital");
 
                     b.Navigation("Patient");
                 });

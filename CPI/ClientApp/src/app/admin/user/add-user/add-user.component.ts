@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
+import { MatDialogRef } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -13,7 +14,8 @@ export class AddUserComponent {
   roles: string[] = ["Пациент", "Врач", "Администратор"];
   user: PassData = new PassData("", "", "");
 
-  constructor(private activateRoute: ActivatedRoute, private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+  constructor(private activateRoute: ActivatedRoute, private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string,
+    private dialogRef: MatDialogRef<AddUserComponent>) {
     this.admin = activateRoute.snapshot.params['admin'];
   }
 
@@ -23,6 +25,10 @@ export class AddUserComponent {
         (data: any) => {
           this.router.navigate(['/users-list', this.admin]);
         }, error => console.log(error));
+  }
+
+  close() {
+    this.dialogRef.close();
   }
 }
 

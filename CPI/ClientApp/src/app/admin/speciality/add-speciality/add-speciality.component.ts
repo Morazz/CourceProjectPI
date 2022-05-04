@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
+import { MatDialogRef } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -12,7 +13,8 @@ export class AddSpecialityComponent {
   public speciality: Speciality = new Speciality("", "");
   admin: string;
 
-  constructor(private activateRoute: ActivatedRoute, private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+  constructor(private activateRoute: ActivatedRoute, private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string,
+    private dialogRef: MatDialogRef<AddSpecialityComponent>) {
     this.admin = activateRoute.snapshot.params['admin'];
   }
 
@@ -20,6 +22,10 @@ export class AddSpecialityComponent {
     this.http.post(this.baseUrl + 'speciality', this.speciality).subscribe(result => {
       this.router.navigate(['/specialities-list', this.admin]);
     }, error => console.error(error));
+  }
+
+  close() {
+    this.dialogRef.close();
   }
 }
 

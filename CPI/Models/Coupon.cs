@@ -21,6 +21,9 @@ namespace CPI.Models
         [ForeignKey("doctor_login")]
         public Doctor Doctor { get; set; }
 
+        [ForeignKey("hospital_id")]
+        public Hospital? Hospital { get; set; }
+        public string? hospital_id { get; set; }
 
         public int template_id { get; set; }
         [ForeignKey("template_id")]

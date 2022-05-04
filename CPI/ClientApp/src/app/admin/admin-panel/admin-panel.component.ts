@@ -5,6 +5,7 @@ import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { AddTemplateComponent } from '../coupon-template/add-template/add-template.component';
 import { AddDepartmentComponent } from '../department/add-department/add-department.component';
 import { AddScheduleComponent } from '../schedule/add-schedule/add-schedule.component';
+import { AddSpecialityComponent } from '../speciality/add-speciality/add-speciality.component';
 import { AddUserComponent } from '../user/add-user/add-user.component';
 
 @Component({
@@ -31,10 +32,11 @@ export class AdminPanelComponent {
   openDialog(parameter: string) {
     console.log(parameter);
     switch (parameter) {
-      case 'AddUser': this.dialog.open(AddUserComponent, this.dialogConfig);
-      case 'AddSchedule': this.dialog.open(AddScheduleComponent, this.dialogConfig);
-      case 'AddDepartment': this.dialog.open(AddDepartmentComponent, this.dialogConfig);
-      case 'AddTemplate': this.dialog.open(AddTemplateComponent, this.dialogConfig);
+      case 'AddUser': this.dialog.open(AddUserComponent, this.dialogConfig); break;
+      case 'AddSchedule': this.dialog.open(AddScheduleComponent, this.dialogConfig); break;
+      case 'AddDepartment': this.dialog.open(AddDepartmentComponent, this.dialogConfig); break;
+      case 'AddTemplate': this.dialog.open(AddTemplateComponent, this.dialogConfig); break;
+      case 'AddSpeciality': this.dialog.open(AddSpecialityComponent, this.dialogConfig); break;
     }
   }
 

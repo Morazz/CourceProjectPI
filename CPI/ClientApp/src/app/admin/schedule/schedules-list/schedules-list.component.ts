@@ -1,6 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AddScheduleComponent } from '../add-schedule/add-schedule.component';
 
 @Component({
     selector: 'app-schedules-list',
@@ -11,10 +13,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class SchedulesListComponent {
   admin: string;
   public schedules: Schedule[];
+  public dialogConfig;
 
-  constructor(private activateRoute: ActivatedRoute, private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+  constructor(private activateRoute: ActivatedRoute, private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string,
+    private dialog: MatDialog  ) {
     this.getSchedules();
     this.admin = activateRoute.snapshot.params['admin'];
+
+    this.admin = activateRoute.snapshot.params['admin'];
+    this.dialogConfig = new MatDialogConfig();
+    this.dialogConfig.disableClose = true;
+    this.dialogConfig.autoFocus = true;
+    this.dialogConfig.minWidth = '25%';
   }
 
   getSchedules() {
@@ -32,6 +42,10 @@ export class SchedulesListComponent {
           },
           error => console.log(error));
     }
+  }
+
+  openDialog() {
+      this.dialog.open(AddScheduleComponent, this.dialogConfig);    
   }
 }
 

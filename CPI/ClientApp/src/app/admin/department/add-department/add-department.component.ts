@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
+import { MatDialogRef } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 
 
@@ -17,7 +18,8 @@ export class AddDepartmentComponent {
   public head: string;
   public doctor: Doctor = new Doctor("", "", "", "", 0);
 
-  constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+  constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string,
+    private dialogRef: MatDialogRef<AddDepartmentComponent>  ) {
     this.admin = activateRoute.snapshot.params['admin'];
     this.getDoctors();
   }
@@ -44,7 +46,7 @@ export class AddDepartmentComponent {
     else this.getDoctors();
   }
 
-  addDepartment() {
+  postData() {
     this.department.department_name = this.department_name;
     this.department.head = this.head;
     this.getDoctor();
@@ -56,6 +58,10 @@ export class AddDepartmentComponent {
     }, error => console.error(error));
     this.router.navigate(['/departments-list', this.admin]);
     console.log(this.department);
+  }
+
+  close() {
+    this.dialogRef.close();
   }
 }
 

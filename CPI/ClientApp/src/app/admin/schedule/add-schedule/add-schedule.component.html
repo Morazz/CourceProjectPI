@@ -1,4 +1,4 @@
-<header>
+<!--<header>
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
     <a class="navbar-brand" [routerLink]="['/admin-panel', admin]">CPI</a>
     <button class="navbar-toggler"
@@ -32,4 +32,22 @@
   <input type="time" name="time_end" [(ngModel)]="end" required>
 
   <div><button class="registerbtn" (click)="postSchedule()">Сохранить</button></div>
-</div>
+</div>-->
+
+<h2 mat-dialog-title>Добавить расписание</h2>
+
+<mat-dialog-content>
+
+  <mat-form-field>
+    <label for="time_start"><b>Начало приема</b></label>
+    <input type="time" name="time_start" [(ngModel)]="start" required>
+    <label for="time_end"><b>Окончание приема</b></label>
+    <input type="time" name="time_end" [(ngModel)]="end" required>
+  </mat-form-field>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button class="submitbtn" (click)="postSchedule()">Сохранить</button>
+  <button class="cancelbtn" (click)="close()">Отмена</button>
+</mat-dialog-actions>

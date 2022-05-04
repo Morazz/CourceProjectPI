@@ -81,6 +81,7 @@ export class Hospital {
     public hospital_id: string,
     public hospital_name: string,
     public hospital_address: string,
-    public hospital_schedule: Schedule,
-    public doctors: Doctor[]) { }
+    public schedule_code: number,
+    public doctors: Doctor[],
+    public hours: Schedule) { }
 }

@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Добавить модератора</h2>
+
+<mat-dialog-content>
+
+  <mat-form-field>
+    <label for="time_start"><b>Начало приема</b></label>
+    <input type="time" name="time_start" [(ngModel)]="start" required>
+    <label for="time_end"><b>Окончание приема</b></label>
+    <input type="time" name="time_end" [(ngModel)]="end" required>
+  </mat-form-field>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button class="submitbtn" (click)="postSchedule()">Сохранить</button>
+  <button class="cancelbtn" (click)="close()">Отмена</button>
+</mat-dialog-actions>
