@@ -58,9 +58,9 @@
   <div *ngIf="departments">
     <!--<input type="text" name="depart"  list="dep">-->
     <!--<select id="dep" name="dep" [(ngModel)]="docDepartment.department_code">
-    <option [ngValue]="null">--</option>
-    <option *ngFor="let department of departments" [value]="department.department_code">{{department.department_name}}</option>
-  </select>-->
+      <option [ngValue]="null">--</option>
+      <option *ngFor="let department of departments" [value]="department.department_code">{{department.department_name}}</option>
+    </select>-->
     <input type="text" name="depart" [(ngModel)]="docDepartment.department_code" list="dep">
     <datalist id="dep" name="dep">
       <option [ngValue]="">--</option>
@@ -93,6 +93,12 @@
 
   <label for="cabinet"><b>Кабинет</b></label>
   <input type="number" name="cabinet" [(ngModel)]="doctor.cabinet" min="1" max="300" required>
+
+  <label for="educ"><b>Образование</b></label>
+  <textarea name="educ" [(ngModel)]="doctor.education"></textarea>
+
+  <label for="reg"><b>Достижения</b></label>
+  <textarea name="reg" [(ngModel)]="doctor.regards"></textarea>
 
   <button type="submit" class="registerbtn" (click)="addDoctor()" [disabled]="surname.invalid || firstname.invalid || fathername.invalid">Сохранить</button>
 </div>

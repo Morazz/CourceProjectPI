@@ -20,7 +20,7 @@ export class AddSpecialityComponent {
 
   postData() {
     this.http.post(this.baseUrl + 'speciality', this.speciality).subscribe(result => {
-      this.router.navigate(['/specialities-list', this.admin]);
+      this.close();
     }, error => console.error(error));
   }
 

@@ -1,0 +1,50 @@
+<header>
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <!--<div class="container">-->
+    <a class="navbar-brand" [routerLink]="['/']">CPI</a>
+    <button class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target=".navbar-collapse"
+            aria-label="Toggle navigation"
+            [attr.aria-expanded]="isExpanded"
+            (click)="toggle()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
+         [ngClass]="{ show: isExpanded }">
+      <ul class="navbar-nav flex-grow">
+        <li class="nav-item" [routerLinkActive]="['link-active']">
+          <a class="nav-link text-dark" [routerLink]="['/authorize']">Войти/Зарегистрироваться</a>
+        </li>
+      </ul>
+    </div>
+    <!--</div>-->
+  </nav>
+</header>
+
+<em *ngIf="!departments">Загрузка...</em>
+
+<div class="cell" *ngFor="let dep of departments">
+  <!--<div *ngIf="dep.doctors">-->
+    <hr />
+    <h4>Отделение {{dep.department_name}}</h4>
+    <div *ngFor="let doc of dep.doctors">
+      <p>{{doc.surname}} {{doc.firstname}} {{doc.fathername}}</p>
+      <p>{{doc.speciality.speciality}}</p>
+      <p>Время работы: {{doc.hours.appointment_start | date:'HH:mm'}} - {{doc.hours.appointment_end | date:'HH:mm'}} </p>
+    </div>
+  </div>
+<!--</div>-->
+<div style="height:20px;"></div>
+
+
+<!--<div class="content">
+
+  <div class="cell" *ngFor="let hp of hospitals" [routerLink]="['/hospital-info', hp.hospital_id]">
+    <h4>{{hp.hospital_name}}</h4>
+    <h6>{{hp.hospital_address}}</h6>
+    <h6>Время работы: {{hp.hours.appointment_start | date:'HH:mm'}} - {{hp.hours.appointment_end | date:'HH:mm'}} </h6>
+  </div>
+
+</div>-->

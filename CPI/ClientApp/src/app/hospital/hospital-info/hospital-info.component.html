@@ -1,0 +1,17 @@
+<a [routerLinkActive]="['link-active']" [routerLink]="['/hospital-schedules', hospital_id]"> Расписание </a>
+
+<div class="div-container" *ngIf="doctors">
+
+  <div class="card" *ngFor="let doctor of doctors" [routerLink]="['/doctor-info', doctor.login]">
+    <div class="preview" *ngIf="doctor.photo">
+      <img [src]="doctor.photo">
+    </div>
+    <p>{{doctor.surname}} {{doctor.firstname}} {{doctor.fathername}}</p>
+    <p>Отделение {{doctor.department?.department_name}}</p>
+    <p>{{doctor.speciality?.speciality}}</p>
+    <p>{{doctor.education}}</p>
+    <p>{{doctor.regards}}</p>
+
+  </div>
+
+</div>

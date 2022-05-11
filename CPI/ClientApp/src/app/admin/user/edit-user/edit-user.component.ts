@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -10,16 +11,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 export class EditUserComponent {
   public admin: string;
-  public user: PassData;
-  roles: string[] = ["Пациент", "Врач", "Администратор"];
-  login: string | undefined;
+  public user: PassData = new PassData("", "", "");
+  roles: string[] = ["Пациент", "Врач", "Администратор", "Модератор"];
+  public login: string = "";
   password: string;
   status: string;
 
-  constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+  constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string,
+    @Inject(MAT_DIALOG_DATA) data, private dialogRef: MatDialogRef<EditUserComponent>) {
     this.login = activateRoute.snapshot.params['login'];
-    this.admin = activateRoute.snapshot.params['admin'];
-    this.getUser(this.login);
+    this.getUser(data);
   }
 
   getUser(login: string) {
@@ -31,8 +32,12 @@ export class EditUserComponent {
   postData() {
     this.http.put(this.baseUrl + 'passdata', this.user)
       .subscribe(result => {
-        this.router.navigate(['users-list', this.admin]);
+        this.close();
       }, error => console.log(error));
+  }
+
+  close() {
+    this.dialogRef.close();
   }
 }
 

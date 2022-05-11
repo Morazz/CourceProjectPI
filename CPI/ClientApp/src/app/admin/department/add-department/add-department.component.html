@@ -35,11 +35,13 @@
     <div *ngIf="!doctors">
       <em>Загрузка...</em>
     </div>
-
-    <input type="text" name="head" id="head" *ngIf="doctors" [(ngModel)]="department.head" list="head" (input)="onInput(department.head)">
-    <select id="head" *ngIf="doctors" [(ngModel)]="head">
-      <option *ngFor="let doctor of doctors" [value]="doctor.login">{{doctor.surname}} {{doctor.firstname}} {{doctor.fathername}}</option>
-    </select>
+    <div *ngIf="doctors">
+      <input type="text" name="head" id="head" [(ngModel)]="department.head" list="hd">
+      <datalist id="hd" name="hd">
+        <option [ngValue]="">--</option>
+        <option *ngFor="let doctor of doctors" [value]="doctor.login">{{doctor.surname}} {{doctor.firstname}} {{doctor.fathername}}</option>
+      </datalist>
+    </div>
   </mat-form-field>
 
 </mat-dialog-content>

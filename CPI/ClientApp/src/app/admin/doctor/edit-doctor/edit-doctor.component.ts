@@ -18,7 +18,7 @@ export class EditDoctorComponent {
   public docSpeciality: Speciality = new Speciality("", "");
   public docDepartment: Department = new Department(null, "");
   public docSchedule: Schedule = new Schedule(0, new Date(), new Date());
-  public doctor: Doctor = new Doctor("", "", "", "", 1, 1, 1, "");
+  public doctor: Doctor = new Doctor("", "", "", "", "", null, null, null, "", "", "", "");
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.admin = activateRoute.snapshot.params['admin'];

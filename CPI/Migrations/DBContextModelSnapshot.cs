@@ -115,8 +115,8 @@ namespace CPI.Migrations
                     b.Property<string>("hospital_id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<byte[]>("photo")
-                        .HasColumnType("varbinary(max)");
+                    b.Property<string>("photo")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("regards")
                         .HasColumnType("nvarchar(max)");
@@ -162,6 +162,21 @@ namespace CPI.Migrations
                     b.HasIndex("schedule_code");
 
                     b.ToTable("Hospitals");
+                });
+
+            modelBuilder.Entity("CPI.Models.Moderator", b =>
+                {
+                    b.Property<string>("login")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("hospital_id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("login");
+
+                    b.HasIndex("hospital_id");
+
+                    b.ToTable("Moderators");
                 });
 
             modelBuilder.Entity("CPI.Models.PassData", b =>
@@ -328,11 +343,28 @@ namespace CPI.Migrations
 
             modelBuilder.Entity("CPI.Models.Hospital", b =>
                 {
-                    b.HasOne("CPI.Models.Schedule", "hospital_schedule")
+                    b.HasOne("CPI.Models.Schedule", "Schedule")
                         .WithMany()
                         .HasForeignKey("schedule_code");
 
-                    b.Navigation("hospital_schedule");
+                    b.Navigation("Schedule");
+                });
+
+            modelBuilder.Entity("CPI.Models.Moderator", b =>
+                {
+                    b.HasOne("CPI.Models.Hospital", "Hospital")
+                        .WithMany()
+                        .HasForeignKey("hospital_id");
+
+                    b.HasOne("CPI.Models.PassData", "PassData")
+                        .WithMany()
+                        .HasForeignKey("login")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Hospital");
+
+                    b.Navigation("PassData");
                 });
 
             modelBuilder.Entity("CPI.Models.Patient", b =>

@@ -20,14 +20,23 @@
     </div>
   </nav>
 </header>
-<h2>{{doctor.surname}} {{doctor.firstname}} {{doctor.fathername}}</h2>
-<h3>Отделение {{doctor.department?.department_name}}</h3>
-<h3>{{doctor.speciality?.speciality}}</h3>
-<h3>Кабинет {{doctor.cabinet}}</h3>
-<h3>Время работы: {{doctor.hours?.appointment_start | date:'HH:mm'}} - {{doctor.hours?.appointment_end | date: 'HH:mm'}}</h3>
 
-<hr />
+<div class="content">
 
-<div class="div-container">
-  <button [routerLink]="['/doctor-coupons', doctor.login]">Талоны</button>
+  <div class="preview" *ngIf="doctor.photo">
+    <img [src]="doctor.photo">
+  </div>
+
+  <h2>{{doctor.surname}} {{doctor.firstname}} {{doctor.fathername}}</h2>
+  <h3>Отделение {{doctor.department?.department_name}}</h3>
+  <h3>{{doctor.speciality?.speciality}}</h3>
+  <h3>Кабинет {{doctor.cabinet}}</h3>
+  <h3>Время работы: {{doctor.hours?.appointment_start | date:'HH:mm'}} - {{doctor.hours?.appointment_end | date: 'HH:mm'}}</h3>
+
+  <hr />
+
+  <div class="div-container">
+    <button [routerLink]="['/doctor-coupons', doctor.login]">Талоны</button>
+  </div>
+
 </div>

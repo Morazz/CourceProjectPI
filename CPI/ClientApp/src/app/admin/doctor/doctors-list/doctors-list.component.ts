@@ -1,8 +1,13 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { Scheduler } from 'rxjs';
+import { dialogConfig, roles } from '../../../../globals';
 import { Coupon } from '../../../patient/pick-coupon/pick-coupon.component';
+import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.component';
+import { Moderator } from '../../moderator/add-moderator/add-moderator.component';
+import { PassData } from '../../user/add-user/add-user.component';
 
 @Component({
   selector: 'app-doctors-list',
@@ -10,7 +15,7 @@ import { Coupon } from '../../../patient/pick-coupon/pick-coupon.component';
   styleUrls: ['./doctors-list.component.css']
 })
 export class DoctorsListComponent {
-  public admin: string;
+  public login: string;
   public doctors: Doctor[];
   public filtered: Doctor[];
   public coupons: Coupon[];
@@ -23,37 +28,79 @@ export class DoctorsListComponent {
   ascSpec = false;
   public open_filter = false;
   filter = { department: "", speciality: "" };
+  public hospital_id: string;
+  public isAdmin: boolean = true;
 
-  constructor(private http: HttpClient, private activateRoute: ActivatedRoute, @Inject('BASE_URL') private baseUrl: string) {
-    this.getDoctors();
-    this.admin = activateRoute.snapshot.params['admin'];
+  constructor(private http: HttpClient, private activateRoute: ActivatedRoute, @Inject('BASE_URL') private baseUrl: string,
+    private dialog: MatDialog) {
+    this.login = activateRoute.snapshot.params['login'];
+    this.checkStatus();
+    !this.hospital_id ? this.getDoctors() : this.getHospitalDoctors();
+  }
+
+  checkStatus() {
+    this.http.get<PassData>(this.baseUrl + 'passdata/' + this.login).subscribe(result => {
+      result.status == roles[2] ? this.isAdmin : this.isAdmin = !this.isAdmin;
+      !this.isAdmin ? this.setHospital() : this.getDoctors();
+        
+    }, error => console.error(error));
+  }
+
+  setHospital() {
+    this.http.get<Moderator>(this.baseUrl + 'moderator/' + this.login).subscribe(result => {
+      this.hospital_id = result.hospital_id;
+      this.getHospitalDoctors();
+    }, error => console.error(error));
   }
 
   deleteDoctor(login: string) {
-    if (confirm("Подтвердите удаление: " + login)) {
 
-      this.http.get<Coupon[]>(this.baseUrl + 'coupon/doc/' + login).subscribe(result => {
-        this.coupons = result;
-        this.coupons.forEach(coup => {
-          this.http.delete(this.baseUrl + 'coupon', { params: new HttpParams().set('coupon_id', coup.coupon_id.toString()) })
-            .subscribe(
-              (data: any) => {
-              },
-              error => console.log(error));
-        })
-      }, error => console.error(error));
+    const dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(data => {
+      if (data != null) {
 
-      this.http.delete(this.baseUrl + 'doctor', { params: new HttpParams().set('login', login) })
-        .subscribe(
-          (data: any) => {
-            this.getDoctors();
-          },
-          error => console.log(error));
-    }
+        this.http.get<Coupon[]>(this.baseUrl + 'coupon/doc/' + login).subscribe(result => {
+          this.coupons = result;
+          this.coupons.forEach(coup => {
+            this.http.delete(this.baseUrl + 'coupon', { params: new HttpParams().set('coupon_id', coup.coupon_id.toString()) })
+              .subscribe(
+                (data: any) => {
+                },
+                error => console.log(error));
+          })
+        }, error => console.error(error));
+
+        this.http.delete(this.baseUrl + 'doctor', { params: new HttpParams().set('login', login) })
+          .subscribe(
+            (data: any) => {
+              this.getDoctors();
+            },
+            error => console.log(error));
+      }
+    });
   }
 
   getDoctors() {
     this.http.get<Doctor[]>(this.baseUrl + 'doctor').subscribe(result => {
+      this.doctors = result;
+      this.doctors.forEach(doc => {
+        this.http.get<Department>(this.baseUrl + 'department/' + doc.department_code).subscribe(result => {
+          doc.department = result;
+        }, error => console.error(error));
+
+        this.http.get<Speciality>(this.baseUrl + 'speciality/' + doc.speciality_code).subscribe(result => {
+          doc.speciality = result;
+        }, error => console.error(error));
+
+        this.http.get<Schedule>(this.baseUrl + 'schedule/' + doc.schedule_code).subscribe(result => {
+          doc.hours = result;
+        }, error => console.error(error));
+      })
+    }, error => console.error(error));
+  }
+
+  getHospitalDoctors() {
+    this.http.get<Doctor[]>(this.baseUrl + 'doctor/hosp/' + this.hospital_id).subscribe(result => {
       this.doctors = result;
       this.doctors.forEach(doc => {
         this.http.get<Department>(this.baseUrl + 'department/' + doc.department_code).subscribe(result => {

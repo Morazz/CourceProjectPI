@@ -14,6 +14,7 @@ namespace CPI.Models
         public string hospital_name { get; set; }
         public string? hospital_address { get; set; }
         [ForeignKey("schedule_code")]
-        public Schedule? hospital_schedule { get; set; }
+        public Schedule? Schedule { get; set; }
+        public int? schedule_code { get; set; }
     }
 }

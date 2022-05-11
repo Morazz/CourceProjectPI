@@ -27,7 +27,7 @@ export class AppComponent {
       for (var i = 0; i < linkStr.length; i++) {
         var mohs = linkStr[i];
         var clone = template.content.cloneNode(true) as HTMLLIElement;
-        console.log(clone);
+        //console.log(clone);
         var cells = clone.querySelectorAll('a');
         cells[0].textContent = mohs.link;
 

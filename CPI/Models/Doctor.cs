@@ -16,7 +16,7 @@ namespace CPI.Models
         public string fathername { get; set; }
         public string surname { get; set; }
         public int cabinet { get; set; }
-        public byte[]? photo { get; set; }
+        public string? photo { get; set; }
         public string? education { get; set; }
         public string? regards { get; set; }
         public int? department_code { get; set; }

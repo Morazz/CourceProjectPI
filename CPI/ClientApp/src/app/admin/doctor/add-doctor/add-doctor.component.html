@@ -1,32 +1,52 @@
 <header>
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-      <a class="navbar-brand" [routerLink]="['/admin-panel', user]">CPI</a>
-      <button class="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target=".navbar-collapse"
-              aria-label="Toggle navigation"
-              [attr.aria-expanded]="isExpanded"
-              (click)="toggle()">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
-           [ngClass]="{ show: isExpanded }">
-        <ul class="navbar-nav flex-grow">
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/admin-panel', admin]">{{admin}}</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/']">Выйти</a>
-          </li>
-        </ul>
-      </div>
+    <a class="navbar-brand" [routerLink]="['/admin-panel', user]">CPI</a>
+    <button class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target=".navbar-collapse"
+            aria-label="Toggle navigation"
+            [attr.aria-expanded]="isExpanded"
+            (click)="toggle()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
+         [ngClass]="{ show: isExpanded }">
+      <ul class="navbar-nav flex-grow">
+        <li class="nav-item" [routerLinkActive]="['link-active']">
+          <a class="nav-link text-dark" [routerLink]="['/admin-panel', admin]">{{login}}</a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['link-active']">
+          <a class="nav-link text-dark" [routerLink]="['/']">Выйти</a>
+        </li>
+      </ul>
+    </div>
   </nav>
 </header>
 
+<input type="file" accept="image/*" [(ngModel)]="doctor.image" (change)="onImageChange($event)"/>
+
+<div class="preview" *ngIf="doctor.photo">
+  <img [src]="doctor.photo">
+</div>
+
 <div class="container">
-  <h3>Добавление врача</h3>
+  <h3>Добавить врача</h3>
   <hr>
+
+  <div *ngIf="isAdmin">
+    <label for="hosp"><b>Учреждение</b></label>
+    <div *ngIf="!hospitals">
+      <em>Загрузка...</em>
+    </div>
+    <div *ngIf="hospitals">
+      <input type="text" name="hosp" [(ngModel)]="doctor.hospital_id" list="hp">
+      <datalist id="hp" name="hp">
+        <option [ngValue]="">--</option>
+        <option *ngFor="let hospital of hospitals" [value]="hospital.hospital_id">{{hospital.hospital_name}}</option>
+      </datalist>
+    </div>
+  </div>
 
   <label for="login"><b>Логин</b></label>
   <input type="text" name="login" [(ngModel)]="doctor.login" required>
@@ -93,6 +113,12 @@
   <label for="cabinet"><b>Кабинет</b></label>
   <input type="number" name="cabinet" [(ngModel)]="doctor.cabinet" min="1" max="300" required>
 
+  <label for="educ"><b>Образование</b></label>
+  <textarea name="educ" [(ngModel)]="doctor.education"></textarea>
+
+  <label for="reg"><b>Достижения</b></label>
+  <textarea name="reg" [(ngModel)]="doctor.regards"></textarea>
+
   <button type="submit" class="registerbtn" (click)="addDoctor()" [disabled]="surname.invalid || firstname.invalid || fathername.invalid">Сохранить</button>
 
   <div ng-show="errors">
@@ -100,4 +126,3 @@
   </div>
 
 </div>
-

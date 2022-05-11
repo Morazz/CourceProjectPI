@@ -15,7 +15,7 @@
            [ngClass]="{ show: isExpanded }">
         <ul class="navbar-nav flex-grow">
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/admin-panel', admin]">{{admin}}</a>
+            <a class="nav-link text-dark" [routerLink]="['/admin-panel', login]">{{login}}</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/']">Выйти</a>
@@ -29,7 +29,7 @@
 <h2>Отделения</h2>
 
 <div class="div-container">
-  <button [routerLink]="['/add-department', admin]">Добавить</button>
+  <button (click)="openDialog()">Добавить</button>
   <div *ngIf="!departments"><em>Загрузка...</em></div>
 </div>
 

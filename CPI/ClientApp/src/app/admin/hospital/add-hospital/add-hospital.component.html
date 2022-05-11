@@ -7,7 +7,7 @@
     <input type="text" name="ID" [(ngModel)]="hospital.hospital_id" required>
 
     <label for="name"><b>Название</b></label>
-    <input type="password" name="name" [(ngModel)]="hospital.hospital_name" required>
+    <input type="text" name="name" [(ngModel)]="hospital.hospital_name" required>
 
     <label for="address"><b>Адрес</b></label>
     <input type="text" name="address" [(ngModel)]="hospital.hospital_address">
@@ -21,6 +21,10 @@
         <option *ngFor="let schedule of schedules" [value]="schedule.schedule_code">{{schedule.appointment_start | date: 'HH:mm'}} - {{schedule.appointment_end | date: 'HH:mm'}}</option>
       </select>
     </div>
+
+    <div ng-show="errors">
+      <div *ngFor="let error of errors" class="alert alert-danger">{{error}}</div>
+    </div>
   </mat-form-field>
 
 </mat-dialog-content>
@@ -29,3 +33,5 @@
   <button class="submitbtn" (click)="postData()">Сохранить</button>
   <button class="cancelbtn" (click)="close()">Отмена</button>
 </mat-dialog-actions>
+
+

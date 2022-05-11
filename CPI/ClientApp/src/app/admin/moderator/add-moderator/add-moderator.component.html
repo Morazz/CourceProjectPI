@@ -3,15 +3,28 @@
 <mat-dialog-content>
 
   <mat-form-field>
-    <label for="time_start"><b>Начало приема</b></label>
-    <input type="time" name="time_start" [(ngModel)]="start" required>
-    <label for="time_end"><b>Окончание приема</b></label>
-    <input type="time" name="time_end" [(ngModel)]="end" required>
+    <label for="login"><b>Логин</b></label>
+    <input type="text" name="login" [(ngModel)]="moderator.login" required>
+
+    <label for="psw"><b>Пароль</b></label>
+    <input type="password" name="psw" [(ngModel)]="newPass.password" #password="ngModel" required>
+
+    <label for="hosp"><b>Учреждение</b></label>
+    <div *ngIf="!hospitals">
+      <em>Загрузка...</em>
+    </div>
+    <div *ngIf="hospitals">
+      <input type="text" name="hosp" [(ngModel)]="moderator.hospital_id" list="hp">
+      <datalist id="hp" name="hp">
+        <option [ngValue]="">--</option>
+        <option *ngFor="let hospital of hospitals" [value]="hospital.hospital_id">{{hospital.hospital_name}}</option>
+      </datalist>
+    </div>
   </mat-form-field>
 
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button class="submitbtn" (click)="postSchedule()">Сохранить</button>
+  <button class="submitbtn" (click)="postData()">Сохранить</button>
   <button class="cancelbtn" (click)="close()">Отмена</button>
 </mat-dialog-actions>

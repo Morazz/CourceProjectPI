@@ -11,16 +11,14 @@ import { AddScheduleComponent } from '../add-schedule/add-schedule.component';
 })
 
 export class SchedulesListComponent {
-  admin: string;
+  login: string;
   public schedules: Schedule[];
   public dialogConfig;
 
   constructor(private activateRoute: ActivatedRoute, private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string,
     private dialog: MatDialog  ) {
     this.getSchedules();
-    this.admin = activateRoute.snapshot.params['admin'];
-
-    this.admin = activateRoute.snapshot.params['admin'];
+    this.login = activateRoute.snapshot.params['login'];
     this.dialogConfig = new MatDialogConfig();
     this.dialogConfig.disableClose = true;
     this.dialogConfig.autoFocus = true;

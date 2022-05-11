@@ -1,7 +1,6 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-  /*background-color: black;*/
 }
 
 * {
@@ -67,4 +66,26 @@ a {
 .signin {
   background-color: #f1f1f1;
   text-align: center;
+}
+
+.mailform {
+  display: flex;
+  flex-direction: row;
+  padding: 2px;
+}
+
+.mailinput {
+    flex:1;
+}
+
+.mailbutton {
+  width: 10%;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #e0e0e0;
+}
+
+::ng-deep .custom-tooltip {
+  font-size: 16px;
 }

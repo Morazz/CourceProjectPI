@@ -15,7 +15,7 @@
            [ngClass]="{ show: isExpanded }">
         <ul class="navbar-nav flex-grow">
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/admin-panel', admin]">{{admin}}</a>
+            <a class="nav-link text-dark" [routerLink]="['/admin-panel', login]">{{login}}</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/']">Выйти</a>
@@ -30,62 +30,79 @@
 
 <hr />
 
-<div class="row">
-  <div class="column">
-    <h4>Пользователи</h4>
-    <ul>
-      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/users-list', admin]">Cписок пользователей</a></li>
-      <li><button class="linkbtn" (click)="openDialog('AddUser')">Добавить пользователя</button></li>
-    </ul>
-  </div>
-  <div class="column">
-    <h4>Врачи</h4>
-    <ul>
-      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/doctors-list', admin]">Cписок врачей</a></li>
-      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/add-doctor', admin]">Добавить врача</a></li>
-    </ul>
-  </div>
-  <div class="column">
-    <h4>Расписание</h4>
-    <ul>
-      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/schedules-list', admin]">Cписок расписаний</a></li>
-      <li><button class="linkbtn" (click)="openDialog('AddSchedule')">Добавить расписание</button></li>
-    </ul>
-  </div>
-  <div class="column">
-    <h4>Пациенты</h4>
-    <ul>
-      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/patients-list', admin]">Список пациентов</a></li>
-      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/add-patient', admin]">Добавить пациента</a></li>
-    </ul>
+<div class="panel">
+  <div class="row">
+    <div class="column" *ngIf="isAdmin">
+      <h4>Поликлиники</h4>
+      <ul>
+        <li><a [routerLinkActive]="['link-active']" [routerLink]="['/hospitals-list', login]">Cписок поликлиник</a></li>
+        <li><button class="linkbtn" (click)="openDialog('AddHosp')">Добавить поликлинику</button></li>
+      </ul>
+    </div>
+    <div class="column" *ngIf="isAdmin">
+      <h4>Пользователи</h4>
+      <ul>
+        <li><a [routerLinkActive]="['link-active']" [routerLink]="['/users-list', login]">Cписок пользователей</a></li>
+        <li><button class="linkbtn" (click)="openDialog('AddUser')">Добавить пользователя</button></li>
+      </ul>
+    </div>
+    <div class="column" *ngIf="isAdmin">
+      <h4>Модераторы</h4>
+      <ul>
+        <li><a [routerLinkActive]="['link-active']" [routerLink]="['/moderators-list', login]">Cписок модераторов</a></li>
+        <li><button class="linkbtn" (click)="openDialog('AddModer')">Добавить модератора</button></li>
+      </ul>
+    </div>
+    <div class="column">
+      <h4>Врачи</h4>
+      <ul>
+        <li><a [routerLinkActive]="['link-active']" [routerLink]="['/doctors-list', login]">Cписок врачей</a></li>
+        <li><a [routerLinkActive]="['link-active']" [routerLink]="['/add-doctor', login]">Добавить врача</a></li>
+      </ul>
+    </div>
+    <div class="column">
+      <h4>Расписание</h4>
+      <ul>
+        <li><a [routerLinkActive]="['link-active']" [routerLink]="['/schedules-list', login]">Cписок расписаний</a></li>
+        <li><button class="linkbtn" (click)="openDialog('AddSchedule')">Добавить расписание</button></li>
+      </ul>
+    </div>
+    <div class="column">
+      <h4>Пациенты</h4>
+      <ul>
+        <li><a [routerLinkActive]="['link-active']" [routerLink]="['/patients-list', login]">Список пациентов</a></li>
+        <li><a [routerLinkActive]="['link-active']" [routerLink]="['/add-patient', login]">Добавить пациента</a></li>
+      </ul>
+    </div>
+    <!--</div>-->
+    <!--<div class="row">-->
+    <div class="column">
+      <h4>Отделения</h4>
+      <ul>
+        <li><a [routerLinkActive]="['link-active']" [routerLink]="['/departments-list', login]">Список отделений</a></li>
+        <li><button class="linkbtn" (click)="openDialog('AddDepartment')">Добавить отделение</button></li>
+      </ul>
+    </div>
+    <div class="column">
+      <h4>Специальности</h4>
+      <ul>
+        <li><a [routerLinkActive]="['link-active']" [routerLink]="['/specialities-list', login]">Список специальностей</a></li>
+        <li><button class="linkbtn" (click)="openDialog('AddSpeciality')">Добавить специальность</button></li>
+      </ul>
+    </div>
+    <div class="column">
+      <h4>Стандартные талоны</h4>
+      <ul>
+        <li><a [routerLinkActive]="['link-active']" [routerLink]="['/templates-list', login]">Список талонов</a></li>
+        <li><button class="linkbtn" (click)="openDialog('AddTemplate')">Добавить талон</button></li>
+      </ul>
+    </div>
+    <div class="column">
+      <h4>Талоны</h4>
+      <ul>
+        <li><a [routerLinkActive]="['link-active']" [routerLink]="['/coupons-list', login]">Список талонов</a></li>
+      </ul>
+    </div>
   </div>
 </div>
-<div class="row">
-  <div class="column">
-    <h4>Отделения</h4>
-    <ul>
-      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/departments-list', admin]">Список отделений</a></li>
-      <li><button class="linkbtn" (click)="openDialog('AddDepartment')">Добавить отделение</button></li>
-    </ul>
-  </div>
-  <div class="column">
-    <h4>Специальности</h4>
-    <ul>
-      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/specialities-list', admin]">Список специальностей</a></li>
-      <li><button class="linkbtn" (click)="openDialog('AddSpeciality')">Добавить специальность</button></li>
-    </ul>
-  </div>
-  <div class="column">
-    <h4>Стандартные талоны</h4>
-    <ul>
-      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/templates-list', admin]">Список талонов</a></li>
-      <li><button class="linkbtn" (click)="openDialog('AddTemplate')">Добавить талон</button></li>
-    </ul>
-  </div>
-  <div class="column">
-    <h4>Талоны</h4>
-    <ul>
-      <li><a [routerLinkActive]="['link-active']" [routerLink]="['/coupons-list', admin]">Список талонов</a></li>
-    </ul>
-  </div>
-</div>
+

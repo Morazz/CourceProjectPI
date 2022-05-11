@@ -41,6 +41,7 @@
   <table class='table table-striped' aria-labelledby="tableLabel">
     <thead>
       <tr>
+        <th>Код учреждения</th>
         <th (click)="sortDay()" class="toorder">Дата приема</th>
         <th>Время приема</th>
         <th (click)="sortPatient()" class="toorder">Пациент</th>
@@ -49,6 +50,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let coupon of coupons">
+        <td>{{coupon.hospital_id}}</td>
         <td>{{coupon.appointment_day | date: 'dd.MM.yyyy'}}</td>
         <td>{{coupon.template.time | date: 'HH:mm'}}</td>
         <td><a [routerLinkActive]="['link-active']" [routerLink]="['/user-page', coupon.patient.login]"> {{coupon.patient.surname}} {{coupon.patient.firstname}} {{coupon.patient.fathername}}</a></td>

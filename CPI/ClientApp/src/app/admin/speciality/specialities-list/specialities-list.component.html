@@ -35,7 +35,7 @@
 
 
 <div class="div-container">
-  <button [routerLink]="['/add-speciality', admin]">Добавить</button>
+  <button (click)="openDialog()">Добавить</button>
   <div *ngIf="!specialities"><em>Загрузка...</em></div>
 </div>
 

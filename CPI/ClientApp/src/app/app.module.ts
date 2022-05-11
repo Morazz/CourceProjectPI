@@ -10,7 +10,7 @@ import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { UsersListComponent } from './admin/user/users-list/users-list.component';
 import { DoctorsListComponent } from './admin/doctor/doctors-list/doctors-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatNativeDateModule, MatRippleModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatDialogRef, MatFormFieldModule, MatInputModule, MatNativeDateModule, MatRippleModule, MAT_DIALOG_DATA } from '@angular/material';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { AddDoctorComponent } from './admin/doctor/add-doctor/add-doctor.component';
 import { DepartmentsListComponent } from './admin/department/departments-list/departments-list.component';
@@ -46,6 +46,13 @@ import { MatDialogModule } from "@angular/material";
 import { MatIconModule } from '@angular/material/icon';
 import { AddHospitalComponent } from './admin/hospital/add-hospital/add-hospital.component';
 import { HospitalsListComponent } from './admin/hospital/hospitals-list/hospitals-list.component';
+import { MatTooltipModule } from '@angular/material';
+import { AddModeratorComponent } from './admin/moderator/add-moderator/add-moderator.component';
+import { ModeratorsListComponent } from './admin/moderator/moderators-list/moderators-list.component';
+import { EditHospitalComponent } from './admin/hospital/edit-hospital/edit-hospital.component';
+import { DeleteDialogComponent } from './admin/delete-dialog/delete-dialog.component';
+import { HospitalInfoComponent } from './hospital/hospital-info/hospital-info.component';
+import { HospitalSchedulesComponent } from './hospital/hospital-schedules/hospital-schedules.component';
 
 @NgModule({
   declarations: [
@@ -86,61 +93,76 @@ import { HospitalsListComponent } from './admin/hospital/hospitals-list/hospital
     EditDoctorComponent,
     EditPatientInfoComponent,
     AddHospitalComponent,
-    HospitalsListComponent
+    HospitalsListComponent,
+    EditHospitalComponent,
+    ModeratorsListComponent,
+    AddModeratorComponent,
+    DeleteDialogComponent,
+    HospitalInfoComponent,
+    HospitalSchedulesComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    MatTooltipModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'register', component: RegisterComponent, },
       { path: 'authorize', component: AuthorizeComponent },
       { path: 'user-page/:login', component: UserPageComponent },
-      { path: 'admin-panel/:admin', component: AdminPanelComponent },
+      { path: 'admin-panel/:login', component: AdminPanelComponent },
       //Users
-      { path: 'users-list/:admin', component: UsersListComponent },
-      { path: 'add-user/:admin', component: AddUserComponent },
-      { path: 'edit-user/:admin/:login', component: EditUserComponent },
+      { path: 'users-list/:login', component: UsersListComponent },
+      { path: 'add-user', component: AddUserComponent },
+      { path: 'edit-user/:login', component: EditUserComponent },
       //Doctors
-      { path: 'doctors-list/:admin', component: DoctorsListComponent },
-      { path: 'add-doctor/:admin', component: AddDoctorComponent },
-      { path: 'edit-doctor/:admin/:login', component: EditDoctorComponent },
+      { path: 'doctors-list/:login', component: DoctorsListComponent },
+      { path: 'add-doctor/:login', component: AddDoctorComponent },
+      { path: 'edit-doctor/:login/:doctor', component: EditDoctorComponent },
       { path: 'doctor-info/:login', component: DoctorInfoComponent },
       //Patients
-      { path: 'patients-list/:admin', component: PatientsListComponent },
-      { path: 'add-patient/:admin', component: AddPatientComponent },
-      { path: 'edit-patient/:admin/:login', component: EditPatientComponent },
+      { path: 'patients-list/:login', component: PatientsListComponent },
+      { path: 'add-patient/:login', component: AddPatientComponent },
+      { path: 'edit-patient/:login/:patient', component: EditPatientComponent },
       //Departments
-      { path: 'departments-list/:admin', component: DepartmentsListComponent },
-      { path: 'add-department/:admin', component: AddDepartmentComponent },
-      { path: 'edit-department/:admin/:department_code', component: EditDepartmentComponent },
+      { path: 'departments-list/:login', component: DepartmentsListComponent },
+      { path: 'add-department', component: AddDepartmentComponent },
+      { path: 'edit-department/:department_code', component: EditDepartmentComponent },
       //Specialitites
-      { path: 'specialities-list/:admin', component: SpecialitiesListComponent },
-      { path: 'add-speciality/:admin', component: AddSpecialityComponent },
-      { path: 'edit-speciality/:admin/:speciality_code', component: EditSpecialityComponent },
+      { path: 'specialities-list/:login', component: SpecialitiesListComponent },
+      { path: 'add-speciality/:login', component: AddSpecialityComponent },
+      { path: 'edit-speciality/:speciality_code', component: EditSpecialityComponent },
       //Schedules
-      { path: 'schedules-list/:admin', component: SchedulesListComponent },
-      { path: 'add-schedule/:admin', component: AddScheduleComponent },
-      { path: 'edit-schedule/:admin/:schedule_code', component: EditScheduleComponent },
+      { path: 'schedules-list/:login', component: SchedulesListComponent },
+      { path: 'add-schedule/:login', component: AddScheduleComponent },
+      { path: 'edit-schedule/:schedule_code', component: EditScheduleComponent },
       //Templates
-      { path: 'templates-list/:admin', component: TemplatesListComponent },
-      { path: 'add-template/:admin', component: AddTemplateComponent },
-      { path: 'edit-template/:template_id/:admin', component: EditTemplateComponent },
+      { path: 'templates-list/:login', component: TemplatesListComponent },
+      { path: 'add-template', component: AddTemplateComponent },
+      { path: 'edit-template/:template_id', component: EditTemplateComponent },
       //Coupon picking
       { path: 'pick-department/:login', component: PickDepartmentComponent },
       { path: 'pick-doctor/:login/:department_code', component: PickDoctorComponent },
       { path: 'pick-coupon/:login/:department_code/:doctor_login', component: PickCouponComponent },
       //Coupons
-      { path: 'coupons-list/:admin', component: CouponsListComponent },
+      { path: 'coupons-list/:login', component: CouponsListComponent },
       { path: 'doctor-coupons/:login', component: DoctorCouponsListComponent },
       //Patient info
       { path: 'patient-info/:doctor/:patient', component: PatientInfoComponent },
       { path: 'edit-patient-info/:login', component: EditPatientInfoComponent },
       { path: 'add-patient-info/:login', component: EditPatientInfoComponent },
       //Hospitals
-      { path: 'hospitals-list', component: HospitalsListComponent },
+      { path: 'hospitals-list/:login', component: HospitalsListComponent },
       { path: 'add-hospital', component: AddHospitalComponent },
+      { path: 'hospital-info/:hospital_id', component: HospitalInfoComponent },
+      { path: 'hospital-schedules/:hospital_id', component: HospitalSchedulesComponent },
+      //Moderators
+/*      { path: 'moderator-panel/:login', component: ModeratorPanelComponent },*/
+      { path: 'moderators-list/:login', component: ModeratorsListComponent },
+      { path: 'add-moderator', component: AddModeratorComponent },
+      ///
+      { path: 'delete-dialog', component: DeleteDialogComponent },
     ]),
     BrowserAnimationsModule,
     MatDatepickerModule,
@@ -151,7 +173,10 @@ import { HospitalsListComponent } from './admin/hospital/hospitals-list/hospital
     MatFormFieldModule,
     MatIconModule,
   ],
-  providers: [],
+  providers: [
+    { provide: MAT_DIALOG_DATA, useValue: {} },
+    { provide: MatDialogRef, useValue: {} }
+  ],
   bootstrap: [AppComponent],
   entryComponents: [AddTemplateComponent]
 })

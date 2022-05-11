@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { OnInit } from '@angular/core';
 import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { roles } from '../../../../globals';
 
 @Component({
   selector: 'app-authorize',
@@ -12,7 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AuthorizeComponent {
 
   public user: PassData = new PassData("", "", "");
-  roles: string[] = ["Пациент", "Врач", "Администратор"];
+  /*roles: string[] = ["Пациент", "Врач", "Администратор", "Модератор"];*/
   public login: string;
   public password: string;
   errors: string[] = [];
@@ -35,15 +36,19 @@ export class AuthorizeComponent {
 
   redirect() {
     switch (this.user.status) {
-      case this.roles[0]: {
+      case roles[0]: {
         this.router.navigate(['user-page', this.user.login]);
       }
         break;
-      case this.roles[1]: {
+      case roles[1]: {
         this.router.navigate(['doctor-info', this.user.login]);
       }
         break;
-      case this.roles[2]: {
+      case roles[2]: {
+        this.router.navigate(['admin-panel', this.user.login]);
+      }
+        break;
+      case roles[3]: {
         this.router.navigate(['admin-panel', this.user.login]);
       }
         break;
@@ -58,14 +63,4 @@ export class PassData {
     public status: string
   ) { }
 }
-export class Patient {
-  constructor(
-    public login: string
-  ) { }
-}
 
-export class Doctor {
-  constructor(
-    public login: string
-  ) { }
-}

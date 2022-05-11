@@ -6,6 +6,7 @@ import { MatDialog, MatDialogConfig } from "@angular/material";
 import { AddUserComponent } from '../admin/user/add-user/add-user.component';
 import { AddHospitalComponent } from '../admin/hospital/add-hospital/add-hospital.component';
 import { Hospital } from '../admin/hospital/hospitals-list/hospitals-list.component';
+import { DeleteDialogComponent } from '../admin/delete-dialog/delete-dialog.component';
 
 
 @Component({
@@ -33,9 +34,10 @@ export class HomeComponent {
       this.hospitals.forEach(hp => {
         this.http.get<Schedule>(this.baseUrl + 'schedule/' + hp.schedule_code).subscribe(result => {
           hp.hours = result;
+          console.log(result);
         }, error => console.error(error));
-        console.log(hp);
       })
+      console.log(this.hospitals);
     }, error => console.error(error));
   }
 
@@ -46,8 +48,6 @@ export class HomeComponent {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.minWidth = '25%';
-
-    this.dialog.open(AddHospitalComponent, dialogConfig);
   }
 
   //getDepDoctors(dep_code: number) {
@@ -69,23 +69,23 @@ export class HomeComponent {
   //  //return this.doctors.filter(doc => doc.department_code == dep_code);
   //}
 
-  getDoctors() {
-    this.http.get<Doctor[]>(this.baseUrl + 'doctor').subscribe(result => {
-      this.doctors = result;
-      this.doctors.forEach(doc => {
-        this.http.get<Department>(this.baseUrl + 'department/' + doc.department_code).subscribe(result => {
-          doc.department = result;
-        }, error => console.error(error));
-        this.http.get<Speciality>(this.baseUrl + 'speciality/' + doc.speciality_code).subscribe(result => {
-          doc.speciality = result;
-        }, error => console.error(error));
-        this.http.get<Schedule>(this.baseUrl + 'schedule/' + doc.schedule_code).subscribe(result => {
-          doc.hours = result;
-        }, error => console.error(error));
-      })
-    }, error => console.error(error));
+  //getDoctors() {
+  //  this.http.get<Doctor[]>(this.baseUrl + 'doctor').subscribe(result => {
+  //    this.doctors = result;
+  //    this.doctors.forEach(doc => {
+  //      this.http.get<Department>(this.baseUrl + 'department/' + doc.department_code).subscribe(result => {
+  //        doc.department = result;
+  //      }, error => console.error(error));
+  //      this.http.get<Speciality>(this.baseUrl + 'speciality/' + doc.speciality_code).subscribe(result => {
+  //        doc.speciality = result;
+  //      }, error => console.error(error));
+  //      this.http.get<Schedule>(this.baseUrl + 'schedule/' + doc.schedule_code).subscribe(result => {
+  //        doc.hours = result;
+  //      }, error => console.error(error));
+  //    })
+  //  }, error => console.error(error));
     
-  }
+  //}
 
   //getDepartments() {
   //  this.http.get<Department[]>(this.baseUrl + 'department').subscribe(result => {
@@ -97,9 +97,3 @@ export class HomeComponent {
   //}
 }
 
-export class Department {
-  constructor(
-    public department_code: number,
-    public department_name: string,
-    public doctors: Doctor[]) { }
-}

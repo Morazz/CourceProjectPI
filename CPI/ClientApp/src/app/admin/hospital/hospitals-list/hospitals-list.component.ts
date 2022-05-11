@@ -3,11 +3,15 @@ import { Component, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Doctor } from '../../doctor/add-doctor/add-doctor.component';
 import { Schedule } from '../../schedule/schedules-list/schedules-list.component';
+import { dialogConfig } from '../../../../globals';
+import { AddHospitalComponent } from '../add-hospital/add-hospital.component';
+import { MatDialog } from '@angular/material';
+import { EditHospitalComponent } from '../edit-hospital/edit-hospital.component';
 
 @Component({
-    selector: 'app-hospitals-list',
-    templateUrl: './hospitals-list.component.html',
-    styleUrls: ['./hospitals-list.component.scss']
+  selector: 'app-hospitals-list',
+  templateUrl: './hospitals-list.component.html',
+  styleUrls: ['./hospitals-list.component.scss']
 })
 /** hospitals-list component*/
 export class HospitalsListComponent {
@@ -16,7 +20,8 @@ export class HospitalsListComponent {
   public admin: string;
   public schedule: Schedule = new Schedule(0, null, null);
 
-  constructor(private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+  constructor(private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string,
+    private dialog: MatDialog) {
     this.getHospitals();
     this.admin = activateRoute.snapshot.params['admin'];
   }
@@ -30,19 +35,19 @@ export class HospitalsListComponent {
 
   ///
   getSchedules() {
-      //this.hospitals.forEach(hp => {
-      //  this.http.get<Schedule>(this.baseUrl + 'doctor/' + hp.).subscribe(result => {
-      //    hp.hospital_schedule = result;
-      //  }, error => console.error(error));
-      //});
+    //this.hospitals.forEach(hp => {
+    //  this.http.get<Schedule>(this.baseUrl + 'doctor/' + hp.).subscribe(result => {
+    //    hp.hospital_schedule = result;
+    //  }, error => console.error(error));
+    //});
   }
 
   deleteHospital(hospital_id: string) {
     if (confirm("Подтвердите удаление: " + hospital_id)) {
 
-      this.http.get<Hospital>(this.baseUrl + 'department/' + hospital_id).subscribe(result => {
+      this.http.get<Hospital>(this.baseUrl + 'hospital/' + hospital_id).subscribe(result => {
         this.hospital = result;
-        this.http.get<Doctor[]>(this.baseUrl + 'doctor/dep/' + hospital_id).subscribe(result => {
+        this.http.get<Doctor[]>(this.baseUrl + 'doctor/hosp/' + hospital_id).subscribe(result => {
           this.hospital.doctors = result;
         }, error => console.error(error));
       })
@@ -50,14 +55,14 @@ export class HospitalsListComponent {
       ///
       if (this.hospital.doctors != null) {
         this.hospital.doctors.forEach(doc => {
-          doc = null;
+          //doc.hospital_id = null;
           this.http.put(this.baseUrl + 'doctor', doc).subscribe(result => {
             console.log(doc);
           }, error => console.error(error));
         });
       }
 
-      this.http.delete(this.baseUrl + 'hospital', { params: new HttpParams().set('hospital_id', hospital_id.toString()) })
+      this.http.delete(this.baseUrl + 'hospital', { params: new HttpParams().set('id', hospital_id.toString()) })
         .subscribe(
           (data: any) => {
             this.getHospitals();
@@ -73,6 +78,13 @@ export class HospitalsListComponent {
       }, error => console.error(error));
     }
     else this.getHospitals();
+  }
+
+  openDialog(parameter: string) {
+    switch (parameter) {
+      case 'AddHosp': this.dialog.open(AddHospitalComponent, dialogConfig); break;
+      case 'EditHosp': this.dialog.open(EditHospitalComponent, dialogConfig); break;
+    }
   }
 }
 

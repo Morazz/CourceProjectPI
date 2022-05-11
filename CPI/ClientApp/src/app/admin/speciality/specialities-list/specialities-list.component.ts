@@ -1,6 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
+import { dialogConfig } from '../../../../globals';
+import { AddSpecialityComponent } from '../add-speciality/add-speciality.component';
 
 @Component({
     selector: 'app-specialities-list',
@@ -12,7 +15,8 @@ export class SpecialitiesListComponent {
   public admin: string;
   public specialities: Speciality[];
 
-  constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+  constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string,
+    private dialog: MatDialog  ) {
     this.getSpecialitites();
     this.admin = activateRoute.snapshot.params['admin'];
   }
@@ -41,6 +45,10 @@ export class SpecialitiesListComponent {
           },
           error => console.log(error));
     }
+  }
+
+  openDialog() {
+    this.dialog.open(AddSpecialityComponent, dialogConfig);
   }
 }
 

@@ -17,6 +17,7 @@ namespace CPI.Models
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<Speciality> Specialities { get; set; }
         public DbSet<Hospital> Hospitals { get; set; }
+        public DbSet<Moderator> Moderators { get; set; }
 
         public DBContext(DbContextOptions<DBContext> options) : base(options)
         {

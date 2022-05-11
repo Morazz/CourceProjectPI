@@ -2,6 +2,10 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Doctor } from '../../doctor/doctors-list/doctors-list.component';
+import { dialogConfig } from '../../../../globals';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { AddDepartmentComponent } from '../add-department/add-department.component';
+import { EditDepartmentComponent } from '../edit-department/edit-department.component';
 
 @Component({
   selector: 'app-departments-list',
@@ -12,12 +16,13 @@ import { Doctor } from '../../doctor/doctors-list/doctors-list.component';
 export class DepartmentsListComponent {
   public departments: Department[];
   public doctors: Doctor[];
-  public admin: string;
+  public login: string;
   public department: Department = new Department(0, "", "", null, null);
 
-  constructor(private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+  constructor(private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string,
+    private dialog: MatDialog) {
     this.getDepartments();
-    this.admin = activateRoute.snapshot.params['admin'];
+    this.login = activateRoute.snapshot.params['login'];
   }
 
   getDepartments() {
@@ -36,7 +41,7 @@ export class DepartmentsListComponent {
           dep.headName = result;
           console.log(dep.headName);
         }, error => console.error(error));
-      }); 
+      });
     }, error => console.error(error));
   }
 
@@ -58,27 +63,47 @@ export class DepartmentsListComponent {
         });
       }
 
-    this.department.doctors = null;
+      this.department.doctors = null;
 
-    console.log(this.department);
+      console.log(this.department);
 
-    this.http.delete(this.baseUrl + 'department', { params: new HttpParams().set('department_code', department_code.toString()) })
-      .subscribe(
-        (data: any) => {
+      this.http.delete(this.baseUrl + 'department', { params: new HttpParams().set('department_code', department_code.toString()) })
+        .subscribe(
+          (data: any) => {
+            this.getDepartments();
+          },
+          error => console.log(error));
+    }
+  }
+
+  onInput(text: string) {
+    if (text.length > 0) {
+      this.http.get<Department[]>(this.baseUrl + 'department/ByName/' + text).subscribe(result => {
+        this.departments = result;
+      }, error => console.error(error));
+    }
+    else this.getDepartments();
+  }
+
+  openDialog(parameter: string) {
+
+    switch (parameter) {
+      case 'AddDepart': {
+        const dialogRef = this.dialog.open(AddDepartmentComponent, dialogConfig);
+        dialogRef.afterClosed().subscribe(data => {
           this.getDepartments();
-        },
-        error => console.log(error));
+        });
+        break;
+      }
+      case 'EditDepart': {
+        const dialogRef = this.dialog.open(EditDepartmentComponent, dialogConfig);
+        dialogRef.afterClosed().subscribe(data => {
+          this.getDepartments();
+        });
+        break;
+      }
+    }
   }
-}
-
-onInput(text: string) {
-  if (text.length > 0) {
-    this.http.get<Department[]>(this.baseUrl + 'department/ByName/' + text).subscribe(result => {
-      this.departments = result;
-    }, error => console.error(error));
-  }
-  else this.getDepartments();
-}
 }
 
 export class Department {

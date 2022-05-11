@@ -1,1 +1,64 @@
-﻿<div style="border: 1px solid red">moderators-list Component</div>
+<header>
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container">
+      <a class="navbar-brand" [routerLink]="['/admin-panel', user]">CPI</a>
+      <button class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target=".navbar-collapse"
+              aria-label="Toggle navigation"
+              [attr.aria-expanded]="isExpanded"
+              (click)="toggle()">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
+           [ngClass]="{ show: isExpanded }">
+        <ul class="navbar-nav flex-grow">
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/admin-panel', login]">{{login}}</a>
+          </li>
+          <li class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/']">Выйти</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<h2>Модераторы</h2>
+
+<div class="div-container">
+  <button (click)="openDialog()">Добавить</button>
+  <div *ngIf="!moderators"><em>Загрузка...</em></div>
+</div>
+
+<div class="dep">
+  <div class="topnav">
+    <div class="search-container">
+      <form action="">
+        <input type="text" placeholder="Найти.." name="search" class="search" [(ngModel)]="text" (input)="onInput(text)">
+      </form>
+    </div>
+  </div>
+
+  <table class='table table-striped' aria-labelledby="tableLabel">
+    <thead>
+      <tr>
+        <th>Логин</th>
+        <th>Учреждение</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let moderator of moderators">
+        <td>{{moderator.login}}</td>
+        <td *ngIf="moderator.hospital_id != null; else null_content">{{moderator.hospital_id}}</td>
+        <ng-template #null_content><td></td></ng-template>
+        <td>
+          <button class="dltbtn" (click)="deleteModerator(moderator.login)">Удалить</button>
+          <button class="editbtn" [routerLink]="['/edit-moderator', moderator.login]">Изменить</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

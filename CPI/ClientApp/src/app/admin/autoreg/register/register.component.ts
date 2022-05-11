@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject, Injector } from '@angular/core';
+import { Component, Inject, Injector, ViewEncapsulation  } from '@angular/core';
 import { Router } from '@angular/router';
 import { equal } from 'assert';
 import { Patient } from '../../patient/add-patient/add-patient.component';
+import { MatTooltipModule } from '@angular/material';
+import { FormControl } from '@angular/forms';
+
 
 @Component({
     selector: 'app-register',

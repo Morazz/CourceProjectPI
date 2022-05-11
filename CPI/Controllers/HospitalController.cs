@@ -56,7 +56,7 @@ namespace CPI.Controllers
             {
                 hospital.hospital_name = newHospital.hospital_name;
                 hospital.hospital_address = newHospital.hospital_address;
-                hospital.hospital_schedule = newHospital.hospital_schedule;
+                hospital.schedule_code = newHospital.schedule_code;
                 db.Hospitals.Update(hospital);
                 db.SaveChanges();
             }

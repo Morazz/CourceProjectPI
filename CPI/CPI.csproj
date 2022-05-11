@@ -40,23 +40,27 @@
     <Compile Remove="ClientApp\src\app\fetch-data\**" />
     <Compile Remove="ClientApp\src\app\navbar\**" />
     <Compile Remove="ClientApp\src\app\patient\doctor-view\**" />
+    <Compile Remove="ClientApp\src\app\Новая папка\**" />
     <Content Remove="$(SpaRoot)**" />
     <Content Remove="ClientApp\src\app\admin\autoreg\navbar\**" />
     <Content Remove="ClientApp\src\app\counter\**" />
     <Content Remove="ClientApp\src\app\fetch-data\**" />
     <Content Remove="ClientApp\src\app\navbar\**" />
     <Content Remove="ClientApp\src\app\patient\doctor-view\**" />
+    <Content Remove="ClientApp\src\app\Новая папка\**" />
     <EmbeddedResource Remove="ClientApp\src\app\admin\autoreg\navbar\**" />
     <EmbeddedResource Remove="ClientApp\src\app\counter\**" />
     <EmbeddedResource Remove="ClientApp\src\app\fetch-data\**" />
     <EmbeddedResource Remove="ClientApp\src\app\navbar\**" />
     <EmbeddedResource Remove="ClientApp\src\app\patient\doctor-view\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\Новая папка\**" />
     <None Remove="$(SpaRoot)**" />
     <None Remove="ClientApp\src\app\admin\autoreg\navbar\**" />
     <None Remove="ClientApp\src\app\counter\**" />
     <None Remove="ClientApp\src\app\fetch-data\**" />
     <None Remove="ClientApp\src\app\navbar\**" />
     <None Remove="ClientApp\src\app\patient\doctor-view\**" />
+    <None Remove="ClientApp\src\app\Новая папка\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
@@ -64,9 +68,13 @@
     <TypeScriptCompile Remove="ClientApp\src\app\counter\**" />
     <TypeScriptCompile Remove="ClientApp\src\app\fetch-data\**" />
     <TypeScriptCompile Remove="ClientApp\src\app\patient\doctor-view\**" />
+    <TypeScriptCompile Remove="ClientApp\src\app\Новая папка\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\Globals.js" />
+    <None Remove="ClientApp\Globals.js.map" />
+    <None Remove="ClientApp\Globals.ts" />
     <None Remove="ClientApp\src\app\admin\autoreg\navbar\navbar.component.html" />
     <None Remove="ClientApp\src\app\admin\autoreg\navbar\navbar.component.ts" />
     <None Remove="ClientApp\src\app\admin\autoreg\navbar\navbar.service.ts" />
@@ -84,14 +92,20 @@
     <None Remove="ClientApp\src\app\patient\doctor-view\doctor-view.component.css" />
     <None Remove="ClientApp\src\app\patient\doctor-view\doctor-view.component.html" />
     <None Remove="ClientApp\src\app\patient\doctor-view\doctor-view.component.ts" />
+    <None Remove="ClientApp\src\globals.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Remove="ClientApp\Globals.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\admin\delete-dialog\delete-dialog.component.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\admin\hospital\add-hospital\add-hospital.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\admin\hospital\edit-hospital\edit-hospital.component.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\admin\hospital\hospitals-list\hospitals-list.component.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\admin\moderator\add-moderator\add-moderator.component.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\admin\moderator\moderators-list\moderators-list.component.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\global-variables.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\hospital\hospital-info\hospital-info.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\hospital\hospital-schedules\hospital-schedules.component.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\moderator\department\add-department\add-department.component.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\moderator\department\departments-list\departments-list.component.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\moderator\department\edit-department\edit-department.component.ts" />
@@ -99,6 +113,10 @@
     <TypeScriptCompile Remove="ClientApp\src\app\moderator\doctor\doctors-list\doctors-list.component.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\moderator\doctor\edit-doctor\edit-doctor.component.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\moderator\moderator-panel\moderator-panel.component.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientApp\src\assets\Новая папка\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

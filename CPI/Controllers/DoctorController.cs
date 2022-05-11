@@ -42,6 +42,12 @@ namespace CPI.Controllers
             return db.Doctors.Where(doc => doc.department_code == code);
         }
 
+        [HttpGet("hosp/{code}")]
+        public IEnumerable<Doctor> GetByHosp(string code)
+        {
+            return db.Doctors.Where(doc => doc.hospital_id == code);
+        }
+
         [HttpGet("nulldep")]
         public IEnumerable<Doctor> GetWithoutDep()
         {

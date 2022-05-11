@@ -1,6 +1,11 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
+import { AddUserComponent } from '../add-user/add-user.component';
+import { dialogConfig } from '../../../../globals';
+import { EditUserComponent } from '../edit-user/edit-user.component';
+import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.component';
 
 @Component({
     selector: 'app-users-list',
@@ -11,28 +16,33 @@ import { ActivatedRoute } from '@angular/router';
 
 export class UsersListComponent {
   public users: PassData[];
-  public admin: string;
+  public login: string;
   public open_filter = false;
   filter = { login: "", status: "" };
   ascLogin = false;
   ascStatus = false;
 
-  constructor(private http: HttpClient, private activateRoute: ActivatedRoute, @Inject('BASE_URL') private baseUrl: string) {
-    this.admin = activateRoute.snapshot.params['admin'];
+  constructor(private http: HttpClient, private activateRoute: ActivatedRoute, @Inject('BASE_URL') private baseUrl: string,
+    private dialog: MatDialog  ) {
+    this.login = activateRoute.snapshot.params['login'];
     http.get<PassData[]>(baseUrl + 'passdata').subscribe(result => {
       this.users = result;
     }, error => console.error(error));
   }
 
   deleteUser(login: string) {
-    if (confirm("Подтвердите удаление: " + login)) {
-      this.http.delete(this.baseUrl + 'passdata', { params: new HttpParams().set('login', login) })
-        .subscribe(
-          (data: any) => {
-            this.getUsers();
-          },
-          error => console.log(error));
-    }
+
+    const dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(data => {
+      if (data != null)
+        this.http.delete(this.baseUrl + 'passdata', { params: new HttpParams().set('login', login) })
+          .subscribe(
+            (data: any) => {
+              this.getUsers();
+            },
+            error => console.log(error));
+    });
+
   }
 
   sortLogin() {
@@ -86,6 +96,33 @@ export class UsersListComponent {
   findFilter() {
     this.users = this.users.filter(usr => usr.login.toLowerCase().includes(this.filter.login.toLowerCase())
       && usr.status.toLowerCase().includes(this.filter.status.toLowerCase()));
+  }
+
+  getUser(login: string): PassData {
+    this.http.get<PassData>(this.baseUrl + 'passdata/' + login).subscribe(result => {
+      return result;
+    }, error => console.error(error));
+    return;
+  }
+
+  openDialog(parameter: string, user?: PassData) {
+    switch (parameter) {
+      case 'AddUser': {
+          const dialogRef = this.dialog.open(AddUserComponent, dialogConfig);
+        dialogRef.afterClosed().subscribe(data => {
+          this.getUsers();
+          });
+          break;
+        }
+      case 'EditUser': {
+        dialogConfig.data = user;
+        const dialogRef = this.dialog.open(EditUserComponent, dialogConfig );
+        dialogRef.afterClosed().subscribe(data => {
+          this.getUsers();
+        });
+        break;
+      }
+    }
   }
 }
 

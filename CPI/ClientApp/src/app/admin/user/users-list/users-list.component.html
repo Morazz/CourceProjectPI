@@ -15,7 +15,7 @@
            [ngClass]="{ show: isExpanded }">
         <ul class="navbar-nav flex-grow">
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/admin-panel', admin]">{{admin}}</a>
+            <a class="nav-link text-dark" [routerLink]="['/admin-panel', login]">{{login}}</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/']">Выйти</a>
@@ -38,7 +38,7 @@
 </div>
 
 <div class="div-container">
-  <button [routerLink]="['/add-user', admin]">Добавить</button>
+  <button (click)="openDialog('AddUser')">Добавить</button>
   <div class="search-exp" *ngIf="open_filter" style="display:flex; margin-top:10px;">
     <p>Логин: <input type="text" [(ngModel)]="filter.login"></p>
     <p>Роль: <input type="text" [(ngModel)]="filter.status"></p>
@@ -61,7 +61,7 @@
       <td>{{user.status}}</td>
       <td>
         <button class="dltbtn" (click)="deleteUser(user.login)">Удалить</button>
-        <button class="editbtn" [routerLink]="['/edit-user', admin, user.login]">Изменить</button>
+        <button class="editbtn" (click)="openDialog('EditUser', user.login)">Изменить</button>
       </td>
     </tr>
   </tbody>

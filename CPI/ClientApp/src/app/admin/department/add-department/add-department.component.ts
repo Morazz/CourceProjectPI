@@ -56,8 +56,7 @@ export class AddDepartmentComponent {
 
       }, error => console.error(error));
     }, error => console.error(error));
-    this.router.navigate(['/departments-list', this.admin]);
-    console.log(this.department);
+    this.close();
   }
 
   close() {

@@ -1,7 +1,7 @@
 <header>
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/admin-panel', admin]">CPI</a>
+      <a class="navbar-brand" [routerLink]="['/admin-panel', login]">CPI</a>
       <button class="navbar-toggler"
               type="button"
               data-toggle="collapse"
@@ -15,7 +15,7 @@
            [ngClass]="{ show: isExpanded }">
         <ul class="navbar-nav flex-grow">
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/admin-panel', admin]">{{admin}}</a>
+            <a class="nav-link text-dark" [routerLink]="['/admin-panel', login]">{{login}}</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/']">Выйти</a>
@@ -57,6 +57,7 @@
     <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="doctors" ng-app="doct">
       <thead>
         <tr>
+          <th *ngIf="isAdmin">ID учреждения</th>
           <th (click)="sortLogin()" class="toorder">Логин</th>
           <th (click)="sortDepartment()" class="toorder">Отделение</th>
           <th (click)="sortSpeciality()" class="toorder">Специальность</th>
@@ -69,6 +70,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let doctor of doctors">
+          <td *ngIf="isAdmin"><a [routerLink]="['/hospital-info', doctor.hospital_id]">{{doctor.hospital_id}}</a></td>
           <td><a [routerLink]="['/doctor-info', doctor.login]">{{doctor.login}}</a></td>
           <td>{{doctor.department?.department_name}}</td>
           <td>{{doctor.speciality?.speciality}}</td>

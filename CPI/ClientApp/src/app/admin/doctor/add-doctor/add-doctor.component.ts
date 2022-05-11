@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 import { Component, Inject } from '@angular/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { roles } from '../../../../globals';
+import { Hospital } from '../../hospital/hospitals-list/hospitals-list.component';
 
 @Component({
   selector: 'app-add-doctor',
@@ -15,18 +18,25 @@ export class AddDoctorComponent {
   public departments: Department[];
   public specialities: Speciality[];
   public schedules: Schedule[];
+  public hospitals: Hospital[];
   public docSpeciality: Speciality = new Speciality("", "");
   public docDepartment: Department = new Department(null, "");
   public docSchedule: Schedule = new Schedule(1, new Date(), new Date());
-  public doctor: Doctor = new Doctor("", "", "", "", 1, 1, 1, "");
+  public doctor: Doctor = new Doctor("", "", "", "", "", 1, null, null, "", "", "", "");
   public newPass: PassData = new PassData("", "");
   errors: string[] = [];
+  imageUrl: SafeUrl;
+  public isAdmin: boolean = true;
 
-  constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
-    this.admin = activateRoute.snapshot.params['admin'];
+  constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string,
+    private sanitizer: DomSanitizer) {
+    this.login = activateRoute.snapshot.params['admin'];
+    console.log(this.login);
+    this.checkStatus();
     this.getDepartments();
     this.getSpecialities();
     this.getSchedules();
+    this.getHospitals();
   }
 
   addDoctor() {
@@ -37,6 +47,8 @@ export class AddDoctorComponent {
     this.doctor.department_code = <number>(this.docDepartment.department_code);
     this.doctor.schedule_code = <number>(this.docSchedule.schedule_code);
     this.newPass.login = this.doctor.login;
+
+    console.log(this.doctor);
 
     this.http.get<PassData>(this.baseUrl + 'passdata/' + this.newPass.login)
       .subscribe(
@@ -51,35 +63,42 @@ export class AddDoctorComponent {
                   this.http.post(this.baseUrl + 'doctor', this.doctor)
                     .subscribe(
                       result => {
-                        this.router.navigate(['/doctors-list', this.admin]);                        
+                        this.router.navigate(['/doctors-list', this.login]);
                       }, error => console.log(error));
                 }, error => console.log(error));
+            console.log(this.doctor);
         }, error => console.log(error));
   };
 
   getDepartments() {
-        this.http.get<Department[]>(this.baseUrl + 'department').subscribe(result => {
-          this.departments = result;
-        }, error => console.error(error));
-      }
+    this.http.get<Department[]>(this.baseUrl + 'department').subscribe(result => {
+      this.departments = result;
+    }, error => console.error(error));
+  }
+
+  getHospitals() {
+    this.http.get<Hospital[]>(this.baseUrl + 'hospital').subscribe(result => {
+      this.hospitals = result;
+    }, error => console.error(error));
+  }
 
   getSpecialities() {
-        this.http.get<Speciality[]>(this.baseUrl + 'speciality').subscribe(result => {
-          this.specialities = result;
-        }, error => console.error(error));
-      }
+    this.http.get<Speciality[]>(this.baseUrl + 'speciality').subscribe(result => {
+      this.specialities = result;
+    }, error => console.error(error));
+  }
 
   getSchedules() {
-        this.http.get<Schedule[]>(this.baseUrl + 'schedule').subscribe(result => {
-          this.schedules = result;
-        }, error => console.error(error));
-      }
+    this.http.get<Schedule[]>(this.baseUrl + 'schedule').subscribe(result => {
+      this.schedules = result;
+    }, error => console.error(error));
+  }
 
   getDepartment() {
-        if(this.docDepartment.department_code != null)
-    this.http.get<Department>(this.baseUrl + 'department/' + this.docDepartment.department_code).subscribe(result => {
-      this.docDepartment = result;
-    }, error => console.error(error));
+    if (this.docDepartment.department_code != null)
+      this.http.get<Department>(this.baseUrl + 'department/' + this.docDepartment.department_code).subscribe(result => {
+        this.docDepartment = result;
+      }, error => console.error(error));
   }
 
   getSpeciality() {
@@ -93,10 +112,32 @@ export class AddDoctorComponent {
       this.docSchedule = result;
     }, error => console.error(error));
   }
+
+  checkStatus() {
+    this.http.get<PassData>(this.baseUrl + 'passdata/' + this.login).subscribe(result => {
+      result.status == roles[2] ? this.isAdmin : this.isAdmin = !this.isAdmin;
+      console.log(this.isAdmin);
+    }, error => console.error(error));
+  }
+
+  onImageChange(e) {
+    const reader = new FileReader();
+
+    if (e.target.files && e.target.files.length) {
+      const [file] = e.target.files;
+      reader.readAsDataURL(file);
+
+      reader.onload = () => {
+        this.doctor.photo = reader.result as string;
+      };
+    }
+  }
 }
+
 
 export class Doctor {
   constructor(
+    public hospital_id: string,
     public login: string,
     public firstname: string,
     public fathername: string,
@@ -105,6 +146,9 @@ export class Doctor {
     public department_code: number,
     public schedule_code: number,
     public speciality_code: string,
+    public photo: string,
+    public education: string,
+    public regards: string
   ) { }
 }
 

@@ -42,6 +42,12 @@ namespace CPI.Controllers
             return db.Departments.Where(dep => dep.department_name.Contains(name)).ToList();
         }
 
+        [HttpGet("hosp/{id}")]
+        public IEnumerable<Department> GetByHospital(string id)
+        {
+            return db.Departments.Where(dep => dep.hospital_id == id);
+        }
+
         [HttpPost]
         public Department Insert(Department department)
         {

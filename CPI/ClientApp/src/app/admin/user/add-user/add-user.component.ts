@@ -11,7 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 export class AddUserComponent {
   public admin: string;
-  roles: string[] = ["Пациент", "Врач", "Администратор"];
+  roles: string[] = ["Пациент", "Врач", "Администратор", "Модератор"];
   user: PassData = new PassData("", "", "");
 
   constructor(private activateRoute: ActivatedRoute, private router: Router, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string,

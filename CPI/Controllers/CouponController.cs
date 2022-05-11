@@ -31,6 +31,12 @@ namespace CPI.Controllers
             return db.Coupons.Find(id);
         }
 
+        [HttpGet("hosp/{id}")]
+        public IEnumerable<Coupon> GetByHospital(string id)
+        {
+            return db.Coupons.Where(cup => cup.hospital_id == id);
+        }
+
         [HttpGet("doc/{login}")]
         public IEnumerable<Coupon> GetByDoc(string login)
         {
