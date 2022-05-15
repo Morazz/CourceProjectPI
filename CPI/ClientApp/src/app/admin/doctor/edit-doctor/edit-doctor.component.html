@@ -1,6 +1,6 @@
 <header>
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-    <div class="container">
+    <!--<div class="container">-->
       <a class="navbar-brand" [routerLink]="['/admin-panel', user]">CPI</a>
       <button class="navbar-toggler"
               type="button"
@@ -15,14 +15,14 @@
            [ngClass]="{ show: isExpanded }">
         <ul class="navbar-nav flex-grow">
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/admin-panel', admin]">{{admin}}</a>
+            <a class="nav-link text-dark" [routerLink]="['/admin-panel', login]">{{login}}</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/']">Выйти</a>
           </li>
         </ul>
       </div>
-    </div>
+    <!--</div>-->
   </nav>
 </header>
 

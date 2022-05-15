@@ -1,38 +1,20 @@
-<header>
-  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-    <a class="navbar-brand" [routerLink]="['/admin-panel', admin]">CPI</a>
-    <button class="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target=".navbar-collapse"
-            aria-label="Toggle navigation"
-            [attr.aria-expanded]="isExpanded"
-            (click)="toggle()">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
-         [ngClass]="{ show: isExpanded }">
-      <ul class="navbar-nav flex-grow">
-        <li class="nav-item" [routerLinkActive]="['link-active']">
-          <a class="nav-link text-dark" [routerLink]="['/admin-panel', admin]">{{admin}}</a>
-        </li>
-        <li class="nav-item" [routerLinkActive]="['link-active']">
-          <a class="nav-link text-dark" [routerLink]="['/']">Выйти</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-</header>
-<div class="container">
-  <h3>Редактировать расписание</h3>
-  <hr>
+<h2 mat-dialog-title>Редактировать расписание</h2>
 
-  <label for="schcode"><b>Код расписания</b></label>
-  <h5>{{scheduler.schedule_code}}</h5>
-  <label for="time_start"><b>Начало приема</b></label>
-  <input type="time" name="time_start" [(ngModel)]="start" required>
-  <label for="time_end"><b>Окончание приема</b></label>
-  <input type="time" name="time_end" [(ngModel)]="end" required>
+<mat-dialog-content>
 
-  <div><button class="registerbtn" (click)="editSchedule()">Сохранить</button></div>
-</div>
+  <mat-form-field>
+    <label for="schcode"><b>Код расписания</b></label>
+    <h5>{{data}}</h5>
+    <label for="time_start"><b>Начало приема</b></label>
+    <input type="time" name="time_start" [(ngModel)]="start" required>
+    <label for="time_end"><b>Окончание приема</b></label>
+    <input type="time" name="time_end" [(ngModel)]="end" required>
+  </mat-form-field>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button class="submitbtn" (click)="postData()">Сохранить</button>
+  <button class="cancelbtn" (click)="close()">Отмена</button>
+</mat-dialog-actions>
+

@@ -1,7 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
+import { dialogConfig } from '../../../../globals';
 import { Coupon } from '../../coupon/coupons-list/coupons-list.component';
+import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.component';
 
 @Component({
     selector: 'app-patients-list',
@@ -19,7 +22,8 @@ export class PatientsListComponent {
   ascGender = false;
   filter = { login: "", gender: "", address: ""};
 
-  constructor(private http: HttpClient, private activateRoute: ActivatedRoute, @Inject('BASE_URL') private baseUrl: string) {
+  constructor(private http: HttpClient, private activateRoute: ActivatedRoute, @Inject('BASE_URL') private baseUrl: string,
+    private dialog: MatDialog  ) {
     this.admin = activateRoute.snapshot.params['admin'];
     this.getPatients();
   }
@@ -31,49 +35,39 @@ export class PatientsListComponent {
   }
 
   deletePatient(login: string) {
-    if (confirm("Подтвердите удаление: " + login)) {
+    const dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(data => {
+      if (data != null) {
 
-      this.http.get<Patient>(this.baseUrl + 'patient/' + login).subscribe(result => {
-        this.patient = result;
-        this.http.get<Coupon[]>(this.baseUrl + 'coupon/pat/' + login).subscribe(result => {
-          this.patient.coupons = result;
+        this.http.get<Patient>(this.baseUrl + 'patient/' + login).subscribe(result => {
+          this.patient = result;
+          this.http.get<Coupon[]>(this.baseUrl + 'coupon/pat/' + login).subscribe(result => {
+            this.patient.coupons = result;
+          }, error => console.error(error));
         }, error => console.error(error));
-      }, error => console.error(error));
 
-      if (this.patient.coupons != null) {
-        this.patient.coupons.forEach(coup => {
-          this.http.delete(this.baseUrl + 'coupon', { params: new HttpParams().set('coupon_id', coup.coupon_id.toString()) })
-            .subscribe(result => console.log(coup));
-        });
+        if (this.patient.coupons != null) {
+          this.patient.coupons.forEach(coup => {
+            this.http.delete(this.baseUrl + 'coupon', { params: new HttpParams().set('coupon_id', coup.coupon_id.toString()) })
+              .subscribe(result => console.log(coup));
+          });
+        }
+
+        this.patient.coupons = null;
+
+        this.http.delete(this.baseUrl + 'patient', { params: new HttpParams().set('login', login) })
+          .subscribe(
+            result => {
+              this.http.delete(this.baseUrl + 'passdata', { params: new HttpParams().set('login', login) })
+                .subscribe(
+                  result => {
+                    this.getPatients();
+                  },
+                  error => console.log(error));
+            },
+            error => console.log(error));
       }
-
-      this.patient.coupons = null;
-
-      this.http.delete(this.baseUrl + 'patient', { params: new HttpParams().set('login', login) })
-        .subscribe(
-          result => {
-            this.http.delete(this.baseUrl + 'passdata', { params: new HttpParams().set('login', login) })
-              .subscribe(
-                result => {
-                  this.getPatients();
-                },
-                error => console.log(error));
-          },
-          error => console.log(error));
-    }
-
-    //  this.http.delete(this.baseUrl + 'patient', { params: new HttpParams().set('login', login) })
-    //    .subscribe(
-    //      result => {
-    //        this.http.delete(this.baseUrl + 'passdata', { params: new HttpParams().set('login', login) })
-    //          .subscribe(
-    //            result => {
-    //              this.getPatients();
-    //            },
-    //            error => console.log(error));
-    //      },
-    //      error => console.log(error));
-    //}
+    });
   }
 
   onInput(text: string) {

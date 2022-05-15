@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Doctor } from '../../admin/doctor/doctors-list/doctors-list.component';
+import { Hospital } from '../../admin/hospital/hospitals-list/hospitals-list.component';
 import { Schedule } from '../../admin/schedule/schedules-list/schedules-list.component';
 import { Speciality } from '../../admin/speciality/specialities-list/specialities-list.component';
 import { Department } from '../../moderator/department/departments-list/departments-list.component';
@@ -13,16 +14,24 @@ import { Department } from '../../moderator/department/departments-list/departme
   styleUrls: ['./hospital-info.component.css']
 })
 /** hospital-info component*/
-export class HospitalInfoComponent {
+export class HospitalInfoComponent {   
   /** hospital-info ctor */
 
   public doctors: Doctor[];
   public hospital_id: string;
+  public hospital: Hospital;
 
   constructor(private http: HttpClient, private activateRoute: ActivatedRoute, @Inject('BASE_URL') private baseUrl: string) {
 
     this.hospital_id = activateRoute.snapshot.params['hospital_id'];
+    this.getHospital();
     this.getDoctors();
+  }
+
+  getHospital() {
+    this.http.get<Hospital>(this.baseUrl + 'hospital/' + this.hospital_id).subscribe(result => {
+      this.hospital = result;
+    }, error => console.error(error));
   }
 
   getDoctors() {

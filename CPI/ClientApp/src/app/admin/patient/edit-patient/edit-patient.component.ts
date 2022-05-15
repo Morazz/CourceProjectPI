@@ -12,11 +12,12 @@ export class EditPatientComponent {
   public admin: string;
   public patient: Patient = new Patient("", "", "", "", new Date(), "", "", "");
   public login: string;
+  public patientLogin: string;
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.login = activateRoute.snapshot.params['login'];
-    this.admin = activateRoute.snapshot.params['admin'];
-    this.getUser(this.login);
+    this.patientLogin = activateRoute.snapshot.params['patient'];
+    this.getUser(this.patientLogin);
   }
 
   getUser(login: string) {

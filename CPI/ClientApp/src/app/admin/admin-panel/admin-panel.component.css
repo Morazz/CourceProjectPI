@@ -7,6 +7,7 @@ a.navbar-brand {
 html {
   font-size: 14px;
 }
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;
@@ -17,21 +18,27 @@ html {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
-header{
-    width: 100%;
+.header {
+  width: 100%;
+  /*    margin: 0 0 0 80px;*/
 }
 
+/*.panel-header {
+  margin: 0 0 0 80px;
+}
+*/
 * {
   box-sizing: border-box;
-/*  opacity: 0.5;*/
+  /*  opacity: 0.5;*/
 }
 
 .panel {
   background-color: rgba(255, 255, 255, 0.5);
+/*  margin: 20px 80px;*/
 }
 
 .row {
-    margin: 5px;
+  margin: 5px;
 }
 
 /* Create four equal columns that floats next to each other */
@@ -62,6 +69,6 @@ header{
   color: #296bda;
 }
 
-.linkbtn:hover {
+  .linkbtn:hover {
     text-decoration: underline;
-}
+  }

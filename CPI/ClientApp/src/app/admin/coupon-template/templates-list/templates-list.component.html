@@ -15,7 +15,7 @@
            [ngClass]="{ show: isExpanded }">
         <ul class="navbar-nav flex-grow">
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/admin-panel', admin]">{{admin}}</a>
+            <a class="nav-link text-dark" [routerLink]="['/admin-panel', login]">{{login}}</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/']">Выйти</a>
@@ -26,30 +26,35 @@
   </nav>
 </header>
 
-<h2>Шаблоны</h2>
+<h2 class="panel-header">Шаблоны</h2>
 
-<div class="div-container">
-  <button (click)="openDialog()">Добавить</button>
-  <div *ngIf="!templates"><em>Загрузка...</em></div>
+<hr />
+
+<div class="panel">
+
+  <div class="div-container">
+    <button (click)="openDialog('AddTemplate')">Добавить</button>
+    <div *ngIf="!templates"><em>Загрузка...</em></div>
+  </div>
+
+  <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="templates">
+    <thead>
+      <tr>
+        <th>Номер шаблона</th>
+        <th>Шаблон</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let template of templates">
+        <td>{{template.template_id}}</td>
+        <td>{{template.time | date: 'HH:mm'}}</td>
+        <td>
+          <button class="dltbtn" (click)="deleteTemplate(template.template_id)">Удалить</button>
+          <button class="editbtn" (click)="openDialog('EditTemplate', template.template_id)">Изменить</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
 </div>
-
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="templates">
-  <thead>
-    <tr>
-      <th>Номер шаблона</th>
-      <th>Шаблон</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let template of templates">
-      <td>{{template.template_id}}</td>
-      <td>{{template.time | date: 'HH:mm'}}</td>
-      <td>
-        <button class="dltbtn" (click)="deleteTemplate(template.template_id)">Удалить</button>
-        <button class="editbtn" [routerLink]="['/edit-template', template.template_id, admin]">Изменить</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
 

@@ -17,7 +17,7 @@
       <em>Загрузка...</em>
     </div>
     <div *ngIf="schedules">
-      <select id="sch" name="sch" [(ngModel)]="hospital.hospital_schedule">
+      <select id="sch" name="sch" [(ngModel)]="hospital.schedule_code">
         <option *ngFor="let schedule of schedules" [value]="schedule.schedule_code">{{schedule.appointment_start | date: 'HH:mm'}} - {{schedule.appointment_end | date: 'HH:mm'}}</option>
       </select>
     </div>

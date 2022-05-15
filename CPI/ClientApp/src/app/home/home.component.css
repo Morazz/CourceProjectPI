@@ -14,7 +14,7 @@ body {
   background-color: white;
   width: 70%;
   height: 50%;
-  background-color:rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.6);
 }
 
 /* Full-width input fields */
@@ -67,7 +67,6 @@ a {
 }
 
 .content {
-    /*display: inline-flex;*/
 }
 
 .cell {
@@ -81,4 +80,19 @@ a {
     cursor: pointer;
   }
 
+.home {
+  display: inline-flex;
+  min-width: 100%;
+}
 
+.left-panel {
+  background-color: aqua;
+  min-width: 20%;
+  min-height: 100%;
+  padding: 10px 0 0 10px;
+}
+
+.right-panel {
+  padding: 0 20px 0 20px;
+  min-width: 80%;
+}

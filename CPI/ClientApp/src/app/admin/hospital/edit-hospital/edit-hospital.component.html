@@ -1,1 +1,37 @@
-﻿<div style="border: 1px solid red">edit-hospital Component</div>
+<h2 mat-dialog-title>Редактировать учреждение</h2>
+
+<mat-dialog-content>
+
+  <mat-form-field>
+    <label for="ID"><b>ID</b></label>
+    <p>{{hospital.hospital_id}}</p>
+
+    <label for="name"><b>Название</b></label>
+    <input type="text" name="name" [(ngModel)]="hospital.hospital_name" required>
+
+    <label for="address"><b>Адрес</b></label>
+    <input type="text" name="address" [(ngModel)]="hospital.hospital_address">
+
+    <label for="schedule"><b>Время работы</b></label>
+    <div *ngIf="!schedules">
+      <em>Загрузка...</em>
+    </div>
+    <div *ngIf="schedules">
+      <select id="sch" name="sch" [(ngModel)]="hospital.schedule_code">
+        <option *ngFor="let schedule of schedules" [value]="schedule.schedule_code">{{schedule.appointment_start | date: 'HH:mm'}} - {{schedule.appointment_end | date: 'HH:mm'}}</option>
+      </select>
+    </div>
+
+    <div ng-show="errors">
+      <div *ngFor="let error of errors" class="alert alert-danger">{{error}}</div>
+    </div>
+  </mat-form-field>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button class="submitbtn" (click)="postData()">Сохранить</button>
+  <button class="cancelbtn" (click)="close()">Отмена</button>
+</mat-dialog-actions>
+
+

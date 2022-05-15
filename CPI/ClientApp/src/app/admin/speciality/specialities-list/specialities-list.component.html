@@ -1,4 +1,4 @@
-  <header>
+<header>
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
     <a class="navbar-brand" [routerLink]="['/admin-panel', admin]">CPI</a>
     <button class="navbar-toggler"
@@ -14,7 +14,7 @@
          [ngClass]="{ show: isExpanded }">
       <ul class="navbar-nav flex-grow">
         <li class="nav-item" [routerLinkActive]="['link-active']">
-          <a class="nav-link text-dark" [routerLink]="['/admin-panel', admin]">{{admin}}</a>
+          <a class="nav-link text-dark" [routerLink]="['/admin-panel', login]">{{login}}</a>
         </li>
         <li class="nav-item" [routerLinkActive]="['link-active']">
           <a class="nav-link text-dark" [routerLink]="['/']">Выйти</a>
@@ -23,38 +23,44 @@
     </div>
   </nav>
 </header>
-<h2>Специальности</h2>
 
-<div class="topnav">
-  <div class="search-container">
-    <form action="">
-      <input type="text" placeholder="Найти.." name="search" class="search" [(ngModel)]="text" (input)="onInput(text)">
-    </form>
+<h2 class="panel-header">Специальности</h2>
+
+<hr />
+
+<div class="panel">
+
+  <div class="topnav">
+    <div class="search-container">
+      <form action="">
+        <input type="text" placeholder="Найти.." name="search" class="search" [(ngModel)]="text" (input)="onInput(text)">
+      </form>
+    </div>
   </div>
+
+
+  <div class="div-container">
+    <button (click)="openDialog('AddSpeciality')">Добавить</button>
+    <div *ngIf="!specialities"><em>Загрузка...</em></div>
+  </div>
+
+  <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="specialities">
+    <thead>
+      <tr>
+        <th>Код</th>
+        <th>Специальность</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let speciality of specialities">
+        <td>{{speciality.speciality_code}}</td>
+        <td>{{speciality.speciality}}</td>
+        <td>
+          <button class="dltbtn" (click)="deleteSpeciality(speciality.speciality_code)">Удалить</button>
+          <button class="editbtn" (click)="openDialog('EditSpeciality', speciality.speciality_code)">Изменить</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
 </div>
-
-
-<div class="div-container">
-  <button (click)="openDialog()">Добавить</button>
-  <div *ngIf="!specialities"><em>Загрузка...</em></div>
-</div>
-
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="specialities">
-  <thead>
-    <tr>
-      <th>Код</th>
-      <th>Специальность</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let speciality of specialities">
-      <td>{{speciality.speciality_code}}</td>
-      <td>{{speciality.speciality}}</td>
-      <td>
-        <button class="dltbtn" (click)="deleteSpeciality(speciality.speciality_code)">Удалить</button>
-        <button class="editbtn" [routerLink]="['/edit-speciality', admin, speciality.speciality_code]">Изменить</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-

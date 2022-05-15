@@ -15,12 +15,12 @@ import { EditTemplateComponent } from '../edit-template/edit-template.component'
 export class TemplatesListComponent {
 
   public templates: CouponTemplate[];
-  public admin: string;
+  public login: string;
 
   constructor(private http: HttpClient, private activateRoute: ActivatedRoute, @Inject('BASE_URL') private baseUrl: string,
     private dialog: MatDialog) {
     this.getTemplates();
-    this.admin = activateRoute.snapshot.params['admin'];
+    this.login = activateRoute.snapshot.params['login'];
   }
 
   getTemplates() {
@@ -40,10 +40,23 @@ export class TemplatesListComponent {
     }
   }
 
-  openDialog(parameter: string) {
+  openDialog(parameter: string, template?: CouponTemplate) {
     switch (parameter) {
-      case 'AddTemplate': this.dialog.open(AddTemplateComponent, dialogConfig); break;
-      case 'EditTemplate': this.dialog.open(EditTemplateComponent, dialogConfig); break;
+      case 'AddTemplate': {
+        const dialogRef = this.dialog.open(AddTemplateComponent, dialogConfig);
+        dialogRef.afterClosed().subscribe(data => {
+          this.getTemplates();
+        });
+      }
+      break;
+      case 'EditTemplate': {
+        dialogConfig.data = template;
+        const dialogRef = this.dialog.open(EditTemplateComponent, dialogConfig);
+        dialogRef.afterClosed().subscribe(data => {
+          this.getTemplates();
+        });
+      }
+      break;
     }
   }
 }

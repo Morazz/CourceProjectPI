@@ -23,32 +23,39 @@
     </div>
   </nav>
 </header>
-<h2>Расписание</h2>
 
-<div class="div-container">
-  <button (click)="openDialog()">Добавить</button>
-  <div *ngIf="!schedules"><em>Загрузка...</em></div>
+<h2 class="panel-header">Расписание</h2>
+
+<hr />
+
+<div class="panel">
+
+  <div class="div-container">
+    <button (click)="openDialog('AddSchedule')">Добавить</button>
+    <div *ngIf="!schedules"><em>Загрузка...</em></div>
+  </div>
+
+
+
+  <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="schedules">
+    <thead>
+      <tr>
+        <th>Начало приёма</th>
+        <th>Окончание приёма</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let schedule of schedules">
+        <td>{{schedule.appointment_start | date: 'HH:mm'}}</td>
+        <td>{{schedule.appointment_end | date: 'HH:mm'}}</td>
+        <td>
+          <button class="dltbtn" (click)="deleteSchedule(schedule.schedule_code)">Удалить</button>
+          <button class="editbtn" (click)="openDialog('EditSchedule', schedule.schedule_code)">Изменить</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
 </div>
-
-
-
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="schedules">
-  <thead>
-    <tr>
-      <th>Начало приёма</th>
-      <th>Окончание приёма</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let schedule of schedules">
-      <td>{{schedule.appointment_start | date: 'HH:mm'}}</td>
-      <td>{{schedule.appointment_end | date: 'HH:mm'}}</td>
-      <td>
-        <button class="dltbtn" (click)="deleteSchedule(schedule.schedule_code)">Удалить</button>
-        <button class="editbtn" [routerLink]="['/edit-schedule', admin, schedule.schedule_code]">Изменить</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
 
 

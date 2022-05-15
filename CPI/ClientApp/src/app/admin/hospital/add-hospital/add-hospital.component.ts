@@ -12,14 +12,14 @@ import { Hospital, HospitalsListComponent } from '../hospitals-list/hospitals-li
 })
 /** add-hospital component*/
 export class AddHospitalComponent {
-  public admin: string;
+  public login: string;
   public hospital: Hospital = new Hospital("", null, null, null, null, null);
   public schedules: Schedule[];
   errors: string[];
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string,
     private dialogRef: MatDialogRef<AddHospitalComponent>) {
-    this.admin = activateRoute.snapshot.params['admin'];
+    this.login = activateRoute.snapshot.params['admin'];
     this.getSchedules();
   }
 

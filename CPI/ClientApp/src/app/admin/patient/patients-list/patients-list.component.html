@@ -15,7 +15,7 @@
            [ngClass]="{ show: isExpanded }">
         <ul class="navbar-nav flex-grow">
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/admin-panel', admin]">{{admin}}</a>
+            <a class="nav-link text-dark" [routerLink]="['/admin-panel', login]">{{login}}</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/']">Выйти</a>
@@ -26,61 +26,67 @@
   </nav>
 </header>
 
-<h2>Пациенты</h2>
+<h2 class="panel-header">Пациенты</h2>
 
-<div class="topnav">
-  <div class="search-container">
-    <form action="">
-      <input type="text" placeholder="Найти.." name="search" class="search" [(ngModel)]="text" (input)="onInput(text)">
-      <button (click)="openSearch()">Расширенный</button>
-    </form>
+<hr />
+
+<div class="panel">
+
+  <div class="topnav">
+    <div class="search-container">
+      <form action="">
+        <input type="text" placeholder="Найти.." name="search" class="search" [(ngModel)]="text" (input)="onInput(text)">
+        <button (click)="openSearch()">Расширенный</button>
+      </form>
+    </div>
   </div>
-</div>
 
 
-<div class="div-container">
-  <button [routerLink]="['/add-patient', admin]">Добавить</button>
-  <div *ngIf="open_filter" style="display:flex; margin-top:10px;">
-    <p>Логин: <input type="text" [(ngModel)]="filter.login"></p>
+  <div class="div-container">
+    <button [routerLink]="['/add-patient', admin]">Добавить</button>
+    <div *ngIf="open_filter" style="display:flex; margin-top:10px;">
+      <p>Логин: <input type="text" [(ngModel)]="filter.login"></p>
       <p> Пол: </p>
       <input type="radio" name="woman" [(ngModel)]="filter.gender" value="Женский">
       <label for="woman"><b>Женский</b></label> <br />
       <input type="radio" name="man" [(ngModel)]="filter.gender" value="Мужской">
       <label for="man"><b>Мужской</b></label>
-    <p>Адрес: <input type="text" [(ngModel)]="filter.address"></p>
-    <button style="height:30px; margin-left: 30px;" (click)="findFilter()">Найти</button>
-    <button style="height:30px; margin-left: 30px;" (click)="nullFilter()">Сбросить</button>
+      <p>Адрес: <input type="text" [(ngModel)]="filter.address"></p>
+      <button style="height:30px; margin-left: 30px;" (click)="findFilter()">Найти</button>
+      <button style="height:30px; margin-left: 30px;" (click)="nullFilter()">Сбросить</button>
+    </div>
+    <div *ngIf="!patients"><em>Загрузка...</em></div>
   </div>
-  <div *ngIf="!patients"><em>Загрузка...</em></div>
-</div>
 
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="patients">
-  <thead>
-    <tr>
-      <th (click)="sortLogin()" class="toorder">Логин</th>
-      <th (click)="sortSurname()" class="toorder">Фамилия</th>
-      <th>Имя</th>
-      <th>Отчество</th>
-      <th (click)="sortGenger()" class="toorder">Пол</th>
-      <th>Дата рождения</th>
-      <th>Адрес</th>
-      <th>Номер телефона</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let patient of patients">
-      <td><a [routerLink]="['/user-page', patient.login]">{{patient.login}}</a></td>
-      <td>{{patient.surname}}</td>
-      <td>{{patient.firstname}}</td>
-      <td>{{patient.fathername}}</td>
-      <td>{{patient.gender}}</td>
-      <td>{{patient.birthday | date:'dd.MM.yyyy'}}</td>
-      <td>{{patient.address}}</td>
-      <td>{{patient.phone_number}}</td>
-      <td>
-        <button class="dltbtn" (click)="deletePatient(patient.login)">Удалить</button>
-        <button class="editbtn" [routerLink]="['/edit-patient', admin, patient.login]">Изменить</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="patients">
+    <thead>
+      <tr>
+        <th (click)="sortLogin()" class="toorder">Логин</th>
+        <th (click)="sortSurname()" class="toorder">Фамилия</th>
+        <th>Имя</th>
+        <th>Отчество</th>
+        <th (click)="sortGenger()" class="toorder">Пол</th>
+        <th>Дата рождения</th>
+        <th>Адрес</th>
+        <th>Номер телефона</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let patient of patients">
+        <td><a [routerLink]="['/user-page', patient.login]">{{patient.login}}</a></td>
+        <td>{{patient.surname}}</td>
+        <td>{{patient.firstname}}</td>
+        <td>{{patient.fathername}}</td>
+        <td>{{patient.gender}}</td>
+        <td>{{patient.birthday | date:'dd.MM.yyyy'}}</td>
+        <td>{{patient.address}}</td>
+        <td>{{patient.phone_number}}</td>
+        <td>
+          <button class="dltbtn" (click)="deletePatient(patient.login)">Удалить</button>
+          <button class="editbtn" [routerLink]="['/edit-patient', login, patient.login]">Изменить</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

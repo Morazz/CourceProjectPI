@@ -35,11 +35,12 @@ export class HospitalsListComponent {
 
   ///
   getSchedules() {
-    //this.hospitals.forEach(hp => {
-    //  this.http.get<Schedule>(this.baseUrl + 'doctor/' + hp.).subscribe(result => {
-    //    hp.hospital_schedule = result;
-    //  }, error => console.error(error));
-    //});
+    this.hospitals.forEach(hp => {
+      this.http.get<Schedule>(this.baseUrl + 'schedule/' + hp.schedule_code).subscribe(result => {
+        hp.hours = result;
+        console.log(hp.hours);
+      }, error => console.error(error));
+    });
   }
 
   deleteHospital(hospital_id: string) {
@@ -80,10 +81,23 @@ export class HospitalsListComponent {
     else this.getHospitals();
   }
 
-  openDialog(parameter: string) {
+  openDialog(parameter: string, hospital?: string) {
     switch (parameter) {
-      case 'AddHosp': this.dialog.open(AddHospitalComponent, dialogConfig); break;
-      case 'EditHosp': this.dialog.open(EditHospitalComponent, dialogConfig); break;
+      case 'AddHosp': {
+        const dialogRef = this.dialog.open(AddHospitalComponent, dialogConfig);
+        dialogRef.afterClosed().subscribe(data => {
+          this.getHospitals();
+        });
+      }
+      break;
+      case 'EditHosp': {
+        dialogConfig.data = hospital;
+        const dialogRef = this.dialog.open(EditHospitalComponent, dialogConfig);
+        dialogRef.afterClosed().subscribe(data => {
+          this.getHospitals();
+        });
+      }
+      break;
     }
   }
 }

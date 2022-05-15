@@ -26,7 +26,11 @@
   </nav>
 </header>
 
-<h2>Врачи</h2>
+<h2 class="panel-header">Врачи</h2>
+
+<hr />
+
+<div class="panel">
 
 <div class="topnav">
   <div class="search-container">
@@ -81,10 +85,12 @@
           <td>{{doctor.hours?.appointment_start | date:'HH:mm'}} - {{doctor.hours?.appointment_end | date:'HH:mm'}}</td>
           <td>
             <button class="dltbtn" (click)="deleteDoctor(doctor.login)">Удалить</button>
-            <button class="editbtn" [routerLink]="['/edit-doctor', admin, doctor.login]">Изменить</button>
+            <button class="editbtn" [routerLink]="['/edit-doctor', login, doctor.login]">Изменить</button>
           </td>
         </tr>
       </tbody>
     </table>
   </section>
+</div>
+
 </div>

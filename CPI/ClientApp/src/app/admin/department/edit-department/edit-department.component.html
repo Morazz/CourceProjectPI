@@ -1,47 +1,27 @@
-<header>
-  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-      <a class="navbar-brand" [routerLink]="['/admin-panel', user]">CPI</a>
-      <button class="navbar-toggler"
-              type="button"
-              data-toggle="collapse"
-              data-target=".navbar-collapse"
-              aria-label="Toggle navigation"
-              [attr.aria-expanded]="isExpanded"
-              (click)="toggle()">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
-           [ngClass]="{ show: isExpanded }">
-        <ul class="navbar-nav flex-grow">
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/admin-panel', admin]">{{admin}}</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/']">Выйти</a>
-          </li>
-        </ul>
-      </div>
-  </nav>
-</header>
+<h2 mat-dialog-title>Редактировать отделение</h2>
 
-<div class="container">
-  <h3>Изменение отделения</h3>
-  <hr>
+<mat-dialog-content>
 
-  <label for="department_name"><b>Отделение</b></label>
-  <input type="text" name="department_name" [(ngModel)]="department.department_name" #department="ngModel" pattern="^[А-ЯA-Zа-яf-z ,.'-]+$" required>
-  <div [hidden]="department.valid || department.untouched" class="alert alert-danger">
-    Введите корректные данные
-  </div>
-  <label for="head"><b>Заведующий</b></label>
-  <div *ngIf="!doctors">
-    <em>Загрузка...</em>
-  </div>
-  <input type="text" *ngIf="doctors" [(ngModel)]="doctor.login" list="head" (input)="onInput(doctor)">
-  <datalist id="head" *ngIf="doctors">
-    <option *ngFor="let doctor of doctors" [value]="doctor.login">{{doctor.surname}} {{doctor.firstname}} {{doctor.fathername}}</option>
-  </datalist>
+  <mat-form-field>
+    <label for="department_name"><b>Отделение</b></label>
+    <input type="text" name="department_name" [(ngModel)]="department.department_name" #department_name="ngModel" pattern="^[А-ЯA-Zа-яf-z ,.'-]+$" required>
+    <div [hidden]="department.valid || department.untouched" class="alert alert-danger">
+      Введите корректные данные
+    </div>
+    <label for="head"><b>Заведующий</b></label>
+    <div *ngIf="!doctors">
+      <em>Загрузка...</em>
+    </div>
+    <input type="text" *ngIf="doctors" [(ngModel)]="doctor.login" list="head" (input)="onInput(doctor)">
+    <datalist id="head" *ngIf="doctors">
+      <option *ngFor="let doctor of doctors" [value]="doctor.login">{{doctor.surname}} {{doctor.firstname}} {{doctor.fathername}}</option>
+    </datalist>
+  </mat-form-field>
 
-  <button type="submit" class="registerbtn" (click)="addDepartment()" [disabled]="department.invalid">Сохранить</button>
-</div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button class="submitbtn" (click)="postData()">Сохранить</button>
+  <button class="cancelbtn" (click)="close()">Отмена</button>
+</mat-dialog-actions>
 

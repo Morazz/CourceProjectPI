@@ -10,7 +10,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 
 export class EditUserComponent {
-  public admin: string;
   public user: PassData = new PassData("", "", "");
   roles: string[] = ["Пациент", "Врач", "Администратор", "Модератор"];
   public login: string = "";

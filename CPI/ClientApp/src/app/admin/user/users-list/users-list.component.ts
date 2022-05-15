@@ -104,7 +104,7 @@ export class UsersListComponent {
     }, error => console.error(error));
     return;
   }
-
+  
   openDialog(parameter: string, user?: PassData) {
     switch (parameter) {
       case 'AddUser': {

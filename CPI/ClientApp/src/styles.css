@@ -17,3 +17,25 @@ code {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.panel-header {
+  margin: 0 0 0 80px;
+}
+
+.panel {
+  margin: 20px 80px;
+}
+
+.example-h2 {
+  margin: 10px;
+}
+
+.example-section {
+/*  align-content: center;
+  align-items: center;*/
+/*  height: 60px;*/
+}
+
+.example-margin {
+  margin: 0 10px;
+}

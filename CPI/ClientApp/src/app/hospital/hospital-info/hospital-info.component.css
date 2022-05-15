@@ -44,3 +44,31 @@ img {
     background-color: rgba(255, 255, 255, 0.8);
     cursor: pointer;
 }
+
+.home {
+  display: inline-flex;
+  min-width: 100%;
+}
+
+.left-panel {
+  background-color: aqua;
+  min-width: 20%;
+  min-height: 100%;
+}
+
+.right-panel {
+  padding: 0 20px 0 20px;
+  min-width: 80%;
+  min-height: 100%;
+}
+
+.info {
+    padding: 10px 2px 5px 10px;
+    /*align-content: center;*/
+}
+
+.info button {
+    border: none;
+    margin: 10px 0 20px 0;
+    font-size: 20px;
+}

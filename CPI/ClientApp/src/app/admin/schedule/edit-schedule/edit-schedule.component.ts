@@ -1,6 +1,7 @@
 import { Time } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -16,10 +17,11 @@ export class EditScheduleComponent {
   public start: string;
   public end: string;
 
-  constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string)  {
-    this.schedule_code = activateRoute.snapshot.params['schedule_code'];
-    this.admin = activateRoute.snapshot.params['admin'];
-    this.getSchedule(this.schedule_code);
+  constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string,
+  @Inject(MAT_DIALOG_DATA) data, private dialogRef: MatDialogRef<EditScheduleComponent>  ) {
+    //this.schedule_code = data;
+    //this.admin = activateRoute.snapshot.params['admin'];
+    this.getSchedule(data);
   }
 
   getSchedule(schedule_code: number) {
@@ -29,7 +31,7 @@ export class EditScheduleComponent {
     }, error => console.error(error));
   }
 
-  editSchedule() {
+  postData() {
     const hours = this.start.substr(0, 2);
     const minutes = this.start.substr(3, 2);
     const date = new Date(Date.UTC(0, 0, 0, Number(hours), Number(minutes)));
@@ -41,8 +43,12 @@ export class EditScheduleComponent {
     this.schedule.appointment_end = date2;
 
     this.http.put(this.baseUrl + 'schedule', this.schedule).subscribe(result => {
-      this.router.navigate(['schedules-list', this.admin]);
+      this.close();
     }, error => console.error(error));
+  }
+
+  close() {
+    this.dialogRef.close();
   }
 }
 

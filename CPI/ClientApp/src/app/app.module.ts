@@ -53,6 +53,7 @@ import { EditHospitalComponent } from './admin/hospital/edit-hospital/edit-hospi
 import { DeleteDialogComponent } from './admin/delete-dialog/delete-dialog.component';
 import { HospitalInfoComponent } from './hospital/hospital-info/hospital-info.component';
 import { HospitalSchedulesComponent } from './hospital/hospital-schedules/hospital-schedules.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -155,6 +156,7 @@ import { HospitalSchedulesComponent } from './hospital/hospital-schedules/hospit
       //Hospitals
       { path: 'hospitals-list/:login', component: HospitalsListComponent },
       { path: 'add-hospital', component: AddHospitalComponent },
+      { path: 'edit-hospital', component: EditHospitalComponent },
       { path: 'hospital-info/:hospital_id', component: HospitalInfoComponent },
       { path: 'hospital-schedules/:hospital_id', component: HospitalSchedulesComponent },
       //Moderators
@@ -172,6 +174,7 @@ import { HospitalSchedulesComponent } from './hospital/hospital-schedules/hospit
     MatDialogModule,
     MatFormFieldModule,
     MatIconModule,
+    MatCheckboxModule,
   ],
   providers: [
     { provide: MAT_DIALOG_DATA, useValue: {} },

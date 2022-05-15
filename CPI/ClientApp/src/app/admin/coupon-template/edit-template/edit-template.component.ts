@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -14,9 +15,10 @@ export class EditTemplateComponent {
   temp: CouponTemplate = new CouponTemplate(0, new Date());
   public admin: string = "";
 
-  constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
-    this.t_id = activateRoute.snapshot.params['template_id'];
-    this.getTemplate();
+  constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string,
+    @Inject(MAT_DIALOG_DATA) data, private dialogRef: MatDialogRef<EditTemplateComponent>) {
+
+    this.getTemplate(data);
     this.admin = activateRoute.snapshot.params['admin'];
   }
 
@@ -30,16 +32,20 @@ export class EditTemplateComponent {
     this.http.put(this.baseUrl + 'coupontemplate', this.temp)
       .subscribe(
         result => {
-          this.router.navigate(['/templates-list']);
+          this.close();
         }, error => console.log(error));
   }
 
-  getTemplate() {
-    this.http.get<CouponTemplate>(this.baseUrl + 'coupontemplate/' + this.t_id)
+  getTemplate(id: number) {
+    this.http.get<CouponTemplate>(this.baseUrl + 'coupontemplate/' + id)
       .subscribe(
         result => {
           this.temp = result;
         }, error => console.log(error));
+  }
+
+  close() {
+    this.dialogRef.close();
   }
 }
 

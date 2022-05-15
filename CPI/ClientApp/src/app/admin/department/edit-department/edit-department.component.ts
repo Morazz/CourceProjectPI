@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -9,17 +10,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 
 export class EditDepartmentComponent {
-  public admin: string;
   public doctors: Doctor[];
-  public department: Department = new Department(0, "", "");
+  public department: Department/* = new Department(0, "", "")*/;
   public department_code: number;
   public doctor: Doctor = new Doctor("", "", "", "", 0);
+  public login: string = "";
 
-  constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
-    this.department_code = activateRoute.snapshot.params['department_code'];
-    this.admin = activateRoute.snapshot.params['admin'];
-    this.getDepartment();
+  constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string,
+    @Inject(MAT_DIALOG_DATA) data, private dialogRef: MatDialogRef<EditDepartmentComponent>) {
+    this.login = activateRoute.snapshot.params['login'];
+    this.getDepartment(data);
     this.getDoctors();
+    console.log(this.department);
   }
 
   getDoctors() {
@@ -37,19 +39,22 @@ export class EditDepartmentComponent {
     else this.getDoctors();
   }
 
-  getDepartment() {
-    this.http.get<Department>(this.baseUrl + 'department/' + this.department_code).subscribe(result => {
+  getDepartment(department_code: string) {
+    this.http.get<Department>(this.baseUrl + 'department/' + department_code).subscribe(result => {
       this.department = result;
-      console.log(this.department);
     }, error => console.error(error));
   }
 
-  addDepartment() {
+  postData() {
     this.department.login = this.doctor.login;
     this.http.put(this.baseUrl + 'department', this.department).subscribe(result => {
-      this.router.navigate(['/departments-list', this.admin]);
+      this.close();
     }, error => console.error(error));
     console.log(this.doctor);
+  }
+
+  close() {
+    this.dialogRef.close();
   }
 }
 

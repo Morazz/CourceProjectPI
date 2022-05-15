@@ -1,6 +1,6 @@
 <header>
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-    <div class="container">
+    <!--<div class="container">-->
       <a class="navbar-brand" [routerLink]="['/admin-panel', user]">CPI</a>
       <button class="navbar-toggler"
               type="button"
@@ -15,14 +15,14 @@
            [ngClass]="{ show: isExpanded }">
         <ul class="navbar-nav flex-grow">
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/admin-panel', admin]">{{admin}}</a>
+            <a class="nav-link text-dark" [routerLink]="['/admin-panel', login]">{{login}}</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/']">Выйти</a>
           </li>
         </ul>
       </div>
-    </div>
+    <!--</div>-->
   </nav>
 </header>
 
@@ -43,11 +43,12 @@
   </div>
   <label for="fathername"><b>Отчество</b></label>
   <input type="text" name="fathername" [(ngModel)]="patient.fathername" #fathername="ngModel"
-         pattern="^([А-Я]{1}[а-яё]{1,23}|[A-Z]{1}[a-z]{1,23})$" required>
-  <div [hidden]="fathername.valid || fathername.untouched" class="alert alert-danger">
+         pattern="^(([А-Я]{1}[а-яё]{1,23}|[A-Z]{1}[a-z]{1,23})*)$">
+  <div [hidden]="fathername.valid" class="alert alert-danger">
     Введите корректные данные
   </div>
   <div>
+    <label for="gender"><b>Пол</b></label>
     <input type="radio" name="woman" [(ngModel)]="patient.gender" #gender="ngModel" value="Женский">
     <label for="woman"><b>Женский</b></label> <br />
     <input type="radio" name="man" [(ngModel)]="patient.gender" #gender="ngModel" value="Мужской">
@@ -66,7 +67,7 @@
   <div [hidden]="phone.valid || phone.untouched" class="alert alert-danger">
     Введите корректные данные
   </div>
-  <button class="registerbtn" (click)="editPatient()" [disabled]="surname.invalid || firstname.invalid || fathername.invalid ||
+  <button class="registerbtn" (click)="editPatient()" [disabled]="surname.invalid || firstname.invalid ||
           address.invalid || phone.invalid">
     Сохранить
   </button>

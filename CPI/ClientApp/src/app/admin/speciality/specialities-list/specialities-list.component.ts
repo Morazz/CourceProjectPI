@@ -3,22 +3,24 @@ import { Component, Inject } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { dialogConfig } from '../../../../globals';
+import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.component';
 import { AddSpecialityComponent } from '../add-speciality/add-speciality.component';
+import { EditSpecialityComponent } from '../edit-speciality/edit-speciality.component';
 
 @Component({
-    selector: 'app-specialities-list',
-    templateUrl: './specialities-list.component.html',
-    styleUrls: ['./specialities-list.component.css']
+  selector: 'app-specialities-list',
+  templateUrl: './specialities-list.component.html',
+  styleUrls: ['./specialities-list.component.css']
 })
 
 export class SpecialitiesListComponent {
-  public admin: string;
+  public login: string;
   public specialities: Speciality[];
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string,
-    private dialog: MatDialog  ) {
+    private dialog: MatDialog) {
     this.getSpecialitites();
-    this.admin = activateRoute.snapshot.params['admin'];
+    this.login = activateRoute.snapshot.params['login '];
   }
 
   getSpecialitites() {
@@ -37,19 +39,37 @@ export class SpecialitiesListComponent {
   }
 
   deleteSpeciality(code: string) {
-    if (confirm("Подтвердите удаление: " + code)) {
-      this.http.delete(this.baseUrl + 'speciality', { params: new HttpParams().set('speciality_code', code) })
-        .subscribe(
-          (data: any) => {
-            this.getSpecialitites();
-          },
-          error => console.log(error));
-    }
+    const dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(data => {
+      if (data != null)
+        this.http.delete(this.baseUrl + 'speciality', { params: new HttpParams().set('speciality_code', code) })
+          .subscribe(
+            (data: any) => {
+              this.getSpecialitites();
+            },
+            error => console.log(error));
+    });
   }
 
-  openDialog() {
-    this.dialog.open(AddSpecialityComponent, dialogConfig);
-  }
+  openDialog(parameter: string, speciality ?: Speciality) {
+      switch(parameter) {
+      case 'AddSpeciality': {
+      const dialogRef = this.dialog.open(AddSpecialityComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(data => {
+        this.getSpecialitites();
+      });
+      break;
+    }
+      case 'EditSpeciality': {
+      dialogConfig.data = speciality;
+      const dialogRef = this.dialog.open(EditSpecialityComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(data => {
+        this.getSpecialitites();
+      });
+      break;
+    }
+    }
+}
 }
 
 export class Speciality {

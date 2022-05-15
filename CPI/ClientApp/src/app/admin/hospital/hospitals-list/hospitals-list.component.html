@@ -26,10 +26,14 @@
   </nav>
 </header>
 
-<h2>Медицинские учреждения</h2>
+<h2 class="panel-header">Медицинские учреждения</h2>
+
+<hr />
+
+<div class="panel">
 
 <div class="div-container">
-  <button (click)="openDialog()">Добавить</button>
+  <button (click)="openDialog('AddHosp')">Добавить</button>
   <div *ngIf="!hospitals"><em>Загрузка...</em></div>
 </div>
 
@@ -53,15 +57,18 @@
     </thead>
     <tbody>
       <tr *ngFor="let hospital of hospitals">
+        <td>{{hospital.hospital_id}}</td>
         <td>{{hospital.hospital_name}}</td>
         <td *ngIf="hospital.hospital_address != null; else null_content">{{hospital.hospital_address}}</td>
-        <td *ngIf="hospital.hospital_schedule != null; else null_content">{{hospital.hospital_schedule}}</td>
+        <td *ngIf="hospital.hospital_schedule != null; else null_content">{{hospital.hours?.appointment_start | date:'HH:mm'}} - {{hospital.hours?.appointment_end | date:'HH:mm'}}</td>
         <ng-template #null_content><td></td></ng-template>
         <td>
           <button class="dltbtn" (click)="deleteHospital(hospital.hospital_id)">Удалить</button>
-          <button class="editbtn" [routerLink]="['/edit-hospital', admin, hospital.hospital_id]">Изменить</button>
+          <button class="editbtn" (click)="openDialog('EditHosp', hospital.hospital_id)">Изменить</button>
         </td>
       </tr>
     </tbody>
   </table>
+</div>
+
 </div>

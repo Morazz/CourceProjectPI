@@ -1,6 +1,5 @@
 .demo-inline-calendar-card {
   width: 200px;
-  
 }
 
 /*.coupon {
@@ -17,6 +16,7 @@
   }*/
 
 .registerbtn {
+  vertical-align: bottom;
   background-color: #4CAF50;
   color: white;
   padding: 16px 20px;
@@ -41,7 +41,7 @@
 }
 
 .card-input-element {
-  display: none; 
+  display: none;
 }
 
 .container:after {
@@ -63,3 +63,8 @@
   background: #b5b5b5;
 }
 
+
+.coupons {
+  display: inline-flex;
+  margin: 20px;
+}

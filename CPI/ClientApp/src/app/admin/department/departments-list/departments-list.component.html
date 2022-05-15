@@ -26,39 +26,45 @@
   </nav>
 </header>
 
-<h2>Отделения</h2>
+<h2 class="panel-header">Отделения</h2>
 
-<div class="div-container">
-  <button (click)="openDialog()">Добавить</button>
-  <div *ngIf="!departments"><em>Загрузка...</em></div>
-</div>
+<hr />
 
-<div class="dep">
-  <div class="topnav">
-    <div class="search-container">
-      <form action="">
-        <input type="text" placeholder="Найти.." name="search" class="search" [(ngModel)]="text" (input)="onInput(text)">
-      </form>
-    </div>
+<div class="panel">
+
+  <div class="div-container">
+    <button (click)="openDialog('AddDepartment')">Добавить</button>
+    <div *ngIf="!departments"><em>Загрузка...</em></div>
   </div>
 
-  <table class='table table-striped' aria-labelledby="tableLabel">
-    <thead>
-      <tr>
-        <th>Отделение</th>
-        <th>Заведующий</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let department of departments">
-        <td>{{department.department_name}}</td>
-        <td *ngIf="department.headName != null; else null_content" >{{department.headName.surname}} {{department.headName.firstname}} {{department.headName.fathername}}</td>
-        <ng-template #null_content><td></td></ng-template>
-        <td>
-          <button class="dltbtn" (click)="deleteDepartment(department.department_code)">Удалить</button>
-          <button class="editbtn" [routerLink]="['/edit-department', admin, department.department_code]">Изменить</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="dep">
+    <div class="topnav">
+      <div class="search-container">
+        <form action="">
+          <input type="text" placeholder="Найти.." name="search" class="search" [(ngModel)]="text" (input)="onInput(text)">
+        </form>
+      </div>
+    </div>
+
+    <table class='table table-striped' aria-labelledby="tableLabel">
+      <thead>
+        <tr>
+          <th>Отделение</th>
+          <th>Заведующий</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let department of departments">
+          <td>{{department.department_name}}</td>
+          <td *ngIf="department.headName != null; else null_content">{{department.headName.surname}} {{department.headName.firstname}} {{department.headName.fathername}}</td>
+          <ng-template #null_content><td></td></ng-template>
+          <td>
+            <button class="dltbtn" (click)="deleteDepartment(department.department_code)">Удалить</button>
+            <button class="editbtn" (click)="openDialog('EditDepartment', department.department_code)">Изменить</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
 </div>

@@ -1,17 +1,60 @@
-<a [routerLinkActive]="['link-active']" [routerLink]="['/hospital-schedules', hospital_id]"> Расписание </a>
-
-<div class="div-container" *ngIf="doctors">
-
-  <div class="card" *ngFor="let doctor of doctors" [routerLink]="['/doctor-info', doctor.login]">
-    <div class="preview" *ngIf="doctor.photo">
-      <img [src]="doctor.photo">
+<header>
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <!--<div class="container">-->
+    <a class="navbar-brand" [routerLink]="['/']">CPI</a>
+    <button class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target=".navbar-collapse"
+            aria-label="Toggle navigation"
+            [attr.aria-expanded]="isExpanded"
+            (click)="toggle()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
+         [ngClass]="{ show: isExpanded }">
+      <ul class="navbar-nav flex-grow">
+        <li class="nav-item" [routerLinkActive]="['link-active']">
+          <a class="nav-link text-dark" [routerLink]="['/authorize']">Войти/Зарегистрироваться</a>
+        </li>
+      </ul>
     </div>
-    <p>{{doctor.surname}} {{doctor.firstname}} {{doctor.fathername}}</p>
-    <p>Отделение {{doctor.department?.department_name}}</p>
-    <p>{{doctor.speciality?.speciality}}</p>
-    <p>{{doctor.education}}</p>
-    <p>{{doctor.regards}}</p>
+    <!--</div>-->
+  </nav>
+</header>
+
+<div class="home">
+
+  <div class="left-panel">
+
+    <div class="info">
+      <h3>{{hospital.hospital_name}}</h3>
+      <h4>{{hospital.hospital_address}}</h4>
+
+      <button [routerLinkActive]="['link-active']" [routerLink]="['/hospital-schedules', hospital_id]">Расписание</button>
+    </div>
+    
+  </div>
+
+  <div class="right-panel">
+
+    <div class="div-container" *ngIf="doctors">
+
+      <div class="card" *ngFor="let doctor of doctors" [routerLink]="['/doctor-info', doctor.login]">
+        <div class="preview" *ngIf="doctor.photo">
+          <img [src]="doctor.photo">
+        </div>
+        <p>{{doctor.surname}} {{doctor.firstname}} {{doctor.fathername}}</p>
+        <p>Отделение {{doctor.department?.department_name}}</p>
+        <p>{{doctor.speciality?.speciality}}</p>
+        <p>{{doctor.education}}</p>
+        <p>{{doctor.regards}}</p>
+
+      </div>
+
+    </div>
 
   </div>
+
 
 </div>

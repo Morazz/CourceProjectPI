@@ -38,6 +38,7 @@
     <Compile Remove="ClientApp\src\app\admin\autoreg\navbar\**" />
     <Compile Remove="ClientApp\src\app\counter\**" />
     <Compile Remove="ClientApp\src\app\fetch-data\**" />
+    <Compile Remove="ClientApp\src\app\Images\**" />
     <Compile Remove="ClientApp\src\app\navbar\**" />
     <Compile Remove="ClientApp\src\app\patient\doctor-view\**" />
     <Compile Remove="ClientApp\src\app\Новая папка\**" />
@@ -45,12 +46,14 @@
     <Content Remove="ClientApp\src\app\admin\autoreg\navbar\**" />
     <Content Remove="ClientApp\src\app\counter\**" />
     <Content Remove="ClientApp\src\app\fetch-data\**" />
+    <Content Remove="ClientApp\src\app\Images\**" />
     <Content Remove="ClientApp\src\app\navbar\**" />
     <Content Remove="ClientApp\src\app\patient\doctor-view\**" />
     <Content Remove="ClientApp\src\app\Новая папка\**" />
     <EmbeddedResource Remove="ClientApp\src\app\admin\autoreg\navbar\**" />
     <EmbeddedResource Remove="ClientApp\src\app\counter\**" />
     <EmbeddedResource Remove="ClientApp\src\app\fetch-data\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\Images\**" />
     <EmbeddedResource Remove="ClientApp\src\app\navbar\**" />
     <EmbeddedResource Remove="ClientApp\src\app\patient\doctor-view\**" />
     <EmbeddedResource Remove="ClientApp\src\app\Новая папка\**" />
@@ -58,6 +61,7 @@
     <None Remove="ClientApp\src\app\admin\autoreg\navbar\**" />
     <None Remove="ClientApp\src\app\counter\**" />
     <None Remove="ClientApp\src\app\fetch-data\**" />
+    <None Remove="ClientApp\src\app\Images\**" />
     <None Remove="ClientApp\src\app\navbar\**" />
     <None Remove="ClientApp\src\app\patient\doctor-view\**" />
     <None Remove="ClientApp\src\app\Новая папка\**" />
@@ -67,6 +71,7 @@
   <ItemGroup>
     <TypeScriptCompile Remove="ClientApp\src\app\counter\**" />
     <TypeScriptCompile Remove="ClientApp\src\app\fetch-data\**" />
+    <TypeScriptCompile Remove="ClientApp\src\app\Images\**" />
     <TypeScriptCompile Remove="ClientApp\src\app\patient\doctor-view\**" />
     <TypeScriptCompile Remove="ClientApp\src\app\Новая папка\**" />
   </ItemGroup>
@@ -86,6 +91,9 @@
     <None Remove="ClientApp\src\app\global-variables.js" />
     <None Remove="ClientApp\src\app\global-variables.js.map" />
     <None Remove="ClientApp\src\app\global-variables.ts" />
+    <None Remove="ClientApp\src\app\Images\bg.jpg" />
+    <None Remove="ClientApp\src\app\Images\bg1.jpg" />
+    <None Remove="ClientApp\src\app\Images\JK3DFRdGZxI.jpg" />
     <None Remove="ClientApp\src\app\navbar\navbar.component.html" />
     <None Remove="ClientApp\src\app\navbar\navbar.component.ts" />
     <None Remove="ClientApp\src\app\navbar\navbar.service.ts" />

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -13,15 +14,14 @@ export class EditSpecialityComponent {
   public code: string;
   public admin: string;
 
-  constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
-    this.code = activateRoute.snapshot.params['speciality_code'];
-    this.admin = activateRoute.snapshot.params['admin'];
-    this.getSpeciality(this.code);
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string,
+    @Inject(MAT_DIALOG_DATA) data, private dialogRef: MatDialogRef<EditSpecialityComponent>  ) {
+    this.getSpeciality(data);
   }
 
   postData() {
     this.http.put(this.baseUrl + 'speciality', this.speciality).subscribe(result => {
-      this.router.navigate(['/specialities-list', this.admin]);
+      this.close();
     }, error => console.error(error));
   }
 
@@ -29,6 +29,10 @@ export class EditSpecialityComponent {
     this.http.get<Speciality>(this.baseUrl + 'speciality/' + code).subscribe(result => {
       this.speciality = result;
     }, error => console.error(error));
+  }
+
+  close() {
+    this.dialogRef.close();
   }
 }
 

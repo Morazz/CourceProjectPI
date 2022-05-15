@@ -7,6 +7,7 @@ import { AddUserComponent } from '../admin/user/add-user/add-user.component';
 import { AddHospitalComponent } from '../admin/hospital/add-hospital/add-hospital.component';
 import { Hospital } from '../admin/hospital/hospitals-list/hospitals-list.component';
 import { DeleteDialogComponent } from '../admin/delete-dialog/delete-dialog.component';
+import { hosp_type } from '../../globals';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class HomeComponent {
   public hospitals: Hospital[];
   public doctors: Doctor[];
   public schedule: Schedule[];
+  public hosp_type: string[] = hosp_type;
 
   constructor(private http: HttpClient, private activateRoute: ActivatedRoute, @Inject('BASE_URL') private baseUrl: string,
               private dialog: MatDialog  ) {

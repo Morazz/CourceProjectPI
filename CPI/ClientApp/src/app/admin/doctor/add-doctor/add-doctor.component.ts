@@ -13,7 +13,6 @@ import { Hospital } from '../../hospital/hospitals-list/hospitals-list.component
 })
 
 export class AddDoctorComponent {
-  public admin: string;
   public login: string;
   public departments: Department[];
   public specialities: Speciality[];
@@ -28,10 +27,8 @@ export class AddDoctorComponent {
   imageUrl: SafeUrl;
   public isAdmin: boolean = true;
 
-  constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string,
-    private sanitizer: DomSanitizer) {
-    this.login = activateRoute.snapshot.params['admin'];
-    console.log(this.login);
+  constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+    this.login = activateRoute.snapshot.params['login'];
     this.checkStatus();
     this.getDepartments();
     this.getSpecialities();

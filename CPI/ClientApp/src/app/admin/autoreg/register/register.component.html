@@ -18,7 +18,7 @@
   <p>Пожалуйста, заполните эту форму, чтобы создать аккаунт.</p>
   <hr>
 
-  <label for="mail"><b>Адрес электронной почты</b></label>
+  <!--<label for="mail"><b>Адрес электронной почты</b></label>
 
   <form class="mailform">
     <input class="mailinput" type="text" name="mail" [(ngModel)]="user.mail" #mail="ngModel" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" required>
@@ -31,7 +31,7 @@
 
   <div [hidden]="mail.valid || mail.untouched" class="alert alert-danger">
     Введите корректную почту
-  </div>
+  </div>-->
 
   <label for="login"><b>Логин</b></label>
   <input type="text" name="login" [(ngModel)]="user.login" #login="ngModel" pattern="(^[a-z0-9]{1,23})$" required>

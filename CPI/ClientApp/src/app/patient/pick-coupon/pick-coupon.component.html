@@ -30,13 +30,15 @@
   <mat-calendar [(selected)]="selectedDate" (selectedChange)="selectedDate = $event; newCoupon.appointment_day = selectedDate; checkCoupon();" [minDate]="minDate" [maxDate]="maxDate"></mat-calendar>
 </mat-card>
 
-<div class="container" *ngFor="let freeCoupon of freeCoupons">
-  <label class="coup" (click)="newCoupon.template_id = freeCoupon.template_id;">
-    <input type="radio" name="product" class="card-input-element" />
-    <div class="card-input">
-      {{freeCoupon.time | date: 'HH:mm'}}
-    </div>
-  </label>
+<div class="coupons">
+  <div class="container" *ngFor="let freeCoupon of freeCoupons">
+    <label class="coup" (click)="newCoupon.template_id = freeCoupon.template_id;">
+      <input type="radio" name="product" class="card-input-element" />
+      <div class="card-input">
+        {{freeCoupon.time | date: 'HH:mm'}}
+      </div>
+    </label>
+  </div>
 </div>
 
 <div *ngIf="selectedDate">

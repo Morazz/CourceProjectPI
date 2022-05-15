@@ -26,39 +26,45 @@
   </nav>
 </header>
 
-<h2>Талоны</h2>
+<h2 class="panel-header">Талоны</h2>
 
-<div class="dep">
-  <div class="topnav">
-    <div class="search-container">
-      <form action="">
-        <input type="text" placeholder="Найти.." name="search" class="search">
-      </form>
+<hr />
+
+<div class="panel">
+
+  <div class="dep">
+    <div class="topnav">
+      <div class="search-container">
+        <form action="">
+          <input type="text" placeholder="Найти.." name="search" class="search">
+        </form>
+      </div>
     </div>
+
+    <div *ngIf="!coupons"><em>Загрузка...</em></div>
+    <table class='table table-striped' aria-labelledby="tableLabel">
+      <thead>
+        <tr>
+          <th>Код учреждения</th>
+          <th (click)="sortDay()" class="toorder">Дата приема</th>
+          <th>Время приема</th>
+          <th (click)="sortPatient()" class="toorder">Пациент</th>
+          <th (click)="sortDoctor()" class="toorder">Врач</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let coupon of coupons">
+          <td>{{coupon.hospital_id}}</td>
+          <td>{{coupon.appointment_day | date: 'dd.MM.yyyy'}}</td>
+          <td>{{coupon.template.time | date: 'HH:mm'}}</td>
+          <td><a [routerLinkActive]="['link-active']" [routerLink]="['/user-page', coupon.patient.login]"> {{coupon.patient.surname}} {{coupon.patient.firstname}} {{coupon.patient.fathername}}</a></td>
+          <td><a [routerLinkActive]="['link-active']" [routerLink]="['/doctor-info', coupon.doctor.login]"> {{coupon.doctor.surname}} {{coupon.doctor.firstname}} {{coupon.doctor.fathername}}</a></td>
+          <td>
+            <button class="dltbtn" (click)="deleteCoupon(coupon.coupon_id)">Удалить</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
-  <div *ngIf="!coupons"><em>Загрузка...</em></div>
-  <table class='table table-striped' aria-labelledby="tableLabel">
-    <thead>
-      <tr>
-        <th>Код учреждения</th>
-        <th (click)="sortDay()" class="toorder">Дата приема</th>
-        <th>Время приема</th>
-        <th (click)="sortPatient()" class="toorder">Пациент</th>
-        <th (click)="sortDoctor()" class="toorder">Врач</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let coupon of coupons">
-        <td>{{coupon.hospital_id}}</td>
-        <td>{{coupon.appointment_day | date: 'dd.MM.yyyy'}}</td>
-        <td>{{coupon.template.time | date: 'HH:mm'}}</td>
-        <td><a [routerLinkActive]="['link-active']" [routerLink]="['/user-page', coupon.patient.login]"> {{coupon.patient.surname}} {{coupon.patient.firstname}} {{coupon.patient.fathername}}</a></td>
-        <td><a [routerLinkActive]="['link-active']" [routerLink]="['/doctor-info', coupon.doctor.login]"> {{coupon.doctor.surname}} {{coupon.doctor.firstname}} {{coupon.doctor.fathername}}</a></td>
-        <td>
-          <button class="dltbtn" (click)="deleteCoupon(coupon.coupon_id)">Удалить</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
 </div>
