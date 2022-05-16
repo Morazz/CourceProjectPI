@@ -20,6 +20,7 @@ export class HospitalInfoComponent {
   public doctors: Doctor[];
   public hospital_id: string;
   public hospital: Hospital;
+  public nophoto: string = "/assets/images/nophoto.jpg";
 
   constructor(private http: HttpClient, private activateRoute: ActivatedRoute, @Inject('BASE_URL') private baseUrl: string) {
 

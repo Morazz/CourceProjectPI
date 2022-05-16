@@ -39,3 +39,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .example-margin {
   margin: 0 10px;
 }
+
+.dialog .mat-dialog-container {
+  overflow-y: hidden;
+}

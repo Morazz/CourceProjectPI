@@ -47,7 +47,7 @@ export class EditDoctorComponent {
     this.http.put(this.baseUrl + 'doctor', this.doctor)
       .subscribe(
         (data: any) => {
-          this.router.navigate(['/doctors-list', this.admin]);
+          this.router.navigate(['/doctors-list', this.login]);
         }, error => console.log(error));
   };
 

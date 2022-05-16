@@ -23,28 +23,32 @@
   </nav>
 </header>
 
-<em *ngIf="!departments">Загрузка...</em>
+<div class="panel">
 
-<div class="cell" *ngFor="let dep of departments">
-  <!--<div *ngIf="dep.doctors">-->
-    <hr />
+  <em *ngIf="!departments">Загрузка...</em>
+
+  <div class="cell" *ngFor="let dep of departments">
+  <div *ngIf="dep.doctors">
+  <hr />
     <h4>Отделение {{dep.department_name}}</h4>
+    <hr />
     <div *ngFor="let doc of dep.doctors">
       <p>{{doc.surname}} {{doc.firstname}} {{doc.fathername}}</p>
       <p>{{doc.speciality.speciality}}</p>
       <p>Время работы: {{doc.hours.appointment_start | date:'HH:mm'}} - {{doc.hours.appointment_end | date:'HH:mm'}} </p>
+      <hr />
     </div>
   </div>
-<!--</div>-->
-<div style="height:20px;"></div>
-
-
-<!--<div class="content">
-
-  <div class="cell" *ngFor="let hp of hospitals" [routerLink]="['/hospital-info', hp.hospital_id]">
-    <h4>{{hp.hospital_name}}</h4>
-    <h6>{{hp.hospital_address}}</h6>
-    <h6>Время работы: {{hp.hours.appointment_start | date:'HH:mm'}} - {{hp.hours.appointment_end | date:'HH:mm'}} </h6>
   </div>
 
-</div>-->
+
+
+  <!--<div class="content">
+
+    <div class="cell" *ngFor="let hp of hospitals" [routerLink]="['/hospital-info', hp.hospital_id]">
+      <h4>{{hp.hospital_name}}</h4>
+      <h6>{{hp.hospital_address}}</h6>
+      <h6>Время работы: {{hp.hours.appointment_start | date:'HH:mm'}} - {{hp.hours.appointment_end | date:'HH:mm'}} </h6>
+    </div>
+
+  </div>-->

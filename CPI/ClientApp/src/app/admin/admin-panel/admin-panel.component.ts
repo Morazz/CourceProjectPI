@@ -37,7 +37,10 @@ export class AdminPanelComponent {
       case 'AddTemplate': this.dialog.open(AddTemplateComponent, dialogConfig); break;
       case 'AddSpeciality': this.dialog.open(AddSpecialityComponent, dialogConfig); break;
       case 'AddModer': this.dialog.open(AddModeratorComponent, dialogConfig); break;
-      case 'AddHosp': this.dialog.open(AddHospitalComponent, dialogConfig); break;
+      case 'AddHosp': {
+        dialogConfig.panelClass = 'dialog';
+        this.dialog.open(AddHospitalComponent, dialogConfig); break;
+      }
     }
   }
 

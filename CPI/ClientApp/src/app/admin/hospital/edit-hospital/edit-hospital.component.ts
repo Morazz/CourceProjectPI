@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { hosp_type } from '../../../../globals';
 import { Schedule } from '../../schedule/add-schedule/add-schedule.component';
 import { Hospital } from '../hospitals-list/hospitals-list.component';
 
@@ -12,8 +13,9 @@ import { Hospital } from '../hospitals-list/hospitals-list.component';
 /** edit-hospital component*/
 export class EditHospitalComponent {
 
-  public hospital: Hospital;
+  public hospital: Hospital = new Hospital("", null, null, null, null, null, null);
   public schedules: Schedule[];
+  public hosp_type: string[] = hosp_type;
   errors: string[];
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string,

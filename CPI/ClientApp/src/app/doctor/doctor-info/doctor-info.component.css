@@ -21,10 +21,29 @@
       background-color: #4CAF52;
     }
 
-.content {
-    display: inline-grid;
+.panel {
+  background-color: rgba(255, 255, 255, 0.8);
+  height: 100%;
 }
 
-img {
-    width: 30%;
+  .panel .panel-content {
+    display: inline-flex;
+    margin-bottom: 20px;
+  }
+
+.left-panel img {
+  width: 100%;
+}
+
+.left-panel {
+  width: 30%;
+  padding: 10px;
+}
+
+.right-panel {
+  padding: 10px 20px 0 40px;
+  margin: 0 20px 0 0;
+  width: 70%;
+  word-wrap: normal;
+  text-align: justify;
 }

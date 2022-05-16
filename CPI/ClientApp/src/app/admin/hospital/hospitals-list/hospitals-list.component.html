@@ -51,6 +51,7 @@
       <tr>
         <th>ID</th>
         <th>Название</th>
+        <th>Тип</th>
         <th>Адрес</th>
         <th>Время работы</th>
       </tr>
@@ -59,6 +60,7 @@
       <tr *ngFor="let hospital of hospitals">
         <td>{{hospital.hospital_id}}</td>
         <td>{{hospital.hospital_name}}</td>
+        <td>{{hospital.hospital_type}}</td>
         <td *ngIf="hospital.hospital_address != null; else null_content">{{hospital.hospital_address}}</td>
         <td *ngIf="hospital.hospital_schedule != null; else null_content">{{hospital.hours?.appointment_start | date:'HH:mm'}} - {{hospital.hours?.appointment_end | date:'HH:mm'}}</td>
         <ng-template #null_content><td></td></ng-template>

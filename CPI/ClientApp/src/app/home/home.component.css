@@ -83,10 +83,11 @@ a {
 .home {
   display: inline-flex;
   min-width: 100%;
+  min-height: 100%;
 }
 
 .left-panel {
-  background-color: aqua;
+  background-color: rgba(220, 220, 220, 0.8);
   min-width: 20%;
   min-height: 100%;
   padding: 10px 0 0 10px;

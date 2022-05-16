@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
+import { hosp_type } from '../../../../globals';
 import { Schedule } from '../../schedule/schedules-list/schedules-list.component';
 import { Hospital, HospitalsListComponent } from '../hospitals-list/hospitals-list.component';
 
@@ -13,13 +14,14 @@ import { Hospital, HospitalsListComponent } from '../hospitals-list/hospitals-li
 /** add-hospital component*/
 export class AddHospitalComponent {
   public login: string;
-  public hospital: Hospital = new Hospital("", null, null, null, null, null);
+  public hospital: Hospital = new Hospital("", null, null, null, null, null, null);
   public schedules: Schedule[];
   errors: string[];
+  hosp_type: string[] = hosp_type;
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string,
     private dialogRef: MatDialogRef<AddHospitalComponent>) {
-    this.login = activateRoute.snapshot.params['admin'];
+    this.login = activateRoute.snapshot.params['login'];
     this.getSchedules();
   }
 

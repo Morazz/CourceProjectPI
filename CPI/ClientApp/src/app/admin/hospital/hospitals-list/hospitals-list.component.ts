@@ -7,6 +7,7 @@ import { dialogConfig } from '../../../../globals';
 import { AddHospitalComponent } from '../add-hospital/add-hospital.component';
 import { MatDialog } from '@angular/material';
 import { EditHospitalComponent } from '../edit-hospital/edit-hospital.component';
+import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-hospitals-list',
@@ -44,32 +45,35 @@ export class HospitalsListComponent {
   }
 
   deleteHospital(hospital_id: string) {
-    if (confirm("Подтвердите удаление: " + hospital_id)) {
+    const dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(data => {
+      if (data != null) {
 
-      this.http.get<Hospital>(this.baseUrl + 'hospital/' + hospital_id).subscribe(result => {
-        this.hospital = result;
-        this.http.get<Doctor[]>(this.baseUrl + 'doctor/hosp/' + hospital_id).subscribe(result => {
-          this.hospital.doctors = result;
-        }, error => console.error(error));
-      })
-
-      ///
-      if (this.hospital.doctors != null) {
-        this.hospital.doctors.forEach(doc => {
-          //doc.hospital_id = null;
-          this.http.put(this.baseUrl + 'doctor', doc).subscribe(result => {
-            console.log(doc);
+        this.http.get<Hospital>(this.baseUrl + 'hospital/' + hospital_id).subscribe(result => {
+          this.hospital = result;
+          this.http.get<Doctor[]>(this.baseUrl + 'doctor/hosp/' + hospital_id).subscribe(result => {
+            this.hospital.doctors = result;
           }, error => console.error(error));
-        });
-      }
+        })
 
-      this.http.delete(this.baseUrl + 'hospital', { params: new HttpParams().set('id', hospital_id.toString()) })
-        .subscribe(
-          (data: any) => {
-            this.getHospitals();
-          },
-          error => console.log(error));
-    }
+        ///
+        if (this.hospital.doctors != null) {
+          this.hospital.doctors.forEach(doc => {
+            //doc.hospital_id = null;
+            this.http.put(this.baseUrl + 'doctor', doc).subscribe(result => {
+              console.log(doc);
+            }, error => console.error(error));
+          });
+        }
+
+        this.http.delete(this.baseUrl + 'hospital', { params: new HttpParams().set('id', hospital_id.toString()) })
+          .subscribe(
+            (data: any) => {
+              this.getHospitals();
+            },
+            error => console.log(error));
+      }
+    });
   }
 
   onInput(text: string) {
@@ -108,6 +112,7 @@ export class Hospital {
     public hospital_name: string,
     public hospital_address: string,
     public schedule_code: number,
+    public hospital_type: string,
     public doctors: Doctor[],
     public hours: Schedule) { }
 }

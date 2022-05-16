@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class EditPatientComponent {
-  public admin: string;
+  
   public patient: Patient = new Patient("", "", "", "", new Date(), "", "", "");
   public login: string;
   public patientLogin: string;
@@ -28,9 +28,9 @@ export class EditPatientComponent {
   }
 
   editPatient() {
-    //this.http.put(this.baseUrl + 'patient', this.patient).subscribe(result => {
-    //    this.router.navigate(['patients-list', this.admin]);
-    //}, error => console.error(error));
+    this.http.put(this.baseUrl + 'patient', this.patient).subscribe(result => {
+        this.router.navigate(['patients-list', this.login]);
+    }, error => console.error(error));
   }
 }
 

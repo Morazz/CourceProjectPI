@@ -19,12 +19,16 @@ export class HospitalSchedulesComponent {
 
   constructor(private http: HttpClient, private activateRoute: ActivatedRoute, @Inject('BASE_URL') private baseUrl: string) {
     this.hospital_id = activateRoute.snapshot.params['hospital_id'];
-    this.getDepartments();
+
+    this.getDepartments(this.hospital_id);
   }
 
   getDoctors() {
+
     this.http.get<Doctor[]>(this.baseUrl + 'doctor/hosp/' + this.hospital_id).subscribe(result => {
+
       this.doctors = result;
+
       this.doctors.forEach(doc => {
         this.http.get<Department>(this.baseUrl + 'department/' + doc.department_code).subscribe(result => {
           doc.department = result;
@@ -37,36 +41,24 @@ export class HospitalSchedulesComponent {
         this.http.get<Schedule>(this.baseUrl + 'schedule/' + doc.schedule_code).subscribe(result => {
           doc.hours = result;
         }, error => console.error(error));
-      })
+
+      });
+
+      this.departments.forEach(dep => {
+        dep.doctors = this.doctors.filter(doc => doc.department_code == dep.department_code);
+      });
+
+      this.departments = this.departments.filter(dep => dep.doctors.length > 0);
     }, error => console.error(error));
   }
 
-  //getDepDoctors(dep_code: number) {
-  //  this.http.get<Doctor[]>(this.baseUrl + 'doctor').subscribe(result => {
-  //    this.doctors = result;
-  //    this.doctors.forEach(doc => {
-  //      this.http.get<Department>(this.baseUrl + 'department/' + doc.department_code).subscribe(result => {
-  //        doc.department = result;
-  //      }, error => console.error(error));
-  //      this.http.get<Speciality>(this.baseUrl + 'speciality/' + doc.speciality_code).subscribe(result => {
-  //        doc.speciality = result;
-  //      }, error => console.error(error));
-  //      this.http.get<Schedule>(this.baseUrl + 'schedule/' + doc.schedule_code).subscribe(result => {
-  //        doc.hours = result;
-  //      }, error => console.error(error));
-  //    })
-  //  }, error => console.error(error));
-  //  this.departments.forEach(dep => dep.doctors = this.doctors.filter(doc => doc.department_code != null && doc.department_code == dep.department_code));
-  //  //return this.doctors.filter(doc => doc.department_code == dep_code);
-  //}
-
-  getDepartments() {
-    this.http.get<Department[]>(this.baseUrl + 'department/hosp/' + this.hospital_id).subscribe(result => {
+  getDepartments(hospital_id: string) {
+    this.http.get<Department[]>(this.baseUrl + 'department/hosp/' + hospital_id).subscribe(result => {
       this.departments = result;
       this.getDoctors();
-      this.departments.forEach(dep => dep.doctors = this.doctors.filter(doc => doc.department_code != null && doc.department_code == dep.department_code));
-      this.departments = this.departments.filter(dep => dep.doctors.length > 0);
-
+      this.departments.forEach(dep => {
+        console.log(this.doctors);
+      });
     }, error => console.error(error));
   }
 

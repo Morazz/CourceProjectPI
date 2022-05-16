@@ -52,6 +52,13 @@ export class HomeComponent {
     dialogConfig.minWidth = '25%';
   }
 
+  onInput(text: string) {
+    if (text.length > 0) {
+      this.hospitals = this.hospitals.filter(hp => hp.hospital_name.toLowerCase().includes(text.toLowerCase()));
+    }
+    else this.getHospitals();
+  }
+
   //getDepDoctors(dep_code: number) {
   //  this.http.get<Doctor[]>(this.baseUrl + 'doctor').subscribe(result => {
   //    this.doctors = result;

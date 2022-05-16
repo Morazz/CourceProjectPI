@@ -51,15 +51,8 @@ namespace CPI.Controllers
         [HttpPut]
         public void Update(Hospital newHospital)
         {
-            Hospital hospital = Get(newHospital.hospital_id);
-            if (hospital != null)
-            {
-                hospital.hospital_name = newHospital.hospital_name;
-                hospital.hospital_address = newHospital.hospital_address;
-                hospital.schedule_code = newHospital.schedule_code;
-                db.Hospitals.Update(hospital);
-                db.SaveChanges();
-            }
+            db.Hospitals.Update(newHospital);
+            db.SaveChanges();
         }
     }
 }

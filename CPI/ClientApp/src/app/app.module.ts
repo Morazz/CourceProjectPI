@@ -54,6 +54,7 @@ import { DeleteDialogComponent } from './admin/delete-dialog/delete-dialog.compo
 import { HospitalInfoComponent } from './hospital/hospital-info/hospital-info.component';
 import { HospitalSchedulesComponent } from './hospital/hospital-schedules/hospital-schedules.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -175,6 +176,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatFormFieldModule,
     MatIconModule,
     MatCheckboxModule,
+    MatExpansionModule,
   ],
   providers: [
     { provide: MAT_DIALOG_DATA, useValue: {} },
