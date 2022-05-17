@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
@@ -55,6 +55,8 @@ import { HospitalInfoComponent } from './hospital/hospital-info/hospital-info.co
 import { HospitalSchedulesComponent } from './hospital/hospital-schedules/hospital-schedules.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatRadioGroup } from '@angular/material/typings/radio';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -108,6 +110,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     HttpClientModule,
     FormsModule,
     MatTooltipModule,
+    MatRadioModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'register', component: RegisterComponent, },
@@ -145,7 +148,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
       { path: 'edit-template/:template_id', component: EditTemplateComponent },
       //Coupon picking
       { path: 'pick-department/:login', component: PickDepartmentComponent },
-      { path: 'pick-doctor/:login/:department_code', component: PickDoctorComponent },
+      { path: 'pick-doctor/:login/:hospital_id', component: PickDoctorComponent },
       { path: 'pick-coupon/:login/:department_code/:doctor_login', component: PickCouponComponent },
       //Coupons
       { path: 'coupons-list/:login', component: CouponsListComponent },
@@ -177,6 +180,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatIconModule,
     MatCheckboxModule,
     MatExpansionModule,
+    ReactiveFormsModule,
   ],
   providers: [
     { provide: MAT_DIALOG_DATA, useValue: {} },

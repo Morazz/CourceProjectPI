@@ -20,6 +20,7 @@ export class PickCouponComponent {
   doctorFreeCoupons: Coupon[] = [];
   minDate: Date = new Date();
   maxDate: Date = new Date(new Date().getFullYear(), new Date().getMonth() + 1, new Date().getDate());
+  app_time: Date;
   errors: string[] = [];
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {

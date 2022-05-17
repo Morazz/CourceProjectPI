@@ -65,6 +65,39 @@
 
 
 .coupons {
-  display: inline-flex;
+  display: flex;
+  flex-wrap: wrap;
   margin: 20px;
 }
+
+  .coupons .container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+.coupon-container {
+  display: inline-flex;
+  width: 100%;
+}
+
+.left-panel {
+  background-color: rgba(220, 220, 220, 0.8);
+  min-width: 50%;
+  min-height: 100%;
+  padding: 10px 0 0 10px;
+  display: inline-flex;
+}
+
+.right-panel {
+  background-color: aqua;
+  padding: 10px 20px 0 20px;
+  min-width: 50%;
+}
+
+.coupons-list {
+  background-color: blueviolet;
+  margin: 0 0 0 20px;
+  max-width: 60%;
+
+}
+

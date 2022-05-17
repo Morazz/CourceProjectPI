@@ -21,12 +21,35 @@
   </nav>
 </header>
 
-<h3>Выбор отделения</h3>
+<div class="panel">
 
-<div *ngIf="!departments"><em>Загрузка...</em></div>
+  <h3>Выбор учреждения</h3>
 
-<div class="div-container" *ngIf="departments">
-  <div style="margin: 5px 0;" *ngFor="let department of departments" class="dep">
-    <h4 [routerLink]="['/pick-doctor', login, department.department_code]">{{department.department_name}}</h4>
-  </div>
+    <div class="topnav">
+      <div class="search-container">
+        <form action="">
+          <input type="text" placeholder="Найти.." name="search" class="search" [(ngModel)]="text" (input)="onInput(text)">
+        </form>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <div class="cell" *ngFor="let hp of hospitals" [routerLink]="['/pick-doctor', login, hp.hospital_id]">
+        <h4>{{hp.hospital_name}}</h4>
+        <h6>{{hp.hospital_type}}</h6>
+        <h6>{{hp.hospital_address}}</h6>
+        <h6>Время работы: {{hp.hours.appointment_start | date:'HH:mm'}} - {{hp.hours.appointment_end | date:'HH:mm'}} </h6>
+      </div>
+
+    </div>
+
+  <!--<div *ngIf="!departments"><em>Загрузка...</em></div>
+
+  <div class="div-container" *ngIf="departments">
+    <div style="margin: 5px 0;" *ngFor="let department of departments" class="dep">
+      <h4 [routerLink]="['/pick-doctor', login, department.department_code]">{{department.department_name}}</h4>
+    </div>
+  </div>-->
+
 </div>

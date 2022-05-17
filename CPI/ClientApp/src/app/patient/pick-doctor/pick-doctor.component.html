@@ -21,13 +21,33 @@
   </nav>
 </header>
 
-<h3>{{department.department_name}}</h3>
+<div class="panel">
 
-<div *ngIf="!doctors"><em>Загрузка...</em></div>
+  <!--<h3>{{department.department_name}}</h3>
 
-<div class="div-container" *ngIf="doctors">
-  <div style="margin: 5px 0;" *ngFor="let doctor of doctors" [routerLink]="['/pick-coupon', login, department.department_code, doctor.login]">
-    <h5>{{doctor.surname}} {{doctor.firstname}} {{doctor.fathername}}</h5>
-    <h5>{{doctor.speciality?.speciality}}</h5>
-  </div>
+  <div *ngIf="!doctors"><em>Загрузка...</em></div>
+
+  <div class="div-container" *ngIf="doctors">
+    <div style="margin: 5px 0;" *ngFor="let doctor of doctors" [routerLink]="['/pick-coupon', login, department.department_code, doctor.login]">
+      <h5>{{doctor.surname}} {{doctor.firstname}} {{doctor.fathername}}</h5>
+      <h5>{{doctor.speciality?.speciality}}</h5>
+    </div>
+  </div>-->
+
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let dep of departments">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{dep.department_name}}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div *ngFor="let doc of dep.doctors" class="cell" [routerLink]="['/pick-coupon', login, dep.department_code, doc.login]">
+        <p>{{doc.surname}} {{doc.firstname}} {{doc.fathername}}</p>
+        <p>{{doc.speciality.speciality}}</p>
+        <p>Время работы: {{doc.hours.appointment_start | date:'HH:mm'}} - {{doc.hours.appointment_end | date:'HH:mm'}} </p>
+        <hr />
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+
 </div>

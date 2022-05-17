@@ -21,30 +21,58 @@
   </nav>
 </header>
 
-<h3>{{doctor.surname}} {{doctor.firstname}} {{doctor.fathername}}</h3>
+<div class="panel">
 
-<hr />
+  <h3>Заказ талона</h3>
 
-<h3>Выберите время:</h3>
-<mat-card class="demo-inline-calendar-card">
-  <mat-calendar [(selected)]="selectedDate" (selectedChange)="selectedDate = $event; newCoupon.appointment_day = selectedDate; checkCoupon();" [minDate]="minDate" [maxDate]="maxDate"></mat-calendar>
-</mat-card>
+  <hr />
 
-<div class="coupons">
-  <div class="container" *ngFor="let freeCoupon of freeCoupons">
-    <label class="coup" (click)="newCoupon.template_id = freeCoupon.template_id;">
-      <input type="radio" name="product" class="card-input-element" />
-      <div class="card-input">
-        {{freeCoupon.time | date: 'HH:mm'}}
+  <h3>Выберите время:</h3>
+
+  <div class="coupon-container">
+
+    <div class="left-panel">
+
+      <mat-card class="demo-inline-calendar-card">
+        <mat-calendar [(selected)]="selectedDate" (selectedChange)="selectedDate = $event; newCoupon.appointment_day = selectedDate; checkCoupon();" [minDate]="minDate" [maxDate]="maxDate"></mat-calendar>
+      </mat-card>
+
+      <div class="coupons-list">
+
+        <div class="coupons">
+          <div class="container" *ngFor="let freeCoupon of freeCoupons">
+            <label class="coup" (click)="newCoupon.template_id = freeCoupon.template_id; app_time = freeCoupon.time">
+              <input type="radio" name="product" class="card-input-element" />
+              <div class="card-input">
+                {{freeCoupon.time | date: 'HH:mm'}}
+              </div>
+            </label>
+          </div>
+        </div>
+
       </div>
-    </label>
+
+    </div>
+
+    <div class="right-panel">
+
+      <h4>Информация о талоне</h4>
+      <h5>Врач: {{doctor.surname}} {{doctor.firstname}} {{doctor.fathername}}</h5>
+      <h5>{{doctor.speciality}}</h5>
+      <h5>Дата приема: {{selectedDate | date: 'dd.MM.yyyy'}}</h5>
+      <h5>Время приема: {{app_time | date: 'HH:mm'}}</h5>
+      <h5>Кабинет {{doctor.cabinet}}</h5>
+    </div>
+
   </div>
-</div>
 
-<div *ngIf="selectedDate">
-  <button type="submit" class="registerbtn" (click)="pickCoupon()">Заказать</button>
-</div>
+  <div *ngIf="selectedDate">
+    <button type="submit" class="registerbtn" (click)="pickCoupon()">Заказать</button>
+  </div>
 
-<div ng-show="errors">
-  <div *ngFor="let error of errors" class="alert alert-danger">{{error}}</div>
+  <div ng-show="errors">
+    <div *ngFor="let error of errors" class="alert alert-danger">{{error}}</div>
+  </div>
+
+
 </div>

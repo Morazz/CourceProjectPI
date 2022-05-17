@@ -8,6 +8,7 @@ import { AddHospitalComponent } from '../admin/hospital/add-hospital/add-hospita
 import { Hospital } from '../admin/hospital/hospitals-list/hospitals-list.component';
 import { DeleteDialogComponent } from '../admin/delete-dialog/delete-dialog.component';
 import { hosp_type } from '../../globals';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -21,12 +22,18 @@ export class HomeComponent {
   public doctors: Doctor[];
   public schedule: Schedule[];
   public hosp_type: string[] = hosp_type;
+  selected_filters: { id: number; label: string; selected: boolean; }[];
+  filtered_hospitals: Hospital[] = [];
+
+  types = [
+    { id: 0, label: hosp_type[0], selected: false },
+    { id: 1, label: hosp_type[1], selected: false },
+    { id: 2, label: hosp_type[2], selected: false }
+  ]
 
   constructor(private http: HttpClient, private activateRoute: ActivatedRoute, @Inject('BASE_URL') private baseUrl: string,
-              private dialog: MatDialog  ) {
-    //this.getDoctors();
-    //this.getDepartments();
-    //this.openDialog();
+    private dialog: MatDialog, fb: FormBuilder) {
+
     this.getHospitals();
   }
 
@@ -39,7 +46,6 @@ export class HomeComponent {
           console.log(result);
         }, error => console.error(error));
       })
-      console.log(this.hospitals);
     }, error => console.error(error));
   }
 
@@ -59,50 +65,20 @@ export class HomeComponent {
     else this.getHospitals();
   }
 
-  //getDepDoctors(dep_code: number) {
-  //  this.http.get<Doctor[]>(this.baseUrl + 'doctor').subscribe(result => {
-  //    this.doctors = result;
-  //    this.doctors.forEach(doc => {
-  //      this.http.get<Department>(this.baseUrl + 'department/' + doc.department_code).subscribe(result => {
-  //        doc.department = result;
-  //      }, error => console.error(error));
-  //      this.http.get<Speciality>(this.baseUrl + 'speciality/' + doc.speciality_code).subscribe(result => {
-  //        doc.speciality = result;
-  //      }, error => console.error(error));
-  //      this.http.get<Schedule>(this.baseUrl + 'schedule/' + doc.schedule_code).subscribe(result => {
-  //        doc.hours = result;
-  //      }, error => console.error(error));
-  //    })
-  //  }, error => console.error(error));
-  //  this.departments.forEach(dep => dep.doctors = this.doctors.filter(doc => doc.department_code != null && doc.department_code == dep.department_code));
-  //  //return this.doctors.filter(doc => doc.department_code == dep_code);
-  //}
+  onToggle(s: string) {
 
-  //getDoctors() {
-  //  this.http.get<Doctor[]>(this.baseUrl + 'doctor').subscribe(result => {
-  //    this.doctors = result;
-  //    this.doctors.forEach(doc => {
-  //      this.http.get<Department>(this.baseUrl + 'department/' + doc.department_code).subscribe(result => {
-  //        doc.department = result;
-  //      }, error => console.error(error));
-  //      this.http.get<Speciality>(this.baseUrl + 'speciality/' + doc.speciality_code).subscribe(result => {
-  //        doc.speciality = result;
-  //      }, error => console.error(error));
-  //      this.http.get<Schedule>(this.baseUrl + 'schedule/' + doc.schedule_code).subscribe(result => {
-  //        doc.hours = result;
-  //      }, error => console.error(error));
-  //    })
-  //  }, error => console.error(error));
-    
-  //}
+    this.filtered_hospitals = [];
 
-  //getDepartments() {
-  //  this.http.get<Department[]>(this.baseUrl + 'department').subscribe(result => {
-  //    this.departments = result;
-  //    this.departments.forEach(dep => dep.doctors = this.doctors.filter(doc => doc.department_code != null && doc.department_code == dep.department_code));
-  //    this.departments = this.departments.filter(dep => dep.doctors.length > 0);
-  //  }, error => console.error(error));
+    this.selected_filters = this.types.filter(s => {
+      return s.selected;
+    });
 
-  //}
+    this.selected_filters.forEach(s =>
+      this.filtered_hospitals = this.filtered_hospitals.concat(this.hospitals.filter(hp => hp.hospital_type.includes(s.label))));
+    console.log(this.filtered_hospitals);
+
+  }
+
+ 
 }
 
