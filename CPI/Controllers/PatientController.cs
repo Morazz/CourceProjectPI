@@ -57,18 +57,8 @@ namespace CPI.Controllers
         [HttpPut]
         public void Update(Patient newPatient)
         {
-            Patient patient = Get(newPatient.login);
-            if (patient != null)
-            {
-                patient.firstname = newPatient.firstname;
-                patient.fathername = newPatient.fathername;
-                patient.surname = newPatient.surname;
-                patient.address = newPatient.address;
-                patient.birthday = newPatient.birthday;
-                patient.phone_number = newPatient.phone_number;
-                db.Patients.Update(patient);
-                db.SaveChanges();
-            }
+            db.Patients.Update(newPatient);
+            db.SaveChanges();
         }
     }
 }

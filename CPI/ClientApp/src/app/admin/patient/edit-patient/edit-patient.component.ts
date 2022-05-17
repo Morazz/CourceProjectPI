@@ -31,6 +31,7 @@ export class EditPatientComponent {
     this.http.put(this.baseUrl + 'patient', this.patient).subscribe(result => {
         this.router.navigate(['patients-list', this.login]);
     }, error => console.error(error));
+    console.log(this.patient.gender);
   }
 }
 

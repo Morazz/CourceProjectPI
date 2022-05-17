@@ -48,11 +48,17 @@
     Введите корректные данные
   </div>
   <div>
-    <label for="gender"><b>Пол</b></label>
-    <input type="radio" name="woman" [(ngModel)]="patient.gender" #gender="ngModel" value="Женский">
+    <label for="gender"><b>Пол</b></label><br />
+    <!--<input type="radio" name="woman" [(ngModel)]="patient.gender" #gender="ngModel" value="Женский">
     <label for="woman"><b>Женский</b></label> <br />
     <input type="radio" name="man" [(ngModel)]="patient.gender" #gender="ngModel" value="Мужской">
-    <label for="man"><b>Мужской</b></label>
+    <label for="man"><b>Мужской</b></label>-->
+
+    <mat-radio-group name="gender" [(ngModel)]="patient.gender">
+      <mat-radio-button name="woman" value="Женский">Женский</mat-radio-button>
+      <mat-radio-button name="man" value="Мужской" color="primary">Мужской</mat-radio-button>
+    </mat-radio-group>
+
   </div>
   <label for="birthday"><b>Дата рождения</b></label>
   <input type="date" name="birthday"

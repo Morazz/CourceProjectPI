@@ -52,13 +52,11 @@
   <div [hidden]="fathername.valid || fathername.untouched" class="alert alert-danger">
     Введите корректные данные
   </div>
-  <label for="gender"><b>Пол</b></label>
-  <div>
-    <input type="radio" name="woman" [(ngModel)]="patient.gender" value="Женский">
-    <label for="woman"><b>Женский</b></label> <br />
-    <input type="radio" name="man" [(ngModel)]="patient.gender" value="Мужской">
-    <label for="man"><b>Мужской</b></label>
-  </div>
+  <label for="gender"><b>Пол</b></label><br />
+  <mat-radio-group name="gender" [(ngModel)]="patient.gender">
+    <mat-radio-button name="woman" value="Женский">Женский</mat-radio-button>
+    <mat-radio-button name="man" value="Мужской" color="primary">Мужской</mat-radio-button>
+  </mat-radio-group>
   <label for="birthday"><b>Дата рождения</b></label>
   <input type="date" name="birthday"
          min="1900-01-01" max="2019-01-01" [(ngModel)]="patient.birthday">
