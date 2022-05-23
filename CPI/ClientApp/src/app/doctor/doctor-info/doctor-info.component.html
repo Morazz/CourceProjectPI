@@ -49,16 +49,25 @@
       <h4><span class="label">Специальность: </span> {{doctor.speciality?.speciality}}</h4>
       <h4><span class="label">Кабинет: </span> {{doctor.cabinet}}</h4>
       <h4><span class="label">Время работы: </span> {{doctor.hours?.appointment_start | date:'HH:mm'}} - {{doctor.hours?.appointment_end | date: 'HH:mm'}}</h4>
-      <br/>
-      <h5>Образование:</h5>
+      <br />
+      <!--<h5>Образование:</h5>
       <hr/>
       <p>{{doctor.education}}</p>
       <h5>Профессональные достижения и опыт:</h5>
       <hr/>
-      <p>{{doctor.regards}}</p>
+      <p>{{doctor.regards}}</p>-->
 
     </div>
 
+  </div>
+
+  <div class="bottom-panel">
+    <h5>Образование</h5>
+    <hr />
+    <p>{{doctor.education}}</p>
+    <h5>Профессональные достижения и опыт</h5>
+    <hr />
+    <p>{{doctor.regards}}</p>
   </div>
 
 </div>

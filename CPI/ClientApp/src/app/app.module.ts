@@ -58,7 +58,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatRadioGroup } from '@angular/material/typings/radio';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
+import { MAT_DATE_LOCALE } from '@angular/material';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material';
+import { MatSortModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -114,6 +117,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatTooltipModule,
     MatRadioModule,
     MatProgressSpinnerModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'register', component: RegisterComponent, },
@@ -187,7 +193,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   ],
   providers: [
     { provide: MAT_DIALOG_DATA, useValue: {} },
-    { provide: MatDialogRef, useValue: {} }
+    { provide: MatDialogRef, useValue: {} },
+    { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' }
+
   ],
   bootstrap: [AppComponent],
   entryComponents: [AddTemplateComponent]

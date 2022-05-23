@@ -107,4 +107,14 @@
 
 table {
   background: rgba(255,255,255, 1);
+  margin-bottom: 0;
+}
+
+th{
+    font-size: 18px;
+    color: black;
+}
+
+td {
+  font-size: 18px;
 }

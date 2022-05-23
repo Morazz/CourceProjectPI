@@ -48,6 +48,15 @@
   text-align: justify;
 }
 
+.bottom-panel {
+    margin: 20px;
+    padding-bottom: 20px;
+}
+
 .label {
-  color: #708090;
+  color: #808080;
+}
+
+h2, h5 {
+  color: #228B22;
 }

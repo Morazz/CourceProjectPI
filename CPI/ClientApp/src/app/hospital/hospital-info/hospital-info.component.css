@@ -27,13 +27,11 @@
   min-width: 80%;
 }
 
-  .div-container .card {
+   .card {
     background-color: rgba(255, 255, 255, 0.6);
     margin: 10px;
     padding: 5px 10px;
-    /*min-*/width: 30%;
-    /*min-*/height: 40%;
-/*    max-width: 40%;*/
+    width: 20%;
   }
 
     .div-container .card:hover {
@@ -42,7 +40,7 @@
     }
 
 .home {
-  display: inline-flex;
+/*  display: inline-flex;*/
   min-width: 100%;
 }
 
@@ -64,11 +62,11 @@
     /*align-content: center;*/
 }
 
-.preview img {
+ img {
   display: block;
   margin: auto;
-  width: 50%;
-  padding: 0 0 5px 0;
+  width: 80%;
+  padding: 10px 0 20px 0;
 }
 
 .info button {
@@ -77,3 +75,10 @@
     font-size: 20px;
 }
 
+.label {
+  color: #228B22;
+}
+
+.text {
+    margin: 0 10px 0 10px;
+}

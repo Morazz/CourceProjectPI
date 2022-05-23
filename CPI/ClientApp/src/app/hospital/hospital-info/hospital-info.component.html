@@ -25,7 +25,7 @@
 
 <div class="home" *ngIf="hospital != undefined">
 
-  <div class="left-panel">
+  <!--<div class="left-panel">
 
     <div class="info">
       <h3>{{hospital.hospital_name}}</h3>
@@ -34,7 +34,7 @@
       <button [routerLinkActive]="['link-active']" [routerLink]="['/hospital-schedules', hospital_id]">Расписание</button>
     </div>
 
-  </div>
+  </div>-->
 
   <div class="right-panel">
 
@@ -49,9 +49,14 @@
             <img src="/assets/images/profile-placeholder.png">
           </div>
         </ng-template>
-        <p>{{doctor.surname}} {{doctor.firstname}} {{doctor.fathername}}</p>
-        <p>Отделение {{doctor.department?.department_name}}</p>
-        <p>{{doctor.speciality?.speciality}}</p>
+        <div class="text">
+          <h4>{{doctor.surname}} </h4>
+          <h5>{{doctor.firstname}} {{doctor.fathername}}</h5>
+          <p class="label">{{doctor.speciality?.speciality}}</p>
+          <hr />
+          <p>Отделение: {{doctor.department?.department_name}}</p>
+          <p>Время работы: {{doctor.hours?.appointment_start | date:'HH:mm'}} - {{doctor.hours?.appointment_end | date: 'HH:mm'}}</p>
+        </div>
 
 
       </div>

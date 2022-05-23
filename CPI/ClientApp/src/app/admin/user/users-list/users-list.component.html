@@ -32,44 +32,73 @@
 
 <div class="panel">
 
-<div class="topnav">
-  <div class="search-container">
-    <form action="">
-      <input type="text" placeholder="Найти.." name="search" class="search" [(ngModel)]="text" (input)="onInput(text)">
-      <button (click)="openSearch()">Расширенный</button>
-    </form>
+  <div class="topnav">
+    <div class="search-container">
+      <form action="">
+        <input type="text" placeholder="Найти.." name="search" class="search" [(ngModel)]="text" (input)="onInput(text)">
+        <button (click)="openSearch()">Расширенный</button>
+      </form>
+    </div>
   </div>
-</div>
 
-<div class="div-container">
-  <button (click)="openDialog('AddUser')">Добавить</button>
-  <div class="search-exp" *ngIf="open_filter" style="display:flex; margin-top:10px;">
-    <p>Логин: <input type="text" [(ngModel)]="filter.login"></p>
-    <p>Роль: <input type="text" [(ngModel)]="filter.status"></p>
-    <button style="height:30px; margin-left: 30px;" (click)="findFilter()">Найти</button>
-    <button style="height:30px; margin-left: 30px;" (click)="nullFilter()">Сбросить</button>
+  <div class="div-container">
+    <button (click)="openDialog('AddUser')">Добавить</button>
+    <div class="search-exp" *ngIf="open_filter" style="display:flex; margin-top:10px;">
+      <p>Логин: <input type="text" [(ngModel)]="filter.login"></p>
+      <p>Роль: <input type="text" [(ngModel)]="filter.status"></p>
+      <button style="height:30px; margin-left: 30px;" (click)="findFilter()">Найти</button>
+      <button style="height:30px; margin-left: 30px;" (click)="nullFilter()">Сбросить</button>
+    </div>
+    <div *ngIf="!users"><em>Загрузка...</em></div>
   </div>
-  <div *ngIf="!users"><em>Загрузка...</em></div>
-</div>
 
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="users">
-  <thead>
-    <tr>
-      <th (click)="sortLogin()" class="toorder">Логин</th>
-      <th (click)="sortStatus()" class="toorder">Роль</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of users">
-      <td>{{user.login}}</td>
-      <td>{{user.status}}</td>
-      <td>
-        <button class="dltbtn" (click)="deleteUser(user.login)">Удалить</button>
-        <button class="editbtn" (click)="openDialog('EditUser', user.login)">Изменить</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  <!--<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="users">
+    <thead>
+      <tr>
+        <th (click)="sortLogin()" class="toorder">Логин</th>
+        <th (click)="sortStatus()" class="toorder">Роль</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{user.login}}</td>
+        <td>{{user.status}}</td>
+        <td>
+          <button class="dltbtn" (click)="deleteUser(user.login)">Удалить</button>
+          <button class="editbtn" (click)="openDialog('EditUser', user.login)">Изменить</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[1, 2, 3]"
+                 showFirstLastButtons
+                 aria-label="Select page of users">
+  </mat-paginator>-->
+
+  <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" class='table table-striped' >
+
+    <ng-container matColumnDef="login">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Логин</th>
+      <td mat-cell *matCellDef="let user"> {{user.login}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="status">Роль</th>
+      <td mat-cell *matCellDef="let user"> {{user.status}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let user; columns: displayedColumns;"></tr>
+
+  </table>
+
+
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                 showFirstLastButtons
+                 aria-label="Select page of users">
+  </mat-paginator>
 
 </div>
 
