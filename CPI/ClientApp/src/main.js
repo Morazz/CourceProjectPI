@@ -3,6 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getBaseUrl = void 0;
 var core_1 = require("@angular/core");
 var platform_browser_dynamic_1 = require("@angular/platform-browser-dynamic");
+var russian_paginator_intl_1 = require("./app/russian-paginator-intl");
+var material_1 = require("@angular/material");
 var app_module_1 = require("./app/app.module");
 var environment_1 = require("./environments/environment");
 function getBaseUrl() {
@@ -10,7 +12,8 @@ function getBaseUrl() {
 }
 exports.getBaseUrl = getBaseUrl;
 var providers = [
-    { provide: 'BASE_URL', useFactory: getBaseUrl, deps: [] }
+    { provide: 'BASE_URL', useFactory: getBaseUrl, deps: [] },
+    { provide: material_1.MatPaginatorIntl, useValue: (0, russian_paginator_intl_1.getRussianPaginatorIntl)() }
 ];
 if (environment_1.environment.production) {
     (0, core_1.enableProdMode)();

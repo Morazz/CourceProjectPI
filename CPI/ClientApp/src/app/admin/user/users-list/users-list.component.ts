@@ -153,9 +153,9 @@ export class UsersListComponent {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
         case 'login':
-          return compare(a.login, b.login, isAsc);
+          return this.compare(a.login, b.login, isAsc);
         case 'status':
-          return compare(a.status, b.status, isAsc);
+          return this.compare(a.status, b.status, isAsc);
         default:
           return 0;
       }
