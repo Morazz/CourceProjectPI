@@ -27,7 +27,7 @@
 
   <hr />
 
-  <h3>Выберите время:</h3>
+  <h4>Выберите время:</h4>
 
   <div class="coupon-container">
 
@@ -39,15 +39,13 @@
 
       <div class="coupons-list">
 
-        <div class="coupons">
-          <div class="container" *ngFor="let freeCoupon of freeCoupons">
+        <div class="coupons" *ngFor="let freeCoupon of freeCoupons">
             <label class="coup" (click)="newCoupon.template_id = freeCoupon.template_id; app_time = freeCoupon.time">
               <input type="radio" name="product" class="card-input-element" />
               <div class="card-input">
                 {{freeCoupon.time | date: 'HH:mm'}}
               </div>
             </label>
-          </div>
         </div>
 
       </div>
@@ -66,7 +64,7 @@
 
   </div>
 
-  <div *ngIf="selectedDate">
+  <div *ngIf="selectedDate && app_time">
     <button type="submit" class="registerbtn" (click)="pickCoupon()">Заказать</button>
   </div>
 

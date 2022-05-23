@@ -28,13 +28,24 @@ export class DoctorCouponsListComponent {
       this.coupons.forEach(coup => {
         this.http.get<Patient>(this.baseUrl + 'patient/' + coup.patient_login).subscribe(result => {
           coup.patient = result;
-          console.log(coup.patient.login);
           this.http.get<CouponTemplate>(this.baseUrl + 'coupontemplate/' + coup.template_id).subscribe(result => {
             coup.template = result;
           }, error => console.error(error));
         });
       }, error => console.error(error));
     }, error => console.error(error));
+  }
+
+  getTooltipText(patient_login: string) {
+
+    this.http.get<Patient>(this.baseUrl + 'patient/' + patient_login).subscribe(result => {
+      this.user = result;
+    });
+
+    return `${this.user.surname} ${this.user.firstname} ${this.user.fathername}
+            Дата рождения: ${this.user.birthday.toLocaleString()}
+            Адрес: ${this.user.address}
+            Номер телефона: ${this.user.phone_number}`;
   }
 }
 

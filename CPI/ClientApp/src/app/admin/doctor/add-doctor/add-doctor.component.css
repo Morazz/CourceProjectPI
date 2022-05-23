@@ -11,7 +11,7 @@ body {
 /* Add padding to containers */
 .container {
   margin: 10px auto;
-  padding: 8px;
+  padding: 20px;
   background-color: white;
   width: 70%;
   height: 50%;
@@ -26,10 +26,6 @@ input[type=text], input[type=password], input[type=date], input[type=number], se
   display: inline-block;
   border: none;
   background: #e0e0e0;
-}
-
-img {
-  
 }
 
 /* Overwrite default styles of hr */
@@ -64,3 +60,28 @@ a {
   background-color: #f1f1f1;
   text-align: center;
 }
+
+.preview img {
+    width: 40%;
+    display: block;
+    margin: auto;
+}
+
+input[type=file] {
+    padding: 20px 0 20px 0;
+}
+
+.dltbtn {
+  background-color: #FF0000;
+  color: white;
+  padding: 4px;
+  margin: 4px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.9;
+  float: right;
+}
+
+  .dltbtn:hover {
+    background-color: #BF3030;
+  }

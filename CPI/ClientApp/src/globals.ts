@@ -8,3 +8,5 @@ dialogConfig.minWidth = '25%';
 
 export const roles: string[] = ["Пациент", "Врач", "Администратор", "Модератор"];
 export const hosp_type: string[] = ["Взрослая", "Детская", "Специализированная"];
+
+export const profile_placeholder = "/assets/images/profile-placeholder.png";

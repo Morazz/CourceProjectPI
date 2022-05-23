@@ -24,6 +24,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .panel {
   margin: 20px 80px;
+  margin-bottom: 20px;
 }
 
 .example-h2 {
@@ -44,3 +45,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .dialog .mat-dialog-container {
   overflow-y: hidden;
 }
+
+.mat-radio-button {
+    margin: 0 5px 0 5px;
+}
+

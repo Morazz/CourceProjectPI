@@ -20,28 +20,32 @@
     </div>
   </nav>
 </header>
-<div>
-  <h3>{{user.surname}} {{user.firstname}} {{user.fathername}}</h3>
-  <h4>Пол: {{user.gender}}</h4>
-  <h4>Дата рождения: {{user.birthday | date:'dd.MM.yyyy'}}</h4>
-  <h4>Адрес: {{user.address}}</h4>
-  <h4>Телефон: {{user.phone_number}}</h4>
-  <h5>Логин: {{user.login}}</h5>
-</div>
 
-<hr />
+<div class="panel">
 
-<h3>Заказанные талоны</h3>
+  <div>
+    <h3>{{user.surname}} {{user.firstname}} {{user.fathername}}</h3>
+    <h4>Пол: {{user.gender}}</h4>
+    <h4>Дата рождения: {{user.birthday | date:'dd.MM.yyyy'}}</h4>
+    <h4>Адрес: {{user.address}}</h4>
+    <h4>Телефон: {{user.phone_number}}</h4>
+  </div>
 
-<em *ngIf="!coupons">Загрузка...</em>
+  <hr />
 
-<div class="div-container" *ngIf="coupons">
+  <h3>Заказанные талоны</h3>
 
-  <div class="card" *ngFor="let coupon of coupons">
-    <div style="margin: 5px 0;">
-      <p>{{coupon.appointment_day | date: 'dd.MM.yyyy'}}</p>
-      <p>{{coupon.template.time | date:'HH:mm'}}</p>
+  <em *ngIf="!coupons">Загрузка...</em>
+
+  <div class="div-container" *ngIf="coupons">
+
+    <div class="card" *ngFor="let coupon of coupons">
+      <div style="margin: 5px 0;">
+        <p>{{coupon.appointment_day | date: 'dd.MM.yyyy'}}</p>
+        <p>{{coupon.template.time | date:'HH:mm'}}</p>
+      </div>
     </div>
+
   </div>
 
 </div>

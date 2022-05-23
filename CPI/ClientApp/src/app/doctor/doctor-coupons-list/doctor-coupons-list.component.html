@@ -20,18 +20,37 @@
     </div>
   </nav>
 </header>
-<h2>Текущие записи</h2>
 
-<em *ngIf="!coupons">Загрузка...</em>
+<div class="panel">
 
-<div class="div-container" *ngIf="coupons">
+  <h2>Текущие записи</h2>
 
-  <div class="card" *ngFor="let coupon of coupons"  [routerLink]="['/patient-info', doctor.login, coupon.patient.login]">
-    <p>{{coupon.appointment_day | date: 'dd.MM.yyyy'}}</p>
-    <p>{{coupon.template.time | date: 'HH:mm'}}</p>
-    <div style="margin: 5px 0;">
-      <p class="title">{{coupon.patient.surname}} {{coupon.patient.firstname}} {{coupon.patient.fathername}}</p>
+  <hr />
+
+  <!--<em *ngIf="!coupons">Загрузка...</em>-->
+  <p style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 80vh;"
+     *ngIf="!coupons"><mat-spinner></mat-spinner></p>
+
+  <em *ngIf="coupons.length == 0">Нет активных записей</em>
+
+  <div class="div-container" *ngIf="coupons">
+
+    <div class="card" *ngFor="let coupon of coupons" [routerLink]="['/patient-info', doctor.login, coupon.patient.login]">
+      <p>
+        <button class="infobutton"
+                [matTooltip]="getTooltipText(coupon.patient.login)"
+                matTooltipClass="custom-tooltip">
+          <mat-icon>account_circle</mat-icon>
+        </button>
+
+      </p>
+      <p>{{coupon.appointment_day | date: 'dd.MM.yyyy'}}</p>
+      <p>{{coupon.template.time | date: 'HH:mm'}}</p>
+      <div style="margin: 5px 0;">
+        <p class="title">{{coupon.patient.surname}} {{coupon.patient.firstname}} {{coupon.patient.fathername}}</p>
+      </div>
     </div>
+
   </div>
 
 </div>

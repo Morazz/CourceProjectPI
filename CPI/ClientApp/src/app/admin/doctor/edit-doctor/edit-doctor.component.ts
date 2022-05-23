@@ -37,18 +37,20 @@ export class EditDoctorComponent {
   }
 
   addDoctor() {
-    this.getSpeciality();
-    this.getDepartment();
-    this.getSchedule();
-    this.doctor.speciality_code = this.docSpeciality.speciality_code;
-    this.doctor.department_code = <number>(this.docDepartment.department_code);
-    this.doctor.schedule_code = <number>(this.docSchedule.schedule_code);
-    console.log(this.doctor);
+    //this.getSpeciality();
+    //this.getDepartment();
+    //this.getSchedule();
+    //this.doctor.speciality_code = this.docSpeciality.speciality_code;
+    //this.doctor.department_code = <number>(this.docDepartment.department_code);
+    /*    this.doctor.schedule_code = <number>(this.docSchedule.schedule_code);*/
+
     this.http.put(this.baseUrl + 'doctor', this.doctor)
       .subscribe(
         (data: any) => {
           this.router.navigate(['/doctors-list', this.login]);
         }, error => console.log(error));
+
+        console.log(this.doctor);
   };
 
   getDepartments() {

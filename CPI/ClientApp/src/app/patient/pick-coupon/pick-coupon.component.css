@@ -36,8 +36,8 @@
 }
 
 .coup {
-  width: 70px;
-  display: table-cell;
+  width: 20%;
+  display: inline-flex;
 }
 
 .card-input-element {
@@ -63,17 +63,11 @@
   background: #b5b5b5;
 }
 
-
 .coupons {
-  display: flex;
+  display: inline;
   flex-wrap: wrap;
-  margin: 20px;
+  margin: 0 10px 10px 10px;
 }
-
-  .coupons .container {
-    display: flex;
-    flex-wrap: wrap;
-  }
 
 .coupon-container {
   display: inline-flex;
@@ -89,15 +83,13 @@
 }
 
 .right-panel {
-  background-color: aqua;
+  background-color: rgba(255, 255, 255, 0.8);
   padding: 10px 20px 0 20px;
   min-width: 50%;
 }
 
 .coupons-list {
-  background-color: blueviolet;
   margin: 0 0 0 20px;
   max-width: 60%;
-
 }
 

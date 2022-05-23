@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Schedule } from '../../admin/schedule/schedules-list/schedules-list.component';
+import { Speciality } from '../../admin/speciality/add-speciality/add-speciality.component';
 
 @Component({
   selector: 'app-pick-coupon',
@@ -15,7 +16,7 @@ export class PickCouponComponent {
   freeCoupons: CouponTemplate[] = [];
   selectedDate: Date;
   newCoupon: Coupon = new Coupon(0, new Date(), "", "", 0);
-  doctor: Doctor = new Doctor("", "", "", "", 0, new Schedule(0, new Date(), new Date()), []);
+  doctor: Doctor = new Doctor("", "", "", "", 0, new Schedule(0, new Date(), new Date()), [], null, null);
   patient: Patient = new Patient("");
   doctorFreeCoupons: Coupon[] = [];
   minDate: Date = new Date();
@@ -44,6 +45,9 @@ export class PickCouponComponent {
       }, error => console.error(error));
       this.http.get<Coupon[]>(this.baseUrl + 'coupon/doc/' + this.doctor.login).subscribe(result => {
         this.doctor.coupons = result;
+      }, error => console.error(error));
+      this.http.get<Speciality>(this.baseUrl + 'speciality/' + this.doctor.speciality_code).subscribe(result => {
+        this.doctor.speciality = result.speciality;
       }, error => console.error(error));
     }, error => console.error(error));
   }
@@ -99,7 +103,9 @@ export class Doctor {
     public fathername: string,
     public schedule_code: number,
     public schedule: Schedule,
-    public coupons: Coupon[]
+    public coupons: Coupon[],
+    public speciality_code: number,
+    public speciality: string
   ) { }
 }
 

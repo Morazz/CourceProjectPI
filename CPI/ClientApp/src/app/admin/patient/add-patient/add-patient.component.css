@@ -15,7 +15,7 @@ body {
 /* Add padding to containers */
 .container {
   margin: 0px auto;
-  padding: 4px;
+  padding: 20px;
   background-color: white;
   width: 70%;
   height: 45%;
@@ -44,6 +44,7 @@ hr {
   color: white;
   padding: 10px;
   margin: 8px 0;
+  margin-top: 20px;
   border: none;
   cursor: pointer;
   width: 100%;

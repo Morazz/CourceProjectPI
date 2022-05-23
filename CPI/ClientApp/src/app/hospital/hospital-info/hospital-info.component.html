@@ -23,7 +23,7 @@
   </nav>
 </header>
 
-<div class="home">
+<div class="home" *ngIf="hospital != undefined">
 
   <div class="left-panel">
 
@@ -60,5 +60,7 @@
 
   </div>
 
-
 </div>
+
+<p style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 80vh;"
+   *ngIf="doctors == undefined"><mat-spinner></mat-spinner></p>

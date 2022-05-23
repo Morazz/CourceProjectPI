@@ -49,10 +49,6 @@
   </div>
   <div>
     <label for="gender"><b>Пол</b></label><br />
-    <!--<input type="radio" name="woman" [(ngModel)]="patient.gender" #gender="ngModel" value="Женский">
-    <label for="woman"><b>Женский</b></label> <br />
-    <input type="radio" name="man" [(ngModel)]="patient.gender" #gender="ngModel" value="Мужской">
-    <label for="man"><b>Мужской</b></label>-->
 
     <mat-radio-group name="gender" [(ngModel)]="patient.gender">
       <mat-radio-button name="woman" value="Женский">Женский</mat-radio-button>

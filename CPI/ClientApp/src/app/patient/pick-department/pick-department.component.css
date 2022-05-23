@@ -82,3 +82,18 @@ input[type=text], input[type=password] {
     background-color: #ddd;
     outline: none;
   }
+
+.cell {
+  background-color: rgba(255, 255, 255, 0.6);
+  margin: 20px 0px;
+  padding: 10px 20px;
+}
+
+  .cell:hover {
+    background-color: rgba(255, 255, 255, 1.0);
+    cursor: pointer;
+  }
+
+  .content {
+      padding-bottom: 40px;
+  }

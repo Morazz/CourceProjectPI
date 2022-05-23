@@ -1,11 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { profile_placeholder } from '../../../globals';
 import { Doctor } from '../../admin/doctor/doctors-list/doctors-list.component';
 import { Hospital } from '../../admin/hospital/hospitals-list/hospitals-list.component';
 import { Schedule } from '../../admin/schedule/schedules-list/schedules-list.component';
 import { Speciality } from '../../admin/speciality/specialities-list/specialities-list.component';
 import { Department } from '../../moderator/department/departments-list/departments-list.component';
+
 
 
 @Component({

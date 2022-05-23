@@ -45,9 +45,9 @@
 
   <em *ngIf="!coupons">Загрузка...</em>
 
-  <div class="div-container" *ngIf="coupons">
+  <div class="div-container"  *ngFor="let coupon of coupons">
 
-    <div class="card" *ngFor="let coupon of coupons">
+    <div class="card">
       <div style="margin: 5px 0;">
         <p>{{coupon.appointment_day | date: 'dd.MM.yyyy'}}</p>
         <p>{{coupon.template.time | date:'HH:mm'}}</p>

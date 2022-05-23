@@ -27,10 +27,6 @@
   min-width: 80%;
 }
 
-    /*img {
-      
-    }*/
-
   .div-container .card {
     background-color: rgba(255, 255, 255, 0.6);
     margin: 10px;
@@ -40,10 +36,10 @@
 /*    max-width: 40%;*/
   }
 
-.card:hover {
-    background-color: rgba(255, 255, 255, 0.8);
-    cursor: pointer;
-}
+    .div-container .card:hover {
+      background-color: rgba(255, 255, 255, 0.8);
+      cursor: pointer;
+    }
 
 .home {
   display: inline-flex;
@@ -51,9 +47,10 @@
 }
 
 .left-panel {
-  background-color: aqua;
+  background-color: rgba(220, 220, 220, 0.8);
   min-width: 20%;
   min-height: 100%;
+  padding: 10px 0 0 10px;
 }
 
 .right-panel {

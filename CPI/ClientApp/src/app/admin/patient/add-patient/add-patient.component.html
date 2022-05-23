@@ -1,7 +1,7 @@
 <header>
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-    <div class="container">
-      <a class="navbar-brand" [routerLink]="['/admin-panel', user]">CPI</a>
+    <!--<div class="container">-->
+      <a class="navbar-brand" [routerLink]="['/admin-panel', login]">CPI</a>
       <button class="navbar-toggler"
               type="button"
               data-toggle="collapse"
@@ -15,14 +15,14 @@
            [ngClass]="{ show: isExpanded }">
         <ul class="navbar-nav flex-grow">
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/admin-panel', admin]">{{admin}}</a>
+            <a class="nav-link text-dark" [routerLink]="['/admin-panel', login]">{{login}}</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/']">Выйти</a>
           </li>
         </ul>
       </div>
-    </div>
+    <!--</div>-->
   </nav>
 </header>
 
@@ -56,7 +56,7 @@
   <mat-radio-group name="gender" [(ngModel)]="patient.gender">
     <mat-radio-button name="woman" value="Женский">Женский</mat-radio-button>
     <mat-radio-button name="man" value="Мужской" color="primary">Мужской</mat-radio-button>
-  </mat-radio-group>
+  </mat-radio-group><br/>
   <label for="birthday"><b>Дата рождения</b></label>
   <input type="date" name="birthday"
          min="1900-01-01" max="2019-01-01" [(ngModel)]="patient.birthday">
