@@ -100,6 +100,7 @@
     <None Remove="ClientApp\src\app\patient\doctor-view\doctor-view.component.css" />
     <None Remove="ClientApp\src\app\patient\doctor-view\doctor-view.component.html" />
     <None Remove="ClientApp\src\app\patient\doctor-view\doctor-view.component.ts" />
+    <None Remove="ClientApp\src\app\russian-paginator-intl.ts" />
     <None Remove="ClientApp\src\globals.ts" />
     <None Remove="ClientApp\src\spinner.css" />
   </ItemGroup>

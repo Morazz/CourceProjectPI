@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Component, Inject } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { Component, Inject, ViewChild } from '@angular/core';
+import { MatDialog, MatPaginator, MatSort, MatTableDataSource, Sort } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { Scheduler } from 'rxjs';
 import { dialogConfig, roles } from '../../../../globals';
@@ -17,7 +17,6 @@ import { PassData } from '../../user/add-user/add-user.component';
 export class DoctorsListComponent {
   public login: string;
   public doctors: Doctor[];
-  public filtered: Doctor[];
   public coupons: Coupon[];
   public speciality: Speciality = new Speciality("", "");
   public department: Department = new Department(0, "");
@@ -31,11 +30,39 @@ export class DoctorsListComponent {
   public hospital_id: string;
   public isAdmin: boolean = true;
 
+  public departments: Department[];
+  public specialities: Speciality[];
+  searchResult: Doctor[];
+
+  sortedData: Doctor[];
+  @ViewChild(MatPaginator, null) paginator: MatPaginator;
+  @ViewChild(MatSort, null) sort: MatSort;
+  dataSource: MatTableDataSource<Doctor>;
+  displayedColumns: string[] = ['login', 'department', 'speciality', 'surname',
+    'firstname', 'fathername', 'cabinet', 'appointment_time', 'actions'];
+  displayedColumnsFull: string[] = ['hospital_id', 'login', 'department', 'speciality', 'surname',
+    'firstname', 'fathername', 'cabinet', 'appointment_time', 'actions'];
+
   constructor(private http: HttpClient, private activateRoute: ActivatedRoute, @Inject('BASE_URL') private baseUrl: string,
     private dialog: MatDialog) {
     this.login = activateRoute.snapshot.params['login'];
     this.checkStatus();
     !this.hospital_id ? this.getDoctors() : this.getHospitalDoctors();
+
+    this.getDepartments();
+    this.getSpecialities();
+  }
+
+  getDepartments() {
+    this.http.get<Department[]>(this.baseUrl + 'department').subscribe(result => {
+      this.departments = result;
+    }, error => console.error(error));
+  }
+
+  getSpecialities() {
+    this.http.get<Speciality[]>(this.baseUrl + 'speciality').subscribe(result => {
+      this.specialities = result;
+    }, error => console.error(error));
   }
 
   checkStatus() {
@@ -95,7 +122,11 @@ export class DoctorsListComponent {
         this.http.get<Schedule>(this.baseUrl + 'schedule/' + doc.schedule_code).subscribe(result => {
           doc.hours = result;
         }, error => console.error(error));
-      })
+      });
+
+      this.dataSource = new MatTableDataSource<Doctor>(this.doctors);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     }, error => console.error(error));
   }
 
@@ -114,68 +145,50 @@ export class DoctorsListComponent {
         this.http.get<Schedule>(this.baseUrl + 'schedule/' + doc.schedule_code).subscribe(result => {
           doc.hours = result;
         }, error => console.error(error));
-      })
+      });
+
+      this.dataSource = new MatTableDataSource<Doctor>(this.doctors);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     }, error => console.error(error));
   }
 
   onInput(text: string) {
     if (text.length > 0) {
-      this.doctors = this.doctors.filter(doc => doc.surname.includes(text));
+      this.searchResult = this.doctors.filter(doc => doc.surname.includes(text));
+      this.dataSource = new MatTableDataSource<Doctor>(this.searchResult);
     }
-    else this.getDoctors();
+    else this.dataSource = new MatTableDataSource<Doctor>(this.doctors);
   }
 
-  sortLogin() {
-    if (this.ascLogin) {
-      this.doctors.sort((doc1, doc2) => doc1.login.localeCompare(doc2.login));
-      this.ascLogin = !this.ascLogin;
+  sortData(sort: Sort) {
+    const data = this.doctors;
+    if (!sort.active || sort.direction === '') {
+      this.sortedData = data;
+      return;
     }
-    else {
-      this.doctors.sort((doc1, doc2) => doc1.login.localeCompare(doc2.login)).reverse();
-      this.ascLogin = !this.ascLogin;
-    }
+
+    this.sortedData = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'hospital_id':
+          return this.compare(a.hospital_id, b.hospital_id, isAsc);
+        case 'login':
+          return this.compare(a.login, b.login, isAsc);
+        case 'surname':
+          return this.compare(a.surname, b.surname, isAsc);
+        case 'department':
+          return this.compare(a.department.department_name, b.department.department_name, isAsc);
+        case 'speciality':
+          return this.compare(a.speciality.speciality, b.speciality.speciality, isAsc);
+        default:
+          return 0;
+      }
+    });
   }
 
-
-  sortSurname() {
-    if (this.ascSur) {
-      this.doctors.sort((doc1, doc2) => doc1.surname.localeCompare(doc2.surname));
-      this.ascSur = !this.ascSur;
-    }
-    else {
-      this.doctors.sort((doc1, doc2) => doc1.surname.localeCompare(doc2.surname)).reverse();
-      this.ascSur = !this.ascSur;
-    }
-  }
-
-  sortDepartment() {
-    //if (this.ascDep) {
-    //  this.ascDep = !this.ascDep;
-    //  this.doctors.sort(function (doc1, doc2) {
-    //    return (doc1.department_code === null) - (doc2.department_code === null)
-    //      || +(doc1.department.department_name.localeCompare(doc2.department.department_name) == 1)
-    //      || -(doc1.department.department_name.localeCompare(doc2.department.department_name) == -1);
-    //  });
-    //}
-    //else {
-    //  this.ascDep = !this.ascDep;
-    //  this.doctors.sort(function (doc1, doc2) {
-    //    return (doc1.department_code === null) - (doc2.department_code === null)
-    //      || -(doc1.department.department_name.localeCompare(doc2.department.department_name) == 1)
-    //      || +(doc1.department.department_name.localeCompare(doc2.department.department_name) == -1);
-    //  });
-    //}
-  }
-
-  sortSpeciality() {
-    if (this.ascSpec) {
-      this.doctors.sort((doc1, doc2) => doc1.speciality.speciality.localeCompare(doc2.speciality.speciality));
-      this.ascSpec = !this.ascSpec;
-    }
-    else {
-      this.doctors.sort((doc1, doc2) => doc1.speciality.speciality.localeCompare(doc2.speciality.speciality)).reverse();
-      this.ascSpec = !this.ascSpec;
-    }
+  compare(a: number | string, b: number | string, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 
 
@@ -186,13 +199,16 @@ export class DoctorsListComponent {
   nullFilter() {
     this.filter.department = "";
     this.filter.speciality = "";
-    this.getDoctors();
     this.open_filter = !this.open_filter;
+    this.dataSource = new MatTableDataSource<Doctor>(this.doctors);
   }
 
   findFilter() {
-    this.doctors = this.doctors.filter(doc => doc.department != null && doc.department.department_name.toLowerCase().includes(this.filter.department.toLowerCase())
+    console.log(this.filter);
+    this.searchResult = this.doctors.filter(doc => /*doc.department != null && */doc.department.department_name.toLowerCase().includes(this.filter.department.toLowerCase())
       && doc.speciality.speciality.toLowerCase().includes(this.filter.speciality.toLowerCase()));
+    console.log(this.searchResult);
+    this.dataSource = new MatTableDataSource<Doctor>(this.searchResult);
   }
 }
 
@@ -211,6 +227,7 @@ export class Speciality {
 
 export class Doctor {
   constructor(
+    public hospital_id: string, 
     public login: string,
     public firstname: string,
     public fathername: string,

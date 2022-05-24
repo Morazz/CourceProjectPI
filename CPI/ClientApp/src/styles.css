@@ -50,3 +50,34 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     margin: 0 5px 0 5px;
 }
 
+button img {
+    height: 30px;
+}
+
+.editimg{
+  content: url("assets/images/edit.png");
+}
+
+.dltimg {
+  content: url("assets/images/delete.png");
+}
+
+.add-people {
+  content: url("assets/images/add-people.png");
+}
+
+.hospital {
+  content: url("assets/images/hospital.png");
+}
+
+.profile-placeholder {
+  content: url("assets/images/profile-placeholder.png");
+}
+
+.search {
+  content: url("assets/images/search.png");
+}
+
+.clear {
+  content: url("assets/images/clear.png");
+}

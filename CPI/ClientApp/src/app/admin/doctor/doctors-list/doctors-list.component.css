@@ -13,10 +13,10 @@
     background-color: #BF3030;
   }
 
-  .toorder:hover {
-      background-color: rgb(177,177,177,0.8);
-      cursor: pointer;
-  }
+.toorder:hover {
+  background-color: rgb(177,177,177,0.8);
+  cursor: pointer;
+}
 
 .editbtn {
   background-color: #8B8B8B;
@@ -36,10 +36,6 @@
 
 .search-container {
   float: right;
-}
-
-.search {
-  background-color: #F8F8F8
 }
 
 .topnav input[type=text] {
@@ -85,22 +81,50 @@
 
 .div-container {
   float: left;
-  margin: 10px;
+  margin: 10px 0 10px 0;
+  width: 100%;
 }
 
   .div-container button {
-    background-color: #57CF5F;
-    padding: 4px;
-    margin: 4px;
+/*    background-color: #808080;*/
     border: none;
     cursor: pointer;
-    opacity: 0.9;
+    margin: 0 4px 0 4px;
   }
 
     .div-container button:hover {
-      background-color: #4CAF52;
+      /*      background-color: #4CAF52;*/
     }
+
 
 table {
   background: rgba(255,255,255, 1);
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+th {
+  font-size: 18px;
+  color: black;
+}
+
+td {
+  font-size: 18px;
+  vertical-align: middle;
+}
+
+.filter {
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    margin: 10px 0 10px 0;
+    padding: 20px;
+}
+
+.div-list {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.filter-button img{
+  height: 30px;
 }

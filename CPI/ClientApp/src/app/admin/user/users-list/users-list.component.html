@@ -42,7 +42,9 @@
   </div>
 
   <div class="div-container">
-    <button (click)="openDialog('AddUser')">Добавить</button>
+    <button (click)="openDialog('AddUser')">
+      <img class="add-people"/>
+    </button>
     <div class="search-exp" *ngIf="open_filter" style="display:flex; margin-top:10px;">
       <p>Логин: <input type="text" [(ngModel)]="filter.login"></p>
       <p>Роль: <input type="text" [(ngModel)]="filter.status"></p>
@@ -76,7 +78,7 @@
                  aria-label="Select page of users">
   </mat-paginator>-->
 
-  <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" class='table table-striped' >
+  <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" class='table table-striped'>
 
     <ng-container matColumnDef="login">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Логин</th>
@@ -86,6 +88,18 @@
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef mat-sort-header="status">Роль</th>
       <td mat-cell *matCellDef="let user"> {{user.status}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let user">
+        <button class="dltbtn" (click)="deleteUser(user.login)">
+          <img class="dltimg" />
+        </button>
+        <button class="editbtn" (click)="openDialog('EditUser', user.login)">
+          <img class="editimg" />
+        </button>
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

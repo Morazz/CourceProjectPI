@@ -44,11 +44,13 @@
         <div class="preview" *ngIf="doctor.photo; else null_content">
           <img [src]="doctor.photo">
         </div>
+
         <ng-template #null_content>
           <div class="preview">
-            <img src="/assets/images/profile-placeholder.png">
+            <img class="profile-placeholder">
           </div>
         </ng-template>
+
         <div class="text">
           <h4>{{doctor.surname}} </h4>
           <h5>{{doctor.firstname}} {{doctor.fathername}}</h5>

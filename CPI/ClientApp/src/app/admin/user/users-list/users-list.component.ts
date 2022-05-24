@@ -23,10 +23,10 @@ export class UsersListComponent {
   ascStatus = false;
   sortedData: PassData[];
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, null) paginator: MatPaginator;
+  @ViewChild(MatSort, null) sort: MatSort;
   dataSource: MatTableDataSource<PassData>;
-  displayedColumns: string[] = ['login', 'status'];
+  displayedColumns: string[] = ['login', 'status', 'actions'];
 
   constructor(private http: HttpClient, private activateRoute: ActivatedRoute, @Inject('BASE_URL') private baseUrl: string,
     private dialog: MatDialog) {
@@ -48,28 +48,6 @@ export class UsersListComponent {
             error => console.log(error));
     });
 
-  }
-
-  sortLogin() {
-    if (this.ascLogin) {
-      this.users.sort((usr1, usr2) => usr1.login.localeCompare(usr2.login));
-      this.ascLogin = !this.ascLogin;
-    }
-    else {
-      this.users.sort((usr1, usr2) => usr1.login.localeCompare(usr2.login)).reverse();
-      this.ascLogin = !this.ascLogin;
-    }
-  }
-
-  sortStatus() {
-    if (this.ascStatus) {
-      this.users.sort((usr1, usr2) => usr1.status.localeCompare(usr2.status));
-      this.ascStatus = !this.ascStatus;
-    }
-    else {
-      this.users.sort((usr1, usr2) => usr1.status.localeCompare(usr2.status)).reverse();
-      this.ascStatus = !this.ascStatus;
-    }
   }
 
   getUsers() {

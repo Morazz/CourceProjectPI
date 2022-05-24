@@ -81,15 +81,14 @@ a {
   }
 
 .home {
-  display: inline-flex;
+  display: flex;
   min-width: 100%;
-  min-height: 100%;
+  height: 100%;
 }
 
-.left-panel {
+ .left-panel {
   background-color: rgba(220, 220, 220, 0.8);
   min-width: 20%;
-  min-height: 100%;
   padding: 10px 0 0 10px;
 }
 
