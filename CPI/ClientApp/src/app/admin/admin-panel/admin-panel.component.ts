@@ -26,6 +26,8 @@ export class AdminPanelComponent {
     private dialog: MatDialog  ) {
 
     this.login = activateRoute.snapshot.params['login'];
+    //this.login = activateRoute.snapshot.queryParamMap.get('login');
+    
     this.checkStatus();
   }
 
@@ -47,8 +49,6 @@ export class AdminPanelComponent {
   checkStatus() {
     this.http.get<PassData>(this.baseUrl + 'passdata/' + this.login).subscribe(result => {
       result.status == roles[2] ? this.isAdmin : this.isAdmin = !this.isAdmin;
-      console.log(result.status);
-      console.log(this.isAdmin);
     }, error => console.error(error));
   }
 }

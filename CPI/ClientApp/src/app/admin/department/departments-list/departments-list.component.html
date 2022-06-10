@@ -1,7 +1,7 @@
 <header>
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/admin-panel', user]">CPI</a>
+      <a class="navbar-brand" [routerLink]="['/admin-panel', user]"><img style="width: 60px;" src="/assets/images/icon.png" /></a>
       <button class="navbar-toggler"
               type="button"
               data-toggle="collapse"
@@ -33,7 +33,9 @@
 <div class="panel">
 
   <div class="div-container">
-    <button (click)="openDialog('AddDepartment')">Добавить</button>
+    <button (click)="openDialog('AddDepartment')" style="background-color: none;">
+      <img class="hospital" />
+    </button>
     <div *ngIf="!departments"><em>Загрузка...</em></div>
   </div>
 
@@ -46,25 +48,53 @@
       </div>
     </div>
 
-    <table class='table table-striped' aria-labelledby="tableLabel">
-      <thead>
-        <tr>
-          <th>Отделение</th>
-          <th>Заведующий</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let department of departments">
-          <td>{{department.department_name}}</td>
-          <td *ngIf="department.headName != null; else null_content">{{department.headName.surname}} {{department.headName.firstname}} {{department.headName.fathername}}</td>
-          <ng-template #null_content><td></td></ng-template>
-          <td>
-            <button class="dltbtn" (click)="deleteDepartment(department.department_code)">Удалить</button>
-            <button class="editbtn" (click)="openDialog('EditDepartment', department.department_code)">Изменить</button>
-          </td>
-        </tr>
-      </tbody>
+    <!--<table class='table table-striped' aria-labelledby="tableLabel">
+    <thead>
+      <tr>
+        <th>Отделение</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let department of departments">
+        <td>{{department.department_name}}</td>
+        <ng-template #null_content><td></td></ng-template>
+        <td>
+          <button class="dltbtn" (click)="deleteDepartment(department.department_code)">Удалить</button>
+          <button class="editbtn" (click)="openDialog('EditDepartment', department.department_code)">Изменить</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>-->
+
+    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" class='table table-striped'>
+
+      <ng-container matColumnDef="department_name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Отделение</th>
+        <td mat-cell *matCellDef="let department">{{department.department_name}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let department">
+          <button class="dltbtn" (click)="deleteDepartment(department.department_code)">
+            <img class="dltimg" />
+          </button>
+          <button class="editbtn" [routerLink]="['/edit-department', department.department_code]">
+            <img class="editimg" />
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let user; columns: displayedColumns;"></tr>
+
     </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                   showFirstLastButtons
+                   aria-label="Select page of departments">
+    </mat-paginator>
+
   </div>
 
 </div>

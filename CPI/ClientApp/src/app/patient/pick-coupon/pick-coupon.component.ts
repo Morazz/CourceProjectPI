@@ -70,6 +70,7 @@ export class PickCouponComponent {
     }
     else
       console.log(this.newCoupon);
+    this.newCoupon.appointment_day = new Date(Date.UTC(this.newCoupon.appointment_day.getFullYear(), this.newCoupon.appointment_day.getMonth(), this.newCoupon.appointment_day.getDate()));
     this.http.post(this.baseUrl + 'coupon', this.newCoupon)
       .subscribe(
         (data: any) => {

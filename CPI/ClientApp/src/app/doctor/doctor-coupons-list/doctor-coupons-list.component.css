@@ -10,11 +10,11 @@
   display: inline-block;
 }
 
-  .card:hover {
+/*  .card:hover {
     background: rgba(0, 0, 0, 0.1);
     color: white;
     cursor: pointer;
-  }
+  }*/
 
 .title {
   color: grey;

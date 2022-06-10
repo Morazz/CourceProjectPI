@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { profile_placeholder } from '../../../globals';
 import { Doctor } from '../../admin/doctor/doctors-list/doctors-list.component';
@@ -13,22 +13,28 @@ import { Department } from '../../moderator/department/departments-list/departme
 @Component({
   selector: 'app-hospital-info',
   templateUrl: './hospital-info.component.html',
-  styleUrls: ['./hospital-info.component.css']
+  styleUrls: ['./hospital-info.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 /** hospital-info component*/
 export class HospitalInfoComponent {   
   /** hospital-info ctor */
-
+  public login: string;
   public doctors: Doctor[];
   public hospital_id: string;
   public hospital: Hospital;
-  public nophoto: string = "/assets/images/nophoto.jpg";
+  public specialities: Speciality[];
+  public filtered_doctors: Doctor[]/* = []*/;
+  public authorized: boolean = true;
 
   constructor(private http: HttpClient, private activateRoute: ActivatedRoute, @Inject('BASE_URL') private baseUrl: string) {
 
     this.hospital_id = activateRoute.snapshot.params['hospital_id'];
+    this.login = activateRoute.snapshot.params['login'];
+    this.login ? this.authorized : !this.authorized;
     this.getHospital();
     this.getDoctors();
+    this.getSpecialitites();
   }
 
   getHospital() {
@@ -54,5 +60,17 @@ export class HospitalInfoComponent {
         }, error => console.error(error));
       })
     }, error => console.error(error));
+  }
+
+  getSpecialitites() {
+    this.http.get<Speciality[]>(this.baseUrl + 'speciality').subscribe(result => {
+      this.specialities = result;
+    }, error => console.error(error));
+  }
+
+  filterDoctors(selectedValue: string) {
+    console.log(selectedValue);
+    this.filtered_doctors = this.doctors.filter(doc => doc.speciality_code == selectedValue);
+    console.log(this.filtered_doctors);
   }
 }

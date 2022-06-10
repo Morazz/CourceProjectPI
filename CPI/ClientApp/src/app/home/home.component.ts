@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Doctor, Schedule, Speciality } from '../admin/doctor/doctors-list/doctors-list.component';
 import { MatDialog, MatDialogConfig } from "@angular/material";
@@ -10,20 +10,22 @@ import { DeleteDialogComponent } from '../admin/delete-dialog/delete-dialog.comp
 import { hosp_type } from '../../globals';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+
 })
 
 export class HomeComponent {
+  public login: string;
   public hospitals: Hospital[];
   public doctors: Doctor[];
   public schedule: Schedule[];
   public hosp_type: string[] = hosp_type;
   selected_filters: { id: number; label: string; selected: boolean; }[];
   filtered_hospitals: Hospital[] = [];
+  public authorized: boolean;
 
   types = [
     { id: 0, label: hosp_type[0], selected: false },
@@ -33,7 +35,13 @@ export class HomeComponent {
 
   constructor(private http: HttpClient, private activateRoute: ActivatedRoute, @Inject('BASE_URL') private baseUrl: string,
     private dialog: MatDialog, fb: FormBuilder) {
-
+    this.login = activateRoute.snapshot.params['login'];
+    if (this.login) 
+      this.authorized = true;
+    else
+      this.authorized = false;
+    //console.log(this.login);
+    
     this.getHospitals();
   }
 
@@ -43,7 +51,6 @@ export class HomeComponent {
       this.hospitals.forEach(hp => {
         this.http.get<Schedule>(this.baseUrl + 'schedule/' + hp.schedule_code).subscribe(result => {
           hp.hours = result;
-          console.log(result);
         }, error => console.error(error));
       })
     }, error => console.error(error));
@@ -75,10 +82,41 @@ export class HomeComponent {
 
     this.selected_filters.forEach(s =>
       this.filtered_hospitals = this.filtered_hospitals.concat(this.hospitals.filter(hp => hp.hospital_type.includes(s.label))));
-    console.log(this.filtered_hospitals);
 
   }
 
- 
+
+  selectOpened(selected: boolean) {
+
+    if (selected) {
+
+      var currentDate = new Date();
+      currentDate = new Date(0, 0, 0, currentDate.getHours(), currentDate.getMinutes());
+      //this.filtered_hospitals = [];
+      //this.filtered_hospitals = this.hospitals.filter(hp => {
+      //  var hpStart = new Date(0, 0, 0, hp.hours.appointment_start.getHours(), hp.hours.appointment_start.getMinutes());
+      //  var hpEnd = new Date(0, 0, 0, hp.hours.appointment_end.getHours(), hp.hours.appointment_end.getMinutes());
+      //  if ( hpStart <= currentDate && hpEnd >= currentDate) return hp;
+      //});
+      this.filtered_hospitals = this.hospitals.filter(hp => 
+           (currentDate.getTime() <= new Date(hp.hours.appointment_start).getTime()
+        && currentDate.getTime() >= new Date(hp.hours.appointment_end).getTime())
+        || (currentDate.getTime() >= new Date(hp.hours.appointment_start).getTime()
+        && currentDate.getTime() <= new Date(hp.hours.appointment_end).getTime()));
+      //this.filtered_hospitals = this.filtered_hospitals.filter(hp => currentDate <= new Date(hp.hours.appointment_end));
+      /*  || new Date(hp.hours.appointment_start).getTime() >= currentDate.getTime());*/
+      //this.hospitals.forEach(s => console.log(new Date(s.hours.appointment_end)));
+      console.log(currentDate);
+
+      this.hospitals.forEach(s => {
+        let d2 = new Date(s.hours.appointment_end);
+        let d1 = new Date(s.hours.appointment_start);
+        console.log(d2);
+      });
+    }
+
+    else this.filtered_hospitals = [];
+  }
+
 }
 

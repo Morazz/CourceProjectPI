@@ -1,6 +1,8 @@
 <header>
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-    <a class="navbar-brand" [routerLink]="['/user-page', user.login]">CPI</a>
+    <a class="navbar-brand" [routerLink]="['/user-page', user.login]">
+      <img style="width: 60px;" src="/assets/images/icon.png" />
+    </a>
     <button class="navbar-toggler"
             type="button"
             data-toggle="collapse"
@@ -45,15 +47,16 @@
 
   <em *ngIf="!coupons">Загрузка...</em>
 
-  <div class="div-container"  *ngFor="let coupon of coupons">
+  <div class="div-container"  >
 
-    <div class="card">
+    <div class="card" *ngFor="let coupon of coupons">
       <div style="margin: 5px 0;">
         <p>{{coupon.appointment_day | date: 'dd.MM.yyyy'}}</p>
-        <p>{{coupon.template.time | date:'HH:mm'}}</p>
-        <p class="title">{{coupon.doctor.speciality.speciality}}</p>
-        <p class="title">{{coupon.doctor.surname}} {{coupon.doctor.firstname}} {{coupon.doctor.fathername}}</p>
-        <p class="title">Кабинет {{coupon.doctor.cabinet}}</p>
+        <p>{{coupon.template?.time | date:'HH:mm'}}</p>
+        <p class="title">{{coupon.hospital}}</p>
+        <p class="title">{{coupon.doctor?.speciality}}</p>
+        <p class="title">{{coupon.doctor?.surname}} {{coupon.doctor?.firstname}} {{coupon.doctor?.fathername}}</p>
+        <p class="title">Кабинет {{coupon.doctor?.cabinet}}</p>
       </div>
       <div>
         <p><button (click)="deleteCoupon(coupon.coupon_id)">Отменить</button></p>

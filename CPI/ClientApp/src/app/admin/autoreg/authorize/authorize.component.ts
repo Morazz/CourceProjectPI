@@ -29,6 +29,7 @@ export class AuthorizeComponent {
           this.errors.push("Неверный пароль");
         else
           this.redirect();
+          //this.router.navigate(['/'], { queryParams: { login: this.user.login} });
       }
       else this.errors.push("Пользователь с таким именем не существует");
     }, error => console.error(error));
@@ -37,19 +38,19 @@ export class AuthorizeComponent {
   redirect() {
     switch (this.user.status) {
       case roles[0]: {
-        this.router.navigate(['user-page', this.user.login]);
+        this.router.navigate(['/'], { queryParams: { login: this.user.login } });
       }
         break;
       case roles[1]: {
-        this.router.navigate(['doctor-info', this.user.login]);
+        this.router.navigate(['doctor-info'], { queryParams: { login: this.user.login } });
       }
         break;
       case roles[2]: {
-        this.router.navigate(['admin-panel', this.user.login]);
+        this.router.navigate(['admin-panel'], { queryParams: { login: this.user.login }});
       }
         break;
       case roles[3]: {
-        this.router.navigate(['admin-panel', this.user.login]);
+        this.router.navigate(['admin-panel'], { queryParams: { login: this.user.login } });
       }
         break;
     }

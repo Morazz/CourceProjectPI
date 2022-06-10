@@ -42,9 +42,14 @@ export class DoctorCouponsListComponent {
       this.user = result;
     });
 
-    return `${this.user.surname} ${this.user.firstname} ${this.user.fathername}
-            Дата рождения: ${this.user.birthday.toLocaleString()}
-            Адрес: ${this.user.address}
+    //console.log(`${this.user.surname} ${this.user.firstname} ${this.user.fathername} \n
+    //        Дата рождения: ${this.user.birthday.toLocaleDateString() } \n
+    //        Адрес: ${this.user.address} \n
+    //        Номер телефона: ${this.user.phone_number}`);
+
+    return `${this.user.surname} ${this.user.firstname} ${this.user.fathername} \n
+            Дата рождения: ${this.user.birthday } \n
+            Адрес: ${this.user.address} \n
             Номер телефона: ${this.user.phone_number}`;
   }
 }

@@ -1,7 +1,7 @@
 <header>
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
     <!--<div class="container">-->
-    <a class="navbar-brand" [routerLink]="['/']">CPI</a>
+    <a class="navbar-brand" [routerLink]="['/']"><img style="width: 60px;" src="/assets/images/icon.png" /></a>
     <button class="navbar-toggler"
             type="button"
             data-toggle="collapse"
@@ -14,8 +14,14 @@
     <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
          [ngClass]="{ show: isExpanded }">
       <ul class="navbar-nav flex-grow">
-        <li class="nav-item" [routerLinkActive]="['link-active']">
+        <li *ngIf="!authorized" class="nav-item" [routerLinkActive]="['link-active']">
           <a class="nav-link text-dark" [routerLink]="['/authorize']">Войти/Зарегистрироваться</a>
+        </li>
+        <li *ngIf="authorized" class="nav-item" [routerLinkActive]="['link-active']">
+          <a class="nav-link text-dark" [routerLink]="['/authorize']">{{login}}</a>
+        </li>
+        <li *ngIf="authorized" class="nav-item" [routerLinkActive]="['link-active']">
+          <a class="nav-link text-dark" [routerLink]="['/']">Выйти</a>
         </li>
       </ul>
     </div>
@@ -25,22 +31,35 @@
 
 <div class="home" *ngIf="hospital != undefined">
 
-  <!--<div class="left-panel">
+  <div class="left-panel">
 
     <div class="info">
       <h3>{{hospital.hospital_name}}</h3>
       <h4>{{hospital.hospital_address}}</h4>
 
       <button [routerLinkActive]="['link-active']" [routerLink]="['/hospital-schedules', hospital_id]">Расписание</button>
+
+      <div class="select-panel">
+        <mat-form-field appearance="fill">
+          <mat-label>Специальность</mat-label>
+          <mat-select [(ngModel)]="selectedValue" panelClass="mat-panel" (selectionChange)="filterDoctors(selectedValue)">
+            <mat-option></mat-option>
+            <mat-option *ngFor="let spec of specialities" [value]="spec.speciality_code">
+              {{spec.speciality}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
     </div>
 
-  </div>-->
+  </div>
 
   <div class="right-panel">
 
-    <div class="div-container" *ngIf="doctors">
+    <div class="div-container" *ngIf="filtered_doctors?.length > 0; else full_list">
 
-      <div class="card" *ngFor="let doctor of doctors" [routerLink]="['/doctor-info', doctor.login]">
+      <div class="card" *ngFor="let doctor of filtered_doctors" [routerLink]="['/doctor-info', doctor.login]">
         <div class="preview" *ngIf="doctor.photo; else null_content">
           <img [src]="doctor.photo">
         </div>
@@ -64,6 +83,35 @@
       </div>
 
     </div>
+
+    <ng-template #full_list>
+      <div class="div-container">
+
+        <div class="card" *ngFor="let doctor of doctors" [routerLink]="['/doctor-info', doctor.login]">
+          <div class="preview" *ngIf="doctor.photo; else null_content">
+            <img [src]="doctor.photo">
+          </div>
+
+          <ng-template #null_content>
+            <div class="preview">
+              <img class="profile-placeholder">
+            </div>
+          </ng-template>
+
+          <div class="text">
+            <h4>{{doctor.surname}} </h4>
+            <h5>{{doctor.firstname}} {{doctor.fathername}}</h5>
+            <p class="label">{{doctor.speciality?.speciality}}</p>
+            <hr />
+            <p>Отделение: {{doctor.department?.department_name}}</p>
+            <p>Время работы: {{doctor.hours?.appointment_start | date:'HH:mm'}} - {{doctor.hours?.appointment_end | date: 'HH:mm'}}</p>
+          </div>
+
+
+        </div>
+
+      </div>
+    </ng-template>
 
   </div>
 

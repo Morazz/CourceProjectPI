@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { dialogConfig, roles } from '../../../globals';
 import { DeleteDialogComponent } from '../../admin/delete-dialog/delete-dialog.component';
 import { Speciality } from '../../admin/doctor/doctors-list/doctors-list.component';
+import { Hospital } from '../../admin/hospital/hospitals-list/hospitals-list.component';
 import { Patient } from '../../admin/patient/patients-list/patients-list.component';
 import { PassData } from '../../admin/user/add-user/add-user.component';
 
@@ -20,14 +21,17 @@ export class UserPageComponent {
   public user: Patient = new Patient("", "", "", "", new Date(), "", "", "", []);
   public login: string;
   public coupons: Coupon[] = [];
-  public doctor: Doctor = new Doctor("", "", "", 0, "", new Speciality("", ""));
+ // public doctor: Doctor = new Doctor("", "", "", 0, "", new Speciality("", ""));
   public isUser: boolean = true;
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string,
     private dialog: MatDialog  ) {
-    this.login = activateRoute.snapshot.params['login'];
+    //this.login = activateRoute.snapshot.params['login'];
+    this.login = activateRoute.snapshot.queryParamMap.get('login');
     this.getUser(this.login);
     this.getCoupons();
+
+
   }
 
   checkStatus() {
@@ -51,14 +55,30 @@ export class UserPageComponent {
         this.http.get<Doctor>(this.baseUrl + 'doctor/' + coup.doctor_login).subscribe(result => {
           coup.doctor = result;
           this.http.get<Speciality>(this.baseUrl + 'speciality/' + coup.doctor.speciality_code).subscribe(result => {
-            coup.doctor.speciality = result;
+            coup.doctor.speciality = result.speciality;
           }, error => console.error(error));
           this.http.get<CouponTemplate>(this.baseUrl + 'coupontemplate/' + coup.template_id).subscribe(result => {
             coup.template = result;
+            this.sortByDueDate();
+          }, error => console.error(error));
+          this.http.get<Hospital>(this.baseUrl + 'hospital/' + coup.doctor.hospital_id).subscribe(result => {
+            coup.hospital = result.hospital_name;
           }, error => console.error(error));
         }, error => console.error(error));
       }, error => console.error(error));
     });
+
+  }
+
+  public sortByDueDate(): void {
+    this.coupons.sort((a: Coupon, b: Coupon) => {
+      let d1 = new Date(a.appointment_day);
+      d1 = new Date(d1.getFullYear(), d1.getMonth(), d1.getDate(), new Date(a.template.time).getHours(), new Date(a.template.time).getMinutes());
+      let d2 = new Date(b.appointment_day);
+      d2 = new Date(d2.getFullYear(), d2.getMonth(), d2.getDate(), new Date(b.template.time).getHours(), new Date(b.template.time).getMinutes());
+      return d1.getTime() - d2.getTime();
+    });
+    
   }
 
   deleteCoupon(coupon_id: number) {
@@ -75,11 +95,11 @@ export class UserPageComponent {
     });
   }
 
-  getDoctorByCoup(id: number) {
-    this.http.get<Doctor>(this.baseUrl + 'doctor/' + id).subscribe(result => {
-      this.doctor = result;
-    }, error => console.error(error));
-  }
+  //getDoctorByCoup(id: number) {
+  //  this.http.get<Doctor>(this.baseUrl + 'doctor/' + id).subscribe(result => {
+  //    this.doctor = result;
+  //  }, error => console.error(error));
+  //}
 }
 
 export class CouponTemplate {
@@ -96,7 +116,8 @@ export class Coupon {
     public doctor_login: number,
     public template_id: number,
     public doctor: Doctor,
-    public template: CouponTemplate) { }
+    public template: CouponTemplate,
+    public hospital:string) { }
 }
 
 export class Doctor {
@@ -106,6 +127,7 @@ export class Doctor {
     public surname: string,
     public cabinet: number,
     public speciality_code: string,
-    public speciality: Speciality
+    public speciality: string,
+    public hospital_id: string
   ) { }
 }

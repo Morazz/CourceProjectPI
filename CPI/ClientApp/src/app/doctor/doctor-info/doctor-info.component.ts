@@ -10,7 +10,7 @@ import { Department, Doctor, Speciality, Schedule } from '../../admin/doctor/doc
 })
 
 export class DoctorInfoComponent {
-  doctor: Doctor = new Doctor("", "", "", "", 0, 0, 0, "", null, null, null);
+  doctor: Doctor = new Doctor(null, "", "", "", "", 0, 0, 0, "", null, null, null);
   public login: string;
 
   constructor(private router: Router, private activateRoute: ActivatedRoute, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {

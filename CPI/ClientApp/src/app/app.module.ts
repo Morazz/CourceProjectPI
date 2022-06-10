@@ -62,6 +62,9 @@ import { MAT_DATE_LOCALE } from '@angular/material';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material';
 import { MatSortModule } from '@angular/material';
+import { MatSelectModule } from '@angular/material/select';
+import { MatChipsModule } from '@angular/material/chips';
+
 
 @NgModule({
   declarations: [
@@ -120,20 +123,29 @@ import { MatSortModule } from '@angular/material';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
+    MatSelectModule,
+    MatChipsModule,  
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: 'home/:login', redirectTo: '' },
       { path: 'register', component: RegisterComponent, },
       { path: 'authorize', component: AuthorizeComponent },
       { path: 'user-page/:login', component: UserPageComponent },
+      { path: 'user-page', component: UserPageComponent },
       { path: 'admin-panel/:login', component: AdminPanelComponent },
+      { path: 'admin-panel', component: AdminPanelComponent },
       //Users
       { path: 'users-list/:login', component: UsersListComponent },
+      { path: 'users-list', component: UsersListComponent },
       { path: 'add-user', component: AddUserComponent },
       { path: 'edit-user/:login', component: EditUserComponent },
       //Doctors
       { path: 'doctors-list/:login', component: DoctorsListComponent },
+      { path: 'doctors-list', component: DoctorsListComponent },
       { path: 'add-doctor/:login', component: AddDoctorComponent },
+      { path: 'add-doctor', component: AddDoctorComponent },
       { path: 'edit-doctor/:login/:doctor', component: EditDoctorComponent },
+      { path: 'edit-doctor/:doctor', component: EditDoctorComponent },
       { path: 'doctor-info/:login', component: DoctorInfoComponent },
       //Patients
       { path: 'patients-list/:login', component: PatientsListComponent },
@@ -171,7 +183,9 @@ import { MatSortModule } from '@angular/material';
       { path: 'add-hospital', component: AddHospitalComponent },
       { path: 'edit-hospital', component: EditHospitalComponent },
       { path: 'hospital-info/:hospital_id', component: HospitalInfoComponent },
+      { path: ':login/hospital-info/:hospital_id', component: HospitalInfoComponent },
       { path: 'hospital-schedules/:hospital_id', component: HospitalSchedulesComponent },
+      { path: ':login/hospital-schedules/:hospital_id', component: HospitalSchedulesComponent },
       //Moderators
 /*      { path: 'moderator-panel/:login', component: ModeratorPanelComponent },*/
       { path: 'moderators-list/:login', component: ModeratorsListComponent },
@@ -190,6 +204,7 @@ import { MatSortModule } from '@angular/material';
     MatCheckboxModule,
     MatExpansionModule,
     ReactiveFormsModule,
+    MatInputModule,
   ],
   providers: [
     { provide: MAT_DIALOG_DATA, useValue: {} },

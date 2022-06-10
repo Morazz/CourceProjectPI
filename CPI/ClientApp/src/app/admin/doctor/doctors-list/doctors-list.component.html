@@ -1,7 +1,7 @@
 <header>
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/admin-panel', login]">CPI</a>
+      <a class="navbar-brand" [routerLink]="['/admin-panel', login]"><img style="width: 60px;" src="/assets/images/icon.png" /></a>
       <button class="navbar-toggler"
               type="button"
               data-toggle="collapse"
@@ -87,9 +87,9 @@
 
     <section ng-app="app" ng-controller="MainCtrl">
 
-      <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" class='table table-striped'>
+      <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" class='table table-striped' *ngIf="isAdmin; else mod_table">
 
-        <ng-container matColumnDef="hospital_id">
+        <ng-container matColumnDef="hospital_id" *ngIf="isAdmin">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>ID учреждения</th>
           <td mat-cell *matCellDef="let doctor"> {{doctor.hospital_id}} </td>
         </ng-container>
@@ -139,49 +139,110 @@
           </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let user; columns: displayedColumns;"></tr>
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsFull"></tr>
+        <tr mat-row *matRowDef="let user; columns: displayedColumnsFull;"></tr>
 
-      </table>
+  </table>
 
-      <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                     showFirstLastButtons
-                     aria-label="Select page of doctors">
-      </mat-paginator>
 
-      <!--<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="doctors" ng-app="doct">
-        <thead>
-          <tr>
-            <th *ngIf="isAdmin">ID учреждения</th>
-            <th (click)="sortLogin()" class="toorder">Логин</th>
-            <th (click)="sortDepartment()" class="toorder">Отделение</th>
-            <th (click)="sortSpeciality()" class="toorder">Специальность</th>
-            <th (click)="sortSurname()" class="toorder">Фамилия</th>
-            <th>Имя</th>
-            <th>Отчество</th>
-            <th>Кабинет</th>
-            <th>Время работы</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let doctor of doctors">
-            <td *ngIf="isAdmin"><a [routerLink]="['/hospital-info', doctor.hospital_id]">{{doctor.hospital_id}}</a></td>
-            <td><a [routerLink]="['/doctor-info', doctor.login]">{{doctor.login}}</a></td>
-            <td>{{doctor.department?.department_name}}</td>
-            <td>{{doctor.speciality?.speciality}}</td>
-            <td>{{doctor.surname}}</td>
-            <td>{{doctor.firstname}}</td>
-            <td>{{doctor.fathername}}</td>
-            <td>{{doctor.cabinet}}</td>
-            <td>{{doctor.hours?.appointment_start | date:'HH:mm'}} - {{doctor.hours?.appointment_end | date:'HH:mm'}}</td>
-            <td>
-              <button class="dltbtn" (click)="deleteDoctor(doctor.login)">Удалить</button>
-              <button class="editbtn" [routerLink]="['/edit-doctor', login, doctor.login]">Изменить</button>
+      <ng-template #mod_table>
+        <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" class='table table-striped'>
+
+          <ng-container matColumnDef="hospital_id" *ngIf="isAdmin">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>ID учреждения</th>
+            <td mat-cell *matCellDef="let doctor"> {{doctor.hospital_id}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="login">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Логин</th>
+            <td mat-cell *matCellDef="let doctor"> <a [routerLink]="['/doctor-info', doctor.login]"> {{doctor.login}} </a> </td>
+          </ng-container>
+          <ng-container matColumnDef="department">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Отделение</th>
+            <td mat-cell *matCellDef="let doctor"> {{doctor.department.department_name}} </td>
+          </ng-container>
+          <ng-container matColumnDef="speciality">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Специальность</th>
+            <td mat-cell *matCellDef="let doctor"> {{doctor.speciality.speciality}} </td>
+          </ng-container>
+          <ng-container matColumnDef="surname">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Фамилия</th>
+            <td mat-cell *matCellDef="let doctor"> {{doctor.surname}} </td>
+          </ng-container>
+          <ng-container matColumnDef="firstname">
+            <th mat-header-cell *matHeaderCellDef>Имя</th>
+            <td mat-cell *matCellDef="let doctor"> {{doctor.firstname}} </td>
+          </ng-container>
+          <ng-container matColumnDef="fathername">
+            <th mat-header-cell *matHeaderCellDef>Отчество</th>
+            <td mat-cell *matCellDef="let doctor"> {{doctor.fathername}} </td>
+          </ng-container>
+          <ng-container matColumnDef="cabinet">
+            <th mat-header-cell *matHeaderCellDef>Кабинет</th>
+            <td mat-cell *matCellDef="let doctor"> {{doctor.cabinet}} </td>
+          </ng-container>
+          <ng-container matColumnDef="appointment_time">
+            <th mat-header-cell *matHeaderCellDef>Время работы</th>
+            <td mat-cell *matCellDef="let doctor"> {{doctor.hours?.appointment_start | date:'HH:mm'}} - {{doctor.hours?.appointment_end | date:'HH:mm'}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let doctor">
+              <button class="dltbtn" (click)="deleteDoctor(doctor.login)">
+                <img class="dltimg" />
+              </button>
+              <button class="editbtn" [routerLink]="['/edit-doctor', login, doctor.login]">
+                <img class="editimg" />
+              </button>
             </td>
-          </tr>
-        </tbody>
-      </table>-->
-    </section>
-  </div>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let user; columns: displayedColumns;"></tr>
+
+        </table>
+
+      </ng-template>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                 showFirstLastButtons
+                 aria-label="Select page of doctors">
+  </mat-paginator>
+
+  <!--<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="doctors" ng-app="doct">
+    <thead>
+      <tr>
+        <th *ngIf="isAdmin">ID учреждения</th>
+        <th (click)="sortLogin()" class="toorder">Логин</th>
+        <th (click)="sortDepartment()" class="toorder">Отделение</th>
+        <th (click)="sortSpeciality()" class="toorder">Специальность</th>
+        <th (click)="sortSurname()" class="toorder">Фамилия</th>
+        <th>Имя</th>
+        <th>Отчество</th>
+        <th>Кабинет</th>
+        <th>Время работы</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let doctor of doctors">
+        <td *ngIf="isAdmin"><a [routerLink]="['/hospital-info', doctor.hospital_id]">{{doctor.hospital_id}}</a></td>
+        <td><a [routerLink]="['/doctor-info', doctor.login]">{{doctor.login}}</a></td>
+        <td>{{doctor.department?.department_name}}</td>
+        <td>{{doctor.speciality?.speciality}}</td>
+        <td>{{doctor.surname}}</td>
+        <td>{{doctor.firstname}}</td>
+        <td>{{doctor.fathername}}</td>
+        <td>{{doctor.cabinet}}</td>
+        <td>{{doctor.hours?.appointment_start | date:'HH:mm'}} - {{doctor.hours?.appointment_end | date:'HH:mm'}}</td>
+        <td>
+          <button class="dltbtn" (click)="deleteDoctor(doctor.login)">Удалить</button>
+          <button class="editbtn" [routerLink]="['/edit-doctor', login, doctor.login]">Изменить</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>-->
+  </section>
+</div>
 
 </div>

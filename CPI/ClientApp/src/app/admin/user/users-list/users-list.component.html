@@ -54,30 +54,6 @@
     <div *ngIf="!users"><em>Загрузка...</em></div>
   </div>
 
-  <!--<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="users">
-    <thead>
-      <tr>
-        <th (click)="sortLogin()" class="toorder">Логин</th>
-        <th (click)="sortStatus()" class="toorder">Роль</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of users">
-        <td>{{user.login}}</td>
-        <td>{{user.status}}</td>
-        <td>
-          <button class="dltbtn" (click)="deleteUser(user.login)">Удалить</button>
-          <button class="editbtn" (click)="openDialog('EditUser', user.login)">Изменить</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <mat-paginator [pageSizeOptions]="[1, 2, 3]"
-                 showFirstLastButtons
-                 aria-label="Select page of users">
-  </mat-paginator>-->
-
   <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" class='table table-striped'>
 
     <ng-container matColumnDef="login">
@@ -106,8 +82,6 @@
     <tr mat-row *matRowDef="let user; columns: displayedColumns;"></tr>
 
   </table>
-
-
 
   <mat-paginator [pageSizeOptions]="[5, 10, 20]"
                  showFirstLastButtons

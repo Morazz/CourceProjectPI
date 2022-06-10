@@ -1,7 +1,7 @@
-<header>
-  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+<!--<header>
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">-->
     <!--<div class="container">-->
-    <a class="navbar-brand" [routerLink]="['/']">CPI</a>
+    <!--<a class="navbar-brand" [routerLink]="['/']"><img style="width: 60px;" src="/assets/images/icon.png" /></a>
     <button class="navbar-toggler"
             type="button"
             data-toggle="collapse"
@@ -14,14 +14,20 @@
     <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
          [ngClass]="{ show: isExpanded }">
       <ul class="navbar-nav flex-grow">
-        <li class="nav-item" [routerLinkActive]="['link-active']">
+        <li *ngIf="!authorized" class="nav-item" [routerLinkActive]="['link-active']">
           <a class="nav-link text-dark" [routerLink]="['/authorize']">Войти/Зарегистрироваться</a>
         </li>
+        <li *ngIf="authorized" class="nav-item" [routerLinkActive]="['link-active']">
+          <a class="nav-link text-dark" [routerLink]="['/authorize']">{{login}}</a>
+        </li>
+        <li *ngIf="authorized" class="nav-item" [routerLinkActive]="['link-active']">
+          <a class="nav-link text-dark" [routerLink]="['/']">Выйти</a>
+        </li>
       </ul>
-    </div>
+    </div>-->
     <!--</div>-->
-  </nav>
-</header>
+  <!--</nav>
+</header>-->
 
 
 <div class="home" *ngIf="hospitals != undefined">
@@ -37,6 +43,15 @@
         </mat-checkbox>
       </p>
     </mat-radio-group>
+
+    <mat-chip-list>
+      <mat-chip  [selected]="selected" (selectionChange)="selectOpened(selected)" (click)="selected=!selected">
+        <mat-chip-avatar>
+          <mat-icon>alarm_on</mat-icon>
+        </mat-chip-avatar>
+        Сейчас открыты
+      </mat-chip>
+    </mat-chip-list>
   </div>
 
   <div class="right-panel">
@@ -55,7 +70,7 @@
           <h4>{{hp.hospital_name}}</h4>
           <h5>{{hp.hospital_type}}</h5>
           <h6>{{hp.hospital_address}}</h6>
-          <h5>Время работы: {{hp.hours.appointment_start | date:'HH:mm'}} - {{hp.hours.appointment_end | date:'HH:mm'}} </h5>
+          <h5>Время работы: {{hp.hours?.appointment_start | date:'HH:mm'}} - {{hp.hours?.appointment_end | date:'HH:mm'}} </h5>
         </div>
       </div>
 
@@ -64,7 +79,7 @@
           <h4>{{hp.hospital_name}}</h4>
           <h6>{{hp.hospital_type}}</h6>
           <h6>{{hp.hospital_address}}</h6>
-          <h6>Время работы: {{hp.hours.appointment_start | date:'HH:mm'}} - {{hp.hours.appointment_end | date:'HH:mm'}} </h6>
+          <h6>Время работы: {{hp.hours?.appointment_start | date:'HH:mm'}} - {{hp.hours?.appointment_end | date:'HH:mm'}} </h6>
         </div>
       </ng-template>
 

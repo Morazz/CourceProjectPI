@@ -105,3 +105,13 @@
 table {
   background: rgba(255,255,255, 1);
 }
+
+th {
+  font-size: 18px;
+  color: black;
+}
+
+td {
+  font-size: 18px;
+  vertical-align: middle;
+}

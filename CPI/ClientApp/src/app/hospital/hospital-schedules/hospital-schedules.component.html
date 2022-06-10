@@ -1,7 +1,7 @@
 <header>
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
     <!--<div class="container">-->
-    <a class="navbar-brand" [routerLink]="['/']">CPI</a>
+    <a class="navbar-brand" [routerLink]="['/']"><img style="width: 60px;" src="/assets/images/icon.png" /></a>
     <button class="navbar-toggler"
             type="button"
             data-toggle="collapse"
@@ -14,9 +14,17 @@
     <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
          [ngClass]="{ show: isExpanded }">
       <ul class="navbar-nav flex-grow">
-        <li class="nav-item" [routerLinkActive]="['link-active']">
-          <a class="nav-link text-dark" [routerLink]="['/authorize']">Войти/Зарегистрироваться</a>
-        </li>
+        <ul class="navbar-nav flex-grow">
+          <li *ngIf="!authorized" class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/authorize']">Войти/Зарегистрироваться</a>
+          </li>
+          <li *ngIf="authorized" class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/authorize']">{{login}}</a>
+          </li>
+          <li *ngIf="authorized" class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-dark" [routerLink]="['/']">Выйти</a>
+          </li>
+        </ul>
       </ul>
     </div>
     <!--</div>-->

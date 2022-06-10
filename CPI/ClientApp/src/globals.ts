@@ -10,3 +10,4 @@ export const roles: string[] = ["Пациент", "Врач", "Админист�
 export const hosp_type: string[] = ["Взрослая", "Детская", "Специализированная"];
 
 export const profile_placeholder = "/assets/images/profile-placeholder.png";
+

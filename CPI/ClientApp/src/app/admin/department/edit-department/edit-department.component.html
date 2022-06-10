@@ -8,14 +8,6 @@
     <div [hidden]="department.valid || department.untouched" class="alert alert-danger">
       Введите корректные данные
     </div>
-    <label for="head"><b>Заведующий</b></label>
-    <div *ngIf="!doctors">
-      <em>Загрузка...</em>
-    </div>
-    <input type="text" *ngIf="doctors" [(ngModel)]="doctor.login" list="head" (input)="onInput(doctor)">
-    <datalist id="head" *ngIf="doctors">
-      <option *ngFor="let doctor of doctors" [value]="doctor.login">{{doctor.surname}} {{doctor.firstname}} {{doctor.fathername}}</option>
-    </datalist>
   </mat-form-field>
 
 </mat-dialog-content>

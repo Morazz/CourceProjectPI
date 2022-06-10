@@ -25,28 +25,18 @@
 <mat-dialog-content>
 
   <mat-form-field>
-    <label for="department"><b>Отделение</b></label>
-    <input type="text" name="department" [(ngModel)]="department_name" #department="ngModel" pattern="^[А-ЯA-Zа-яf-z ,.'-]+$" required>
-    <div [hidden]="department.valid || department.untouched" class="alert alert-danger">
+    <label for="dep"><b>Отделение</b></label>
+    <input matInput type="text" name="dep" [(ngModel)]="department.department_name" #dep="ngModel" pattern="^[А-ЯA-Zа-яf-z ,.'-]+$" required>
+    <!--<div [hidden]="department.valid || department.untouched" class="alert alert-danger">
       Введите корректные данные
-    </div>
-
-    <label for="head"><b>Заведующий</b></label>
-    <div *ngIf="!doctors">
-      <em>Загрузка...</em>
-    </div>
-    <div *ngIf="doctors">
-      <input type="text" name="head" id="head" [(ngModel)]="department.head" list="hd">
-      <datalist id="hd" name="hd">
-        <option [ngValue]="">--</option>
-        <option *ngFor="let doctor of doctors" [value]="doctor.login">{{doctor.surname}} {{doctor.firstname}} {{doctor.fathername}}</option>
-      </datalist>
-    </div>
+    </div>-->
   </mat-form-field>
 
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button class="submitbtn" (click)="postData()" [disabled]="department.invalid">Сохранить</button>
+  <button class="submitbtn" (click)="postData()">Сохранить</button>
   <button class="cancelbtn" (click)="close()">Отмена</button>
 </mat-dialog-actions>
+
+<!--[disabled]="department.invalid"-->

@@ -1,7 +1,7 @@
 <header>
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/user-page', patient.login]">CPI</a>
+      <a class="navbar-brand" [routerLink]="['/user-page', patient.login]"><img style="width: 60px;" src="/assets/images/icon.png" /></a>
       <button class="navbar-toggler"
               type="button"
               data-toggle="collapse"
@@ -53,6 +53,7 @@
     <mat-radio-button name="woman" value="Женский">Женский</mat-radio-button>
     <mat-radio-button name="man" value="Мужской" color="primary">Мужской</mat-radio-button>
   </mat-radio-group>
+  <br />
   <label for="birthday"><b>Дата рождения</b></label>
   <input type="date" name="birthday"
          min="1900-01-01" max="2019-01-01" datetime="yyyy-MM-dd" [(ngModel)]="patient.birthday">

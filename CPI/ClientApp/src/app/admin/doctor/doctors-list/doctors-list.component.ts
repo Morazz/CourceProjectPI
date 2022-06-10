@@ -21,10 +21,7 @@ export class DoctorsListComponent {
   public speciality: Speciality = new Speciality("", "");
   public department: Department = new Department(0, "");
   public hours: Schedule = new Schedule(0, new Date(), new Date());
-  ascLogin = false;
-  ascSur = false;
-  ascDep = false;
-  ascSpec = false;
+
   public open_filter = false;
   filter = { department: "", speciality: "" };
   public hospital_id: string;
@@ -150,6 +147,9 @@ export class DoctorsListComponent {
       this.dataSource = new MatTableDataSource<Doctor>(this.doctors);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+
+      console.log(this.hospital_id);
+      console.log(this.doctors);
     }, error => console.error(error));
   }
 

@@ -21,6 +21,7 @@ export class EditPatientInfoComponent {
     this.http.get<Patient>(this.baseUrl + 'patient/' + login).subscribe(result => {
       if (result != null)
         this.patient = result;
+      console.log(this.patient);
     }, error => console.error(error));
   }
 
